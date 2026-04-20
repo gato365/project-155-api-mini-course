@@ -1,0 +1,453 @@
+---
+title: "Session 2: CRUD, HTTP Methods & URL Anatomy"
+subtitle: "Day 1 — 9:00 AM to 10:00 AM"
+author: "Immanuel Williams"
+date: "August 5, 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+## Recap from Session 1
+
+In Session 1, we established the conceptual foundation:
+
+- APIs are interfaces for software communication
+- Data flows: Client → API → Server → Database (and back)
+- Responses come as JSON (key-value pairs, nested structures)
+- Status codes tell us if the request succeeded (200) or not (4xx, 5xx)
+
+Now we're going to put that knowledge into action — understanding *how* we interact with APIs and *what* those interactions look like in code.
+
+
+---
+
+
+## Part 1: The CRUD Framework
+
+What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations:
+
+| CRUD Operation | HTTP Method | Description |
+|---------------|-------------|-------------|
+| **C**reate | `POST` | Submit new data to the server |
+| **R**ead | `GET` | Retrieve existing data from the server |
+| **U**pdate | `PUT` / `PATCH` | Modify existing data on the server |
+| **D**elete | `DELETE` | Remove a resource from the server |
+
+::: {.callout-note}
+## For Data Science
+In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. However, `POST` is sometimes needed — for example, to submit credentials and receive an access token.
+:::
+
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Multiple Choice):** Which CRUD operation is most commonly used in data science when working with APIs?
+
+a) Create
+b) Read
+c) Update
+d) Delete
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+**b) Read.** Data scientists most commonly use `GET` requests to *read* (retrieve) data from external sources. We're consumers of data, not typically writing to external databases.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Open-Ended — Callback to Session 1, Q4):** In Session 1, we learned that a *response* contains data, metadata, and a status code. Now, using the CRUD framework, explain: when you perform a **Read** operation, what HTTP method do you use, and what would a successful response look like?
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+A **Read** operation uses the `GET` HTTP method. A successful response would have a **200 OK** status code, and the body would contain **JSON** data with the key-value pairs we requested — for example, `"temperature": 72` or `"city": "San Luis Obispo"`.
+:::
+#### ———————
+
+
+---
+
+
+## Part 2: GET Requests
+
+A `GET` request is all about **retrieving** data. You're asking the server: "Give me this information."
+
+![](images/Get-Request.gif){fig-alt="GIF showing GET request flow: Client constructs request, API validates, Server locates data, Client receives response"}
+
+Here is the flow of a GET request:
+
+1. **Client** constructs a request for a resource.
+2. **API** receives and validates the client's request.
+3. **Server** locates the requested data within the database.
+4. **Client** receives the requested data from the server.
+
+::: {.callout-note}
+## GET Characteristics
+
+- The request parameters are encoded **in the URL** (visible in the address bar)
+- GET requests are meant to be **read-only** — they don't change data on the server
+- They are **idempotent** — making the same request multiple times gives the same result
+:::
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Open-Ended):** Describe another example of a task a data scientist might perform using a **GET** request, beyond retrieving weather data.
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+A data scientist could use a **GET** request to retrieve a list of the top 10 most popular articles from the New York Times API, fetch historical stock price data from a financial API, or get public information about a specific user from the GitHub API.
+:::
+#### ———————
+
+
+---
+
+
+## Part 3: POST Requests
+
+A `POST` request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."
+
+![](images/Post-Request.gif){fig-alt="GIF showing POST request flow: Client sends data in request body, API validates, Server creates record, Client receives confirmation"}
+
+Here is the flow of a POST request:
+
+1. **Client** sends new data within the request body.
+2. **API** receives and validates the client's new data.
+3. **Server** creates a new record in the database.
+4. **Client** receives a confirmation for the new record.
+
+::: {.callout-important}
+## GET vs. POST — Key Difference
+- **GET** sends parameters *in the URL* — you're asking for data.
+- **POST** sends data *in the request body* — you're submitting new data.
+
+Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.
+:::
+
+
+#### ———————
+### Q4. {.unnumbered}
+
+**(Multiple Choice):** Which of the following data science tasks would most likely require a **POST** request instead of a GET request?
+
+a) Retrieving the current temperature for a city.
+b) Getting a list of your public repositories from the GitHub API.
+c) Submitting a new tweet through the X (formerly Twitter) API.
+d) Looking up the coordinates for a specific address.
+
+::: {.callout-tip collapse="true" title="Answer Q4"}
+**c)** Submitting a new tweet involves **creating** a new resource on the server, which is the primary purpose of a **POST** request. The other options involve only retrieving existing data.
+:::
+#### ———————
+
+
+#### ———————
+### Q5. {.unnumbered}
+
+**(Open-Ended — Callback to Q1):** We said POST maps to the **Create** operation in CRUD. In the restaurant analogy from Session 1, if a GET request is like *reading the menu and placing an order*, what would a POST request be analogous to?
+
+::: {.callout-tip collapse="true" title="Answer Q5"}
+A **POST** request would be like **submitting a new recipe** to the restaurant's kitchen — you're not reading what's already there, you're adding something new to their collection. Or, you could think of it as filling out a comment card that gets filed in the restaurant's records.
+:::
+#### ———————
+
+
+---
+
+
+## Part 4: URL Anatomy
+
+So how do we actually construct a request? A request is defined by a **URL**, which contains both:
+
+- The **endpoint** (base address of the API) — the stable part
+- The **query string** (key-value pairs that customize the request) — the dynamic part
+
+![](images/URL-Anatomy.gif){fig-alt="GIF showing anatomy of a URL with base URL, endpoint, and query string components"}
+
+### Breaking Down a URL
+
+Consider this example URL:
+
+```
+https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&appid=YOUR_KEY&units=imperial
+```
+
+| Component | Value | Purpose |
+|-----------|-------|---------|
+| **Protocol** | `https://` | Secure communication |
+| **Base URL** | `api.openweathermap.org` | The API server |
+| **Endpoint** | `/data/2.5/weather` | Which resource you want |
+| **Query separator** | `?` | Marks the start of parameters |
+| **Parameter 1** | `q=San+Luis+Obispo` | City name (URL-encoded) |
+| **Parameter separator** | `&` | Separates key-value pairs |
+| **Parameter 2** | `appid=YOUR_KEY` | Your API key |
+| **Parameter 3** | `units=imperial` | Unit preference |
+
+::: {.callout-note}
+## Key Vocabulary
+
+- An **endpoint** is the specific URL where an API resource can be accessed. It's the stable part of the URL that doesn't change from one request to the next.
+- A **query string** customizes the request using key-value pairs. It always starts with `?` and pairs are separated by `&`.
+:::
+
+
+#### ———————
+### Q6. {.unnumbered}
+
+**(Open-Ended):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.
+
+::: {.callout-tip collapse="true" title="Answer Q6"}
+- **Endpoint:** `https://api.spotify.com/v1/search`
+- **Key-Value Pairs:** `q=Daft+Punk` and `type=artist`
+:::
+#### ———————
+
+
+#### ———————
+### Q7. {.unnumbered}
+
+**(Multiple Choice — Callback to Session 1 Q4):** When your R script makes a `GET` request to the OpenWeather API, which statement is correct?
+
+a) Your script sends JSON and receives a URL.
+b) Your script sends a URL and receives JSON.
+c) Your script sends JSON and receives JSON.
+d) Your script sends a URL and receives a URL.
+
+::: {.callout-tip collapse="true" title="Answer Q7"}
+**b)** The request itself is a carefully constructed **URL** containing the endpoint and query parameters. The API's response comes back as **JSON** containing the data, metadata, and status code.
+:::
+#### ———————
+
+
+---
+
+
+## Part 5: Under the Hood — What Happens When You Make a Request
+
+Let's connect everything together:
+
+1. You **construct a URL** from a base URL (endpoint) + query string (parameters).
+2. Your client sends a **GET request** using this URL to the API.
+3. The API relays this request to the **server**.
+4. The server processes the request, queries the database, and sends a **response**.
+5. The response includes a **status code** and the requested data (formatted as **JSON**).
+6. Your R code **parses** the JSON into a data structure you can work with.
+
+::: {.callout-important}
+## Common Misconception
+We are **not** sending JSON when we make a GET request. We're sending a URL with parameters. **JSON is what comes back** to us in the response.
+:::
+
+
+#### ———————
+### Q8. {.unnumbered}
+
+**(Open-Ended):** Put the following steps in the correct order for making an API request in R:
+
+- Parse the JSON response into a data frame
+- Construct the URL with endpoint and query parameters
+- Check the status code for success (200)
+- Send the request using `req_perform()`
+- Create a request object with `request()`
+
+::: {.callout-tip collapse="true" title="Answer Q8"}
+1. **Construct the URL** with endpoint and query parameters
+2. **Create a request object** with `request()`
+3. **Send the request** using `req_perform()`
+4. **Check the status code** for success (200)
+5. **Parse the JSON response** into a data frame
+:::
+#### ———————
+
+
+---
+
+
+## Part 6: Hands-On — Making Requests to a Dummy Server
+
+Now let's get our hands dirty! We'll make real requests to a practice server to see how this works before moving to the Weather API tomorrow.
+
+### Load Libraries
+
+```{r}
+#| output: false
+library(httr2)       # Makes web requests
+library(tibble)      # Tidyverse data frames
+library(dplyr)       # Data manipulation
+library(glue)        # String construction
+```
+
+
+### Making a GET Request
+
+Let's start with a simple GET request to a public test API:
+
+```{r}
+# Step 1: Define the URL
+test_url <- "https://jsonplaceholder.typicode.com/users/1"
+
+# Step 2: Create a request object
+req <- request(test_url)
+
+# Step 3: Perform the request
+response <- req_perform(req)
+
+# Step 4: Check the status code
+resp_status(response)
+
+# Step 5: Check the content type
+resp_content_type(response)
+```
+
+```{r}
+# Step 6: Parse the JSON response
+result <- resp_body_json(response)
+
+# Step 7: Inspect the structure
+str(result)
+```
+
+```{r}
+# Step 8: Convert to a data frame
+user_df <- as.data.frame(result)
+print(user_df)
+```
+
+
+### Making a GET Request with Query Parameters
+
+```{r}
+# Get posts by a specific user
+posts_url <- "https://jsonplaceholder.typicode.com/posts"
+
+# Method 1: Using glue to build the URL
+posts_url_query <- glue("{posts_url}?userId=1")
+
+req <- request(posts_url_query)
+response <- req_perform(req)
+
+if (resp_status(response) == 200) {
+  posts <- resp_body_json(response)
+  cat("Number of posts retrieved:", length(posts), "\n")
+}
+```
+
+
+### Making a POST Request
+
+Now let's **send** data to the server:
+
+```{r}
+# Step 1: Define the endpoint
+post_url <- "https://jsonplaceholder.typicode.com/posts"
+
+# Step 2: Create the request with a body
+req <- request(post_url) |>
+  req_method("POST") |>
+  req_headers("Content-Type" = "application/json") |>
+  req_body_json(list(
+    title = "My API Workshop Post",
+    body = "Learning about APIs is fun!",
+    userId = 1
+  ))
+
+# Step 3: Perform the request
+response <- req_perform(req)
+
+# Step 4: Check the status code (201 = Created)
+cat("Status:", resp_status(response), "\n")
+
+# Step 5: See the response
+result <- resp_body_json(response)
+print(result)
+```
+
+::: {.callout-note}
+## Status Code 201
+Notice we got a `201 Created` instead of `200 OK`. This is the standard success code for POST requests — it means the server successfully created the new resource.
+:::
+
+
+#### ———————
+### Q9. {.unnumbered}
+
+**(Open-Ended — Callback to Q7):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?
+
+::: {.callout-tip collapse="true" title="Answer Q9"}
+This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.
+:::
+#### ———————
+
+
+---
+
+
+## Part 7: Handling Response Metadata and Status Codes
+
+Let's explore what happens when things go wrong:
+
+```{r}
+# Try requesting a resource that doesn't exist
+bad_url <- "https://jsonplaceholder.typicode.com/users/999999"
+
+req <- request(bad_url)
+response <- req_perform(req)
+
+# Check the status
+cat("Status code:", resp_status(response), "\n")
+```
+
+```{r}
+# Build a robust request handler
+safe_get <- function(url) {
+  req <- request(url)
+  response <- req_perform(req)
+  status <- resp_status(response)
+  
+  if (status == 200) {
+    cat("Success! Status:", status, "\n")
+    return(resp_body_json(response))
+  } else if (status >= 400 & status < 500) {
+    cat("Client error! Status:", status, "- Check your URL or parameters.\n")
+    return(NULL)
+  } else if (status >= 500) {
+    cat("Server error! Status:", status, "- The server has an issue.\n")
+    return(NULL)
+  }
+}
+
+# Test it
+result <- safe_get("https://jsonplaceholder.typicode.com/users/1")
+```
+
+
+---
+
+
+## Session 2 Recap
+
+In this session, we moved from concepts to code:
+
+1. **CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
+2. **GET Requests** — retrieve data, parameters in the URL
+3. **POST Requests** — send new data in the request body
+4. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
+5. **Hands-on practice** — making real GET and POST requests to a dummy server
+6. **Error handling** — using status codes to diagnose problems
+
+**Up next in Session 3 (tomorrow):** We'll set up our API key, make real requests to the OpenWeather API, and build functions to retrieve weather data!

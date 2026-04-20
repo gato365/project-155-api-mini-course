@@ -1,0 +1,35 @@
+---
+title: "API Workshop"
+---
+
+# Welcome to the API Workshop
+
+**Empowering educators with the skills to extract real-world data using APIs.**
+
+This workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.
+
+---
+
+## Workshop Schedule
+
+| Day | Time | Session | Focus |
+|-----|------|---------|-------|
+| Day 1 (8/5) | 8:00–9:00 AM | [Session 1](sessions/01_JSON_and_Request_Response.qmd) | JSON Fundamentals & Request/Response |
+| Day 1 (8/5) | 9:00–10:00 AM | [Session 2](sessions/02_CRUD_HTTP_Methods_URL.qmd) | CRUD, HTTP Methods, URL Anatomy & Dummy Server |
+| Day 2 (8/6) | 9:00–10:00 AM | [Session 3](sessions/03_Weather_API_Setup.qmd) | Weather API — Setup, Current Weather, Geocoding |
+| Day 2 (8/6) | 10:00–11:00 AM | [Session 4](sessions/04_Historical_Weather_Visualization.qmd) | Historical Weather, Visualization & Wrap-Up |
+
+---
+
+## Tools
+
+- **IDE:** Positron (RStudio compatible)
+- **Language:** R with tidyverse
+- **Key Packages:** `httr2`, `glue`, `dplyr`, `ggplot2`, `lubridate`, `dotenv`
+- **API:** OpenWeather API
+
+---
+
+## Getting Started
+
+Head over to **[Session 1](sessions/01_JSON_and_Request_Response.qmd)** to begin!

@@ -1,0 +1,1 @@
+Some things I got to check in regarding the audience is to make sure that at least know if they are used to get hub and other elements regarding project structure in an implementation such as.ENV files and secret keys and passwords

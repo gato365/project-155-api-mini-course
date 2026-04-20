@@ -1,0 +1,418 @@
+---
+title: "Session 3: Weather API — Setup, Current Weather & Geocoding"
+subtitle: "Day 2 — 9:00 AM to 10:00 AM"
+author: "Immanuel Williams"
+date: "August 6, 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+
+## Welcome Back — Day 2
+
+Yesterday we built the conceptual and practical foundation:
+
+- **Session 1:** JSON structure, request/response flow, status codes
+- **Session 2:** CRUD framework, GET/POST methods, URL anatomy, dummy server practice
+
+Today we apply everything to a **real API** — the [OpenWeather API](https://openweathermap.org/api). We'll make authentic requests, handle real responses, and build reusable functions.
+
+
+---
+
+
+## Part 1: Setting Up Your API Key
+
+Before we can make requests to the OpenWeather API, we need an **API key**. This is like your library card — it identifies who is making the request.
+
+::: {.callout-important}
+## Security Best Practice
+**Never** write your API key directly in your R script. If you share that script or push it to GitHub, your key is exposed. Instead, store it in an environment file.
+:::
+
+### Step 1: Store Your Key
+
+We'll use `dotenv` to load our API key from a `.Renviron.txt` file:
+
+```{r}
+# Create or edit your .Renviron.txt file
+# It should contain a single line like:
+# API_KEY=your_actual_api_key_here
+```
+
+### Step 2: Load and Access the Key
+
+```{r}
+dotenv::load_dot_env(file = ".Renviron.txt")
+
+# Verify it loaded (should print your key in the console)
+# Sys.getenv("API_KEY")
+```
+
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Discussion):** Why is it a critical security best practice to store your API key in an environment file (`.Renviron`) instead of writing it directly in your R script? What's the main risk of ignoring this practice?
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+Writing a key directly in a script is a major security risk. If you share that script or upload it to a public repository like GitHub, your secret key is exposed. Anyone could then use your key to make requests on your behalf, potentially incurring costs on your account or accessing private data. Storing the key in `.Renviron` keeps your credentials separate from your code, preventing accidental exposure.
+:::
+#### ———————
+
+
+### Step 3: Load Libraries
+
+```{r}
+#| output: false
+library(httr2)       # Makes web requests
+library(tibble)      # Tidyverse version of data.frame
+library(lubridate)   # Time and date handling
+library(ggplot2)     # Visualizations
+library(dplyr)       # Data manipulation
+library(dotenv)      # Load environment variables
+library(glue)        # Attach strings together
+```
+
+
+---
+
+
+## Part 2: OpenWeather API Overview
+
+OpenWeather offers several APIs. Here are the three we'll work with:
+
+| Feature | **Current Weather API** | **Geocoding API** | **One Call API** |
+|------------------|------------------|------------------|----------------------|
+| **Purpose** | Get current weather for a city | Convert city names to coordinates | Get full weather data for a coordinate |
+| **Input** | City name, city ID, coordinates, or zip | City name or zip code | Latitude & Longitude |
+| **Output** | Temperature, conditions, wind, etc. | Location info (lat/lon, country) | Current, hourly, daily, alerts |
+| **Endpoint** | `/data/2.5/weather` | `/geo/1.0/direct` | `/data/3.0/onecall` |
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Multiple Choice — Callback to Session 2 Q6):** Looking at the table above, the **endpoint** for the Current Weather API is `/data/2.5/weather`. If the base URL is `https://api.openweathermap.org`, and you want weather for San Luis Obispo in imperial units, which of the following is the correct full URL structure?
+
+a) `https://api.openweathermap.org?q=San+Luis+Obispo&units=imperial`
+b) `https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&appid=YOUR_KEY&units=imperial`
+c) `https://api.openweathermap.org/data/2.5/weather/San+Luis+Obispo`
+d) `https://api.openweathermap.org/weather?city=San+Luis+Obispo`
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+**b)** The correct URL combines the base URL + endpoint + query string with the required parameters (`q` for city, `appid` for API key, `units` for temperature format).
+:::
+#### ———————
+
+
+---
+
+
+## Part 3: Get Current Weather for a City
+
+Let's walk through the complete process of making a real API request.
+
+### Step 1: Select a City
+
+```{r}
+city_name <- "San Luis Obispo"
+```
+
+### Step 2: Build the Request URL
+
+We use `glue()` to construct the URL by combining the base endpoint with our query parameters:
+
+```{r}
+current_weather_url <- glue(
+  "https://api.openweathermap.org/data/2.5/weather?",
+  "q=", URLencode(city_name),
+  "&appid=", Sys.getenv("API_KEY"),
+  "&units=", "imperial"
+)
+```
+
+::: {.callout-note}
+## `URLencode()` — Why?
+City names with spaces (like "San Luis Obispo") need to be encoded for URLs. `URLencode()` converts spaces to `+` or `%20` so the URL is valid. Without this, the server won't understand your request.
+:::
+
+
+### Step 3: Send the Request
+
+```{r}
+req <- request(current_weather_url)
+response <- req_perform(req)
+
+# Check what kind of content we got back
+resp_content_type(response)
+```
+
+The content type should be `application/json` — confirming we received JSON data.
+
+
+### Step 4: Parse the Response
+
+```{r}
+if (resp_status(response) == 200) {
+  # Parse JSON into an R list
+  result <- resp_body_json(response)
+  
+  # Convert to a data frame
+  currweather_df <- as.data.frame(result)
+  
+  # View selected columns
+  print(select(currweather_df, name, coord.lon, coord.lat, weather.main, main.temp))
+} else {
+  cat("Failed. Status code:", resp_status(response), "\n")
+}
+```
+
+::: {.callout-note}
+## What Just Happened?
+1. We checked the status code — looking for `200 OK`
+2. We parsed the JSON response into an R named list using `resp_body_json()`
+3. We flattened the nested list into a data frame using `as.data.frame()`
+4. The nested JSON keys became column names like `coord.lon`, `weather.main`, `main.temp`
+:::
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Open-Ended):** In Step 4, we used `as.data.frame(result)` to convert the JSON. The column `main.temp` comes from a nested JSON structure. What did the original JSON probably look like for that value?
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+The original JSON likely looked like:
+```json
+{
+  "main": {
+    "temp": 72.5,
+    "humidity": 45,
+    ...
+  }
+}
+```
+The `main` object contains a `temp` key inside it. When flattened, R joins them with a period: `main.temp`.
+:::
+#### ———————
+
+
+---
+
+
+## Part 4: Two Ways to Build Request URLs
+
+There's an alternative way to build the request using `httr2`'s query method:
+
+```{r}
+# Method 1: Glue (what we used above)
+url_glue <- glue(
+  "https://api.openweathermap.org/data/2.5/weather?",
+  "q=", URLencode(city_name),
+  "&appid=", Sys.getenv("API_KEY"),
+  "&units=", "imperial"
+)
+
+# Method 2: httr2 query parameters
+req_query <- request("https://api.openweathermap.org/data/2.5/weather") |>
+  req_url_query(
+    q = city_name,
+    appid = Sys.getenv("API_KEY"),
+    units = "imperial"
+  )
+```
+
+Both produce the same request. The `glue` method helps you **see** the full URL and understand its structure. The `req_url_query` method is cleaner for complex queries.
+
+
+#### ———————
+### Q4. {.unnumbered}
+
+**(Multiple Choice):** Which of the following is an advantage of using the `glue()` method to build URLs, especially when learning about APIs?
+
+a) It automatically handles authentication
+b) It makes the full URL structure visible, helping you understand the anatomy of the request
+c) It's faster than the query method
+d) It automatically encodes special characters
+
+::: {.callout-tip collapse="true" title="Answer Q4"}
+**b)** The `glue()` method makes the full URL visible in your code, which is valuable for understanding how endpoints, parameters, and query strings work together. Once you're comfortable, the `req_url_query()` method offers a cleaner syntax.
+:::
+#### ———————
+
+
+---
+
+
+## Part 5: Geocoding API — Converting City Names to Coordinates
+
+Some APIs require **latitude and longitude** instead of city names. The OpenWeather Geocoding API converts city names to coordinates.
+
+### Building the Geocode Function
+
+```{r}
+geocode <- function(city) {
+  
+  # Step 1: Build the geocoding URL
+  geo_url <- glue(
+    "http://api.openweathermap.org/geo/1.0/direct?",
+    "q=", URLencode(city),
+    "&limit=1&appid=", Sys.getenv("API_KEY")
+  )
+  
+  # Step 2: Make the request
+  geo_response <- req_perform(request(geo_url))
+  
+  # Step 3: Parse if successful
+  if (resp_status(geo_response) == 200) {
+    geo_data_df <- resp_body_json(geo_response) |>
+      as.data.frame()
+    
+    # Step 4: Check if we got results
+    if (length(geo_data_df) == 0) {
+      stop("City not found. Please check the city name.")
+    }
+    
+    # Step 5: Extract and round coordinates
+    lat <- round(geo_data_df$lat, digits = 2)
+    lon <- round(geo_data_df$lon, digits = 2)
+    
+    # Step 6: Return the coordinates
+    cat("Coordinates for", city, "-> Latitude:", lat, "Longitude:", lon, "\n")
+    return(list(lat = lat, lon = lon))
+  } else {
+    stop(paste("Geocoding failed. Status:", resp_status(geo_response)))
+  }
+}
+```
+
+
+### Test the Function
+
+```{r}
+# Test with a known city
+geocode("San Luis Obispo, CA, USA")
+```
+
+```{r}
+# Try your hometown!
+geocode("Ames, IA, USA")
+```
+
+
+#### ———————
+### Q5. {.unnumbered}
+
+**(Open-Ended — Callback to Session 1 Q7):** In the `geocode` function, we check `if (resp_status(geo_response) == 200)` before parsing. What would happen if we skipped this check and the API returned a `404` status? How does this connect to what we learned about status codes?
+
+::: {.callout-tip collapse="true" title="Answer Q5"}
+If we skipped the status check and got a `404`, the `resp_body_json()` call might fail or return an error message instead of coordinate data. We'd then try to access `$lat` on data that doesn't contain it, causing a confusing R error. The status code check acts as a **guard** — it catches the problem early and gives us a meaningful error message instead of a cryptic one. This connects to Session 1 where we learned that 4xx errors mean the *client* made a mistake (wrong city name, bad URL).
+:::
+#### ———————
+
+
+#### ———————
+### Q6. {.unnumbered}
+
+**(Discussion):** Look at the `geocode` function. It uses `stop()` when the city is not found. What is the difference between `stop()`, `warning()`, and `cat()` for communicating errors in R? When would you use each?
+
+::: {.callout-tip collapse="true" title="Answer Q6"}
+- `stop()` **halts execution** and throws an error — use when the function can't proceed.
+- `warning()` **continues execution** but flags a potential issue — use when the function can recover.
+- `cat()` simply **prints a message** — use for informational output.
+
+In API work, `stop()` is appropriate when the request fundamentally fails (no data to return). `warning()` is useful when some requests in a loop fail but others succeed.
+:::
+#### ———————
+
+
+---
+
+
+## Part 6: Your Turn — Build Your Own Request
+
+Now it's your turn! Using what we've learned, make a current weather request for **your hometown** (or any city you choose).
+
+### Activity: Fill in the Blanks
+
+```{r}
+# Step 1: Choose your city
+my_city <- "___________"
+
+# Step 2: Build the URL (fill in the missing parts)
+my_url <- glue(
+  "https://api.openweathermap.org/data/2.5/weather?",
+  "q=", URLencode(________),
+  "&appid=", Sys.getenv("________"),
+  "&units=", "________"
+)
+
+# Step 3: Make the request
+my_req <- request(my_url)
+my_response <- req_perform(my_req)
+
+# Step 4: Check status and parse
+if (resp_status(my_response) == ________) {
+  my_result <- resp_body_json(my_response)
+  my_df <- as.data.frame(my_result)
+  
+  # Step 5: Print relevant columns
+  print(select(my_df, name, main.temp, weather.main, main.humidity))
+} else {
+  cat("Request failed with status:", resp_status(my_response), "\n")
+}
+```
+
+::: {.callout-tip collapse="true" title="Solution"}
+```{r}
+my_city <- "Chicago"
+
+my_url <- glue(
+  "https://api.openweathermap.org/data/2.5/weather?",
+  "q=", URLencode(my_city),
+  "&appid=", Sys.getenv("API_KEY"),
+  "&units=", "imperial"
+)
+
+my_req <- request(my_url)
+my_response <- req_perform(my_req)
+
+if (resp_status(my_response) == 200) {
+  my_result <- resp_body_json(my_response)
+  my_df <- as.data.frame(my_result)
+  print(select(my_df, name, main.temp, weather.main, main.humidity))
+} else {
+  cat("Request failed with status:", resp_status(my_response), "\n")
+}
+```
+:::
+
+
+---
+
+
+## Session 3 Recap
+
+In this session, we made the leap to **real API requests**:
+
+1. **API key setup** — storing keys securely in `.Renviron`
+2. **Current Weather API** — building URLs, sending requests, parsing JSON responses
+3. **Two URL construction methods** — `glue()` vs. `req_url_query()`
+4. **Geocoding API** — converting city names to latitude/longitude coordinates
+5. **Function building** — encapsulating API logic in reusable functions
+6. **Hands-on activity** — making your own weather request
+
+**Up next in Session 4:** We'll build on the geocoding function to retrieve **historical weather data**, loop over multiple days, create visualizations, and wrap up with a reflection!
