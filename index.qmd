@@ -32,4 +32,4 @@ This workshop covers the fundamentals of working with web APIs — from understa
 
 ## Getting Started
 
-Head over to **[Session 1](sessions/01_JSON_and_Request_Response.qmd)** to begin!
+Start with **[Session 0 — Getting Started](sessions/00_Getting_Started.qmd)** to download your files and get set up, then head into **[Session 1](sessions/01_JSON_and_Request_Response.qmd)**.

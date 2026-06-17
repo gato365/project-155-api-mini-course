@@ -1,0 +1,116 @@
+---
+title: "Session 0: Getting Started"
+subtitle: "Setup, File Downloads & How to Use This Workshop"
+author: "Immanuel Williams"
+date: "August 5, 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+## Welcome
+
+Welcome to the **API Workshop**! Before we dive into the content, this document will help you get oriented — where to find things, how to download your working files, and what to do if you get stuck.
+
+---
+
+## Workshop Overview
+
+This workshop runs across two days and four sessions. Each session builds on the last, so we recommend following them in order.
+
+| Day | Time | Session | Focus |
+|-----|------|---------|-------|
+| Day 1 (8/5) | 8:00–9:00 AM | [Session 1](01_JSON_and_Request_Response.qmd) | JSON Fundamentals & Request/Response |
+| Day 1 (8/5) | 9:00–10:00 AM | [Session 2](02_CRUD_HTTP_Methods_URL.qmd) | CRUD, HTTP Methods & URL Anatomy |
+| Day 2 (8/6) | 9:00–10:00 AM | [Session 3](03_Weather_API_Setup.qmd) | Weather API — Setup, Current Weather, Geocoding |
+| Day 2 (8/6) | 10:00–11:00 AM | [Session 4](04_Historical_Weather_Visualization.qmd) | Historical Weather, Visualization & Wrap-Up |
+
+---
+
+## Step 1 — Create Your Workshop Folder
+
+Before downloading anything, create a single folder on your computer where **all workshop files will live**. Keeping everything in one place avoids file-path headaches throughout the two days.
+
+**Suggested location:**
+
+```
+Desktop/
+└── api_workshop/       ← put everything here
+    ├── 01_JSON_and_Request_Response.qmd
+    ├── 02_CRUD_HTTP_Methods_URL.qmd
+    ├── 03_Weather_API_Setup.qmd
+    └── 04_Historical_Weather_Visualization.qmd
+```
+
+> **Why this matters:** R and Quarto look for files relative to where your `.qmd` lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions.
+
+---
+
+## Step 2 — Download the Session Files
+
+Download each `.qmd` file and save it directly into your `api_workshop/` folder.
+
+| Session | Download Link |
+|---------|---------------|
+| Session 1 | [01_JSON_and_Request_Response.qmd](https://raw.githubusercontent.com/gato365/project-155-api-mini-course/main/sessions/01_JSON_and_Request_Response.qmd) |
+| Session 2 | [02_CRUD_HTTP_Methods_URL.qmd](https://raw.githubusercontent.com/gato365/project-155-api-mini-course/main/sessions/02_CRUD_HTTP_Methods_URL.qmd) |
+| Session 3 | [03_Weather_API_Setup.qmd](https://raw.githubusercontent.com/gato365/project-155-api-mini-course/main/sessions/03_Weather_API_Setup.qmd) |
+| Session 4 | [04_Historical_Weather_Visualization.qmd](https://raw.githubusercontent.com/gato365/project-155-api-mini-course/main/sessions/04_Historical_Weather_Visualization.qmd) |
+
+**How to save a file from your browser:**
+
+1. Click the link above
+2. Your browser will show the raw file contents
+3. Right-click anywhere on the page → **Save As...**
+4. Navigate to your `api_workshop/` folder and save
+
+---
+
+## Step 3 — Open the File in Positron
+
+1. Open **Positron** (or RStudio)
+2. Go to **File → Open File...**
+3. Navigate to your `api_workshop/` folder and open the session file for today
+
+You do not need to open a project — just open the `.qmd` file directly.
+
+---
+
+## If You Get Stuck
+
+**All session content — including completed code — is available on this website.**
+
+Use the **Sessions** menu in the navigation bar at the top of this page to browse any session. Each page shows the full document with all code blocks visible, so you can reference it at any point during the workshop.
+
+> You are encouraged to try the exercises yourself first, then check the website if you need a hint or want to verify your answer.
+
+---
+
+## Tools Checklist
+
+Before Day 1, confirm you have the following installed:
+
+- [ ] **R** (version 4.2 or later) — [download here](https://cran.r-project.org)
+- [ ] **Positron** or **RStudio** — [Positron download](https://positron.posit.co)
+- [ ] **Required R packages** — run the block below once to install everything
+
+```{r install-packages}
+install.packages(c("httr2", "glue", "dplyr", "ggplot2", "lubridate", "dotenv"))
+```
+
+- [ ] **OpenWeather API key** — you will set this up during Session 3
+
+---
+
+## Questions?
+
+Reach out before or during the workshop. We will also leave time at the start of each session to resolve any setup issues.
+
+See you there!

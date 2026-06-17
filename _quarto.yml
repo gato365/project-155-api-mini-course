@@ -9,6 +9,8 @@ website:
         href: index.qmd
       - text: "Sessions"
         menu:
+          - text: "Session 0 — Getting Started"
+            href: sessions/00_Getting_Started.qmd
           - text: "Session 1 — JSON & Request/Response"
             href: sessions/01_JSON_and_Request_Response.qmd
           - text: "Session 2 — CRUD, HTTP Methods & URL Anatomy"
