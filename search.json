@@ -137,7 +137,7 @@
     "href": "index.html",
     "title": "API Workshop",
     "section": "",
-    "text": "Empowering educators with the skills to extract real-world data using APIs.\nThis workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.\n\n\n\n\n\n\nDay\nTime\nSession\nFocus\n\n\n\n\nDay 1 (8/5)\n8:00–9:00 AM\nSession 1\nJSON Fundamentals & Request/Response\n\n\nDay 1 (8/5)\n9:00–10:00 AM\nSession 2\nCRUD, HTTP Methods, URL Anatomy & Dummy Server\n\n\nDay 2 (8/6)\n9:00–10:00 AM\nSession 3\nWeather API — Setup, Current Weather, Geocoding\n\n\nDay 2 (8/6)\n10:00–11:00 AM\nSession 4\nHistorical Weather, Visualization & Wrap-Up\n\n\n\n\n\n\n\n\nIDE: Positron (RStudio compatible)\nLanguage: R with tidyverse\nKey Packages: httr2, glue, dplyr, ggplot2, lubridate, dotenv\nAPI: OpenWeather API\n\n\n\n\n\nHead over to Session 1 to begin!"
+    "text": "Empowering educators with the skills to extract real-world data using APIs.\nThis workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.\n\n\n\n\n\n\nDay\nTime\nSession\nFocus\n\n\n\n\nDay 1 (8/5)\n8:00–9:00 AM\nSession 1\nJSON Fundamentals & Request/Response\n\n\nDay 1 (8/5)\n9:00–10:00 AM\nSession 2\nCRUD, HTTP Methods, URL Anatomy & Dummy Server\n\n\nDay 2 (8/6)\n9:00–10:00 AM\nSession 3\nWeather API — Setup, Current Weather, Geocoding\n\n\nDay 2 (8/6)\n10:00–11:00 AM\nSession 4\nHistorical Weather, Visualization & Wrap-Up\n\n\n\n\n\n\n\n\nIDE: Positron (RStudio compatible)\nLanguage: R with tidyverse\nKey Packages: httr2, glue, dplyr, ggplot2, lubridate, dotenv\nAPI: OpenWeather API\n\n\n\n\n\nStart with Session 0 — Getting Started to download your files and get set up, then head into Session 1."
   },
   {
     "objectID": "index.html#workshop-schedule",
@@ -158,7 +158,70 @@
     "href": "index.html#getting-started",
     "title": "API Workshop",
     "section": "",
-    "text": "Head over to Session 1 to begin!"
+    "text": "Start with Session 0 — Getting Started to download your files and get set up, then head into Session 1."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html",
+    "href": "sessions/00_Getting_Started.html",
+    "title": "Session 0: Getting Started",
+    "section": "",
+    "text": "Welcome to the API Workshop! Before we dive into the content, this document will help you get oriented — where to find things, how to download your working files, and what to do if you get stuck."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#welcome",
+    "href": "sessions/00_Getting_Started.html#welcome",
+    "title": "Session 0: Getting Started",
+    "section": "",
+    "text": "Welcome to the API Workshop! Before we dive into the content, this document will help you get oriented — where to find things, how to download your working files, and what to do if you get stuck."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#workshop-overview",
+    "href": "sessions/00_Getting_Started.html#workshop-overview",
+    "title": "Session 0: Getting Started",
+    "section": "Workshop Overview",
+    "text": "Workshop Overview\nThis workshop runs across two days and four sessions. Each session builds on the last, so we recommend following them in order.\n\n\n\nDay\nTime\nSession\nFocus\n\n\n\n\nDay 1 (8/5)\n8:00–9:00 AM\nSession 1\nJSON Fundamentals & Request/Response\n\n\nDay 1 (8/5)\n9:00–10:00 AM\nSession 2\nCRUD, HTTP Methods & URL Anatomy\n\n\nDay 2 (8/6)\n9:00–10:00 AM\nSession 3\nWeather API — Setup, Current Weather, Geocoding\n\n\nDay 2 (8/6)\n10:00–11:00 AM\nSession 4\nHistorical Weather, Visualization & Wrap-Up"
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#step-1-create-your-workshop-folder",
+    "href": "sessions/00_Getting_Started.html#step-1-create-your-workshop-folder",
+    "title": "Session 0: Getting Started",
+    "section": "Step 1 — Create Your Workshop Folder",
+    "text": "Step 1 — Create Your Workshop Folder\nBefore downloading anything, create a single folder on your computer where all workshop files will live. Keeping everything in one place avoids file-path headaches throughout the two days.\nSuggested location:\nDesktop/\n└── api_workshop/       ← put everything here\n    ├── 01_JSON_and_Request_Response.qmd\n    ├── 02_CRUD_HTTP_Methods_URL.qmd\n    ├── 03_Weather_API_Setup.qmd\n    └── 04_Historical_Weather_Visualization.qmd\n\nWhy this matters: R and Quarto look for files relative to where your .qmd lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#step-2-download-the-session-files",
+    "href": "sessions/00_Getting_Started.html#step-2-download-the-session-files",
+    "title": "Session 0: Getting Started",
+    "section": "Step 2 — Download the Session Files",
+    "text": "Step 2 — Download the Session Files\nDownload each .qmd file and save it directly into your api_workshop/ folder.\n\n\n\nSession\nDownload Link\n\n\n\n\nSession 1\n01_JSON_and_Request_Response.qmd\n\n\nSession 2\n02_CRUD_HTTP_Methods_URL.qmd\n\n\nSession 3\n03_Weather_API_Setup.qmd\n\n\nSession 4\n04_Historical_Weather_Visualization.qmd\n\n\n\nHow to save a file from your browser:\n\nClick the link above\nYour browser will show the raw file contents\nRight-click anywhere on the page → Save As…\nNavigate to your api_workshop/ folder and save"
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#step-3-open-the-file-in-positron",
+    "href": "sessions/00_Getting_Started.html#step-3-open-the-file-in-positron",
+    "title": "Session 0: Getting Started",
+    "section": "Step 3 — Open the File in Positron",
+    "text": "Step 3 — Open the File in Positron\n\nOpen Positron (or RStudio)\nGo to File → Open File…\nNavigate to your api_workshop/ folder and open the session file for today\n\nYou do not need to open a project — just open the .qmd file directly."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#if-you-get-stuck",
+    "href": "sessions/00_Getting_Started.html#if-you-get-stuck",
+    "title": "Session 0: Getting Started",
+    "section": "If You Get Stuck",
+    "text": "If You Get Stuck\nAll session content — including completed code — is available on this website.\nUse the Sessions menu in the navigation bar at the top of this page to browse any session. Each page shows the full document with all code blocks visible, so you can reference it at any point during the workshop.\n\nYou are encouraged to try the exercises yourself first, then check the website if you need a hint or want to verify your answer."
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#tools-checklist",
+    "href": "sessions/00_Getting_Started.html#tools-checklist",
+    "title": "Session 0: Getting Started",
+    "section": "Tools Checklist",
+    "text": "Tools Checklist\nBefore Day 1, confirm you have the following installed:\n\nR (version 4.2 or later) — download here\nPositron or RStudio — Positron download\nRequired R packages — run the block below once to install everything\n\n\ninstall.packages(c(\"httr2\", \"glue\", \"dplyr\", \"ggplot2\", \"lubridate\", \"dotenv\"))\n\n\nOpenWeather API key — you will set this up during Session 3"
+  },
+  {
+    "objectID": "sessions/00_Getting_Started.html#questions",
+    "href": "sessions/00_Getting_Started.html#questions",
+    "title": "Session 0: Getting Started",
+    "section": "Questions?",
+    "text": "Questions?\nReach out before or during the workshop. We will also leave time at the start of each session to resolve any setup issues.\nSee you there!"
   },
   {
     "objectID": "sessions/04_Historical_Weather_Visualization.html",
