@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/03_Weather_API_Setup.html</loc>
+    <loc>https://gato365.github.io/project-155-api-mini-course/notes.html</loc>
+    <lastmod>2026-06-17T14:17:20.862Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/02_CRUD_HTTP_Methods_URL.html</loc>
     <lastmod>2026-06-17T14:17:20.849Z</lastmod>
   </url>
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/02_CRUD_HTTP_Methods_URL.html</loc>
-    <lastmod>2026-06-17T14:17:20.849Z</lastmod>
-  </url>
-  <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/01_JSON_and_Request_Response.html</loc>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/01_JSON_and_Request_Response.html</loc>
     <lastmod>2026-06-17T14:17:20.848Z</lastmod>
   </url>
   <url>
@@ -17,11 +17,11 @@
     <lastmod>2026-06-17T14:17:20.862Z</lastmod>
   </url>
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/04_Historical_Weather_Visualization.html</loc>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/04_Historical_Weather_Visualization.html</loc>
     <lastmod>2026-06-17T14:17:20.850Z</lastmod>
   </url>
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/notes.html</loc>
-    <lastmod>2026-06-17T14:17:20.862Z</lastmod>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/03_Weather_API_Setup.html</loc>
+    <lastmod>2026-06-17T14:17:20.849Z</lastmod>
   </url>
 </urlset>
