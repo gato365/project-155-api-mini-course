@@ -176,21 +176,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#recap-from-session-1" id="toc-recap-from-session-1" class="nav-link active" data-scroll-target="#recap-from-session-1">Recap from Session 1</a></li>
   <li><a href="#part-1-the-crud-framework" id="toc-part-1-the-crud-framework" class="nav-link" data-scroll-target="#part-1-the-crud-framework">Part 1: The CRUD Framework</a>
   <ul class="collapse">
+  <li><a href="#visual-check-crud-operations." id="toc-visual-check-crud-operations." class="nav-link" data-scroll-target="#visual-check-crud-operations.">Visual Check — CRUD Operations.</a></li>
   <li><a href="#q1." id="toc-q1." class="nav-link" data-scroll-target="#q1.">Q1.</a></li>
   <li><a href="#q2." id="toc-q2." class="nav-link" data-scroll-target="#q2.">Q2.</a></li>
   </ul></li>
   <li><a href="#part-2-get-requests" id="toc-part-2-get-requests" class="nav-link" data-scroll-target="#part-2-get-requests">Part 2: GET Requests</a>
   <ul class="collapse">
+  <li><a href="#visual-check-get-request." id="toc-visual-check-get-request." class="nav-link" data-scroll-target="#visual-check-get-request.">Visual Check — GET Request.</a></li>
   <li><a href="#q3." id="toc-q3." class="nav-link" data-scroll-target="#q3.">Q3.</a></li>
   </ul></li>
   <li><a href="#part-3-post-requests" id="toc-part-3-post-requests" class="nav-link" data-scroll-target="#part-3-post-requests">Part 3: POST Requests</a>
   <ul class="collapse">
+  <li><a href="#visual-check-post-request." id="toc-visual-check-post-request." class="nav-link" data-scroll-target="#visual-check-post-request.">Visual Check — POST Request.</a></li>
   <li><a href="#q4." id="toc-q4." class="nav-link" data-scroll-target="#q4.">Q4.</a></li>
   <li><a href="#q5." id="toc-q5." class="nav-link" data-scroll-target="#q5.">Q5.</a></li>
   </ul></li>
   <li><a href="#part-4-url-anatomy" id="toc-part-4-url-anatomy" class="nav-link" data-scroll-target="#part-4-url-anatomy">Part 4: URL Anatomy</a>
   <ul class="collapse">
   <li><a href="#breaking-down-a-url" id="toc-breaking-down-a-url" class="nav-link" data-scroll-target="#breaking-down-a-url">Breaking Down a URL</a></li>
+  <li><a href="#visual-check-url-anatomy." id="toc-visual-check-url-anatomy." class="nav-link" data-scroll-target="#visual-check-url-anatomy.">Visual Check — URL Anatomy.</a></li>
   <li><a href="#q6." id="toc-q6." class="nav-link" data-scroll-target="#q6.">Q6.</a></li>
   <li><a href="#q7." id="toc-q7." class="nav-link" data-scroll-target="#q7.">Q7.</a></li>
   </ul></li>
@@ -292,6 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<p>The image below maps each CRUD operation to a visual icon: a <strong>plus sign</strong> for Create/POST (adding something new), an <strong>eye</strong> for Read/GET (looking at existing data), a <strong>pencil</strong> for Update/PUT-PATCH (editing something), and a <strong>trash can</strong> for Delete/DELETE (removing it). As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.</p>
+<p><img src="images/crud-operations.jpeg" class="img-fluid" alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -308,28 +314,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="section" class="level4">
 <h4 class="anchored" data-anchor-id="section">———————</h4>
 </section>
-<section id="q1." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q1.">Q1.</h3>
-<p><strong>(Multiple Choice):</strong> Which CRUD operation is most commonly used in data science when working with APIs?</p>
+<section id="visual-check-crud-operations." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visual-check-crud-operations.">Visual Check — CRUD Operations.</h3>
+<p><strong>(Multiple Choice):</strong> A social media app lets users edit their display name. Based on the image above, which CRUD operation and HTTP method does that action map to?</p>
 <ol type="a">
-<li>Create</li>
-<li>Read</li>
-<li>Update</li>
-<li>Delete</li>
+<li>Create — POST</li>
+<li>Read — GET</li>
+<li>Update — PUT/PATCH</li>
+<li>Delete — DELETE</li>
 </ol>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q1">
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q1
+<span class="screen-reader-only">Tip</span>Answer — Visual Check
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>b) Read.</strong> Data scientists most commonly use <code>GET</code> requests to <em>read</em> (retrieve) data from external sources. We’re consumers of data, not typically writing to external databases.</p>
+<p><strong>c) Update — PUT/PATCH.</strong> Editing an existing record (changing a name that already exists) is an <strong>Update</strong> operation. PUT replaces the entire resource; PATCH modifies only the changed fields. Either could apply here, but the key point is that this is not Create (nothing new is being added) or Read (data is being changed, not just viewed).</p>
 </div>
 </div>
 </div>
@@ -340,11 +346,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="section-2">———————</h4>
 </section>
 </section>
+<section id="q1." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q1.">Q1.</h3>
+<p><strong>(Multiple Choice):</strong> Which CRUD operation is most commonly used in data science when working with APIs?</p>
+<ol type="a">
+<li>Create</li>
+<li>Read</li>
+<li>Update</li>
+<li>Delete</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q1">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b) Read.</strong> Data scientists most commonly use <code>GET</code> requests to <em>read</em> (retrieve) data from external sources. We’re consumers of data, not typically writing to external databases.</p>
+</div>
+</div>
+</div>
+<section id="section-3" class="level4">
+<h4 class="anchored" data-anchor-id="section-3">———————</h4>
+</section>
+<section id="section-4" class="level4">
+<h4 class="anchored" data-anchor-id="section-4">———————</h4>
+</section>
+</section>
 <section id="q2." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q2.">Q2.</h3>
 <p><strong>(Open-Ended — Callback to Session 1, Q4):</strong> In Session 1, we learned that a <em>response</em> contains data, metadata, and a status code. Now, using the CRUD framework, explain: when you perform a <strong>Read</strong> operation, what HTTP method do you use, and what would a successful response look like?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q2">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -353,14 +391,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A <strong>Read</strong> operation uses the <code>GET</code> HTTP method. A successful response would have a <strong>200 OK</strong> status code, and the body would contain <strong>JSON</strong> data with the key-value pairs we requested — for example, <code>"temperature": 72</code> or <code>"city": "San Luis Obispo"</code>.</p>
 </div>
 </div>
 </div>
-<section id="section-3" class="level4">
-<h4 class="anchored" data-anchor-id="section-3">———————</h4>
+<section id="section-5" class="level4">
+<h4 class="anchored" data-anchor-id="section-5">———————</h4>
 <hr>
 </section>
 </section>
@@ -368,7 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="part-2-get-requests" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-get-requests">Part 2: GET Requests</h2>
 <p>A <code>GET</code> request is all about <strong>retrieving</strong> data. You’re asking the server: “Give me this information.”</p>
-<p><img src="images/Get-Request.gif" class="img-fluid" alt="GIF showing GET request flow: Client constructs request, API validates, Server locates data, Client receives response"></p>
+<p>The animation below shows a GET request for the resource <code>GET /users/42</code>. Watch how the request originates at the <strong>Client</strong> and travels through the <strong>API</strong> to the <strong>Server</strong> and <strong>Database</strong>. Notice two things: first, the request carries only a path (<code>/users/42</code>) — no data payload. Second, the response brings data back to the client while nothing new is written to the database.</p>
+<p><img src="images/get-request.gif" class="img-fluid" alt="Animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client"></p>
 <p>Here is the flow of a GET request:</p>
 <ol type="1">
 <li><strong>Client</strong> constructs a request for a resource.</li>
@@ -393,14 +432,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<section id="section-4" class="level4">
-<h4 class="anchored" data-anchor-id="section-4">———————</h4>
+<section id="section-6" class="level4">
+<h4 class="anchored" data-anchor-id="section-6">———————</h4>
+</section>
+<section id="visual-check-get-request." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visual-check-get-request.">Visual Check — GET Request.</h3>
+<p><strong>(Open-Ended):</strong> The animation shows a request for <code>GET /users/42</code>. If you changed the request to <code>GET /users/7</code>, what part of the request changes and what stays exactly the same?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer — Visual Check
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <strong>path parameter</strong> changes from <code>42</code> to <code>7</code> — you’re now asking for a different user record. Everything else stays the same: the HTTP method is still GET, the endpoint path structure (<code>/users/</code>) is the same, and the overall flow (client → API → server → database → back) is identical. Only the specific resource being requested changes.</p>
+</div>
+</div>
+</div>
+<section id="section-7" class="level4">
+<h4 class="anchored" data-anchor-id="section-7">———————</h4>
+</section>
+<section id="section-8" class="level4">
+<h4 class="anchored" data-anchor-id="section-8">———————</h4>
+</section>
 </section>
 <section id="q3." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q3.">Q3.</h3>
 <p><strong>(Open-Ended):</strong> Describe another example of a task a data scientist might perform using a <strong>GET</strong> request, beyond retrieving weather data.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q3">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -409,14 +474,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A data scientist could use a <strong>GET</strong> request to retrieve a list of the top 10 most popular articles from the New York Times API, fetch historical stock price data from a financial API, or get public information about a specific user from the GitHub API.</p>
 </div>
 </div>
 </div>
-<section id="section-5" class="level4">
-<h4 class="anchored" data-anchor-id="section-5">———————</h4>
+<section id="section-9" class="level4">
+<h4 class="anchored" data-anchor-id="section-9">———————</h4>
 <hr>
 </section>
 </section>
@@ -424,7 +489,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="part-3-post-requests" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-post-requests">Part 3: POST Requests</h2>
 <p>A <code>POST</code> request is about <strong>sending</strong> new data to the server. You’re telling the server: “Here’s something new — store it.”</p>
-<p><img src="images/Post-Request.gif" class="img-fluid" alt="GIF showing POST request flow: Client sends data in request body, API validates, Server creates record, Client receives confirmation"></p>
+<p>The animation below shows a POST request sending <code>POST /users</code> with a JSON payload <code>{ "name": "Maya", "email": "maya@example.com" }</code>. Compare this carefully to the GET animation: with GET, data flowed <em>from</em> the server <em>to</em> the client. With POST, data originates <em>at the client</em> and moves <em>toward</em> the server. The client is the source; the server is the destination.</p>
+<p><img src="images/post-request.gif" class="img-fluid" alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"></p>
 <p>Here is the flow of a POST request:</p>
 <ol type="1">
 <li><strong>Client</strong> sends new data within the request body.</li>
@@ -449,8 +515,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.</p>
 </div>
 </div>
-<section id="section-6" class="level4">
-<h4 class="anchored" data-anchor-id="section-6">———————</h4>
+<section id="section-10" class="level4">
+<h4 class="anchored" data-anchor-id="section-10">———————</h4>
+</section>
+<section id="visual-check-post-request." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visual-check-post-request.">Visual Check — POST Request.</h3>
+<p><strong>(Multiple Choice):</strong> In the POST animation, the JSON payload <code>{ "name": "Maya", "email": "maya@example.com" }</code> travels from the Client to the Server. Where does this data live in the request, and how is that different from a GET request?</p>
+<ol type="a">
+<li>It is in the URL query string, just like GET parameters.</li>
+<li>It is in the request <strong>body</strong> — unlike GET, which puts parameters in the URL.</li>
+<li>It is sent as a separate file attachment.</li>
+<li>It is stored in the API and forwarded automatically — no client action needed.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer — Visual Check
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b)</strong> POST sends data in the <strong>request body</strong> — a separate payload attached to the request. GET requests have no body; all their parameters are encoded directly in the URL (visible in the address bar). This is why POST is used for sending sensitive or large data — it keeps the payload out of the URL.</p>
+</div>
+</div>
+</div>
+<section id="section-11" class="level4">
+<h4 class="anchored" data-anchor-id="section-11">———————</h4>
+</section>
+<section id="section-12" class="level4">
+<h4 class="anchored" data-anchor-id="section-12">———————</h4>
+</section>
 </section>
 <section id="q4." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q4.">Q4.</h3>
@@ -462,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Looking up the coordinates for a specific address.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q4">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -471,24 +569,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>c)</strong> Submitting a new tweet involves <strong>creating</strong> a new resource on the server, which is the primary purpose of a <strong>POST</strong> request. The other options involve only retrieving existing data.</p>
 </div>
 </div>
 </div>
-<section id="section-7" class="level4">
-<h4 class="anchored" data-anchor-id="section-7">———————</h4>
+<section id="section-13" class="level4">
+<h4 class="anchored" data-anchor-id="section-13">———————</h4>
 </section>
-<section id="section-8" class="level4">
-<h4 class="anchored" data-anchor-id="section-8">———————</h4>
+<section id="section-14" class="level4">
+<h4 class="anchored" data-anchor-id="section-14">———————</h4>
 </section>
 </section>
 <section id="q5." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q5.">Q5.</h3>
 <p><strong>(Open-Ended — Callback to Q1):</strong> We said POST maps to the <strong>Create</strong> operation in CRUD. In the restaurant analogy from Session 1, if a GET request is like <em>reading the menu and placing an order</em>, what would a POST request be analogous to?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q5">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -497,14 +595,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A <strong>POST</strong> request would be like <strong>submitting a new recipe</strong> to the restaurant’s kitchen — you’re not reading what’s already there, you’re adding something new to their collection. Or, you could think of it as filling out a comment card that gets filed in the restaurant’s records.</p>
 </div>
 </div>
 </div>
-<section id="section-9" class="level4">
-<h4 class="anchored" data-anchor-id="section-9">———————</h4>
+<section id="section-15" class="level4">
+<h4 class="anchored" data-anchor-id="section-15">———————</h4>
 <hr>
 </section>
 </section>
@@ -516,7 +614,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The <strong>endpoint</strong> (base address of the API) — the stable part</li>
 <li>The <strong>query string</strong> (key-value pairs that customize the request) — the dynamic part</li>
 </ul>
-<p><img src="images/URL-Anatomy.gif" class="img-fluid" alt="GIF showing anatomy of a URL with base URL, endpoint, and query string components"></p>
+<p>The animation below shows the Client (left) and API Server (right) with the URL being broken down between them. It highlights how the full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.</p>
+<p><img src="images/url-anatomy.gif" class="img-fluid" alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"></p>
 <section id="breaking-down-a-url" class="level3">
 <h3 class="anchored" data-anchor-id="breaking-down-a-url">Breaking Down a URL</h3>
 <p>Consider this example URL:</p>
@@ -588,15 +687,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<section id="section-10" class="level4">
-<h4 class="anchored" data-anchor-id="section-10">———————</h4>
+<section id="section-16" class="level4">
+<h4 class="anchored" data-anchor-id="section-16">———————</h4>
+</section>
+</section>
+<section id="visual-check-url-anatomy." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visual-check-url-anatomy.">Visual Check — URL Anatomy.</h3>
+<p><strong>(Open-Ended):</strong> Looking at the animation and the URL breakdown above, what single character marks the boundary between the endpoint and the query string? And if you accidentally left out your API key parameter entirely, which HTTP status code from Session 1 would you most likely receive back?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer — Visual Check
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <strong><code>?</code></strong> character marks the end of the endpoint and the start of the query string. Everything before <code>?</code> is the stable address of the resource; everything after it is customization. If you omit your API key, the server cannot verify who you are — you would most likely receive a <strong>401 Unauthorized</strong> status code, since authentication is missing.</p>
+</div>
+</div>
+</div>
+<section id="section-17" class="level4">
+<h4 class="anchored" data-anchor-id="section-17">———————</h4>
+</section>
+<section id="section-18" class="level4">
+<h4 class="anchored" data-anchor-id="section-18">———————</h4>
 </section>
 </section>
 <section id="q6." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q6.">Q6.</h3>
 <p><strong>(Open-Ended):</strong> In the URL <code>https://api.spotify.com/v1/search?q=Daft+Punk&amp;type=artist</code>, identify the <strong>endpoint</strong> and the two <strong>key-value pairs</strong> that make up the query string.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q6">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -605,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Endpoint:</strong> <code>https://api.spotify.com/v1/search</code></li>
@@ -614,11 +739,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="section-11" class="level4">
-<h4 class="anchored" data-anchor-id="section-11">———————</h4>
+<section id="section-19" class="level4">
+<h4 class="anchored" data-anchor-id="section-19">———————</h4>
 </section>
-<section id="section-12" class="level4">
-<h4 class="anchored" data-anchor-id="section-12">———————</h4>
+<section id="section-20" class="level4">
+<h4 class="anchored" data-anchor-id="section-20">———————</h4>
 </section>
 </section>
 <section id="q7." class="level3 unnumbered">
@@ -631,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Your script sends a URL and receives a URL.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q7">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -640,14 +765,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>b)</strong> The request itself is a carefully constructed <strong>URL</strong> containing the endpoint and query parameters. The API’s response comes back as <strong>JSON</strong> containing the data, metadata, and status code.</p>
 </div>
 </div>
 </div>
-<section id="section-13" class="level4">
-<h4 class="anchored" data-anchor-id="section-13">———————</h4>
+<section id="section-21" class="level4">
+<h4 class="anchored" data-anchor-id="section-21">———————</h4>
 <hr>
 </section>
 </section>
@@ -676,8 +801,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We are <strong>not</strong> sending JSON when we make a GET request. We’re sending a URL with parameters. <strong>JSON is what comes back</strong> to us in the response.</p>
 </div>
 </div>
-<section id="section-14" class="level4">
-<h4 class="anchored" data-anchor-id="section-14">———————</h4>
+<section id="section-22" class="level4">
+<h4 class="anchored" data-anchor-id="section-22">———————</h4>
 </section>
 <section id="q8." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q8.">Q8.</h3>
@@ -690,7 +815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Create a request object with <code>request()</code></li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q8">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -699,7 +824,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><strong>Construct the URL</strong> with endpoint and query parameters</li>
@@ -711,8 +836,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="section-15" class="level4">
-<h4 class="anchored" data-anchor-id="section-15">———————</h4>
+<section id="section-23" class="level4">
+<h4 class="anchored" data-anchor-id="section-23">———————</h4>
 <hr>
 </section>
 </section>
@@ -819,15 +944,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Notice we got a <code>201 Created</code> instead of <code>200 OK</code>. This is the standard success code for POST requests — it means the server successfully created the new resource.</p>
 </div>
 </div>
-<section id="section-16" class="level4">
-<h4 class="anchored" data-anchor-id="section-16">———————</h4>
+<section id="section-24" class="level4">
+<h4 class="anchored" data-anchor-id="section-24">———————</h4>
 </section>
 </section>
 <section id="q9." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q9.">Q9.</h3>
 <p><strong>(Open-Ended — Callback to Q7):</strong> In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON <em>in the request body</em>. How does this change what we learned about GET vs.&nbsp;POST?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q9">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -836,14 +961,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This reinforces the key difference: <strong>GET</strong> requests encode parameters in the URL and receive JSON back. <strong>POST</strong> requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going <em>both directions</em>, while GET only involves JSON coming back.</p>
 </div>
 </div>
 </div>
-<section id="section-17" class="level4">
-<h4 class="anchored" data-anchor-id="section-17">———————</h4>
+<section id="section-25" class="level4">
+<h4 class="anchored" data-anchor-id="section-25">———————</h4>
 <hr>
 </section>
 </section>
@@ -1403,411 +1528,475 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **U**pdate <span class="pp">|</span> <span class="in">`PUT`</span> / <span class="in">`PATCH`</span> <span class="pp">|</span> Modify existing data on the server <span class="pp">|</span></span>
 <span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **D**elete <span class="pp">|</span> <span class="in">`DELETE`</span> <span class="pp">|</span> Remove a resource from the server <span class="pp">|</span></span>
 <span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## For Data Science</span></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. However, <span class="in">`POST`</span> is sometimes needed — for example, to submit credentials and receive an access token.</span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>The image below maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it). As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/crud-operations.jpeg)</span>{fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## For Data Science</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. However, <span class="in">`POST`</span> is sometimes needed — for example, to submit credentials and receive an access token.</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which CRUD operation is most commonly used in data science when working with APIs?</span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>a) Create</span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>b) Read</span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>c) Update</span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>d) Delete</span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
-<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>**b) Read.** Data scientists most commonly use <span class="in">`GET`</span> requests to *read* (retrieve) data from external sources. We're consumers of data, not typically writing to external databases.</span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — CRUD Operations. {.unnumbered}</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** A social media app lets users edit their display name. Based on the image above, which CRUD operation and HTTP method does that action map to?</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>a) Create — POST</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>b) Read — GET</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>c) Update — PUT/PATCH</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>d) Delete — DELETE</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>**c) Update — PUT/PATCH.** Editing an existing record (changing a name that already exists) is an **Update** operation. PUT replaces the entire resource; PATCH modifies only the changed fields. Either could apply here, but the key point is that this is not Create (nothing new is being added) or Read (data is being changed, not just viewed).</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Session 1, Q4):** In Session 1, we learned that a *response* contains data, metadata, and a status code. Now, using the CRUD framework, explain: when you perform a **Read** operation, what HTTP method do you use, and what would a successful response look like?</span>
-<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
-<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>A **Read** operation uses the `GET` HTTP method. A successful response would have a **200 OK** status code, and the body would contain **JSON** data with the key-value pairs we requested — for example, <span class="in">`"temperature": 72`</span> or <span class="in">`"city": "San Luis Obispo"`</span>.</span>
-<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which CRUD operation is most commonly used in data science when working with APIs?</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>a) Create</span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>b) Read</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>c) Update</span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>d) Delete</span>
 <span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: GET Requests</span></span>
-<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>A <span class="in">`GET`</span> request is all about **retrieving** data. You're asking the server: "Give me this information."</span>
-<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Get-Request.gif)</span>{fig-alt="GIF showing GET request flow: Client constructs request, API validates, Server locates data, Client receives response"}</span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a>**b) Read.** Data scientists most commonly use <span class="in">`GET`</span> requests to *read* (retrieve) data from external sources. We're consumers of data, not typically writing to external databases.</span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>Here is the flow of a GET request:</span>
-<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Client** constructs a request for a resource.</span>
-<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**API** receives and validates the client's request.</span>
-<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Server** locates the requested data within the database.</span>
-<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Client** receives the requested data from the server.</span>
-<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## GET Characteristics</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Session 1, Q4):** In Session 1, we learned that a *response* contains data, metadata, and a status code. Now, using the CRUD framework, explain: when you perform a **Read** operation, what HTTP method do you use, and what would a successful response look like?</span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>A **Read** operation uses the `GET` HTTP method. A successful response would have a **200 OK** status code, and the body would contain **JSON** data with the key-value pairs we requested — for example, <span class="in">`"temperature": 72`</span> or <span class="in">`"city": "San Luis Obispo"`</span>.</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The request parameters are encoded **in the URL** (visible in the address bar)</span>
-<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GET requests are meant to be **read-only** — they don't change data on the server</span>
-<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>They are **idempotent** — making the same request multiple times gives the same result</span>
-<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: GET Requests</span></span>
 <span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
-<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Describe another example of a task a data scientist might perform using a **GET** request, beyond retrieving weather data.</span>
-<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
-<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>A data scientist could use a **GET** request to retrieve a list of the top 10 most popular articles from the New York Times API, fetch historical stock price data from a financial API, or get public information about a specific user from the GitHub API.</span>
-<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>A <span class="in">`GET`</span> request is all about **retrieving** data. You're asking the server: "Give me this information."</span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>The animation below shows a GET request for the resource <span class="in">`GET /users/42`</span>. Watch how the request originates at the **Client** and travels through the **API** to the **Server** and **Database**. Notice two things: first, the request carries only a path (<span class="in">`/users/42`</span>) — no data payload. Second, the response brings data back to the client while nothing new is written to the database.</span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/get-request.gif)</span>{fig-alt="Animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client"}</span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>Here is the flow of a GET request:</span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Client** constructs a request for a resource.</span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**API** receives and validates the client's request.</span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Server** locates the requested data within the database.</span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Client** receives the requested data from the server.</span>
 <span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: POST Requests</span></span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## GET Characteristics</span></span>
 <span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>A <span class="in">`POST`</span> request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."</span>
-<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/Post-Request.gif)</span>{fig-alt="GIF showing POST request flow: Client sends data in request body, API validates, Server creates record, Client receives confirmation"}</span>
-<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a>Here is the flow of a POST request:</span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The request parameters are encoded **in the URL** (visible in the address bar)</span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GET requests are meant to be **read-only** — they don't change data on the server</span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>They are **idempotent** — making the same request multiple times gives the same result</span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Client** sends new data within the request body.</span>
-<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**API** receives and validates the client's new data.</span>
-<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Server** creates a new record in the database.</span>
-<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Client** receives a confirmation for the new record.</span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — GET Request. {.unnumbered}</span></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** The animation shows a request for <span class="in">`GET /users/42`</span>. If you changed the request to <span class="in">`GET /users/7`</span>, what part of the request changes and what stays exactly the same?</span>
 <span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## GET vs. POST — Key Difference</span></span>
-<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GET** sends parameters *in the URL* — you're asking for data.</span>
-<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**POST** sends data *in the request body* — you're submitting new data.</span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>The **path parameter** changes from <span class="in">`42`</span> to <span class="in">`7`</span> — you're now asking for a different user record. Everything else stays the same: the HTTP method is still GET, the endpoint path structure (<span class="in">`/users/`</span>) is the same, and the overall flow (client → API → server → database → back) is identical. Only the specific resource being requested changes.</span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a>Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.</span>
-<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
 <span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
-<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which of the following data science tasks would most likely require a **POST** request instead of a GET request?</span>
-<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>a) Retrieving the current temperature for a city.</span>
-<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>b) Getting a list of your public repositories from the GitHub API.</span>
-<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>c) Submitting a new tweet through the X (formerly Twitter) API.</span>
-<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>d) Looking up the coordinates for a specific address.</span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Describe another example of a task a data scientist might perform using a **GET** request, beyond retrieving weather data.</span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>A data scientist could use a **GET** request to retrieve a list of the top 10 most popular articles from the New York Times API, fetch historical stock price data from a financial API, or get public information about a specific user from the GitHub API.</span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
-<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a>**c)** Submitting a new tweet involves **creating** a new resource on the server, which is the primary purpose of a **POST** request. The other options involve only retrieving existing data.</span>
-<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: POST Requests</span></span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a>A <span class="in">`POST`</span> request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."</span>
 <span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a>The animation below shows a POST request sending <span class="in">`POST /users`</span> with a JSON payload <span class="in">`{ "name": "Maya", "email": "maya@example.com" }`</span>. Compare this carefully to the GET animation: with GET, data flowed *from* the server *to* the client. With POST, data originates *at the client* and moves *toward* the server. The client is the source; the server is the destination.</span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/post-request.gif)</span>{fig-alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"}</span>
 <span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Q1):** We said POST maps to the **Create** operation in CRUD. In the restaurant analogy from Session 1, if a GET request is like *reading the menu and placing an order*, what would a POST request be analogous to?</span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>Here is the flow of a POST request:</span>
 <span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
-<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>A **POST** request would be like **submitting a new recipe** to the restaurant's kitchen — you're not reading what's already there, you're adding something new to their collection. Or, you could think of it as filling out a comment card that gets filed in the restaurant's records.</span>
-<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Client** sends new data within the request body.</span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**API** receives and validates the client's new data.</span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Server** creates a new record in the database.</span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Client** receives a confirmation for the new record.</span>
 <span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: URL Anatomy</span></span>
-<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>So how do we actually construct a request? A request is defined by a **URL**, which contains both:</span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## GET vs. POST — Key Difference</span></span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GET** sends parameters *in the URL* — you're asking for data.</span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**POST** sends data *in the request body* — you're submitting new data.</span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a>Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.</span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **endpoint** (base address of the API) — the stable part</span>
-<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **query string** (key-value pairs that customize the request) — the dynamic part</span>
-<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/URL-Anatomy.gif)</span>{fig-alt="GIF showing anatomy of a URL with base URL, endpoint, and query string components"}</span>
-<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a><span class="fu">### Breaking Down a URL</span></span>
-<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a>Consider this example URL:</span>
-<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a><span class="in">https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&amp;appid=YOUR_KEY&amp;units=imperial</span></span>
-<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Component <span class="pp">|</span> Value <span class="pp">|</span> Purpose <span class="pp">|</span></span>
-<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-------|---------|</span></span>
-<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Protocol** <span class="pp">|</span> <span class="in">`https://`</span> <span class="pp">|</span> Secure communication <span class="pp">|</span></span>
-<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Base URL** <span class="pp">|</span> <span class="in">`api.openweathermap.org`</span> <span class="pp">|</span> The API server <span class="pp">|</span></span>
-<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Endpoint** <span class="pp">|</span> <span class="in">`/data/2.5/weather`</span> <span class="pp">|</span> Which resource you want <span class="pp">|</span></span>
-<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Query separator** <span class="pp">|</span> <span class="in">`?`</span> <span class="pp">|</span> Marks the start of parameters <span class="pp">|</span></span>
-<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 1** <span class="pp">|</span> <span class="in">`q=San+Luis+Obispo`</span> <span class="pp">|</span> City name (URL-encoded) <span class="pp">|</span></span>
-<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter separator** <span class="pp">|</span> <span class="in">`&amp;`</span> <span class="pp">|</span> Separates key-value pairs <span class="pp">|</span></span>
-<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 2** <span class="pp">|</span> <span class="in">`appid=YOUR_KEY`</span> <span class="pp">|</span> Your API key <span class="pp">|</span></span>
-<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 3** <span class="pp">|</span> <span class="in">`units=imperial`</span> <span class="pp">|</span> Unit preference <span class="pp">|</span></span>
-<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Vocabulary</span></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — POST Request. {.unnumbered}</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** In the POST animation, the JSON payload <span class="in">`{ "name": "Maya", "email": "maya@example.com" }`</span> travels from the Client to the Server. Where does this data live in the request, and how is that different from a GET request?</span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>a) It is in the URL query string, just like GET parameters.</span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a>b) It is in the request **body** — unlike GET, which puts parameters in the URL.</span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a>c) It is sent as a separate file attachment.</span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a>d) It is stored in the API and forwarded automatically — no client action needed.</span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>**b)** POST sends data in the **request body** — a separate payload attached to the request. GET requests have no body; all their parameters are encoded directly in the URL (visible in the address bar). This is why POST is used for sending sensitive or large data — it keeps the payload out of the URL.</span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which of the following data science tasks would most likely require a **POST** request instead of a GET request?</span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>a) Retrieving the current temperature for a city.</span>
+<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a>b) Getting a list of your public repositories from the GitHub API.</span>
+<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a>c) Submitting a new tweet through the X (formerly Twitter) API.</span>
+<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a>d) Looking up the coordinates for a specific address.</span>
 <span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An **endpoint** is the specific URL where an API resource can be accessed. It's the stable part of the URL that doesn't change from one request to the next.</span>
-<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A **query string** customizes the request using key-value pairs. It always starts with <span class="in">`?`</span> and pairs are separated by <span class="in">`&amp;`</span>.</span>
+<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
+<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a>**c)** Submitting a new tweet involves **creating** a new resource on the server, which is the primary purpose of a **POST** request. The other options involve only retrieving existing data.</span>
 <span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
-<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&amp;type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.</span>
-<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
-<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Endpoint:** <span class="in">`https://api.spotify.com/v1/search`</span></span>
-<span id="cb10-216"><a href="#cb10-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Key-Value Pairs:** <span class="in">`q=Daft+Punk`</span> and <span class="in">`type=artist`</span></span>
+<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
+<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Q1):** We said POST maps to the **Create** operation in CRUD. In the restaurant analogy from Session 1, if a GET request is like *reading the menu and placing an order*, what would a POST request be analogous to?</span>
+<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
+<span id="cb10-216"><a href="#cb10-216" aria-hidden="true" tabindex="-1"></a>A **POST** request would be like **submitting a new recipe** to the restaurant's kitchen — you're not reading what's already there, you're adding something new to their collection. Or, you could think of it as filling out a comment card that gets filed in the restaurant's records.</span>
 <span id="cb10-217"><a href="#cb10-217" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
+<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Session 1 Q4):** When your R script makes a <span class="in">`GET`</span> request to the OpenWeather API, which statement is correct?</span>
+<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: URL Anatomy</span></span>
 <span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>a) Your script sends JSON and receives a URL.</span>
-<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a>b) Your script sends a URL and receives JSON.</span>
-<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a>c) Your script sends JSON and receives JSON.</span>
-<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a>d) Your script sends a URL and receives a URL.</span>
+<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>So how do we actually construct a request? A request is defined by a **URL**, which contains both:</span>
+<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **endpoint** (base address of the API) — the stable part</span>
+<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **query string** (key-value pairs that customize the request) — the dynamic part</span>
 <span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
-<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a>**b)** The request itself is a carefully constructed **URL** containing the endpoint and query parameters. The API's response comes back as **JSON** containing the data, metadata, and status code.</span>
-<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a>The animation below shows the Client (left) and API Server (right) with the URL being broken down between them. It highlights how the full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.</span>
+<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/url-anatomy.gif)</span>{fig-alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"}</span>
+<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a><span class="fu">### Breaking Down a URL</span></span>
 <span id="cb10-236"><a href="#cb10-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a>Consider this example URL:</span>
 <span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 5: Under the Hood — What Happens When You Make a Request</span></span>
-<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>Let's connect everything together:</span>
-<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You **construct a URL** from a base URL (endpoint) + query string (parameters).</span>
-<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Your client sends a **GET request** using this URL to the API.</span>
-<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The API relays this request to the **server**.</span>
-<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The server processes the request, queries the database, and sends a **response**.</span>
-<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The response includes a **status code** and the requested data (formatted as **JSON**).</span>
-<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Your R code **parses** the JSON into a data structure you can work with.</span>
-<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## Common Misconception</span></span>
-<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a>We are **not** sending JSON when we make a GET request. We're sending a URL with parameters. **JSON is what comes back** to us in the response.</span>
-<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a><span class="in">https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&amp;appid=YOUR_KEY&amp;units=imperial</span></span>
+<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Component <span class="pp">|</span> Value <span class="pp">|</span> Purpose <span class="pp">|</span></span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------|-------|---------|</span></span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Protocol** <span class="pp">|</span> <span class="in">`https://`</span> <span class="pp">|</span> Secure communication <span class="pp">|</span></span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Base URL** <span class="pp">|</span> <span class="in">`api.openweathermap.org`</span> <span class="pp">|</span> The API server <span class="pp">|</span></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Endpoint** <span class="pp">|</span> <span class="in">`/data/2.5/weather`</span> <span class="pp">|</span> Which resource you want <span class="pp">|</span></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Query separator** <span class="pp">|</span> <span class="in">`?`</span> <span class="pp">|</span> Marks the start of parameters <span class="pp">|</span></span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 1** <span class="pp">|</span> <span class="in">`q=San+Luis+Obispo`</span> <span class="pp">|</span> City name (URL-encoded) <span class="pp">|</span></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter separator** <span class="pp">|</span> <span class="in">`&amp;`</span> <span class="pp">|</span> Separates key-value pairs <span class="pp">|</span></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 2** <span class="pp">|</span> <span class="in">`appid=YOUR_KEY`</span> <span class="pp">|</span> Your API key <span class="pp">|</span></span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Parameter 3** <span class="pp">|</span> <span class="in">`units=imperial`</span> <span class="pp">|</span> Unit preference <span class="pp">|</span></span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Vocabulary</span></span>
 <span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
-<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Put the following steps in the correct order for making an API request in R:</span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An **endpoint** is the specific URL where an API resource can be accessed. It's the stable part of the URL that doesn't change from one request to the next.</span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A **query string** customizes the request using key-value pairs. It always starts with <span class="in">`?`</span> and pairs are separated by <span class="in">`&amp;`</span>.</span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Parse the JSON response into a data frame</span>
-<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Construct the URL with endpoint and query parameters</span>
-<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Check the status code for success (200)</span>
-<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Send the request using <span class="in">`req_perform()`</span></span>
-<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Create a request object with <span class="in">`request()`</span></span>
-<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
-<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Construct the URL** with endpoint and query parameters</span>
-<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Create a request object** with <span class="in">`request()`</span></span>
-<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Send the request** using <span class="in">`req_perform()`</span></span>
-<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Check the status code** for success (200)</span>
-<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Parse the JSON response** into a data frame</span>
-<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — URL Anatomy. {.unnumbered}</span></span>
+<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Looking at the animation and the URL breakdown above, what single character marks the boundary between the endpoint and the query string? And if you accidentally left out your API key parameter entirely, which HTTP status code from Session 1 would you most likely receive back?</span>
+<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
+<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>The **`?`** character marks the end of the endpoint and the start of the query string. Everything before `?` is the stable address of the resource; everything after it is customization. If you omit your API key, the server cannot verify who you are — you would most likely receive a **401 Unauthorized** status code, since authentication is missing.</span>
+<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
+<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&amp;type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.</span>
 <span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 6: Hands-On — Making Requests to a Dummy Server</span></span>
-<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a>Now let's get our hands dirty! We'll make real requests to a practice server to see how this works before moving to the Weather API tomorrow.</span>
+<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
+<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Endpoint:** <span class="in">`https://api.spotify.com/v1/search`</span></span>
+<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Key-Value Pairs:** <span class="in">`q=Daft+Punk`</span> and <span class="in">`type=artist`</span></span>
+<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load Libraries</span></span>
-<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)       <span class="co"># Makes web requests</span></span>
-<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)      <span class="co"># Tidyverse data frames</span></span>
-<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)       <span class="co"># Data manipulation</span></span>
-<span id="cb10-294"><a href="#cb10-294" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)        <span class="co"># String construction</span></span>
-<span id="cb10-295"><a href="#cb10-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-297"><a href="#cb10-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-298"><a href="#cb10-298" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a GET Request</span></span>
+<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
+<span id="cb10-287"><a href="#cb10-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-288"><a href="#cb10-288" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Session 1 Q4):** When your R script makes a <span class="in">`GET`</span> request to the OpenWeather API, which statement is correct?</span>
+<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a>a) Your script sends JSON and receives a URL.</span>
+<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a>b) Your script sends a URL and receives JSON.</span>
+<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a>c) Your script sends JSON and receives JSON.</span>
+<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a>d) Your script sends a URL and receives a URL.</span>
+<span id="cb10-294"><a href="#cb10-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-295"><a href="#cb10-295" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
+<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a>**b)** The request itself is a carefully constructed **URL** containing the endpoint and query parameters. The API's response comes back as **JSON** containing the data, metadata, and status code.</span>
+<span id="cb10-297"><a href="#cb10-297" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-298"><a href="#cb10-298" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb10-299"><a href="#cb10-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-300"><a href="#cb10-300" aria-hidden="true" tabindex="-1"></a>Let's start with a simple GET request to a public test API:</span>
-<span id="cb10-301"><a href="#cb10-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-304"><a href="#cb10-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-305"><a href="#cb10-305" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Define the URL</span></span>
-<span id="cb10-306"><a href="#cb10-306" aria-hidden="true" tabindex="-1"></a>test_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/users/1"</span></span>
+<span id="cb10-300"><a href="#cb10-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-301"><a href="#cb10-301" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-302"><a href="#cb10-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-303"><a href="#cb10-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-304"><a href="#cb10-304" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 5: Under the Hood — What Happens When You Make a Request</span></span>
+<span id="cb10-305"><a href="#cb10-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-306"><a href="#cb10-306" aria-hidden="true" tabindex="-1"></a>Let's connect everything together:</span>
 <span id="cb10-307"><a href="#cb10-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-308"><a href="#cb10-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create a request object</span></span>
-<span id="cb10-309"><a href="#cb10-309" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(test_url)</span>
-<span id="cb10-310"><a href="#cb10-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-311"><a href="#cb10-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Perform the request</span></span>
-<span id="cb10-312"><a href="#cb10-312" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
-<span id="cb10-313"><a href="#cb10-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-314"><a href="#cb10-314" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code</span></span>
-<span id="cb10-315"><a href="#cb10-315" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(response)</span>
-<span id="cb10-316"><a href="#cb10-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-317"><a href="#cb10-317" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Check the content type</span></span>
-<span id="cb10-318"><a href="#cb10-318" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_content_type</span>(response)</span>
-<span id="cb10-319"><a href="#cb10-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-308"><a href="#cb10-308" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>You **construct a URL** from a base URL (endpoint) + query string (parameters).</span>
+<span id="cb10-309"><a href="#cb10-309" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Your client sends a **GET request** using this URL to the API.</span>
+<span id="cb10-310"><a href="#cb10-310" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The API relays this request to the **server**.</span>
+<span id="cb10-311"><a href="#cb10-311" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The server processes the request, queries the database, and sends a **response**.</span>
+<span id="cb10-312"><a href="#cb10-312" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The response includes a **status code** and the requested data (formatted as **JSON**).</span>
+<span id="cb10-313"><a href="#cb10-313" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Your R code **parses** the JSON into a data structure you can work with.</span>
+<span id="cb10-314"><a href="#cb10-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-315"><a href="#cb10-315" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb10-316"><a href="#cb10-316" aria-hidden="true" tabindex="-1"></a><span class="fu">## Common Misconception</span></span>
+<span id="cb10-317"><a href="#cb10-317" aria-hidden="true" tabindex="-1"></a>We are **not** sending JSON when we make a GET request. We're sending a URL with parameters. **JSON is what comes back** to us in the response.</span>
+<span id="cb10-318"><a href="#cb10-318" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-319"><a href="#cb10-319" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-320"><a href="#cb10-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-323"><a href="#cb10-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-324"><a href="#cb10-324" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Parse the JSON response</span></span>
-<span id="cb10-325"><a href="#cb10-325" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
-<span id="cb10-326"><a href="#cb10-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-327"><a href="#cb10-327" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: Inspect the structure</span></span>
-<span id="cb10-328"><a href="#cb10-328" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(result)</span>
-<span id="cb10-329"><a href="#cb10-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-330"><a href="#cb10-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-333"><a href="#cb10-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-334"><a href="#cb10-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 8: Convert to a data frame</span></span>
-<span id="cb10-335"><a href="#cb10-335" aria-hidden="true" tabindex="-1"></a>user_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(result)</span>
-<span id="cb10-336"><a href="#cb10-336" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(user_df)</span>
-<span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a GET Request with Query Parameters</span></span>
+<span id="cb10-321"><a href="#cb10-321" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-322"><a href="#cb10-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
+<span id="cb10-323"><a href="#cb10-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-324"><a href="#cb10-324" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Put the following steps in the correct order for making an API request in R:</span>
+<span id="cb10-325"><a href="#cb10-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-326"><a href="#cb10-326" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Parse the JSON response into a data frame</span>
+<span id="cb10-327"><a href="#cb10-327" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Construct the URL with endpoint and query parameters</span>
+<span id="cb10-328"><a href="#cb10-328" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Check the status code for success (200)</span>
+<span id="cb10-329"><a href="#cb10-329" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Send the request using <span class="in">`req_perform()`</span></span>
+<span id="cb10-330"><a href="#cb10-330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Create a request object with <span class="in">`request()`</span></span>
+<span id="cb10-331"><a href="#cb10-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-332"><a href="#cb10-332" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
+<span id="cb10-333"><a href="#cb10-333" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Construct the URL** with endpoint and query parameters</span>
+<span id="cb10-334"><a href="#cb10-334" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Create a request object** with <span class="in">`request()`</span></span>
+<span id="cb10-335"><a href="#cb10-335" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Send the request** using <span class="in">`req_perform()`</span></span>
+<span id="cb10-336"><a href="#cb10-336" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Check the status code** for success (200)</span>
+<span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Parse the JSON response** into a data frame</span>
+<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-341"><a href="#cb10-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-344"><a href="#cb10-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-345"><a href="#cb10-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Get posts by a specific user</span></span>
-<span id="cb10-346"><a href="#cb10-346" aria-hidden="true" tabindex="-1"></a>posts_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/posts"</span></span>
-<span id="cb10-347"><a href="#cb10-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-348"><a href="#cb10-348" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: Using glue to build the URL</span></span>
-<span id="cb10-349"><a href="#cb10-349" aria-hidden="true" tabindex="-1"></a>posts_url_query <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"{posts_url}?userId=1"</span>)</span>
+<span id="cb10-342"><a href="#cb10-342" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-343"><a href="#cb10-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-344"><a href="#cb10-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-345"><a href="#cb10-345" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 6: Hands-On — Making Requests to a Dummy Server</span></span>
+<span id="cb10-346"><a href="#cb10-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-347"><a href="#cb10-347" aria-hidden="true" tabindex="-1"></a>Now let's get our hands dirty! We'll make real requests to a practice server to see how this works before moving to the Weather API tomorrow.</span>
+<span id="cb10-348"><a href="#cb10-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-349"><a href="#cb10-349" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load Libraries</span></span>
 <span id="cb10-350"><a href="#cb10-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-351"><a href="#cb10-351" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(posts_url_query)</span>
-<span id="cb10-352"><a href="#cb10-352" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
-<span id="cb10-353"><a href="#cb10-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-354"><a href="#cb10-354" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(response) <span class="sc">==</span> <span class="dv">200</span>) {</span>
-<span id="cb10-355"><a href="#cb10-355" aria-hidden="true" tabindex="-1"></a>  posts <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
-<span id="cb10-356"><a href="#cb10-356" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Number of posts retrieved:"</span>, <span class="fu">length</span>(posts), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-357"><a href="#cb10-357" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-358"><a href="#cb10-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-359"><a href="#cb10-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-353"><a href="#cb10-353" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-354"><a href="#cb10-354" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb10-355"><a href="#cb10-355" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)       <span class="co"># Makes web requests</span></span>
+<span id="cb10-356"><a href="#cb10-356" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)      <span class="co"># Tidyverse data frames</span></span>
+<span id="cb10-357"><a href="#cb10-357" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)       <span class="co"># Data manipulation</span></span>
+<span id="cb10-358"><a href="#cb10-358" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)        <span class="co"># String construction</span></span>
+<span id="cb10-359"><a href="#cb10-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-360"><a href="#cb10-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-361"><a href="#cb10-361" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a POST Request</span></span>
-<span id="cb10-362"><a href="#cb10-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-363"><a href="#cb10-363" aria-hidden="true" tabindex="-1"></a>Now let's **send** data to the server:</span>
-<span id="cb10-364"><a href="#cb10-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-367"><a href="#cb10-367" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-368"><a href="#cb10-368" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Define the endpoint</span></span>
-<span id="cb10-369"><a href="#cb10-369" aria-hidden="true" tabindex="-1"></a>post_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/posts"</span></span>
-<span id="cb10-370"><a href="#cb10-370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-371"><a href="#cb10-371" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create the request with a body</span></span>
-<span id="cb10-372"><a href="#cb10-372" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(post_url) <span class="sc">|&gt;</span></span>
-<span id="cb10-373"><a href="#cb10-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-374"><a href="#cb10-374" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(<span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-375"><a href="#cb10-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
-<span id="cb10-376"><a href="#cb10-376" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My API Workshop Post"</span>,</span>
-<span id="cb10-377"><a href="#cb10-377" aria-hidden="true" tabindex="-1"></a>    <span class="at">body =</span> <span class="st">"Learning about APIs is fun!"</span>,</span>
-<span id="cb10-378"><a href="#cb10-378" aria-hidden="true" tabindex="-1"></a>    <span class="at">userId =</span> <span class="dv">1</span></span>
-<span id="cb10-379"><a href="#cb10-379" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb10-361"><a href="#cb10-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-362"><a href="#cb10-362" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a GET Request</span></span>
+<span id="cb10-363"><a href="#cb10-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-364"><a href="#cb10-364" aria-hidden="true" tabindex="-1"></a>Let's start with a simple GET request to a public test API:</span>
+<span id="cb10-365"><a href="#cb10-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-368"><a href="#cb10-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-369"><a href="#cb10-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Define the URL</span></span>
+<span id="cb10-370"><a href="#cb10-370" aria-hidden="true" tabindex="-1"></a>test_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/users/1"</span></span>
+<span id="cb10-371"><a href="#cb10-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-372"><a href="#cb10-372" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create a request object</span></span>
+<span id="cb10-373"><a href="#cb10-373" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(test_url)</span>
+<span id="cb10-374"><a href="#cb10-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-375"><a href="#cb10-375" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Perform the request</span></span>
+<span id="cb10-376"><a href="#cb10-376" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-377"><a href="#cb10-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-378"><a href="#cb10-378" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code</span></span>
+<span id="cb10-379"><a href="#cb10-379" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(response)</span>
 <span id="cb10-380"><a href="#cb10-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-381"><a href="#cb10-381" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Perform the request</span></span>
-<span id="cb10-382"><a href="#cb10-382" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
-<span id="cb10-383"><a href="#cb10-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-384"><a href="#cb10-384" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code (201 = Created)</span></span>
-<span id="cb10-385"><a href="#cb10-385" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Status:"</span>, <span class="fu">resp_status</span>(response), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-386"><a href="#cb10-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-387"><a href="#cb10-387" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: See the response</span></span>
-<span id="cb10-388"><a href="#cb10-388" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
-<span id="cb10-389"><a href="#cb10-389" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span>
-<span id="cb10-390"><a href="#cb10-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-391"><a href="#cb10-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-392"><a href="#cb10-392" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb10-393"><a href="#cb10-393" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status Code 201</span></span>
-<span id="cb10-394"><a href="#cb10-394" aria-hidden="true" tabindex="-1"></a>Notice we got a <span class="in">`201 Created`</span> instead of <span class="in">`200 OK`</span>. This is the standard success code for POST requests — it means the server successfully created the new resource.</span>
-<span id="cb10-395"><a href="#cb10-395" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-396"><a href="#cb10-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-397"><a href="#cb10-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-398"><a href="#cb10-398" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-399"><a href="#cb10-399" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
-<span id="cb10-400"><a href="#cb10-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-401"><a href="#cb10-401" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Q7):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?</span>
+<span id="cb10-381"><a href="#cb10-381" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Check the content type</span></span>
+<span id="cb10-382"><a href="#cb10-382" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_content_type</span>(response)</span>
+<span id="cb10-383"><a href="#cb10-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-384"><a href="#cb10-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-387"><a href="#cb10-387" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-388"><a href="#cb10-388" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Parse the JSON response</span></span>
+<span id="cb10-389"><a href="#cb10-389" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
+<span id="cb10-390"><a href="#cb10-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-391"><a href="#cb10-391" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: Inspect the structure</span></span>
+<span id="cb10-392"><a href="#cb10-392" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(result)</span>
+<span id="cb10-393"><a href="#cb10-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-394"><a href="#cb10-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-397"><a href="#cb10-397" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-398"><a href="#cb10-398" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 8: Convert to a data frame</span></span>
+<span id="cb10-399"><a href="#cb10-399" aria-hidden="true" tabindex="-1"></a>user_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(result)</span>
+<span id="cb10-400"><a href="#cb10-400" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(user_df)</span>
+<span id="cb10-401"><a href="#cb10-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-402"><a href="#cb10-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-403"><a href="#cb10-403" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
-<span id="cb10-404"><a href="#cb10-404" aria-hidden="true" tabindex="-1"></a>This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.</span>
-<span id="cb10-405"><a href="#cb10-405" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb10-406"><a href="#cb10-406" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb10-407"><a href="#cb10-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-408"><a href="#cb10-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-409"><a href="#cb10-409" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb10-410"><a href="#cb10-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-403"><a href="#cb10-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-404"><a href="#cb10-404" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a GET Request with Query Parameters</span></span>
+<span id="cb10-405"><a href="#cb10-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-408"><a href="#cb10-408" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-409"><a href="#cb10-409" aria-hidden="true" tabindex="-1"></a><span class="co"># Get posts by a specific user</span></span>
+<span id="cb10-410"><a href="#cb10-410" aria-hidden="true" tabindex="-1"></a>posts_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/posts"</span></span>
 <span id="cb10-411"><a href="#cb10-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-412"><a href="#cb10-412" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 7: Handling Response Metadata and Status Codes</span></span>
-<span id="cb10-413"><a href="#cb10-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-414"><a href="#cb10-414" aria-hidden="true" tabindex="-1"></a>Let's explore what happens when things go wrong:</span>
-<span id="cb10-415"><a href="#cb10-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-418"><a href="#cb10-418" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-419"><a href="#cb10-419" aria-hidden="true" tabindex="-1"></a><span class="co"># Try requesting a resource that doesn't exist</span></span>
-<span id="cb10-420"><a href="#cb10-420" aria-hidden="true" tabindex="-1"></a>bad_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/users/999999"</span></span>
-<span id="cb10-421"><a href="#cb10-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-422"><a href="#cb10-422" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(bad_url)</span>
-<span id="cb10-423"><a href="#cb10-423" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-412"><a href="#cb10-412" aria-hidden="true" tabindex="-1"></a><span class="co"># Method 1: Using glue to build the URL</span></span>
+<span id="cb10-413"><a href="#cb10-413" aria-hidden="true" tabindex="-1"></a>posts_url_query <span class="ot">&lt;-</span> <span class="fu">glue</span>(<span class="st">"{posts_url}?userId=1"</span>)</span>
+<span id="cb10-414"><a href="#cb10-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-415"><a href="#cb10-415" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(posts_url_query)</span>
+<span id="cb10-416"><a href="#cb10-416" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-417"><a href="#cb10-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-418"><a href="#cb10-418" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(response) <span class="sc">==</span> <span class="dv">200</span>) {</span>
+<span id="cb10-419"><a href="#cb10-419" aria-hidden="true" tabindex="-1"></a>  posts <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
+<span id="cb10-420"><a href="#cb10-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Number of posts retrieved:"</span>, <span class="fu">length</span>(posts), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-421"><a href="#cb10-421" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-422"><a href="#cb10-422" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-423"><a href="#cb10-423" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-424"><a href="#cb10-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-425"><a href="#cb10-425" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the status</span></span>
-<span id="cb10-426"><a href="#cb10-426" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Status code:"</span>, <span class="fu">resp_status</span>(response), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-427"><a href="#cb10-427" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-425"><a href="#cb10-425" aria-hidden="true" tabindex="-1"></a><span class="fu">### Making a POST Request</span></span>
+<span id="cb10-426"><a href="#cb10-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-427"><a href="#cb10-427" aria-hidden="true" tabindex="-1"></a>Now let's **send** data to the server:</span>
 <span id="cb10-428"><a href="#cb10-428" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-431"><a href="#cb10-431" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-432"><a href="#cb10-432" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a robust request handler</span></span>
-<span id="cb10-433"><a href="#cb10-433" aria-hidden="true" tabindex="-1"></a>safe_get <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
-<span id="cb10-434"><a href="#cb10-434" aria-hidden="true" tabindex="-1"></a>  req <span class="ot">&lt;-</span> <span class="fu">request</span>(url)</span>
-<span id="cb10-435"><a href="#cb10-435" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
-<span id="cb10-436"><a href="#cb10-436" aria-hidden="true" tabindex="-1"></a>  status <span class="ot">&lt;-</span> <span class="fu">resp_status</span>(response)</span>
-<span id="cb10-437"><a href="#cb10-437" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-438"><a href="#cb10-438" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (status <span class="sc">==</span> <span class="dv">200</span>) {</span>
-<span id="cb10-439"><a href="#cb10-439" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Success! Status:"</span>, status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-440"><a href="#cb10-440" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">resp_body_json</span>(response))</span>
-<span id="cb10-441"><a href="#cb10-441" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (status <span class="sc">&gt;=</span> <span class="dv">400</span> <span class="sc">&amp;</span> status <span class="sc">&lt;</span> <span class="dv">500</span>) {</span>
-<span id="cb10-442"><a href="#cb10-442" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Client error! Status:"</span>, status, <span class="st">"- Check your URL or parameters.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-443"><a href="#cb10-443" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb10-444"><a href="#cb10-444" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (status <span class="sc">&gt;=</span> <span class="dv">500</span>) {</span>
-<span id="cb10-445"><a href="#cb10-445" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Server error! Status:"</span>, status, <span class="st">"- The server has an issue.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb10-446"><a href="#cb10-446" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb10-447"><a href="#cb10-447" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-448"><a href="#cb10-448" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-449"><a href="#cb10-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-450"><a href="#cb10-450" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
-<span id="cb10-451"><a href="#cb10-451" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">safe_get</span>(<span class="st">"https://jsonplaceholder.typicode.com/users/1"</span>)</span>
-<span id="cb10-452"><a href="#cb10-452" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-453"><a href="#cb10-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-454"><a href="#cb10-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-455"><a href="#cb10-455" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb10-456"><a href="#cb10-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-457"><a href="#cb10-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-458"><a href="#cb10-458" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 2 Recap</span></span>
-<span id="cb10-459"><a href="#cb10-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-460"><a href="#cb10-460" aria-hidden="true" tabindex="-1"></a>In this session, we moved from concepts to code:</span>
+<span id="cb10-432"><a href="#cb10-432" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Define the endpoint</span></span>
+<span id="cb10-433"><a href="#cb10-433" aria-hidden="true" tabindex="-1"></a>post_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/posts"</span></span>
+<span id="cb10-434"><a href="#cb10-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-435"><a href="#cb10-435" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Create the request with a body</span></span>
+<span id="cb10-436"><a href="#cb10-436" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(post_url) <span class="sc">|&gt;</span></span>
+<span id="cb10-437"><a href="#cb10-437" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-438"><a href="#cb10-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(<span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-439"><a href="#cb10-439" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb10-440"><a href="#cb10-440" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"My API Workshop Post"</span>,</span>
+<span id="cb10-441"><a href="#cb10-441" aria-hidden="true" tabindex="-1"></a>    <span class="at">body =</span> <span class="st">"Learning about APIs is fun!"</span>,</span>
+<span id="cb10-442"><a href="#cb10-442" aria-hidden="true" tabindex="-1"></a>    <span class="at">userId =</span> <span class="dv">1</span></span>
+<span id="cb10-443"><a href="#cb10-443" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb10-444"><a href="#cb10-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-445"><a href="#cb10-445" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Perform the request</span></span>
+<span id="cb10-446"><a href="#cb10-446" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-447"><a href="#cb10-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-448"><a href="#cb10-448" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code (201 = Created)</span></span>
+<span id="cb10-449"><a href="#cb10-449" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Status:"</span>, <span class="fu">resp_status</span>(response), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-450"><a href="#cb10-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-451"><a href="#cb10-451" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: See the response</span></span>
+<span id="cb10-452"><a href="#cb10-452" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
+<span id="cb10-453"><a href="#cb10-453" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span>
+<span id="cb10-454"><a href="#cb10-454" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-455"><a href="#cb10-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-456"><a href="#cb10-456" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-457"><a href="#cb10-457" aria-hidden="true" tabindex="-1"></a><span class="fu">## Status Code 201</span></span>
+<span id="cb10-458"><a href="#cb10-458" aria-hidden="true" tabindex="-1"></a>Notice we got a <span class="in">`201 Created`</span> instead of <span class="in">`200 OK`</span>. This is the standard success code for POST requests — it means the server successfully created the new resource.</span>
+<span id="cb10-459"><a href="#cb10-459" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-460"><a href="#cb10-460" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-461"><a href="#cb10-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-462"><a href="#cb10-462" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)</span>
-<span id="cb10-463"><a href="#cb10-463" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**GET Requests** — retrieve data, parameters in the URL</span>
-<span id="cb10-464"><a href="#cb10-464" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**POST Requests** — send new data in the request body</span>
-<span id="cb10-465"><a href="#cb10-465" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**URL Anatomy** — protocol, base URL, endpoint, query string, parameters</span>
-<span id="cb10-466"><a href="#cb10-466" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Hands-on practice** — making real GET and POST requests to a dummy server</span>
-<span id="cb10-467"><a href="#cb10-467" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Error handling** — using status codes to diagnose problems</span>
-<span id="cb10-468"><a href="#cb10-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-469"><a href="#cb10-469" aria-hidden="true" tabindex="-1"></a>**Up next in Session 3 (tomorrow):** We'll set up our API key, make real requests to the OpenWeather API, and build functions to retrieve weather data!</span>
+<span id="cb10-462"><a href="#cb10-462" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-463"><a href="#cb10-463" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
+<span id="cb10-464"><a href="#cb10-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-465"><a href="#cb10-465" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Q7):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?</span>
+<span id="cb10-466"><a href="#cb10-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-467"><a href="#cb10-467" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
+<span id="cb10-468"><a href="#cb10-468" aria-hidden="true" tabindex="-1"></a>This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.</span>
+<span id="cb10-469"><a href="#cb10-469" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-470"><a href="#cb10-470" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb10-471"><a href="#cb10-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-472"><a href="#cb10-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-473"><a href="#cb10-473" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-474"><a href="#cb10-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-475"><a href="#cb10-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-476"><a href="#cb10-476" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 7: Handling Response Metadata and Status Codes</span></span>
+<span id="cb10-477"><a href="#cb10-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-478"><a href="#cb10-478" aria-hidden="true" tabindex="-1"></a>Let's explore what happens when things go wrong:</span>
+<span id="cb10-479"><a href="#cb10-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-482"><a href="#cb10-482" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-483"><a href="#cb10-483" aria-hidden="true" tabindex="-1"></a><span class="co"># Try requesting a resource that doesn't exist</span></span>
+<span id="cb10-484"><a href="#cb10-484" aria-hidden="true" tabindex="-1"></a>bad_url <span class="ot">&lt;-</span> <span class="st">"https://jsonplaceholder.typicode.com/users/999999"</span></span>
+<span id="cb10-485"><a href="#cb10-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-486"><a href="#cb10-486" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(bad_url)</span>
+<span id="cb10-487"><a href="#cb10-487" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-488"><a href="#cb10-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-489"><a href="#cb10-489" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the status</span></span>
+<span id="cb10-490"><a href="#cb10-490" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Status code:"</span>, <span class="fu">resp_status</span>(response), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-491"><a href="#cb10-491" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-492"><a href="#cb10-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-495"><a href="#cb10-495" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-496"><a href="#cb10-496" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a robust request handler</span></span>
+<span id="cb10-497"><a href="#cb10-497" aria-hidden="true" tabindex="-1"></a>safe_get <span class="ot">&lt;-</span> <span class="cf">function</span>(url) {</span>
+<span id="cb10-498"><a href="#cb10-498" aria-hidden="true" tabindex="-1"></a>  req <span class="ot">&lt;-</span> <span class="fu">request</span>(url)</span>
+<span id="cb10-499"><a href="#cb10-499" aria-hidden="true" tabindex="-1"></a>  response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb10-500"><a href="#cb10-500" aria-hidden="true" tabindex="-1"></a>  status <span class="ot">&lt;-</span> <span class="fu">resp_status</span>(response)</span>
+<span id="cb10-501"><a href="#cb10-501" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-502"><a href="#cb10-502" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (status <span class="sc">==</span> <span class="dv">200</span>) {</span>
+<span id="cb10-503"><a href="#cb10-503" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Success! Status:"</span>, status, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-504"><a href="#cb10-504" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">resp_body_json</span>(response))</span>
+<span id="cb10-505"><a href="#cb10-505" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (status <span class="sc">&gt;=</span> <span class="dv">400</span> <span class="sc">&amp;</span> status <span class="sc">&lt;</span> <span class="dv">500</span>) {</span>
+<span id="cb10-506"><a href="#cb10-506" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Client error! Status:"</span>, status, <span class="st">"- Check your URL or parameters.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-507"><a href="#cb10-507" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb10-508"><a href="#cb10-508" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (status <span class="sc">&gt;=</span> <span class="dv">500</span>) {</span>
+<span id="cb10-509"><a href="#cb10-509" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Server error! Status:"</span>, status, <span class="st">"- The server has an issue.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb10-510"><a href="#cb10-510" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb10-511"><a href="#cb10-511" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-512"><a href="#cb10-512" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-513"><a href="#cb10-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-514"><a href="#cb10-514" aria-hidden="true" tabindex="-1"></a><span class="co"># Test it</span></span>
+<span id="cb10-515"><a href="#cb10-515" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">safe_get</span>(<span class="st">"https://jsonplaceholder.typicode.com/users/1"</span>)</span>
+<span id="cb10-516"><a href="#cb10-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-517"><a href="#cb10-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-518"><a href="#cb10-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-519"><a href="#cb10-519" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb10-520"><a href="#cb10-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-521"><a href="#cb10-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-522"><a href="#cb10-522" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 2 Recap</span></span>
+<span id="cb10-523"><a href="#cb10-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-524"><a href="#cb10-524" aria-hidden="true" tabindex="-1"></a>In this session, we moved from concepts to code:</span>
+<span id="cb10-525"><a href="#cb10-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-526"><a href="#cb10-526" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)</span>
+<span id="cb10-527"><a href="#cb10-527" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**GET Requests** — retrieve data, parameters in the URL</span>
+<span id="cb10-528"><a href="#cb10-528" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**POST Requests** — send new data in the request body</span>
+<span id="cb10-529"><a href="#cb10-529" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**URL Anatomy** — protocol, base URL, endpoint, query string, parameters</span>
+<span id="cb10-530"><a href="#cb10-530" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Hands-on practice** — making real GET and POST requests to a dummy server</span>
+<span id="cb10-531"><a href="#cb10-531" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Error handling** — using status codes to diagnose problems</span>
+<span id="cb10-532"><a href="#cb10-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-533"><a href="#cb10-533" aria-hidden="true" tabindex="-1"></a>**Up next in Session 3 (tomorrow):** We'll set up our API key, make real requests to the OpenWeather API, and build functions to retrieve weather data!</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
