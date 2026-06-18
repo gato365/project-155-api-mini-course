@@ -80,7 +80,9 @@ Client (request) → API → Server → Database
 **Response direction:**
 Client ← API ← Server (response) ← Database
 
-![](images/API-Request-Response.gif){fig-alt="GIF showing API request and response flow between Client, API, Server, and Database"}
+The animation below traces a single API call from start to finish. There are four components in the chain: the **Client** (your R script or browser), the **API** (the endpoint — the "front door"), the **Server** (backend logic that processes the request), and the **Database** (where the actual data lives). The request moves left to right; the response travels the same path in reverse.
+
+![](images/api-data-flow.gif){fig-alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"}
 
 ::: {.callout-note}
 ## Key Observations
@@ -91,6 +93,22 @@ Client ← API ← Server (response) ← Database
 - The response travels back the same path.
 - A client and server can exist on the same computer — this is common in local development.
 :::
+
+
+#### ———————
+### Visual Check — API Data Flow. {.unnumbered}
+
+**(Multiple Choice):** In the animation, the API sits between the Client and the Server. What best describes the API's role in this chain?
+
+a) It stores the data permanently.
+b) It acts as a gateway — receiving requests from the client and routing them to the server.
+c) It runs the backend logic that queries the database.
+d) It is the same as the database.
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+**b)** The API is a **gateway** or controlled interface. It does not store data (that's the database) and it does not run the core business logic (that's the server). It is the stable "front door" that clients talk to, and it routes requests onward.
+:::
+#### ———————
 
 
 #### ———————
@@ -166,7 +184,9 @@ A **request** is what you *send* to a server to ask for information. It's an out
 
 Now let's focus on the **response** — specifically, what it looks like. API responses are almost always formatted as **JSON** (JavaScript Object Notation).
 
-![](images/Anatomy_of_a_JSON_Response.gif){fig-alt="GIF showing anatomy of a JSON response with body, data, metadata, and status code"}
+The animation below reveals the layers of a JSON response. The entire thing — everything the server sends back — is called the **Body** or **Content**. It is wrapped in curly braces `{ }`. Inside that body, the content is divided into three zones: the **data** (what you asked for), **metadata** (context about the response), and the **status code** (the success or failure signal). The animation builds these zones one at a time so you can see how they fit together.
+
+![](images/anatomy-of-json-response.gif){fig-alt="Animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence"}
 
 ::: {.callout-note}
 ## What is JSON?
@@ -176,6 +196,17 @@ When we send a request to an API, we get a response body, which includes the con
 - **Metadata**: information about the response (timestamps, units, request ID)
 - **Status code**: tells us if the request worked
 :::
+
+
+#### ———————
+### Visual Check — JSON Response Anatomy. {.unnumbered}
+
+**(Open-Ended):** The animation shows the entire response wrapped in `{ }`. When you call `resp_body_json()` in R to parse this response, what R data structure does that outer `{ }` (a JSON object) become, and how would you access the value for a key called `"temperature"` inside it?
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+A JSON object (`{ }`) becomes a **named list** in R. To access the value for `"temperature"`, you would use `result$temperature` or `result[["temperature"]]`, where `result` is the variable holding the parsed response.
+:::
+#### ———————
 
 
 ### JSON Structure: Key-Value Pairs

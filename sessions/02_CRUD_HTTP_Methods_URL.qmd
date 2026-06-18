@@ -46,10 +46,30 @@ What type of client requests can we make? The **CRUD framework** organizes the f
 | **U**pdate | `PUT` / `PATCH` | Modify existing data on the server |
 | **D**elete | `DELETE` | Remove a resource from the server |
 
+The image below maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it). As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.
+
+![](images/crud-operations.jpeg){fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}
+
 ::: {.callout-note}
 ## For Data Science
 In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. However, `POST` is sometimes needed — for example, to submit credentials and receive an access token.
 :::
+
+
+#### ———————
+### Visual Check — CRUD Operations. {.unnumbered}
+
+**(Multiple Choice):** A social media app lets users edit their display name. Based on the image above, which CRUD operation and HTTP method does that action map to?
+
+a) Create — POST
+b) Read — GET
+c) Update — PUT/PATCH
+d) Delete — DELETE
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+**c) Update — PUT/PATCH.** Editing an existing record (changing a name that already exists) is an **Update** operation. PUT replaces the entire resource; PATCH modifies only the changed fields. Either could apply here, but the key point is that this is not Create (nothing new is being added) or Read (data is being changed, not just viewed).
+:::
+#### ———————
 
 
 #### ———————
@@ -86,7 +106,9 @@ A **Read** operation uses the `GET` HTTP method. A successful response would hav
 
 A `GET` request is all about **retrieving** data. You're asking the server: "Give me this information."
 
-![](images/Get-Request.gif){fig-alt="GIF showing GET request flow: Client constructs request, API validates, Server locates data, Client receives response"}
+The animation below shows a GET request for the resource `GET /users/42`. Watch how the request originates at the **Client** and travels through the **API** to the **Server** and **Database**. Notice two things: first, the request carries only a path (`/users/42`) — no data payload. Second, the response brings data back to the client while nothing new is written to the database.
+
+![](images/get-request.gif){fig-alt="Animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client"}
 
 Here is the flow of a GET request:
 
@@ -102,6 +124,17 @@ Here is the flow of a GET request:
 - GET requests are meant to be **read-only** — they don't change data on the server
 - They are **idempotent** — making the same request multiple times gives the same result
 :::
+
+
+#### ———————
+### Visual Check — GET Request. {.unnumbered}
+
+**(Open-Ended):** The animation shows a request for `GET /users/42`. If you changed the request to `GET /users/7`, what part of the request changes and what stays exactly the same?
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+The **path parameter** changes from `42` to `7` — you're now asking for a different user record. Everything else stays the same: the HTTP method is still GET, the endpoint path structure (`/users/`) is the same, and the overall flow (client → API → server → database → back) is identical. Only the specific resource being requested changes.
+:::
+#### ———————
 
 
 #### ———————
@@ -122,7 +155,9 @@ A data scientist could use a **GET** request to retrieve a list of the top 10 mo
 
 A `POST` request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."
 
-![](images/Post-Request.gif){fig-alt="GIF showing POST request flow: Client sends data in request body, API validates, Server creates record, Client receives confirmation"}
+The animation below shows a POST request sending `POST /users` with a JSON payload `{ "name": "Maya", "email": "maya@example.com" }`. Compare this carefully to the GET animation: with GET, data flowed *from* the server *to* the client. With POST, data originates *at the client* and moves *toward* the server. The client is the source; the server is the destination.
+
+![](images/post-request.gif){fig-alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"}
 
 Here is the flow of a POST request:
 
@@ -138,6 +173,22 @@ Here is the flow of a POST request:
 
 Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.
 :::
+
+
+#### ———————
+### Visual Check — POST Request. {.unnumbered}
+
+**(Multiple Choice):** In the POST animation, the JSON payload `{ "name": "Maya", "email": "maya@example.com" }` travels from the Client to the Server. Where does this data live in the request, and how is that different from a GET request?
+
+a) It is in the URL query string, just like GET parameters.
+b) It is in the request **body** — unlike GET, which puts parameters in the URL.
+c) It is sent as a separate file attachment.
+d) It is stored in the API and forwarded automatically — no client action needed.
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+**b)** POST sends data in the **request body** — a separate payload attached to the request. GET requests have no body; all their parameters are encoded directly in the URL (visible in the address bar). This is why POST is used for sending sensitive or large data — it keeps the payload out of the URL.
+:::
+#### ———————
 
 
 #### ———————
@@ -177,7 +228,9 @@ So how do we actually construct a request? A request is defined by a **URL**, wh
 - The **endpoint** (base address of the API) — the stable part
 - The **query string** (key-value pairs that customize the request) — the dynamic part
 
-![](images/URL-Anatomy.gif){fig-alt="GIF showing anatomy of a URL with base URL, endpoint, and query string components"}
+The animation below shows the Client (left) and API Server (right) with the URL being broken down between them. It highlights how the full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+
+![](images/url-anatomy.gif){fig-alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"}
 
 ### Breaking Down a URL
 
@@ -204,6 +257,17 @@ https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&appid=YOUR_KEY
 - An **endpoint** is the specific URL where an API resource can be accessed. It's the stable part of the URL that doesn't change from one request to the next.
 - A **query string** customizes the request using key-value pairs. It always starts with `?` and pairs are separated by `&`.
 :::
+
+
+#### ———————
+### Visual Check — URL Anatomy. {.unnumbered}
+
+**(Open-Ended):** Looking at the animation and the URL breakdown above, what single character marks the boundary between the endpoint and the query string? And if you accidentally left out your API key parameter entirely, which HTTP status code from Session 1 would you most likely receive back?
+
+::: {.callout-tip collapse="true" title="Answer — Visual Check"}
+The **`?`** character marks the end of the endpoint and the start of the query string. Everything before `?` is the stable address of the resource; everything after it is customization. If you omit your API key, the server cannot verify who you are — you would most likely receive a **401 Unauthorized** status code, since authentication is missing.
+:::
+#### ———————
 
 
 #### ———————
