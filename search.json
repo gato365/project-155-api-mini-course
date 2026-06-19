@@ -133,6 +133,160 @@
     "text": "Session 1 Recap\nIn this session, we covered the conceptual foundation for working with APIs:\n\nWhat an API is — a controlled interface for software-to-software communication\nAPI data flow — Client → API → Server → Database (and back)\nRequests vs. Responses — what you send vs. what you get back\nJSON format — key-value pairs, nesting, and how it maps to R data structures\nStatus codes — how to diagnose what happened with your request\n\nUp next in Session 2: We’ll learn about CRUD operations, HTTP methods (GET vs. POST), URL anatomy, and make our first requests to a dummy server!"
   },
   {
+    "objectID": "sessions/supplemental/github_api.html",
+    "href": "sessions/supplemental/github_api.html",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "",
+    "text": "The GitHub REST API is the most realistic example in this workshop — it is a production API used by millions of developers daily. It introduces two concepts you haven’t seen yet:\n\nNo-auth public access — many endpoints work without any credential, though with strict rate limits\nFine-grained Personal Access Tokens (PATs) — scoped tokens where you explicitly choose what permissions to grant\n\nThe PAT exercise is a live demonstration of least-privilege security: only give a credential exactly the access it needs, and nothing more.\nAuth patterns: None (public) → Bearer token with Authorization: Bearer TOKEN."
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#overview",
+    "href": "sessions/supplemental/github_api.html#overview",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "",
+    "text": "The GitHub REST API is the most realistic example in this workshop — it is a production API used by millions of developers daily. It introduces two concepts you haven’t seen yet:\n\nNo-auth public access — many endpoints work without any credential, though with strict rate limits\nFine-grained Personal Access Tokens (PATs) — scoped tokens where you explicitly choose what permissions to grant\n\nThe PAT exercise is a live demonstration of least-privilege security: only give a credential exactly the access it needs, and nothing more.\nAuth patterns: None (public) → Bearer token with Authorization: Bearer TOKEN."
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#step-1-no-signup-needed-for-public-data",
+    "href": "sessions/supplemental/github_api.html#step-1-no-signup-needed-for-public-data",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Step 1 — No Signup Needed for Public Data",
+    "text": "Step 1 — No Signup Needed for Public Data\nGitHub’s public endpoints work immediately. No account or key required for the first two exercises.\n\nlibrary(httr2)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(glue)\nlibrary(dotenv)"
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#exercise-1-retrieve-public-repository-data-no-auth",
+    "href": "sessions/supplemental/github_api.html#exercise-1-retrieve-public-repository-data-no-auth",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Exercise 1: Retrieve Public Repository Data (No Auth)",
+    "text": "Exercise 1: Retrieve Public Repository Data (No Auth)\n\n# GitHub requires a User-Agent header — always include it\nreq &lt;- request(\"https://api.github.com/users/hadley/repos\") |&gt;\n  req_headers(\n    Accept       = \"application/vnd.github+json\",\n    `User-Agent` = \"API-Workshop-Student\"\n  ) |&gt;\n  req_url_query(per_page = 30, sort = \"updated\")\n\nresponse &lt;- req_perform(req)\n\ncat(\"Status:\", resp_status(response), \"\\n\")\ncat(\"Rate limit remaining:\", resp_header(response, \"x-ratelimit-remaining\"), \"\\n\")\n\n\nrepos &lt;- resp_body_json(response)\n\nrepos_df &lt;- lapply(repos, function(r) {\n  data.frame(\n    name            = r$name,\n    description     = substr(r$description %||% \"\", 1, 80),\n    language        = r$language %||% NA_character_,\n    stars           = r$stargazers_count,\n    forks           = r$forks_count,\n    open_issues     = r$open_issues_count,\n    is_fork         = r$fork,\n    created_at      = r$created_at,\n    updated_at      = r$updated_at\n  )\n}) |&gt; bind_rows()\n\nrepos_df |&gt;\n  arrange(desc(stars)) |&gt;\n  select(name, language, stars, forks) |&gt;\n  head(10)\n\n\n\n\n\n\n\nNoteRate Limits Without Auth\n\n\n\nUnauthenticated requests are limited to 60 per hour (shared by your IP address). The x-ratelimit-remaining header tells you how many you have left. With a PAT, the limit rises to 5,000 per hour."
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#exercise-2-search-repositories",
+    "href": "sessions/supplemental/github_api.html#exercise-2-search-repositories",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Exercise 2: Search Repositories",
+    "text": "Exercise 2: Search Repositories\nGitHub’s search API lets you find repositories by topic, language, stars, and more.\n\nreq &lt;- request(\"https://api.github.com/search/repositories\") |&gt;\n  req_headers(\n    Accept       = \"application/vnd.github+json\",\n    `User-Agent` = \"API-Workshop-Student\"\n  ) |&gt;\n  req_url_query(\n    q        = \"topic:tidyverse language:R\",\n    sort     = \"stars\",\n    order    = \"desc\",\n    per_page = 20\n  )\n\nresponse    &lt;- req_perform(req)\nsearch_data &lt;- resp_body_json(response)\n\ncat(\"Total matching repositories:\", search_data$total_count, \"\\n\")\n\n\nsearch_df &lt;- lapply(search_data$items, function(r) {\n  data.frame(\n    name        = r$full_name,\n    description = substr(r$description %||% \"\", 1, 80),\n    language    = r$language %||% NA_character_,\n    stars       = r$stargazers_count,\n    forks       = r$forks_count,\n    topics      = paste(unlist(r$topics), collapse = \", \")\n  )\n}) |&gt; bind_rows()\n\nsearch_df |&gt; arrange(desc(stars)) |&gt; head(10)"
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#exercise-3-create-a-fine-grained-personal-access-token",
+    "href": "sessions/supplemental/github_api.html#exercise-3-create-a-fine-grained-personal-access-token",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Exercise 3: Create a Fine-Grained Personal Access Token",
+    "text": "Exercise 3: Create a Fine-Grained Personal Access Token\n\nStep 3a — Create the Token\n\nGo to github.com → your avatar → Settings\nScroll to Developer Settings → Personal Access Tokens → Fine-grained tokens\nClick Generate new token\nSet:\n\nToken name: api-workshop-lab\nExpiration: 7 days\nResource owner: your account\nRepository access: Public repositories only\nPermissions: Metadata → Read-only (this is the minimum needed)\n\nClick Generate token and copy it immediately — it won’t be shown again\nAdd it to your .Renviron:\n\nGITHUB_TOKEN=your_token_here\n\n\n\n\n\n\nImportantWhat You Just Did\n\n\n\nYou created a token with the minimum necessary permissions: read access to metadata on public repositories only. Even if this token leaked, an attacker could only read public data — they could not write code, delete repositories, or access private data. This is the principle of least privilege.\n\n\n\n\nStep 3b — Use the Token\n\nload_dot_env()\ngithub_token &lt;- Sys.getenv(\"GITHUB_TOKEN\")\n\n\n# Authenticated request — now you get 5000 requests/hour\nreq &lt;- request(\"https://api.github.com/user\") |&gt;\n  req_headers(\n    Authorization = glue(\"Bearer {github_token}\"),\n    Accept        = \"application/vnd.github+json\",\n    `User-Agent`  = \"API-Workshop-Student\"\n  )\n\nresponse  &lt;- req_perform(req)\nuser_data &lt;- resp_body_json(response)\n\ncat(\"Authenticated as:\", user_data$login, \"\\n\")\ncat(\"Rate limit remaining:\", resp_header(response, \"x-ratelimit-remaining\"), \"\\n\")"
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#exercise-4-analyze-your-own-repositories",
+    "href": "sessions/supplemental/github_api.html#exercise-4-analyze-your-own-repositories",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Exercise 4: Analyze Your Own Repositories",
+    "text": "Exercise 4: Analyze Your Own Repositories\nWith the PAT, you can retrieve your own public repository data and build a summary of your GitHub activity.\n\nyour_username &lt;- user_data$login\n\nreq &lt;- request(glue(\"https://api.github.com/users/{your_username}/repos\")) |&gt;\n  req_headers(\n    Authorization = glue(\"Bearer {github_token}\"),\n    Accept        = \"application/vnd.github+json\",\n    `User-Agent`  = \"API-Workshop-Student\"\n  ) |&gt;\n  req_url_query(per_page = 100, sort = \"updated\")\n\nyour_repos &lt;- resp_body_json(req_perform(req))\n\nyour_df &lt;- lapply(your_repos, function(r) {\n  data.frame(\n    name       = r$name,\n    language   = r$language %||% \"Unknown\",\n    stars      = r$stargazers_count,\n    forks      = r$forks_count,\n    is_fork    = r$fork,\n    created_at = as.Date(substr(r$created_at, 1, 10))\n  )\n}) |&gt; bind_rows()\n\nglimpse(your_df)\n\n\nyour_df |&gt;\n  filter(!is_fork, language != \"Unknown\") |&gt;\n  count(language, sort = TRUE) |&gt;\n  ggplot(aes(x = reorder(language, n), y = n, fill = language)) +\n  geom_col(width = 0.7) +\n  coord_flip() +\n  labs(\n    title = glue(\"Repository Languages — {your_username}\"),\n    x     = NULL,\n    y     = \"Number of Repositories\"\n  ) +\n  scale_fill_viridis_d(option = \"plasma\", end = 0.85) +\n  theme_minimal(base_size = 13) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "sessions/supplemental/github_api.html#questions",
+    "href": "sessions/supplemental/github_api.html#questions",
+    "title": "Practice Lab 5: GitHub REST API",
+    "section": "Questions",
+    "text": "Questions\n\n———————\n\n\nQ1.\n(Conceptual): In Exercise 1, you saw the x-ratelimit-remaining header in the response. Why would an API designer include rate limit information in the response headers rather than (or in addition to) the response body?\n\n\n\n\n\n\nTipAnswer Q1\n\n\n\n\n\nHeaders deliver metadata about the response — information about the exchange itself, not the data you requested. Putting rate limit info in headers keeps the response body clean and focused on the requested data. It also means client code can check rate limits without parsing the body — a faster, more efficient check. This is the standard HTTP convention: data goes in the body, metadata goes in headers.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ2.\n(Security): You created a fine-grained token with read-only access to public repositories. Describe a scenario where even this minimal token could be misused if it leaked publicly.\n\n\n\n\n\n\nTipAnswer Q2\n\n\n\n\n\nAn attacker with a public-read token could: - Scrape your public repository data at the 5,000 req/hour authenticated rate (vs. 60/hour unauthenticated) — useful for mass enumeration - Identify which public repos you contribute to, revealing professional affiliations or project work you hadn’t publicized - Burn through your rate limit, causing your own API calls to fail\nThis is why even minimal tokens should be rotated (deleted and regenerated) quickly if leaked, and why expiry dates are important — a 7-day token automatically becomes useless.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ3.\n(Extension): Modify the repository search from Exercise 2 to collect all pages of results (not just the first 20). GitHub limits search results to 1,000 total — use total_count and per_page to calculate how many pages to fetch, and use Sys.sleep(1) between requests to avoid hitting rate limits.\n\n\n\n\n\n\nTipAnswer Q3\n\n\n\n\n\nsearch_all_github &lt;- function(query, token, max_results = 100) {\n  per_page   &lt;- 30\n  total_pages &lt;- ceiling(min(max_results, 1000) / per_page)\n\n  all_results &lt;- lapply(seq_len(total_pages), function(p) {\n    Sys.sleep(1)  # be a polite client\n    req &lt;- request(\"https://api.github.com/search/repositories\") |&gt;\n      req_headers(\n        Authorization = glue(\"Bearer {token}\"),\n        Accept        = \"application/vnd.github+json\",\n        `User-Agent`  = \"API-Workshop-Student\"\n      ) |&gt;\n      req_url_query(q = query, sort = \"stars\", per_page = per_page, page = p)\n\n    data &lt;- resp_body_json(req_perform(req))\n    lapply(data$items, function(r) {\n      data.frame(name = r$full_name, stars = r$stargazers_count, language = r$language %||% NA)\n    }) |&gt; bind_rows()\n  }) |&gt; bind_rows()\n\n  all_results\n}\nSys.sleep(1) adds a 1-second pause between pages. This is good API citizenship — it avoids triggering abuse detection and spreads requests over time.\n\n\n\n\n———————"
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html",
+    "href": "sessions/supplemental/nasa_api.html",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "",
+    "text": "NASA provides free, production-quality APIs used by researchers worldwide. In this lab you will work with two:\n\nAPOD — Astronomy Picture of the Day: one endpoint, one JSON object, a clean introduction.\nNEO — Near-Earth Object Web Service: asteroid data with a deeply nested response structure that requires real parsing work.\n\nAuth pattern: API key as a URL query parameter (?api_key=YOUR_KEY)."
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#overview",
+    "href": "sessions/supplemental/nasa_api.html#overview",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "",
+    "text": "NASA provides free, production-quality APIs used by researchers worldwide. In this lab you will work with two:\n\nAPOD — Astronomy Picture of the Day: one endpoint, one JSON object, a clean introduction.\nNEO — Near-Earth Object Web Service: asteroid data with a deeply nested response structure that requires real parsing work.\n\nAuth pattern: API key as a URL query parameter (?api_key=YOUR_KEY)."
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#step-1-get-your-api-key",
+    "href": "sessions/supplemental/nasa_api.html#step-1-get-your-api-key",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "Step 1 — Get Your API Key",
+    "text": "Step 1 — Get Your API Key\n\nGo to api.nasa.gov\nFill in the short registration form and submit\nYour key arrives by email within minutes\nAdd it to your .Renviron file:\n\nNASA_KEY=your_key_here\n\n\n\n\n\n\nNoteDEMO_KEY — No signup needed\n\n\n\nNASA provides a built-in demo key. Replace nasa_key with \"DEMO_KEY\" anywhere in this lab. It allows 30 requests/hour and 50/day — enough to complete the exercises."
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#step-2-setup",
+    "href": "sessions/supplemental/nasa_api.html#step-2-setup",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "Step 2 — Setup",
+    "text": "Step 2 — Setup\n\nlibrary(httr2)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(glue)\nlibrary(dotenv)\n\nload_dot_env()\nnasa_key &lt;- Sys.getenv(\"NASA_KEY\")"
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#exercise-1-astronomy-picture-of-the-day",
+    "href": "sessions/supplemental/nasa_api.html#exercise-1-astronomy-picture-of-the-day",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "Exercise 1: Astronomy Picture of the Day",
+    "text": "Exercise 1: Astronomy Picture of the Day\nThe APOD endpoint returns a single JSON object describing today’s featured image or video, along with a scientific explanation written by a professional astronomer.\n\napod_url &lt;- glue(\"https://api.nasa.gov/planetary/apod?api_key={nasa_key}\")\n\nreq      &lt;- request(apod_url)\nresponse &lt;- req_perform(req)\n\n# Always check the status first\nresp_status(response)\n\n\napod &lt;- resp_body_json(response)\n\n# Inspect the top-level keys\nnames(apod)\n\n\ncat(\"Title:     \", apod$title,      \"\\n\")\ncat(\"Date:      \", apod$date,       \"\\n\")\ncat(\"Media type:\", apod$media_type, \"\\n\")\ncat(\"URL:       \", apod$url,        \"\\n\")\ncat(\"\\nExplanation:\\n\", apod$explanation, \"\\n\")\n\n\nChallenge A — Request a Specific Date\nAdd a date query parameter to retrieve any past APOD. Dates go back to 1995-06-16.\n\napod_dated_url &lt;- glue(\n  \"https://api.nasa.gov/planetary/apod\",\n  \"?api_key={nasa_key}&date=1995-06-16\"\n)\n\napod_first &lt;- resp_body_json(req_perform(request(apod_dated_url)))\ncat(\"First ever APOD:\", apod_first$title, \"\\n\")\n\n\n\nChallenge B — Retrieve a Batch of APODs\nUse the count parameter to retrieve multiple random APODs in a single request.\n\napod_batch_url &lt;- glue(\n  \"https://api.nasa.gov/planetary/apod\",\n  \"?api_key={nasa_key}&count=5\"\n)\n\napod_list &lt;- resp_body_json(req_perform(request(apod_batch_url)))\n\n# How is the structure different from a single APOD?\nlength(apod_list)\napod_list[[1]]$title"
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#exercise-2-near-earth-object-asteroid-data",
+    "href": "sessions/supplemental/nasa_api.html#exercise-2-near-earth-object-asteroid-data",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "Exercise 2: Near-Earth Object (Asteroid) Data",
+    "text": "Exercise 2: Near-Earth Object (Asteroid) Data\nThe NEO endpoint returns every asteroid that passed near Earth within a date range. The response is nested three levels deep — a great exercise in list navigation.\n\nneo_url &lt;- glue(\n  \"https://api.nasa.gov/neo/rest/v1/feed\",\n  \"?start_date=2024-01-01&end_date=2024-01-07\",\n  \"&api_key={nasa_key}\"\n)\n\nresponse &lt;- req_perform(request(neo_url))\nneo_data &lt;- resp_body_json(response)\n\ncat(\"Total asteroids in this range:\", neo_data$element_count, \"\\n\")\ncat(\"Top-level keys:\", paste(names(neo_data), collapse=\", \"), \"\\n\")\n\n\n# Near-Earth objects are nested: neo_data$near_earth_objects → date → list of asteroids\ndates &lt;- names(neo_data$near_earth_objects)\ncat(\"Dates in response:\", paste(dates, collapse=\", \"), \"\\n\")\n\n# Look at the first asteroid on the first date\nfirst_day   &lt;- neo_data$near_earth_objects[[dates[1]]]\nfirst_rock  &lt;- first_day[[1]]\n\ncat(\"Name:\", first_rock$name, \"\\n\")\ncat(\"Hazardous?\", first_rock$is_potentially_hazardous_asteroid, \"\\n\")\ncat(\"Min diameter (km):\",\n    first_rock$estimated_diameter$kilometers$estimated_diameter_min, \"\\n\")\n\n\n# Flatten all dates and asteroids into a single data frame\nall_asteroids &lt;- lapply(neo_data$near_earth_objects, function(day) {\n  lapply(day, function(rock) {\n    data.frame(\n      name          = rock$name,\n      date          = rock$close_approach_data[[1]]$close_approach_date,\n      is_hazardous  = rock$is_potentially_hazardous_asteroid,\n      min_diam_km   = rock$estimated_diameter$kilometers$estimated_diameter_min,\n      max_diam_km   = rock$estimated_diameter$kilometers$estimated_diameter_max,\n      miss_dist_km  = as.numeric(rock$close_approach_data[[1]]$miss_distance$kilometers),\n      speed_kmh     = as.numeric(rock$close_approach_data[[1]]$relative_velocity$kilometers_per_hour)\n    )\n  }) |&gt; bind_rows()\n}) |&gt; bind_rows()\n\nglimpse(all_asteroids)\n\n\nggplot(all_asteroids, aes(x = miss_dist_km / 1e6, fill = is_hazardous)) +\n  geom_histogram(bins = 25, alpha = 0.85, color = \"white\") +\n  scale_fill_manual(\n    values = c(\"FALSE\" = \"#4f46e5\", \"TRUE\" = \"#ef4444\"),\n    labels = c(\"Not Hazardous\", \"Potentially Hazardous\")\n  ) +\n  labs(\n    title    = \"Asteroid Miss Distances — Jan 1–7, 2024\",\n    subtitle = \"Each bar = one asteroid; distance from Earth's center\",\n    x        = \"Miss Distance (millions of km)\",\n    y        = \"Count\",\n    fill     = NULL\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(legend.position = \"top\")"
+  },
+  {
+    "objectID": "sessions/supplemental/nasa_api.html#questions",
+    "href": "sessions/supplemental/nasa_api.html#questions",
+    "title": "Practice Lab 1: NASA Open APIs",
+    "section": "Questions",
+    "text": "Questions\n\n———————\n\n\nQ1.\n(Conceptual): In this lab the API key is passed as a query parameter (?api_key=...). Name one situation where this approach could create a security risk.\n\n\n\n\n\n\nTipAnswer Q1\n\n\n\n\n\nThe key is visible in the URL — which means it appears in browser history, server access logs, and anywhere the URL is copy-pasted or shared. If you accidentally post the URL in a public place (a GitHub issue, a Slack message, a screenshot), your key is exposed. Header-based auth keeps the credential out of the URL entirely.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ2.\n(Code): The count parameter returns a list of APODs instead of a single object. Write code that extracts just the title from each item in the batch and prints them as a character vector.\n\n\n\n\n\n\nTipAnswer Q2\n\n\n\n\n\ntitles &lt;- sapply(apod_list, function(x) x$title)\nprint(titles)\nsapply maps a function over each list element and simplifies the result to a vector.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ3.\n(Analysis): After building all_asteroids, use dplyr to find the single asteroid with the smallest miss distance in the date range. Was it potentially hazardous?\n\n\n\n\n\n\nTipAnswer Q3\n\n\n\n\n\nall_asteroids |&gt;\n  arrange(miss_dist_km) |&gt;\n  select(name, date, miss_dist_km, is_hazardous) |&gt;\n  slice(1)\nThe answer varies by date range, but notice whether is_hazardous is TRUE for the closest pass — this is the heart of what NASA tracks with NEO Watch.\n\n\n\n\n———————"
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html",
+    "href": "sessions/supplemental/openweather_extra.html",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "",
+    "text": "You already have your OpenWeather API key from Session 3. This lab takes you further into the same API — exploring endpoints you haven’t used yet and building toward multi-city comparisons.\nYou will use:\n\nAir Quality Index (AQI) — requires coordinates (lat/lon), not just a city name\n5-Day Forecast — 40 time-step nested response across 5 days\nMulti-city pipeline — map a function across a vector of cities\n\nAuth pattern: Same as Sessions 3–4 — API key as appid query parameter."
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#overview",
+    "href": "sessions/supplemental/openweather_extra.html#overview",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "",
+    "text": "You already have your OpenWeather API key from Session 3. This lab takes you further into the same API — exploring endpoints you haven’t used yet and building toward multi-city comparisons.\nYou will use:\n\nAir Quality Index (AQI) — requires coordinates (lat/lon), not just a city name\n5-Day Forecast — 40 time-step nested response across 5 days\nMulti-city pipeline — map a function across a vector of cities\n\nAuth pattern: Same as Sessions 3–4 — API key as appid query parameter."
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#step-1-setup",
+    "href": "sessions/supplemental/openweather_extra.html#step-1-setup",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "Step 1 — Setup",
+    "text": "Step 1 — Setup\n\nlibrary(httr2)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(lubridate)\nlibrary(glue)\nlibrary(dotenv)\n\nload_dot_env()\nweather_key &lt;- Sys.getenv(\"OPENWEATHER_KEY\")"
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#exercise-1-air-quality-index",
+    "href": "sessions/supplemental/openweather_extra.html#exercise-1-air-quality-index",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "Exercise 1: Air Quality Index",
+    "text": "Exercise 1: Air Quality Index\nThe AQI endpoint requires latitude and longitude, not a city name. This means you need to geocode first — exactly the pattern from Session 3.\n\nStep 1a — Geocode a city\n\nget_coordinates &lt;- function(city, key) {\n  url &lt;- glue(\"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={key}\")\n  result &lt;- resp_body_json(req_perform(request(url)))\n  list(lat = result[[1]]$lat, lon = result[[1]]$lon)\n}\n\ncoords &lt;- get_coordinates(\"San Luis Obispo\", weather_key)\ncat(\"Lat:\", coords$lat, \"| Lon:\", coords$lon, \"\\n\")\n\n\n\nStep 1b — Fetch air quality\n\naqi_url &lt;- glue(\n  \"http://api.openweathermap.org/data/2.5/air_pollution\",\n  \"?lat={coords$lat}&lon={coords$lon}&appid={weather_key}\"\n)\n\nresponse &lt;- req_perform(request(aqi_url))\naqi_data &lt;- resp_body_json(response)\n\n# AQI scale: 1=Good, 2=Fair, 3=Moderate, 4=Poor, 5=Very Poor\naqi_value  &lt;- aqi_data$list[[1]]$main$aqi\ncomponents &lt;- aqi_data$list[[1]]$components\n\ncat(\"Air Quality Index:\", aqi_value, \"\\n\")\ncat(\"PM2.5:\", components$pm2_5, \"μg/m³\\n\")\ncat(\"CO:\",    components$co,    \"μg/m³\\n\")\ncat(\"NO2:\",   components$no2,   \"μg/m³\\n\")\ncat(\"O3:\",    components$o3,    \"μg/m³\\n\")"
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#exercise-2-5-day-forecast",
+    "href": "sessions/supplemental/openweather_extra.html#exercise-2-5-day-forecast",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "Exercise 2: 5-Day Forecast",
+    "text": "Exercise 2: 5-Day Forecast\nThe forecast endpoint returns 40 time steps — one every 3 hours over 5 days. The data lives inside a list key (an array).\n\nforecast_url &lt;- glue(\n  \"https://api.openweathermap.org/data/2.5/forecast\",\n  \"?q=San+Luis+Obispo&appid={weather_key}&units=imperial\"\n)\n\nresponse      &lt;- req_perform(request(forecast_url))\nforecast_data &lt;- resp_body_json(response)\n\ncat(\"Number of time steps:\", length(forecast_data$list), \"\\n\")\ncat(\"City:\", forecast_data$city$name, \",\", forecast_data$city$country, \"\\n\")\n\n\n# Flatten the nested list into a tidy data frame\nforecast_df &lt;- lapply(forecast_data$list, function(step) {\n  data.frame(\n    datetime    = as_datetime(step$dt),\n    temp        = step$main$temp,\n    feels_like  = step$main$feels_like,\n    humidity    = step$main$humidity,\n    description = step$weather[[1]]$description,\n    wind_speed  = step$wind$speed,\n    pop         = step$pop  # probability of precipitation\n  )\n}) |&gt; bind_rows()\n\nglimpse(forecast_df)\n\n\nggplot(forecast_df, aes(x = datetime, y = temp)) +\n  geom_line(color = \"#4f46e5\", linewidth = 1) +\n  geom_ribbon(aes(ymin = temp - 3, ymax = temp + 3), alpha = 0.15, fill = \"#6366f1\") +\n  geom_point(aes(color = pop), size = 2) +\n  scale_color_gradient(low = \"#a5b4fc\", high = \"#ef4444\",\n                       name = \"Rain Prob.\") +\n  labs(\n    title    = \"5-Day Temperature Forecast — San Luis Obispo\",\n    subtitle = \"Point color indicates probability of precipitation\",\n    x        = NULL,\n    y        = \"Temperature (°F)\"\n  ) +\n  theme_minimal(base_size = 13)"
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#exercise-3-compare-multiple-cities",
+    "href": "sessions/supplemental/openweather_extra.html#exercise-3-compare-multiple-cities",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "Exercise 3: Compare Multiple Cities",
+    "text": "Exercise 3: Compare Multiple Cities\nWrite a reusable function, then map it across a list of cities. This is the core pattern for any multi-source data pipeline.\n\nget_current_weather &lt;- function(city, key) {\n  url &lt;- glue(\n    \"https://api.openweathermap.org/data/2.5/weather\",\n    \"?q={city}&appid={key}&units=imperial\"\n  )\n\n  response &lt;- req_perform(request(url))\n\n  if (resp_status(response) != 200) {\n    message(\"Failed for city: \", city)\n    return(NULL)\n  }\n\n  d &lt;- resp_body_json(response)\n\n  data.frame(\n    city        = d$name,\n    country     = d$sys$country,\n    temp        = d$main$temp,\n    feels_like  = d$main$feels_like,\n    humidity    = d$main$humidity,\n    description = d$weather[[1]]$description,\n    wind_speed  = d$wind$speed\n  )\n}\n\n\ncities &lt;- c(\n  \"San Luis Obispo,US\",\n  \"Chicago,US\",\n  \"Miami,US\",\n  \"Seattle,US\",\n  \"Denver,US\"\n)\n\n# Map the function across all cities\nweather_comparison &lt;- lapply(cities, get_current_weather, key = weather_key) |&gt;\n  bind_rows()\n\nprint(weather_comparison)\n\n\nggplot(weather_comparison, aes(x = reorder(city, temp), y = temp, fill = temp)) +\n  geom_col(width = 0.6, radius = unit(4, \"pt\")) +\n  geom_text(aes(label = paste0(round(temp), \"°F\")),\n            hjust = -0.15, fontface = \"bold\", size = 4) +\n  scale_fill_gradient(low = \"#4f46e5\", high = \"#ef4444\") +\n  coord_flip() +\n  labs(\n    title = \"Current Temperature by City\",\n    x     = NULL,\n    y     = \"Temperature (°F)\",\n    fill  = \"Temp (°F)\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "sessions/supplemental/openweather_extra.html#questions",
+    "href": "sessions/supplemental/openweather_extra.html#questions",
+    "title": "Practice Lab 3: OpenWeather Extended",
+    "section": "Questions",
+    "text": "Questions\n\n———————\n\n\nQ1.\n(Conceptual): The AQI endpoint requires lat/lon, not a city name. Why do you think some API endpoints work with city names while others require coordinates?\n\n\n\n\n\n\nTipAnswer Q1\n\n\n\n\n\nCity names are ambiguous — there are many cities named “Springfield” or “Paris.” Coordinates are globally unique. Endpoints that measure physical phenomena at a precise geographic point (like air quality or elevation) require coordinates because a city-level approximation would be inaccurate. The geocoding step converts the human-readable name into the precise coordinates the scientific endpoint needs.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ2.\n(Code): The 5-day forecast datetime column comes from a Unix timestamp (step$dt). What does as_datetime() from lubridate do to it, and what would the raw value look like without that conversion?\n\n\n\n\n\n\nTipAnswer Q2\n\n\n\n\n\nas_datetime() converts the raw Unix timestamp (an integer counting seconds since January 1, 1970) into a human-readable POSIXct datetime object. Without conversion, the column would contain numbers like 1704067200 — correct but unreadable and unusable for time-based plotting.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ3.\n(Extension): Modify get_current_weather() to also retrieve the air quality index for each city. You’ll need to geocode the city first, then call the AQI endpoint with the coordinates. What challenges do you run into?\n\n\n\n\n\n\nTipAnswer Q3\n\n\n\n\n\nThe main challenge is making two API calls per city instead of one — geocoding (to get lat/lon) and then AQI (using those coordinates). This doubles the number of requests and makes rate limiting more of a concern. A robust solution caches the coordinates and handles errors at each step:\nget_weather_and_aqi &lt;- function(city, key) {\n  coords &lt;- get_coordinates(city, key)\n  weather &lt;- get_current_weather(city, key)\n\n  aqi_url  &lt;- glue(\"http://api.openweathermap.org/data/2.5/air_pollution?lat={coords$lat}&lon={coords$lon}&appid={key}\")\n  aqi_resp &lt;- resp_body_json(req_perform(request(aqi_url)))\n\n  weather$aqi &lt;- aqi_resp$list[[1]]$main$aqi\n  weather\n}\n\n\n\n\n———————"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "API Workshop",
@@ -222,6 +376,202 @@
     "title": "Session 0: Getting Started",
     "section": "Questions?",
     "text": "Questions?\nReach out before or during the workshop. We will also leave time at the start of each session to resolve any setup issues.\nSee you there!"
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html",
+    "href": "sessions/supplemental/cat_api.html",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "",
+    "text": "The Cat API is deliberately low-stakes — but it teaches something important. Unlike NASA (key in the URL), this API expects your credential in an HTTP request header (x-api-key). That one change in technique is the key learning of this lab.\nYou’ll also see what happens when you make the same request with and without auth — the API returns different amounts of data, making the difference tangible.\nAuth pattern: API key in a request header (x-api-key: YOUR_KEY)."
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#overview",
+    "href": "sessions/supplemental/cat_api.html#overview",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "",
+    "text": "The Cat API is deliberately low-stakes — but it teaches something important. Unlike NASA (key in the URL), this API expects your credential in an HTTP request header (x-api-key). That one change in technique is the key learning of this lab.\nYou’ll also see what happens when you make the same request with and without auth — the API returns different amounts of data, making the difference tangible.\nAuth pattern: API key in a request header (x-api-key: YOUR_KEY)."
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#step-1-get-your-api-key",
+    "href": "sessions/supplemental/cat_api.html#step-1-get-your-api-key",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Step 1 — Get Your API Key",
+    "text": "Step 1 — Get Your API Key\n\nGo to thecatapi.com and click Get Your API Key\nEnter your email — the key arrives instantly\nAdd it to your .Renviron file:\n\nCAT_KEY=your_key_here\n\n\n\n\n\n\nNoteNo Key? No Problem — For Now\n\n\n\nThe Cat API works without a key for basic endpoints, returning a small subset of data. This is intentional — you’ll use the unauthenticated version first in Exercise 1 to see the contrast."
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#step-2-setup",
+    "href": "sessions/supplemental/cat_api.html#step-2-setup",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Step 2 — Setup",
+    "text": "Step 2 — Setup\n\nlibrary(httr2)\nlibrary(dplyr)\nlibrary(glue)\nlibrary(dotenv)\n\nload_dot_env()\ncat_key &lt;- Sys.getenv(\"CAT_KEY\")"
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#exercise-1-authenticated-vs.-unauthenticated-see-the-difference",
+    "href": "sessions/supplemental/cat_api.html#exercise-1-authenticated-vs.-unauthenticated-see-the-difference",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Exercise 1: Authenticated vs. Unauthenticated — See the Difference",
+    "text": "Exercise 1: Authenticated vs. Unauthenticated — See the Difference\nThis exercise makes the value of authentication concrete by running the same request both ways.\n\nWithout a key (unauthenticated)\n\nreq_no_auth &lt;- request(\"https://api.thecatapi.com/v1/images/search\")\nresponse_no_auth &lt;- req_perform(req_no_auth)\n\nresult_no_auth &lt;- resp_body_json(response_no_auth)\n\ncat(\"Fields returned (no auth):\", paste(names(result_no_auth[[1]]), collapse=\", \"), \"\\n\")\ncat(\"Number of results:\", length(result_no_auth), \"\\n\")\n\n\n\nWith a key (authenticated)\nNotice the only change is the addition of req_headers().\n\nreq_auth &lt;- request(\"https://api.thecatapi.com/v1/images/search\") |&gt;\n  req_headers(\"x-api-key\" = cat_key)\n\nresponse_auth &lt;- req_perform(req_auth)\nresult_auth   &lt;- resp_body_json(response_auth)\n\ncat(\"Fields returned (with auth):\", paste(names(result_auth[[1]]), collapse=\", \"), \"\\n\")\n\n\n\n\n\n\n\nImportantWhat changed?\n\n\n\nLook at the field lists side by side. Authenticated responses include breeds, categories, and breed_ids — fields that are gated behind auth. This is a common API design pattern: basic access is free, richer data requires a credential."
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#exercise-2-search-for-images-with-limit-size",
+    "href": "sessions/supplemental/cat_api.html#exercise-2-search-for-images-with-limit-size",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Exercise 2: Search for Images with Limit & Size",
+    "text": "Exercise 2: Search for Images with Limit & Size\n\nreq &lt;- request(\"https://api.thecatapi.com/v1/images/search\") |&gt;\n  req_headers(\"x-api-key\" = cat_key) |&gt;\n  req_url_query(limit = 10, size = \"med\")\n\nresponse &lt;- req_perform(req)\nimages   &lt;- resp_body_json(response)\n\ncat(\"Number of images returned:\", length(images), \"\\n\")\n\n# Extract URLs\nurls &lt;- sapply(images, function(img) img$url)\nprint(urls)"
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#exercise-3-retrieve-breed-information",
+    "href": "sessions/supplemental/cat_api.html#exercise-3-retrieve-breed-information",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Exercise 3: Retrieve Breed Information",
+    "text": "Exercise 3: Retrieve Breed Information\nThe Cat API has a /breeds endpoint that returns a list of all cat breeds with detailed attributes.\n\nreq &lt;- request(\"https://api.thecatapi.com/v1/breeds\") |&gt;\n  req_headers(\"x-api-key\" = cat_key)\n\nresponse &lt;- req_perform(req)\nbreeds   &lt;- resp_body_json(response)\n\ncat(\"Total breeds available:\", length(breeds), \"\\n\")\ncat(\"Fields per breed:\", paste(names(breeds[[1]]), collapse=\", \"), \"\\n\")\n\n\n# Flatten into a data frame\nbreed_df &lt;- lapply(breeds, function(b) {\n  data.frame(\n    name              = b$name,\n    origin            = b$origin %||% NA_character_,\n    life_span         = b$life_span %||% NA_character_,\n    temperament       = b$temperament %||% NA_character_,\n    intelligence      = b$intelligence %||% NA_integer_,\n    affection_level   = b$affection_level %||% NA_integer_,\n    energy_level      = b$energy_level %||% NA_integer_,\n    stringsAsFactors  = FALSE\n  )\n}) |&gt; bind_rows()\n\nglimpse(breed_df)\n\n\n# What are the most intelligent breeds?\nbreed_df |&gt;\n  arrange(desc(intelligence)) |&gt;\n  select(name, origin, intelligence, energy_level, affection_level) |&gt;\n  head(10)"
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#exercise-4-search-for-images-of-a-specific-breed",
+    "href": "sessions/supplemental/cat_api.html#exercise-4-search-for-images-of-a-specific-breed",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Exercise 4: Search for Images of a Specific Breed",
+    "text": "Exercise 4: Search for Images of a Specific Breed\nCombine what you’ve learned — use a breed ID from Exercise 3 to search for images of that specific breed.\n\n# Get the breed ID for Abyssinian\nabyssinian_id &lt;- breed_df |&gt;\n  filter(name == \"Abyssinian\") |&gt;\n  pull(name)\n\n# Use the breeds endpoint to find the actual ID\nabyssinian_entry &lt;- breeds[[which(sapply(breeds, function(b) b$name) == \"Abyssinian\")]]\nbreed_id &lt;- abyssinian_entry$id\n\ncat(\"Breed ID:\", breed_id, \"\\n\")\n\n# Search for images of that breed\nreq &lt;- request(\"https://api.thecatapi.com/v1/images/search\") |&gt;\n  req_headers(\"x-api-key\" = cat_key) |&gt;\n  req_url_query(breed_ids = breed_id, limit = 5)\n\nbreed_images &lt;- resp_body_json(req_perform(req))\ncat(\"Images found:\", length(breed_images), \"\\n\")\nsapply(breed_images, function(img) img$url)"
+  },
+  {
+    "objectID": "sessions/supplemental/cat_api.html#questions",
+    "href": "sessions/supplemental/cat_api.html#questions",
+    "title": "Practice Lab 2: The Cat API",
+    "section": "Questions",
+    "text": "Questions\n\n———————\n\n\nQ1.\n(Conceptual): In Exercise 1, you ran the same endpoint twice — once without a key and once with one. The URL was identical both times. Where exactly did the credential travel in the authenticated request?\n\n\n\n\n\n\nTipAnswer Q1\n\n\n\n\n\nThe credential traveled in the HTTP request header — specifically the x-api-key header. It is not part of the URL, query string, or response body. Headers are transmitted in the request metadata, which is separate from the URL and typically not logged in the same places a URL would be.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ2.\n(Code — Callback to Lab 1): In Lab 1 (NASA), the API key was passed as ?api_key=KEY in the URL. Rewrite the unauthenticated Cat API request from Exercise 1 as if the Cat API used a query parameter instead of a header. What would that look like using req_url_query()?\n\n\n\n\n\n\nTipAnswer Q2\n\n\n\n\n\nreq_param_style &lt;- request(\"https://api.thecatapi.com/v1/images/search\") |&gt;\n  req_url_query(api_key = cat_key)\nThis is a hypothetical — the Cat API doesn’t actually support this. But the exercise shows that req_url_query() and req_headers() are the two different tools for two different auth patterns, and that the API documentation tells you which one to use.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ3.\n(Analysis): Using breed_df, which origin country has the highest average intelligence score across all its breeds? Use dplyr to find out.\n\n\n\n\n\n\nTipAnswer Q3\n\n\n\n\n\nbreed_df |&gt;\n  filter(!is.na(intelligence), !is.na(origin)) |&gt;\n  group_by(origin) |&gt;\n  summarise(avg_intelligence = mean(intelligence, na.rm = TRUE), count = n()) |&gt;\n  arrange(desc(avg_intelligence)) |&gt;\n  head(5)\nCountries with only one or two breeds may score high just by chance — look at the count column alongside the average.\n\n\n\n\n———————"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html",
+    "href": "sessions/supplemental/tmdb_api.html",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "",
+    "text": "TMDB (The Movie Database) is a community-built database of movies, TV shows, actors, and genres. It is an excellent API for learning because it supports two authentication methods simultaneously — you’ll use both.\n\nAPI Key — passed as a query parameter, same pattern as NASA\nBearer Token — passed in the Authorization header, the industry-standard modern approach\n\nUnderstanding Bearer tokens is critical: every major professional API (Spotify, Stripe, GitHub, Google Cloud) uses this pattern.\nAuth patterns: API key in URL and Bearer token in header."
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#overview",
+    "href": "sessions/supplemental/tmdb_api.html#overview",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "",
+    "text": "TMDB (The Movie Database) is a community-built database of movies, TV shows, actors, and genres. It is an excellent API for learning because it supports two authentication methods simultaneously — you’ll use both.\n\nAPI Key — passed as a query parameter, same pattern as NASA\nBearer Token — passed in the Authorization header, the industry-standard modern approach\n\nUnderstanding Bearer tokens is critical: every major professional API (Spotify, Stripe, GitHub, Google Cloud) uses this pattern.\nAuth patterns: API key in URL and Bearer token in header."
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#step-1-get-your-credentials",
+    "href": "sessions/supplemental/tmdb_api.html#step-1-get-your-credentials",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Step 1 — Get Your Credentials",
+    "text": "Step 1 — Get Your Credentials\n\nGo to themoviedb.org and create a free account\nGo to Settings → API (left sidebar)\nRequest an API key — select “Developer” and fill in the form\nOn the same page you will see:\n\nAPI Key (v3) — a 32-character hex string\nRead Access Token (v4 auth) — a long JWT-style Bearer token\n\nAdd both to your .Renviron:\n\nTMDB_KEY=your_api_key_here\nTMDB_TOKEN=your_read_access_token_here"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#step-2-setup",
+    "href": "sessions/supplemental/tmdb_api.html#step-2-setup",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Step 2 — Setup",
+    "text": "Step 2 — Setup\n\nlibrary(httr2)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(glue)\nlibrary(dotenv)\n\nload_dot_env()\ntmdb_key   &lt;- Sys.getenv(\"TMDB_KEY\")\ntmdb_token &lt;- Sys.getenv(\"TMDB_TOKEN\")"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#exercise-1-search-movies-using-an-api-key",
+    "href": "sessions/supplemental/tmdb_api.html#exercise-1-search-movies-using-an-api-key",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Exercise 1: Search Movies Using an API Key",
+    "text": "Exercise 1: Search Movies Using an API Key\nThis is the simplest auth pattern — identical to how you used the NASA and OpenWeather APIs.\n\nreq &lt;- request(\"https://api.themoviedb.org/3/search/movie\") |&gt;\n  req_url_query(\n    api_key  = tmdb_key,\n    query    = \"Interstellar\",\n    language = \"en-US\",\n    page     = 1\n  )\n\nresponse &lt;- req_perform(req)\nsearch_data &lt;- resp_body_json(response)\n\ncat(\"Total results:\", search_data$total_results, \"\\n\")\ncat(\"Pages:\", search_data$total_pages, \"\\n\")\n\n\n# Flatten the results array\nmovies_df &lt;- lapply(search_data$results, function(m) {\n  data.frame(\n    id            = m$id,\n    title         = m$title,\n    release_date  = m$release_date %||% NA_character_,\n    vote_average  = m$vote_average,\n    vote_count    = m$vote_count,\n    popularity    = m$popularity,\n    overview      = substr(m$overview %||% \"\", 1, 100)\n  )\n}) |&gt; bind_rows()\n\nmovies_df |&gt; select(title, release_date, vote_average, popularity)"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#exercise-2-get-popular-movies-using-a-bearer-token",
+    "href": "sessions/supplemental/tmdb_api.html#exercise-2-get-popular-movies-using-a-bearer-token",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Exercise 2: Get Popular Movies Using a Bearer Token",
+    "text": "Exercise 2: Get Popular Movies Using a Bearer Token\nNow use the Bearer token. The endpoint is the same family, but the credential moves from the URL to an Authorization header.\n\nreq &lt;- request(\"https://api.themoviedb.org/3/movie/popular\") |&gt;\n  req_headers(\n    Authorization = glue(\"Bearer {tmdb_token}\"),\n    Accept        = \"application/json\"\n  ) |&gt;\n  req_url_query(language = \"en-US\", page = 1)\n\nresponse   &lt;- req_perform(req)\npop_data   &lt;- resp_body_json(response)\n\npopular_df &lt;- lapply(pop_data$results, function(m) {\n  data.frame(\n    title        = m$title,\n    release_date = m$release_date %||% NA_character_,\n    vote_average = m$vote_average,\n    popularity   = m$popularity,\n    genre_ids    = paste(unlist(m$genre_ids), collapse = \",\")\n  )\n}) |&gt; bind_rows()\n\nhead(popular_df, 10)\n\n\n\n\n\n\n\nImportantComparing the Two Approaches\n\n\n\nNotice what changed: with the API key, credentials were in the URL (?api_key=...). With the Bearer token, the URL is clean and the credential is in the Authorization header. The response structure is identical — only the auth mechanism differs. This is exactly the difference you saw between the NASA lab and the Cat API lab."
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#exercise-3-retrieve-genres-and-join",
+    "href": "sessions/supplemental/tmdb_api.html#exercise-3-retrieve-genres-and-join",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Exercise 3: Retrieve Genres and Join",
+    "text": "Exercise 3: Retrieve Genres and Join\nTMDB’s results include genre_ids (numbers) rather than genre names. This exercise fetches the genre lookup table and joins it.\n\nreq &lt;- request(\"https://api.themoviedb.org/3/genre/movie/list\") |&gt;\n  req_headers(Authorization = glue(\"Bearer {tmdb_token}\")) |&gt;\n  req_url_query(language = \"en-US\")\n\ngenre_data &lt;- resp_body_json(req_perform(req))\n\ngenre_df &lt;- lapply(genre_data$genres, function(g) {\n  data.frame(genre_id = g$id, genre_name = g$name)\n}) |&gt; bind_rows()\n\nprint(genre_df)\n\n\n# For each movie, get its primary genre (first in the list)\npopular_df_genres &lt;- popular_df |&gt;\n  mutate(primary_genre_id = as.integer(sub(\",.*\", \"\", genre_ids))) |&gt;\n  left_join(genre_df, by = c(\"primary_genre_id\" = \"genre_id\"))\n\npopular_df_genres |&gt;\n  count(genre_name, sort = TRUE)\n\n\npopular_df_genres |&gt;\n  count(genre_name, sort = TRUE) |&gt;\n  filter(!is.na(genre_name)) |&gt;\n  ggplot(aes(x = reorder(genre_name, n), y = n, fill = n)) +\n  geom_col(width = 0.7) +\n  scale_fill_gradient(low = \"#a5b4fc\", high = \"#4f46e5\") +\n  coord_flip() +\n  labs(\n    title = \"Most Common Genres Among Currently Popular Movies\",\n    x     = NULL,\n    y     = \"Number of Movies\",\n    fill  = \"Count\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#exercise-4-paginate-through-results",
+    "href": "sessions/supplemental/tmdb_api.html#exercise-4-paginate-through-results",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Exercise 4: Paginate Through Results",
+    "text": "Exercise 4: Paginate Through Results\nTMDB returns 20 results per page. This exercise collects multiple pages.\n\nget_popular_page &lt;- function(page, token) {\n  req &lt;- request(\"https://api.themoviedb.org/3/movie/popular\") |&gt;\n    req_headers(Authorization = glue(\"Bearer {token}\")) |&gt;\n    req_url_query(language = \"en-US\", page = page)\n\n  data &lt;- resp_body_json(req_perform(req))\n\n  lapply(data$results, function(m) {\n    data.frame(\n      title        = m$title,\n      vote_average = m$vote_average,\n      popularity   = m$popularity\n    )\n  }) |&gt; bind_rows()\n}\n\n# Collect 3 pages (60 movies)\npages_1_to_3 &lt;- lapply(1:3, get_popular_page, token = tmdb_token) |&gt;\n  bind_rows()\n\ncat(\"Total movies collected:\", nrow(pages_1_to_3), \"\\n\")"
+  },
+  {
+    "objectID": "sessions/supplemental/tmdb_api.html#questions",
+    "href": "sessions/supplemental/tmdb_api.html#questions",
+    "title": "Practice Lab 4: TMDB Movie Database",
+    "section": "Questions",
+    "text": "Questions\n\n———————\n\n\nQ1.\n(Conceptual): You used two credentials in this lab: an API Key and a Bearer token. From TMDB’s settings page, both credentials grant the same read access. What advantage does the Bearer token approach provide over the API key approach?\n\n\n\n\n\n\nTipAnswer Q1\n\n\n\n\n\nThe Bearer token keeps the credential out of the URL — it travels in the Authorization header instead. This means it won’t appear in server access logs, browser history, or accidental copy-pastes of URLs. Bearer tokens are also the foundation of OAuth 2.0, which enables more sophisticated flows like expiring tokens and scoped permissions — making them the preferred standard for professional APIs.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ2.\n(Code): TMDB paginates results with a page parameter. Write a function that retrieves all pages of a search query (not just page 1), using the total_pages value from the first response to know when to stop.\n\n\n\n\n\n\nTipAnswer Q2\n\n\n\n\n\nsearch_all_pages &lt;- function(query, key) {\n  first_resp &lt;- resp_body_json(req_perform(\n    request(\"https://api.themoviedb.org/3/search/movie\") |&gt;\n      req_url_query(api_key = key, query = query, page = 1)\n  ))\n\n  total_pages &lt;- min(first_resp$total_pages, 5)  # cap at 5 to be polite\n\n  all_pages &lt;- lapply(seq_len(total_pages), function(p) {\n    data &lt;- resp_body_json(req_perform(\n      request(\"https://api.themoviedb.org/3/search/movie\") |&gt;\n        req_url_query(api_key = key, query = query, page = p)\n    ))\n    lapply(data$results, function(m) data.frame(title = m$title, vote_average = m$vote_average)) |&gt;\n      bind_rows()\n  }) |&gt; bind_rows()\n\n  all_pages\n}\nCapping at 5 pages avoids hammering the API — always be a polite client.\n\n\n\n\n———————\n\n\n———————\n\n\n\nQ3.\n(Analysis): Using popular_df_genres, find the top 5 most popular movies (by popularity score) in the Action genre. Sort them descending and display their title, vote average, and popularity.\n\n\n\n\n\n\nTipAnswer Q3\n\n\n\n\n\npopular_df_genres |&gt;\n  filter(genre_name == \"Action\") |&gt;\n  arrange(desc(popularity)) |&gt;\n  select(title, vote_average, popularity) |&gt;\n  head(5)\nThe popularity field on TMDB is a proprietary score based on views, watchlists, and ratings — not the same as vote_average, which reflects quality. A movie can be very popular but not highly rated, and vice versa.\n\n\n\n\n———————"
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html",
+    "href": "sessions/supplemental/instructor_guide.html",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "",
+    "text": "This guide accompanies the five Practice Labs built for the API Workshop. Each lab targets a different API and introduces a new concept in credential handling, authentication, or response structure. The labs are self-contained — students can work through any of them after completing the core workshop sessions."
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#overview",
+    "href": "sessions/supplemental/instructor_guide.html#overview",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "",
+    "text": "This guide accompanies the five Practice Labs built for the API Workshop. Each lab targets a different API and introduces a new concept in credential handling, authentication, or response structure. The labs are self-contained — students can work through any of them after completing the core workshop sessions."
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-sequencing-pedagogy",
+    "href": "sessions/supplemental/instructor_guide.html#lab-sequencing-pedagogy",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab Sequencing & Pedagogy",
+    "text": "Lab Sequencing & Pedagogy\nThe labs are ordered by increasing complexity in authentication and response structure:\n\n\n\n\n\n\n\n\n\n\nLab\nAPI\nAuth Method\nNew Concept\nAfter Session\n\n\n\n\n1\nNASA\nAPI key in URL query param\nSimple key auth\nSession 1\n\n\n2\nThe Cat API\nAPI key in request header\nHeader-based auth\nSession 2\n\n\n3\nOpenWeather (Extended)\nAPI key in URL\nMore endpoints & comparison\nSession 3\n\n\n4\nTMDB\nAPI key OR Bearer token\nToken-based auth\nSession 2\n\n\n5\nGitHub REST\nNo auth → Personal Access Token\nScoped permissions\nSession 2\n\n\n\nRecommended sequence for a follow-up session: Labs 1 → 2 → 4 → 5. Lab 3 is best assigned as take-home for students already familiar with OpenWeather from Sessions 3–4."
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-1-nasa-open-apis",
+    "href": "sessions/supplemental/instructor_guide.html#lab-1-nasa-open-apis",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab 1 — NASA Open APIs",
+    "text": "Lab 1 — NASA Open APIs\n\nLearning Objectives\n\nRetrieve data from a real scientific API\nPractice GET requests with API key as a query parameter\nWork with deeply nested JSON (NEO asteroid data)\n\n\n\nSetup Time\n~5 minutes. Students sign up at api.nasa.gov — the key arrives by email immediately. Alternatively, DEMO_KEY works out of the box (30 requests/hour limit).\n\n\nKey Teaching Points\n\nThe API key goes in the URL as a query parameter (?api_key=...)\nAPOD returns a single JSON object; NEO returns a multi-level nested structure\nThe NEO response requires iteration (lapply) to flatten before analysis\n\n\n\nCommon Errors\n\n\n\n\n\n\n\n\nError\nLikely Cause\nFix\n\n\n\n\n403 Forbidden\nDEMO_KEY rate limit hit\nWait 1 hour, or register for a free personal key\n\n\n400 Bad Request on NEO\nDate range exceeds 7 days\nShorten the range to ≤ 7 days\n\n\nEmpty $url in APOD\nMedia type is video, not image\nCheck apod$media_type first\n\n\n\n\n\nDiscussion Prompt\n\n“The key is in the URL. What happens to security when you share that URL with someone else?”"
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-2-the-cat-api",
+    "href": "sessions/supplemental/instructor_guide.html#lab-2-the-cat-api",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab 2 — The Cat API",
+    "text": "Lab 2 — The Cat API\n\nLearning Objectives\n\nPass credentials in an HTTP header instead of the URL\nUnderstand why header-based auth is more secure\nPractice req_headers() in httr2\n\n\n\nSetup Time\n~3 minutes. Free API key at thecatapi.com. The API works without a key for basic endpoints, which is useful for demonstrating the difference between authenticated and unauthenticated requests in class.\n\n\nKey Teaching Points\n\nThe x-api-key header is a custom header — not all APIs use the same header name\nHeader contents are not visible in the URL or browser history\nUnauthenticated requests return a smaller subset of results — a good live demo\n\n\n\nCommon Errors\n\n\n\n\n\n\n\n\nError\nLikely Cause\nFix\n\n\n\n\nEmpty results on /votes\nThese endpoints require auth\nConfirm the header is being set\n\n\n401 on favorite endpoints\nKey not passed or malformed\nPrint req object before performing to inspect headers\n\n\n\n\n\nDiscussion Prompt\n\n“Why would an API designer choose headers over query parameters for credentials? What does the URL look like in each case?”\n\n\n\nClassroom Demo\nRun the breed search request twice — once with the header and once without. Show students the difference in the response payload (authenticated responses include breed_temperament and other premium fields)."
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-3-openweather-extended",
+    "href": "sessions/supplemental/instructor_guide.html#lab-3-openweather-extended",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab 3 — OpenWeather (Extended)",
+    "text": "Lab 3 — OpenWeather (Extended)\n\nLearning Objectives\n\nApply skills from Sessions 3–4 to new endpoints (Air Quality, Forecast)\nCompare data across multiple cities using iteration\nExplore multi-call workflows\n\n\n\nSetup Time\nNone additional — students already have their OpenWeather API key from Session 3.\n\n\nKey Teaching Points\n\nThe Air Quality Index endpoint requires coordinates (lat/lon), not a city name — reinforcing geocoding from Session 3\nThe 5-day forecast response nests list (an array of 40 time-step objects) — good practice at .[[1]] indexing\nComparing cities with lapply introduces the pattern of writing a function once and mapping it\n\n\n\nCommon Errors\n\n\n\n\n\n\n\n\nError\nLikely Cause\nFix\n\n\n\n\n401 on all calls\nKey not yet activated (takes up to 2 hours after signup)\nUse a pre-made key for class; students activate theirs at home\n\n\nEmpty list in forecast\nWrong response path — use $list not $forecast\nnames(resp_body_json(response)) to inspect top-level keys\n\n\n\n\n\nDiscussion Prompt\n\n“The forecast endpoint returns 40 time steps (3-hour intervals over 5 days). What would a tidy data frame of this look like, and how would you get there?”"
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-4-tmdb-movie-database",
+    "href": "sessions/supplemental/instructor_guide.html#lab-4-tmdb-movie-database",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab 4 — TMDB Movie Database",
+    "text": "Lab 4 — TMDB Movie Database\n\nLearning Objectives\n\nAuthenticate with both an API key and a Bearer token\nUnderstand the difference between the two approaches\nRecognize the Authorization: Bearer ... pattern used in professional APIs\n\n\n\nSetup Time\n~8 minutes. Students register at themoviedb.org, go to Settings → API, and receive both an API Key (v3) and a Read Access Token (v4 Bearer). Both are on the same settings page.\n\n\nKey Teaching Points\n\nThe API Key goes in the URL (?api_key=...) — same pattern as NASA\nThe Bearer token goes in the Authorization header (Authorization: Bearer TOKEN)\nBearer tokens are the industry standard in modern APIs (OAuth 2.0 pattern)\nTMDB’s /search/movie endpoint introduces pagination via ?page=\n\n\n\nCommon Errors\n\n\n\n\n\n\n\n\nError\nLikely Cause\nFix\n\n\n\n\n401 with Bearer token\nToken copied with extra whitespace\nRe-copy and check nchar(token)\n\n\nEmpty results array\nSearch query URL-encoded incorrectly\nUse req_url_query(query = \"movie name\") instead of manual encoding\n\n\n404 on endpoint\nWrong API version — v3 vs v4\nConfirm endpoint starts with /3/ for v3 key auth\n\n\n\n\n\nDiscussion Prompt\n\n“You’ve now used three auth methods: query param (NASA, TMDB key), custom header (Cat API x-api-key), and Authorization Bearer (TMDB token). As a developer choosing how to secure an API, what would drive that decision?”"
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#lab-5-github-rest-api",
+    "href": "sessions/supplemental/instructor_guide.html#lab-5-github-rest-api",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Lab 5 — GitHub REST API",
+    "text": "Lab 5 — GitHub REST API\n\nLearning Objectives\n\nMake unauthenticated requests to a public API\nCreate and use a Personal Access Token (PAT) with scoped permissions\nUnderstand the principle of least-privilege in API authorization\n\n\n\nSetup Time\n\nUnauthenticated exercises: zero setup\nPAT creation: ~5 minutes at github.com → Settings → Developer Settings → Fine-grained tokens\n\n\n\nKey Teaching Points\n\nGitHub’s public endpoints work without any authentication — good entry point\nRate limits differ significantly: 60 req/hour unauthenticated vs. 5,000 req/hour with a token\nFine-grained tokens let students explicitly choose what permissions to grant — a live demonstration of least-privilege security\nThe User-Agent header is required by GitHub’s API\n\n\n\nCommon Errors\n\n\n\n\n\n\n\n\nError\nLikely Cause\nFix\n\n\n\n\n403 or requires authentication\nEndpoint requires auth (e.g., private repos)\nSwitch to PAT-authenticated request\n\n\n422 Unprocessable Entity on search\nQuery syntax error\nCheck GitHub search syntax — strings must be URL-encoded\n\n\n401 with PAT\nToken expired or wrong scope\nCheck token expiry date and permissions in GitHub settings\n\n\n\n\n\nDiscussion Prompt\n\n“You created a fine-grained token that can only read public repositories. If that token were accidentally leaked in a public repo, what damage could an attacker do with it? What if it had ‘write’ permissions?”\n\n\n\nClassroom Demo\nSearch for repositories with the topic \"tidyverse\" using the GitHub search API. Shows students how to discover open-source projects programmatically — a direct real-world use case."
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#general-troubleshooting",
+    "href": "sessions/supplemental/instructor_guide.html#general-troubleshooting",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "General Troubleshooting",
+    "text": "General Troubleshooting\n\nDiagnosing Any API Error\nTeach students this four-step debugging process:\n# Step 1: Check the status code\nresp_status(response)\n\n# Step 2: Read the error message body\nresp_body_string(response)\n\n# Step 3: Inspect the request that was sent\nreq  # print the request object to see URL, headers\n\n# Step 4: Check the API documentation for that status code\n\n\nRate Limits\nAll free-tier APIs in these labs have rate limits. If a class of 30 students all hit an API simultaneously, shared IP limits can trigger 429 Too Many Requests. Strategies:\n\nUse staggered start times (group 1 starts on NASA, group 2 starts on Cat API)\nEach student should use their own API key, not a shared one\nAdd Sys.sleep(1) between repeated calls in loop exercises\n\n\n\n.Renviron Pattern (Remind Students)\nAll labs expect keys to be stored in .Renviron and loaded with dotenv::load_dot_env() or readRenviron(\"~/.Renviron\").\n# In .Renviron (never commit this file):\nNASA_KEY=your_nasa_key_here\nCAT_KEY=your_cat_api_key_here\nTMDB_KEY=your_tmdb_api_key_here\nTMDB_TOKEN=your_tmdb_bearer_token_here\nGITHUB_TOKEN=your_github_pat_here\n\n# In R:\ndotenv::load_dot_env()\nnasa_key &lt;- Sys.getenv(\"NASA_KEY\")"
+  },
+  {
+    "objectID": "sessions/supplemental/instructor_guide.html#suggested-follow-up-projects",
+    "href": "sessions/supplemental/instructor_guide.html#suggested-follow-up-projects",
+    "title": "Instructor Guide — Practice Labs",
+    "section": "Suggested Follow-Up Projects",
+    "text": "Suggested Follow-Up Projects\nAfter completing the labs, students who want a project can:\n\nDashboard project: Pull NASA APOD for the past 30 days, extract keywords from the title/explanation using stringr, and visualize the most common astronomy topics.\nMovie recommender: Use TMDB to build a genre-based recommendation table — given a genre, return the top 10 highest-rated movies of the current year.\nCity comparison: Use the extended OpenWeather lab to compare air quality and temperature trends for 5 cities over the past week.\nGitHub portfolio analyzer: Use the GitHub API to retrieve your own repositories and visualize your commit activity and language distribution."
   },
   {
     "objectID": "sessions/04_Historical_Weather_Visualization.html",
