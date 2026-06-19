@@ -19,8 +19,24 @@ website:
             href: sessions/03_Weather_API_Setup.qmd
           - text: "Session 4 — Historical Weather & Visualization"
             href: sessions/04_Historical_Weather_Visualization.qmd
+    right:
+      - text: "Practice Labs"
+        menu:
+          - text: "Lab 1 — NASA Open APIs"
+            href: sessions/supplemental/nasa_api.qmd
+          - text: "Lab 2 — The Cat API"
+            href: sessions/supplemental/cat_api.qmd
+          - text: "Lab 3 — OpenWeather (Extended)"
+            href: sessions/supplemental/openweather_extra.qmd
+          - text: "Lab 4 — TMDB Movie Database"
+            href: sessions/supplemental/tmdb_api.qmd
+          - text: "Lab 5 — GitHub REST API"
+            href: sessions/supplemental/github_api.qmd
+      - text: "Instructor Guide"
+        href: sessions/supplemental/instructor_guide.qmd
 
 format:
   html:
     theme: cosmo
+    css: custom.css
     toc: true

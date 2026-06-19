@@ -1,0 +1,234 @@
+---
+title: "Practice Lab 2: The Cat API"
+subtitle: "Header-Based Authentication & Breed Data"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+The Cat API is deliberately low-stakes — but it teaches something important. Unlike NASA (key in the URL), this API expects your credential in an **HTTP request header** (`x-api-key`). That one change in technique is the key learning of this lab.
+
+You'll also see what happens when you make the same request **with** and **without** auth — the API returns different amounts of data, making the difference tangible.
+
+**Auth pattern:** API key in a **request header** (`x-api-key: YOUR_KEY`).
+
+---
+
+## Step 1 — Get Your API Key
+
+1. Go to [thecatapi.com](https://thecatapi.com) and click **Get Your API Key**
+2. Enter your email — the key arrives instantly
+3. Add it to your `.Renviron` file:
+
+```
+CAT_KEY=your_key_here
+```
+
+::: {.callout-note}
+## No Key? No Problem — For Now
+The Cat API works without a key for basic endpoints, returning a small subset of data. This is intentional — you'll use the unauthenticated version first in Exercise 1 to see the contrast.
+:::
+
+---
+
+## Step 2 — Setup
+
+```{r load-libs}
+library(httr2)
+library(dplyr)
+library(glue)
+library(dotenv)
+
+load_dot_env()
+cat_key <- Sys.getenv("CAT_KEY")
+```
+
+---
+
+## Exercise 1: Authenticated vs. Unauthenticated — See the Difference
+
+This exercise makes the value of authentication concrete by running the same request both ways.
+
+### Without a key (unauthenticated)
+
+```{r no-auth}
+req_no_auth <- request("https://api.thecatapi.com/v1/images/search")
+response_no_auth <- req_perform(req_no_auth)
+
+result_no_auth <- resp_body_json(response_no_auth)
+
+cat("Fields returned (no auth):", paste(names(result_no_auth[[1]]), collapse=", "), "\n")
+cat("Number of results:", length(result_no_auth), "\n")
+```
+
+### With a key (authenticated)
+
+Notice the only change is the addition of `req_headers()`.
+
+```{r with-auth}
+req_auth <- request("https://api.thecatapi.com/v1/images/search") |>
+  req_headers("x-api-key" = cat_key)
+
+response_auth <- req_perform(req_auth)
+result_auth   <- resp_body_json(response_auth)
+
+cat("Fields returned (with auth):", paste(names(result_auth[[1]]), collapse=", "), "\n")
+```
+
+::: {.callout-important}
+## What changed?
+Look at the field lists side by side. Authenticated responses include `breeds`, `categories`, and `breed_ids` — fields that are gated behind auth. This is a common API design pattern: basic access is free, richer data requires a credential.
+:::
+
+---
+
+## Exercise 2: Search for Images with Limit & Size
+
+```{r search-images}
+req <- request("https://api.thecatapi.com/v1/images/search") |>
+  req_headers("x-api-key" = cat_key) |>
+  req_url_query(limit = 10, size = "med")
+
+response <- req_perform(req)
+images   <- resp_body_json(response)
+
+cat("Number of images returned:", length(images), "\n")
+
+# Extract URLs
+urls <- sapply(images, function(img) img$url)
+print(urls)
+```
+
+---
+
+## Exercise 3: Retrieve Breed Information
+
+The Cat API has a `/breeds` endpoint that returns a list of all cat breeds with detailed attributes.
+
+```{r breeds-request}
+req <- request("https://api.thecatapi.com/v1/breeds") |>
+  req_headers("x-api-key" = cat_key)
+
+response <- req_perform(req)
+breeds   <- resp_body_json(response)
+
+cat("Total breeds available:", length(breeds), "\n")
+cat("Fields per breed:", paste(names(breeds[[1]]), collapse=", "), "\n")
+```
+
+```{r breeds-flatten}
+# Flatten into a data frame
+breed_df <- lapply(breeds, function(b) {
+  data.frame(
+    name              = b$name,
+    origin            = b$origin %||% NA_character_,
+    life_span         = b$life_span %||% NA_character_,
+    temperament       = b$temperament %||% NA_character_,
+    intelligence      = b$intelligence %||% NA_integer_,
+    affection_level   = b$affection_level %||% NA_integer_,
+    energy_level      = b$energy_level %||% NA_integer_,
+    stringsAsFactors  = FALSE
+  )
+}) |> bind_rows()
+
+glimpse(breed_df)
+```
+
+```{r breeds-explore}
+# What are the most intelligent breeds?
+breed_df |>
+  arrange(desc(intelligence)) |>
+  select(name, origin, intelligence, energy_level, affection_level) |>
+  head(10)
+```
+
+---
+
+## Exercise 4: Search for Images of a Specific Breed
+
+Combine what you've learned — use a breed ID from Exercise 3 to search for images of that specific breed.
+
+```{r breed-search}
+# Get the breed ID for Abyssinian
+abyssinian_id <- breed_df |>
+  filter(name == "Abyssinian") |>
+  pull(name)
+
+# Use the breeds endpoint to find the actual ID
+abyssinian_entry <- breeds[[which(sapply(breeds, function(b) b$name) == "Abyssinian")]]
+breed_id <- abyssinian_entry$id
+
+cat("Breed ID:", breed_id, "\n")
+
+# Search for images of that breed
+req <- request("https://api.thecatapi.com/v1/images/search") |>
+  req_headers("x-api-key" = cat_key) |>
+  req_url_query(breed_ids = breed_id, limit = 5)
+
+breed_images <- resp_body_json(req_perform(req))
+cat("Images found:", length(breed_images), "\n")
+sapply(breed_images, function(img) img$url)
+```
+
+---
+
+## Questions
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Conceptual):** In Exercise 1, you ran the same endpoint twice — once without a key and once with one. The URL was identical both times. Where exactly did the credential travel in the authenticated request?
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+The credential traveled in the **HTTP request header** — specifically the `x-api-key` header. It is not part of the URL, query string, or response body. Headers are transmitted in the request metadata, which is separate from the URL and typically not logged in the same places a URL would be.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Code — Callback to Lab 1):** In Lab 1 (NASA), the API key was passed as `?api_key=KEY` in the URL. Rewrite the unauthenticated Cat API request from Exercise 1 as if the Cat API used a query parameter instead of a header. What would that look like using `req_url_query()`?
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+```r
+req_param_style <- request("https://api.thecatapi.com/v1/images/search") |>
+  req_url_query(api_key = cat_key)
+```
+This is a hypothetical — the Cat API doesn't actually support this. But the exercise shows that `req_url_query()` and `req_headers()` are the two different tools for two different auth patterns, and that the API documentation tells you which one to use.
+:::
+#### ———————
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Analysis):** Using `breed_df`, which origin country has the highest average intelligence score across all its breeds? Use `dplyr` to find out.
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+```r
+breed_df |>
+  filter(!is.na(intelligence), !is.na(origin)) |>
+  group_by(origin) |>
+  summarise(avg_intelligence = mean(intelligence, na.rm = TRUE), count = n()) |>
+  arrange(desc(avg_intelligence)) |>
+  head(5)
+```
+Countries with only one or two breeds may score high just by chance — look at the `count` column alongside the average.
+:::
+#### ———————

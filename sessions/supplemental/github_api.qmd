@@ -1,0 +1,297 @@
+---
+title: "Practice Lab 5: GitHub REST API"
+subtitle: "Public Data, Personal Access Tokens & Authorization"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+The GitHub REST API is the most realistic example in this workshop — it is a production API used by millions of developers daily. It introduces two concepts you haven't seen yet:
+
+1. **No-auth public access** — many endpoints work without any credential, though with strict rate limits
+2. **Fine-grained Personal Access Tokens (PATs)** — scoped tokens where you explicitly choose what permissions to grant
+
+The PAT exercise is a live demonstration of **least-privilege security**: only give a credential exactly the access it needs, and nothing more.
+
+**Auth patterns:** None (public) → Bearer token with `Authorization: Bearer TOKEN`.
+
+---
+
+## Step 1 — No Signup Needed for Public Data
+
+GitHub's public endpoints work immediately. No account or key required for the first two exercises.
+
+```{r load-libs}
+library(httr2)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(dotenv)
+```
+
+---
+
+## Exercise 1: Retrieve Public Repository Data (No Auth)
+
+```{r public-repos}
+# GitHub requires a User-Agent header — always include it
+req <- request("https://api.github.com/users/hadley/repos") |>
+  req_headers(
+    Accept       = "application/vnd.github+json",
+    `User-Agent` = "API-Workshop-Student"
+  ) |>
+  req_url_query(per_page = 30, sort = "updated")
+
+response <- req_perform(req)
+
+cat("Status:", resp_status(response), "\n")
+cat("Rate limit remaining:", resp_header(response, "x-ratelimit-remaining"), "\n")
+```
+
+```{r repos-flatten}
+repos <- resp_body_json(response)
+
+repos_df <- lapply(repos, function(r) {
+  data.frame(
+    name            = r$name,
+    description     = substr(r$description %||% "", 1, 80),
+    language        = r$language %||% NA_character_,
+    stars           = r$stargazers_count,
+    forks           = r$forks_count,
+    open_issues     = r$open_issues_count,
+    is_fork         = r$fork,
+    created_at      = r$created_at,
+    updated_at      = r$updated_at
+  )
+}) |> bind_rows()
+
+repos_df |>
+  arrange(desc(stars)) |>
+  select(name, language, stars, forks) |>
+  head(10)
+```
+
+::: {.callout-note}
+## Rate Limits Without Auth
+Unauthenticated requests are limited to **60 per hour** (shared by your IP address). The `x-ratelimit-remaining` header tells you how many you have left. With a PAT, the limit rises to 5,000 per hour.
+:::
+
+---
+
+## Exercise 2: Search Repositories
+
+GitHub's search API lets you find repositories by topic, language, stars, and more.
+
+```{r search-repos}
+req <- request("https://api.github.com/search/repositories") |>
+  req_headers(
+    Accept       = "application/vnd.github+json",
+    `User-Agent` = "API-Workshop-Student"
+  ) |>
+  req_url_query(
+    q        = "topic:tidyverse language:R",
+    sort     = "stars",
+    order    = "desc",
+    per_page = 20
+  )
+
+response    <- req_perform(req)
+search_data <- resp_body_json(response)
+
+cat("Total matching repositories:", search_data$total_count, "\n")
+```
+
+```{r search-flatten}
+search_df <- lapply(search_data$items, function(r) {
+  data.frame(
+    name        = r$full_name,
+    description = substr(r$description %||% "", 1, 80),
+    language    = r$language %||% NA_character_,
+    stars       = r$stargazers_count,
+    forks       = r$forks_count,
+    topics      = paste(unlist(r$topics), collapse = ", ")
+  )
+}) |> bind_rows()
+
+search_df |> arrange(desc(stars)) |> head(10)
+```
+
+---
+
+## Exercise 3: Create a Fine-Grained Personal Access Token
+
+### Step 3a — Create the Token
+
+1. Go to [github.com](https://github.com) → your avatar → **Settings**
+2. Scroll to **Developer Settings** → **Personal Access Tokens** → **Fine-grained tokens**
+3. Click **Generate new token**
+4. Set:
+   - **Token name:** `api-workshop-lab`
+   - **Expiration:** 7 days
+   - **Resource owner:** your account
+   - **Repository access:** Public repositories only
+   - **Permissions:** Metadata → Read-only (this is the minimum needed)
+5. Click **Generate token** and copy it immediately — it won't be shown again
+6. Add it to your `.Renviron`:
+
+```
+GITHUB_TOKEN=your_token_here
+```
+
+::: {.callout-important}
+## What You Just Did
+You created a token with the **minimum necessary permissions**: read access to metadata on public repositories only. Even if this token leaked, an attacker could only read public data — they could not write code, delete repositories, or access private data. This is the principle of **least privilege**.
+:::
+
+### Step 3b — Use the Token
+
+```{r load-token}
+load_dot_env()
+github_token <- Sys.getenv("GITHUB_TOKEN")
+```
+
+```{r auth-request}
+# Authenticated request — now you get 5000 requests/hour
+req <- request("https://api.github.com/user") |>
+  req_headers(
+    Authorization = glue("Bearer {github_token}"),
+    Accept        = "application/vnd.github+json",
+    `User-Agent`  = "API-Workshop-Student"
+  )
+
+response  <- req_perform(req)
+user_data <- resp_body_json(response)
+
+cat("Authenticated as:", user_data$login, "\n")
+cat("Rate limit remaining:", resp_header(response, "x-ratelimit-remaining"), "\n")
+```
+
+---
+
+## Exercise 4: Analyze Your Own Repositories
+
+With the PAT, you can retrieve your own public repository data and build a summary of your GitHub activity.
+
+```{r your-repos}
+your_username <- user_data$login
+
+req <- request(glue("https://api.github.com/users/{your_username}/repos")) |>
+  req_headers(
+    Authorization = glue("Bearer {github_token}"),
+    Accept        = "application/vnd.github+json",
+    `User-Agent`  = "API-Workshop-Student"
+  ) |>
+  req_url_query(per_page = 100, sort = "updated")
+
+your_repos <- resp_body_json(req_perform(req))
+
+your_df <- lapply(your_repos, function(r) {
+  data.frame(
+    name       = r$name,
+    language   = r$language %||% "Unknown",
+    stars      = r$stargazers_count,
+    forks      = r$forks_count,
+    is_fork    = r$fork,
+    created_at = as.Date(substr(r$created_at, 1, 10))
+  )
+}) |> bind_rows()
+
+glimpse(your_df)
+```
+
+```{r language-plot}
+your_df |>
+  filter(!is_fork, language != "Unknown") |>
+  count(language, sort = TRUE) |>
+  ggplot(aes(x = reorder(language, n), y = n, fill = language)) +
+  geom_col(width = 0.7) +
+  coord_flip() +
+  labs(
+    title = glue("Repository Languages — {your_username}"),
+    x     = NULL,
+    y     = "Number of Repositories"
+  ) +
+  scale_fill_viridis_d(option = "plasma", end = 0.85) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+---
+
+## Questions
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Conceptual):** In Exercise 1, you saw the `x-ratelimit-remaining` header in the response. Why would an API designer include rate limit information in the response headers rather than (or in addition to) the response body?
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+Headers deliver **metadata about the response** — information about the exchange itself, not the data you requested. Putting rate limit info in headers keeps the response body clean and focused on the requested data. It also means client code can check rate limits without parsing the body — a faster, more efficient check. This is the standard HTTP convention: data goes in the body, metadata goes in headers.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Security):** You created a fine-grained token with read-only access to public repositories. Describe a scenario where even this minimal token could be misused if it leaked publicly.
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+An attacker with a public-read token could:
+- **Scrape your public repository data** at the 5,000 req/hour authenticated rate (vs. 60/hour unauthenticated) — useful for mass enumeration
+- **Identify which public repos you contribute to**, revealing professional affiliations or project work you hadn't publicized
+- **Burn through your rate limit**, causing your own API calls to fail
+
+This is why even minimal tokens should be rotated (deleted and regenerated) quickly if leaked, and why expiry dates are important — a 7-day token automatically becomes useless.
+:::
+#### ———————
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Extension):** Modify the repository search from Exercise 2 to collect **all pages** of results (not just the first 20). GitHub limits search results to 1,000 total — use `total_count` and `per_page` to calculate how many pages to fetch, and use `Sys.sleep(1)` between requests to avoid hitting rate limits.
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+```r
+search_all_github <- function(query, token, max_results = 100) {
+  per_page   <- 30
+  total_pages <- ceiling(min(max_results, 1000) / per_page)
+
+  all_results <- lapply(seq_len(total_pages), function(p) {
+    Sys.sleep(1)  # be a polite client
+    req <- request("https://api.github.com/search/repositories") |>
+      req_headers(
+        Authorization = glue("Bearer {token}"),
+        Accept        = "application/vnd.github+json",
+        `User-Agent`  = "API-Workshop-Student"
+      ) |>
+      req_url_query(q = query, sort = "stars", per_page = per_page, page = p)
+
+    data <- resp_body_json(req_perform(req))
+    lapply(data$items, function(r) {
+      data.frame(name = r$full_name, stars = r$stargazers_count, language = r$language %||% NA)
+    }) |> bind_rows()
+  }) |> bind_rows()
+
+  all_results
+}
+```
+`Sys.sleep(1)` adds a 1-second pause between pages. This is good API citizenship — it avoids triggering abuse detection and spreads requests over time.
+:::
+#### ———————

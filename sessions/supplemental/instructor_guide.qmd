@@ -1,0 +1,230 @@
+---
+title: "Instructor Guide — Practice Labs"
+subtitle: "Supplemental API Practice: Setup, Sequencing & Troubleshooting"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+---
+
+## Overview
+
+This guide accompanies the five **Practice Labs** built for the API Workshop. Each lab targets a different API and introduces a new concept in credential handling, authentication, or response structure. The labs are self-contained — students can work through any of them after completing the core workshop sessions.
+
+---
+
+## Lab Sequencing & Pedagogy
+
+The labs are ordered by increasing complexity in authentication and response structure:
+
+| Lab | API | Auth Method | New Concept | After Session |
+|-----|-----|-------------|-------------|---------------|
+| 1 | NASA | API key in URL query param | Simple key auth | Session 1 |
+| 2 | The Cat API | API key in request header | Header-based auth | Session 2 |
+| 3 | OpenWeather (Extended) | API key in URL | More endpoints & comparison | Session 3 |
+| 4 | TMDB | API key OR Bearer token | Token-based auth | Session 2 |
+| 5 | GitHub REST | No auth → Personal Access Token | Scoped permissions | Session 2 |
+
+**Recommended sequence for a follow-up session:** Labs 1 → 2 → 4 → 5. Lab 3 is best assigned as take-home for students already familiar with OpenWeather from Sessions 3–4.
+
+---
+
+## Lab 1 — NASA Open APIs
+
+### Learning Objectives
+- Retrieve data from a real scientific API
+- Practice GET requests with API key as a query parameter
+- Work with deeply nested JSON (NEO asteroid data)
+
+### Setup Time
+~5 minutes. Students sign up at [api.nasa.gov](https://api.nasa.gov) — the key arrives by email immediately. Alternatively, `DEMO_KEY` works out of the box (30 requests/hour limit).
+
+### Key Teaching Points
+- The API key goes in the **URL as a query parameter** (`?api_key=...`)
+- APOD returns a single JSON object; NEO returns a multi-level nested structure
+- The NEO response requires iteration (`lapply`) to flatten before analysis
+
+### Common Errors
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `403 Forbidden` | DEMO_KEY rate limit hit | Wait 1 hour, or register for a free personal key |
+| `400 Bad Request` on NEO | Date range exceeds 7 days | Shorten the range to ≤ 7 days |
+| Empty `$url` in APOD | Media type is `video`, not `image` | Check `apod$media_type` first |
+
+### Discussion Prompt
+> "The key is in the URL. What happens to security when you share that URL with someone else?"
+
+---
+
+## Lab 2 — The Cat API
+
+### Learning Objectives
+- Pass credentials in an **HTTP header** instead of the URL
+- Understand why header-based auth is more secure
+- Practice `req_headers()` in httr2
+
+### Setup Time
+~3 minutes. Free API key at [thecatapi.com](https://thecatapi.com). The API works without a key for basic endpoints, which is useful for demonstrating the difference between authenticated and unauthenticated requests in class.
+
+### Key Teaching Points
+- The `x-api-key` header is a **custom header** — not all APIs use the same header name
+- Header contents are **not** visible in the URL or browser history
+- Unauthenticated requests return a smaller subset of results — a good live demo
+
+### Common Errors
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| Empty results on `/votes` | These endpoints require auth | Confirm the header is being set |
+| `401` on favorite endpoints | Key not passed or malformed | Print `req` object before performing to inspect headers |
+
+### Discussion Prompt
+> "Why would an API designer choose headers over query parameters for credentials? What does the URL look like in each case?"
+
+### Classroom Demo
+Run the breed search request twice — once with the header and once without. Show students the difference in the response payload (authenticated responses include `breed_temperament` and other premium fields).
+
+---
+
+## Lab 3 — OpenWeather (Extended)
+
+### Learning Objectives
+- Apply skills from Sessions 3–4 to new endpoints (Air Quality, Forecast)
+- Compare data across multiple cities using iteration
+- Explore multi-call workflows
+
+### Setup Time
+None additional — students already have their OpenWeather API key from Session 3.
+
+### Key Teaching Points
+- The **Air Quality Index** endpoint requires coordinates (lat/lon), not a city name — reinforcing geocoding from Session 3
+- The **5-day forecast** response nests `list` (an array of 40 time-step objects) — good practice at `.[[1]]` indexing
+- Comparing cities with `lapply` introduces the pattern of writing a function once and mapping it
+
+### Common Errors
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `401` on all calls | Key not yet activated (takes up to 2 hours after signup) | Use a pre-made key for class; students activate theirs at home |
+| Empty `list` in forecast | Wrong response path — use `$list` not `$forecast` | `names(resp_body_json(response))` to inspect top-level keys |
+
+### Discussion Prompt
+> "The forecast endpoint returns 40 time steps (3-hour intervals over 5 days). What would a tidy data frame of this look like, and how would you get there?"
+
+---
+
+## Lab 4 — TMDB Movie Database
+
+### Learning Objectives
+- Authenticate with both an **API key** and a **Bearer token**
+- Understand the difference between the two approaches
+- Recognize the `Authorization: Bearer ...` pattern used in professional APIs
+
+### Setup Time
+~8 minutes. Students register at [themoviedb.org](https://www.themoviedb.org), go to Settings → API, and receive both an **API Key** (v3) and a **Read Access Token** (v4 Bearer). Both are on the same settings page.
+
+### Key Teaching Points
+- The API Key goes in the URL (`?api_key=...`) — same pattern as NASA
+- The Bearer token goes in the **Authorization header** (`Authorization: Bearer TOKEN`)
+- Bearer tokens are the industry standard in modern APIs (OAuth 2.0 pattern)
+- TMDB's `/search/movie` endpoint introduces pagination via `?page=`
+
+### Common Errors
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `401` with Bearer token | Token copied with extra whitespace | Re-copy and check `nchar(token)` |
+| Empty `results` array | Search query URL-encoded incorrectly | Use `req_url_query(query = "movie name")` instead of manual encoding |
+| `404` on endpoint | Wrong API version — v3 vs v4 | Confirm endpoint starts with `/3/` for v3 key auth |
+
+### Discussion Prompt
+> "You've now used three auth methods: query param (NASA, TMDB key), custom header (Cat API x-api-key), and Authorization Bearer (TMDB token). As a developer choosing how to secure an API, what would drive that decision?"
+
+---
+
+## Lab 5 — GitHub REST API
+
+### Learning Objectives
+- Make unauthenticated requests to a public API
+- Create and use a **Personal Access Token (PAT)** with scoped permissions
+- Understand the principle of least-privilege in API authorization
+
+### Setup Time
+- Unauthenticated exercises: zero setup
+- PAT creation: ~5 minutes at github.com → Settings → Developer Settings → Fine-grained tokens
+
+### Key Teaching Points
+- GitHub's public endpoints work **without any authentication** — good entry point
+- Rate limits differ significantly: 60 req/hour unauthenticated vs. 5,000 req/hour with a token
+- **Fine-grained tokens** let students explicitly choose what permissions to grant — a live demonstration of least-privilege security
+- The `User-Agent` header is required by GitHub's API
+
+### Common Errors
+| Error | Likely Cause | Fix |
+|-------|-------------|-----|
+| `403` or `requires authentication` | Endpoint requires auth (e.g., private repos) | Switch to PAT-authenticated request |
+| `422 Unprocessable Entity` on search | Query syntax error | Check GitHub search syntax — strings must be URL-encoded |
+| `401` with PAT | Token expired or wrong scope | Check token expiry date and permissions in GitHub settings |
+
+### Discussion Prompt
+> "You created a fine-grained token that can only read public repositories. If that token were accidentally leaked in a public repo, what damage could an attacker do with it? What if it had 'write' permissions?"
+
+### Classroom Demo
+Search for repositories with the topic `"tidyverse"` using the GitHub search API. Shows students how to discover open-source projects programmatically — a direct real-world use case.
+
+---
+
+## General Troubleshooting
+
+### Diagnosing Any API Error
+
+Teach students this four-step debugging process:
+
+```r
+# Step 1: Check the status code
+resp_status(response)
+
+# Step 2: Read the error message body
+resp_body_string(response)
+
+# Step 3: Inspect the request that was sent
+req  # print the request object to see URL, headers
+
+# Step 4: Check the API documentation for that status code
+```
+
+### Rate Limits
+
+All free-tier APIs in these labs have rate limits. If a class of 30 students all hit an API simultaneously, shared IP limits can trigger `429 Too Many Requests`. Strategies:
+
+- Use **staggered start times** (group 1 starts on NASA, group 2 starts on Cat API)
+- Each student should use **their own API key**, not a shared one
+- Add `Sys.sleep(1)` between repeated calls in loop exercises
+
+### `.Renviron` Pattern (Remind Students)
+
+All labs expect keys to be stored in `.Renviron` and loaded with `dotenv::load_dot_env()` or `readRenviron("~/.Renviron")`.
+
+```r
+# In .Renviron (never commit this file):
+NASA_KEY=your_nasa_key_here
+CAT_KEY=your_cat_api_key_here
+TMDB_KEY=your_tmdb_api_key_here
+TMDB_TOKEN=your_tmdb_bearer_token_here
+GITHUB_TOKEN=your_github_pat_here
+
+# In R:
+dotenv::load_dot_env()
+nasa_key <- Sys.getenv("NASA_KEY")
+```
+
+---
+
+## Suggested Follow-Up Projects
+
+After completing the labs, students who want a project can:
+
+1. **Dashboard project:** Pull NASA APOD for the past 30 days, extract keywords from the title/explanation using `stringr`, and visualize the most common astronomy topics.
+2. **Movie recommender:** Use TMDB to build a genre-based recommendation table — given a genre, return the top 10 highest-rated movies of the current year.
+3. **City comparison:** Use the extended OpenWeather lab to compare air quality and temperature trends for 5 cities over the past week.
+4. **GitHub portfolio analyzer:** Use the GitHub API to retrieve your own repositories and visualize your commit activity and language distribution.

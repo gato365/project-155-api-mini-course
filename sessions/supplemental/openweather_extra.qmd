@@ -1,0 +1,257 @@
+---
+title: "Practice Lab 3: OpenWeather Extended"
+subtitle: "Air Quality, Forecasts & Multi-City Comparisons"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+You already have your OpenWeather API key from **Session 3**. This lab takes you further into the same API — exploring endpoints you haven't used yet and building toward multi-city comparisons.
+
+You will use:
+
+- **Air Quality Index (AQI)** — requires coordinates (lat/lon), not just a city name
+- **5-Day Forecast** — 40 time-step nested response across 5 days
+- **Multi-city pipeline** — map a function across a vector of cities
+
+**Auth pattern:** Same as Sessions 3–4 — API key as `appid` query parameter.
+
+---
+
+## Step 1 — Setup
+
+```{r load-libs}
+library(httr2)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(glue)
+library(dotenv)
+
+load_dot_env()
+weather_key <- Sys.getenv("OPENWEATHER_KEY")
+```
+
+---
+
+## Exercise 1: Air Quality Index
+
+The AQI endpoint requires **latitude and longitude**, not a city name. This means you need to geocode first — exactly the pattern from Session 3.
+
+### Step 1a — Geocode a city
+
+```{r geocode}
+get_coordinates <- function(city, key) {
+  url <- glue("http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={key}")
+  result <- resp_body_json(req_perform(request(url)))
+  list(lat = result[[1]]$lat, lon = result[[1]]$lon)
+}
+
+coords <- get_coordinates("San Luis Obispo", weather_key)
+cat("Lat:", coords$lat, "| Lon:", coords$lon, "\n")
+```
+
+### Step 1b — Fetch air quality
+
+```{r aqi-request}
+aqi_url <- glue(
+  "http://api.openweathermap.org/data/2.5/air_pollution",
+  "?lat={coords$lat}&lon={coords$lon}&appid={weather_key}"
+)
+
+response <- req_perform(request(aqi_url))
+aqi_data <- resp_body_json(response)
+
+# AQI scale: 1=Good, 2=Fair, 3=Moderate, 4=Poor, 5=Very Poor
+aqi_value  <- aqi_data$list[[1]]$main$aqi
+components <- aqi_data$list[[1]]$components
+
+cat("Air Quality Index:", aqi_value, "\n")
+cat("PM2.5:", components$pm2_5, "μg/m³\n")
+cat("CO:",    components$co,    "μg/m³\n")
+cat("NO2:",   components$no2,   "μg/m³\n")
+cat("O3:",    components$o3,    "μg/m³\n")
+```
+
+---
+
+## Exercise 2: 5-Day Forecast
+
+The forecast endpoint returns 40 time steps — one every 3 hours over 5 days. The data lives inside a `list` key (an array).
+
+```{r forecast-request}
+forecast_url <- glue(
+  "https://api.openweathermap.org/data/2.5/forecast",
+  "?q=San+Luis+Obispo&appid={weather_key}&units=imperial"
+)
+
+response      <- req_perform(request(forecast_url))
+forecast_data <- resp_body_json(response)
+
+cat("Number of time steps:", length(forecast_data$list), "\n")
+cat("City:", forecast_data$city$name, ",", forecast_data$city$country, "\n")
+```
+
+```{r forecast-flatten}
+# Flatten the nested list into a tidy data frame
+forecast_df <- lapply(forecast_data$list, function(step) {
+  data.frame(
+    datetime    = as_datetime(step$dt),
+    temp        = step$main$temp,
+    feels_like  = step$main$feels_like,
+    humidity    = step$main$humidity,
+    description = step$weather[[1]]$description,
+    wind_speed  = step$wind$speed,
+    pop         = step$pop  # probability of precipitation
+  )
+}) |> bind_rows()
+
+glimpse(forecast_df)
+```
+
+```{r forecast-plot}
+ggplot(forecast_df, aes(x = datetime, y = temp)) +
+  geom_line(color = "#4f46e5", linewidth = 1) +
+  geom_ribbon(aes(ymin = temp - 3, ymax = temp + 3), alpha = 0.15, fill = "#6366f1") +
+  geom_point(aes(color = pop), size = 2) +
+  scale_color_gradient(low = "#a5b4fc", high = "#ef4444",
+                       name = "Rain Prob.") +
+  labs(
+    title    = "5-Day Temperature Forecast — San Luis Obispo",
+    subtitle = "Point color indicates probability of precipitation",
+    x        = NULL,
+    y        = "Temperature (°F)"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+---
+
+## Exercise 3: Compare Multiple Cities
+
+Write a reusable function, then map it across a list of cities. This is the core pattern for any multi-source data pipeline.
+
+```{r city-function}
+get_current_weather <- function(city, key) {
+  url <- glue(
+    "https://api.openweathermap.org/data/2.5/weather",
+    "?q={city}&appid={key}&units=imperial"
+  )
+
+  response <- req_perform(request(url))
+
+  if (resp_status(response) != 200) {
+    message("Failed for city: ", city)
+    return(NULL)
+  }
+
+  d <- resp_body_json(response)
+
+  data.frame(
+    city        = d$name,
+    country     = d$sys$country,
+    temp        = d$main$temp,
+    feels_like  = d$main$feels_like,
+    humidity    = d$main$humidity,
+    description = d$weather[[1]]$description,
+    wind_speed  = d$wind$speed
+  )
+}
+```
+
+```{r city-map}
+cities <- c(
+  "San Luis Obispo,US",
+  "Chicago,US",
+  "Miami,US",
+  "Seattle,US",
+  "Denver,US"
+)
+
+# Map the function across all cities
+weather_comparison <- lapply(cities, get_current_weather, key = weather_key) |>
+  bind_rows()
+
+print(weather_comparison)
+```
+
+```{r city-plot}
+ggplot(weather_comparison, aes(x = reorder(city, temp), y = temp, fill = temp)) +
+  geom_col(width = 0.6, radius = unit(4, "pt")) +
+  geom_text(aes(label = paste0(round(temp), "°F")),
+            hjust = -0.15, fontface = "bold", size = 4) +
+  scale_fill_gradient(low = "#4f46e5", high = "#ef4444") +
+  coord_flip() +
+  labs(
+    title = "Current Temperature by City",
+    x     = NULL,
+    y     = "Temperature (°F)",
+    fill  = "Temp (°F)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+---
+
+## Questions
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Conceptual):** The AQI endpoint requires lat/lon, not a city name. Why do you think some API endpoints work with city names while others require coordinates?
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+City names are ambiguous — there are many cities named "Springfield" or "Paris." Coordinates are globally unique. Endpoints that measure physical phenomena at a precise geographic point (like air quality or elevation) require coordinates because a city-level approximation would be inaccurate. The geocoding step converts the human-readable name into the precise coordinates the scientific endpoint needs.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Code):** The 5-day forecast `datetime` column comes from a Unix timestamp (`step$dt`). What does `as_datetime()` from `lubridate` do to it, and what would the raw value look like without that conversion?
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+`as_datetime()` converts the raw **Unix timestamp** (an integer counting seconds since January 1, 1970) into a human-readable `POSIXct` datetime object. Without conversion, the column would contain numbers like `1704067200` — correct but unreadable and unusable for time-based plotting.
+:::
+#### ———————
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Extension):** Modify `get_current_weather()` to also retrieve the **air quality index** for each city. You'll need to geocode the city first, then call the AQI endpoint with the coordinates. What challenges do you run into?
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+The main challenge is **making two API calls per city** instead of one — geocoding (to get lat/lon) and then AQI (using those coordinates). This doubles the number of requests and makes rate limiting more of a concern. A robust solution caches the coordinates and handles errors at each step:
+
+```r
+get_weather_and_aqi <- function(city, key) {
+  coords <- get_coordinates(city, key)
+  weather <- get_current_weather(city, key)
+
+  aqi_url  <- glue("http://api.openweathermap.org/data/2.5/air_pollution?lat={coords$lat}&lon={coords$lon}&appid={key}")
+  aqi_resp <- resp_body_json(req_perform(request(aqi_url)))
+
+  weather$aqi <- aqi_resp$list[[1]]$main$aqi
+  weather
+}
+```
+:::
+#### ———————

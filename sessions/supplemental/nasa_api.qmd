@@ -1,0 +1,242 @@
+---
+title: "Practice Lab 1: NASA Open APIs"
+subtitle: "Astronomy Picture of the Day & Near-Earth Object Data"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+NASA provides free, production-quality APIs used by researchers worldwide. In this lab you will work with two:
+
+- **APOD** — Astronomy Picture of the Day: one endpoint, one JSON object, a clean introduction.
+- **NEO** — Near-Earth Object Web Service: asteroid data with a deeply nested response structure that requires real parsing work.
+
+**Auth pattern:** API key as a **URL query parameter** (`?api_key=YOUR_KEY`).
+
+---
+
+## Step 1 — Get Your API Key
+
+1. Go to [api.nasa.gov](https://api.nasa.gov)
+2. Fill in the short registration form and submit
+3. Your key arrives by email within minutes
+4. Add it to your `.Renviron` file:
+
+```
+NASA_KEY=your_key_here
+```
+
+::: {.callout-note}
+## DEMO_KEY — No signup needed
+NASA provides a built-in demo key. Replace `nasa_key` with `"DEMO_KEY"` anywhere in this lab. It allows 30 requests/hour and 50/day — enough to complete the exercises.
+:::
+
+---
+
+## Step 2 — Setup
+
+```{r load-libs}
+library(httr2)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(dotenv)
+
+load_dot_env()
+nasa_key <- Sys.getenv("NASA_KEY")
+```
+
+---
+
+## Exercise 1: Astronomy Picture of the Day
+
+The APOD endpoint returns a single JSON object describing today's featured image or video, along with a scientific explanation written by a professional astronomer.
+
+```{r apod-request}
+apod_url <- glue("https://api.nasa.gov/planetary/apod?api_key={nasa_key}")
+
+req      <- request(apod_url)
+response <- req_perform(req)
+
+# Always check the status first
+resp_status(response)
+```
+
+```{r apod-parse}
+apod <- resp_body_json(response)
+
+# Inspect the top-level keys
+names(apod)
+```
+
+```{r apod-display}
+cat("Title:     ", apod$title,      "\n")
+cat("Date:      ", apod$date,       "\n")
+cat("Media type:", apod$media_type, "\n")
+cat("URL:       ", apod$url,        "\n")
+cat("\nExplanation:\n", apod$explanation, "\n")
+```
+
+### Challenge A — Request a Specific Date
+
+Add a `date` query parameter to retrieve any past APOD. Dates go back to 1995-06-16.
+
+```{r apod-date}
+apod_dated_url <- glue(
+  "https://api.nasa.gov/planetary/apod",
+  "?api_key={nasa_key}&date=1995-06-16"
+)
+
+apod_first <- resp_body_json(req_perform(request(apod_dated_url)))
+cat("First ever APOD:", apod_first$title, "\n")
+```
+
+### Challenge B — Retrieve a Batch of APODs
+
+Use the `count` parameter to retrieve multiple random APODs in a single request.
+
+```{r apod-batch}
+apod_batch_url <- glue(
+  "https://api.nasa.gov/planetary/apod",
+  "?api_key={nasa_key}&count=5"
+)
+
+apod_list <- resp_body_json(req_perform(request(apod_batch_url)))
+
+# How is the structure different from a single APOD?
+length(apod_list)
+apod_list[[1]]$title
+```
+
+---
+
+## Exercise 2: Near-Earth Object (Asteroid) Data
+
+The NEO endpoint returns every asteroid that passed near Earth within a date range. The response is nested three levels deep — a great exercise in list navigation.
+
+```{r neo-request}
+neo_url <- glue(
+  "https://api.nasa.gov/neo/rest/v1/feed",
+  "?start_date=2024-01-01&end_date=2024-01-07",
+  "&api_key={nasa_key}"
+)
+
+response <- req_perform(request(neo_url))
+neo_data <- resp_body_json(response)
+
+cat("Total asteroids in this range:", neo_data$element_count, "\n")
+cat("Top-level keys:", paste(names(neo_data), collapse=", "), "\n")
+```
+
+```{r neo-explore}
+# Near-Earth objects are nested: neo_data$near_earth_objects → date → list of asteroids
+dates <- names(neo_data$near_earth_objects)
+cat("Dates in response:", paste(dates, collapse=", "), "\n")
+
+# Look at the first asteroid on the first date
+first_day   <- neo_data$near_earth_objects[[dates[1]]]
+first_rock  <- first_day[[1]]
+
+cat("Name:", first_rock$name, "\n")
+cat("Hazardous?", first_rock$is_potentially_hazardous_asteroid, "\n")
+cat("Min diameter (km):",
+    first_rock$estimated_diameter$kilometers$estimated_diameter_min, "\n")
+```
+
+```{r neo-flatten}
+# Flatten all dates and asteroids into a single data frame
+all_asteroids <- lapply(neo_data$near_earth_objects, function(day) {
+  lapply(day, function(rock) {
+    data.frame(
+      name          = rock$name,
+      date          = rock$close_approach_data[[1]]$close_approach_date,
+      is_hazardous  = rock$is_potentially_hazardous_asteroid,
+      min_diam_km   = rock$estimated_diameter$kilometers$estimated_diameter_min,
+      max_diam_km   = rock$estimated_diameter$kilometers$estimated_diameter_max,
+      miss_dist_km  = as.numeric(rock$close_approach_data[[1]]$miss_distance$kilometers),
+      speed_kmh     = as.numeric(rock$close_approach_data[[1]]$relative_velocity$kilometers_per_hour)
+    )
+  }) |> bind_rows()
+}) |> bind_rows()
+
+glimpse(all_asteroids)
+```
+
+```{r neo-plot}
+ggplot(all_asteroids, aes(x = miss_dist_km / 1e6, fill = is_hazardous)) +
+  geom_histogram(bins = 25, alpha = 0.85, color = "white") +
+  scale_fill_manual(
+    values = c("FALSE" = "#4f46e5", "TRUE" = "#ef4444"),
+    labels = c("Not Hazardous", "Potentially Hazardous")
+  ) +
+  labs(
+    title    = "Asteroid Miss Distances — Jan 1–7, 2024",
+    subtitle = "Each bar = one asteroid; distance from Earth's center",
+    x        = "Miss Distance (millions of km)",
+    y        = "Count",
+    fill     = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "top")
+```
+
+---
+
+## Questions
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Conceptual):** In this lab the API key is passed as a query parameter (`?api_key=...`). Name one situation where this approach could create a security risk.
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+The key is visible in the URL — which means it appears in browser history, server access logs, and anywhere the URL is copy-pasted or shared. If you accidentally post the URL in a public place (a GitHub issue, a Slack message, a screenshot), your key is exposed. Header-based auth keeps the credential out of the URL entirely.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Code):** The `count` parameter returns a list of APODs instead of a single object. Write code that extracts just the `title` from each item in the batch and prints them as a character vector.
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+```r
+titles <- sapply(apod_list, function(x) x$title)
+print(titles)
+```
+`sapply` maps a function over each list element and simplifies the result to a vector.
+:::
+#### ———————
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Analysis):** After building `all_asteroids`, use `dplyr` to find the single asteroid with the **smallest miss distance** in the date range. Was it potentially hazardous?
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+```r
+all_asteroids |>
+  arrange(miss_dist_km) |>
+  select(name, date, miss_dist_km, is_hazardous) |>
+  slice(1)
+```
+The answer varies by date range, but notice whether `is_hazardous` is `TRUE` for the closest pass — this is the heart of what NASA tracks with NEO Watch.
+:::
+#### ———————

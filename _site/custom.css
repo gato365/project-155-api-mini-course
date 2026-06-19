@@ -1,0 +1,324 @@
+/* =============================================
+   API Workshop — Vibrant Theme
+   ============================================= */
+
+/* --- Navbar --- */
+.navbar {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #1e40af 100%) !important;
+  border-bottom: 3px solid #6366f1;
+  padding: 0.6rem 1.5rem;
+}
+
+.navbar-brand {
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.navbar-brand:hover {
+  color: #a5b4fc !important;
+}
+
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 6px !important;
+  transition: color 0.2s ease !important;
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: #a5b4fc;
+  transition: left 0.25s ease, right 0.25s ease;
+  border-radius: 1px;
+}
+
+.navbar .nav-link:hover {
+  color: #ffffff !important;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+  left: 0;
+  right: 0;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  border: 1px solid #e0e7ff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.18);
+  padding: 0.4rem;
+  overflow: hidden;
+  animation: dropIn 0.18s ease;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  transition: background-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #e0e7ff !important;
+  color: #4f46e5 !important;
+  padding-left: 1.3rem;
+}
+
+/* --- Global links --- */
+a {
+  color: #4f46e5;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #7c3aed;
+}
+
+/* --- Headings --- */
+h1.title {
+  color: #1e1b4b;
+  font-weight: 800;
+}
+
+h2 {
+  color: #312e81;
+  font-weight: 700;
+  margin-top: 2.2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid #e0e7ff;
+}
+
+h3 {
+  color: #4338ca;
+  font-weight: 600;
+}
+
+h4 {
+  color: #6366f1;
+}
+
+/* --- Dividers --- */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed, #c7d2fe, transparent);
+  margin: 2rem 0;
+  border-radius: 1px;
+}
+
+/* --- Callout boxes --- */
+.callout {
+  border-radius: 8px !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.callout:hover {
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.1);
+}
+
+.callout-note {
+  border-left-color: #6366f1 !important;
+  background-color: #eef2ff !important;
+}
+
+.callout-tip {
+  border-left-color: #10b981 !important;
+  background-color: #ecfdf5 !important;
+}
+
+.callout-important {
+  border-left-color: #f59e0b !important;
+  background-color: #fffbeb !important;
+}
+
+.callout-warning {
+  border-left-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+/* --- Code blocks --- */
+pre.sourceCode {
+  border-left: 4px solid #6366f1 !important;
+  border-radius: 0 8px 8px 0 !important;
+  background: #f5f3ff !important;
+  transition: box-shadow 0.2s ease;
+}
+
+pre.sourceCode:hover {
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+}
+
+:not(pre) > code {
+  color: #4f46e5 !important;
+  background: #eef2ff;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* --- Tables --- */
+table {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(79, 70, 229, 0.1);
+  border-collapse: separate !important;
+  border-spacing: 0;
+}
+
+thead tr {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+}
+
+thead th {
+  color: white !important;
+  font-weight: 600;
+  padding: 0.75rem 1rem !important;
+  border: none !important;
+}
+
+tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+  background-color: #eef2ff !important;
+}
+
+tbody td {
+  padding: 0.6rem 1rem !important;
+}
+
+/* --- Title block --- */
+.quarto-title-block .quarto-title {
+  padding-top: 0.5rem;
+}
+
+#title-block-header {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-left: 5px solid #4f46e5;
+}
+
+/* --- Images --- */
+img {
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(30, 27, 75, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+img:hover {
+  transform: scale(1.015);
+  box-shadow: 0 8px 28px rgba(30, 27, 75, 0.2);
+}
+
+/* --- TOC (sidebar) --- */
+.sidebar nav[role="doc-toc"] ul li a {
+  transition: color 0.15s ease, padding-left 0.15s ease;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.sidebar nav[role="doc-toc"] ul li a:hover {
+  color: #4f46e5 !important;
+  padding-left: 10px;
+}
+
+.sidebar nav[role="doc-toc"] ul li a.active {
+  color: #4f46e5 !important;
+  font-weight: 600;
+  border-left: 3px solid #6366f1;
+  padding-left: 8px;
+}
+
+/* --- Details / collapsible answers --- */
+details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #4f46e5;
+  transition: color 0.2s ease;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+details > summary::before {
+  content: '▶';
+  font-size: 0.7em;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details > summary:hover {
+  color: #7c3aed;
+}
+
+/* --- Footer --- */
+.nav-footer {
+  background: #1e1b4b !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.nav-footer a {
+  color: #a5b4fc !important;
+}
+
+.nav-footer a:hover {
+  color: #ffffff !important;
+}
+
+/* --- Smooth scroll & global transitions --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Supplemental badge styling --- */
+.practice-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  padding: 0.2em 0.7em;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* --- Progress / step indicators --- */
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}

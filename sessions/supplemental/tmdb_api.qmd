@@ -1,0 +1,280 @@
+---
+title: "Practice Lab 4: TMDB Movie Database"
+subtitle: "API Keys, Bearer Tokens & Movie Data"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    css: ../../custom.css
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+TMDB (The Movie Database) is a community-built database of movies, TV shows, actors, and genres. It is an excellent API for learning because it supports **two authentication methods simultaneously** — you'll use both.
+
+- **API Key** — passed as a query parameter, same pattern as NASA
+- **Bearer Token** — passed in the `Authorization` header, the industry-standard modern approach
+
+Understanding Bearer tokens is critical: every major professional API (Spotify, Stripe, GitHub, Google Cloud) uses this pattern.
+
+**Auth patterns:** API key in URL *and* Bearer token in header.
+
+---
+
+## Step 1 — Get Your Credentials
+
+1. Go to [themoviedb.org](https://www.themoviedb.org) and create a free account
+2. Go to **Settings → API** (left sidebar)
+3. Request an API key — select "Developer" and fill in the form
+4. On the same page you will see:
+   - **API Key (v3)** — a 32-character hex string
+   - **Read Access Token (v4 auth)** — a long JWT-style Bearer token
+5. Add both to your `.Renviron`:
+
+```
+TMDB_KEY=your_api_key_here
+TMDB_TOKEN=your_read_access_token_here
+```
+
+---
+
+## Step 2 — Setup
+
+```{r load-libs}
+library(httr2)
+library(dplyr)
+library(ggplot2)
+library(glue)
+library(dotenv)
+
+load_dot_env()
+tmdb_key   <- Sys.getenv("TMDB_KEY")
+tmdb_token <- Sys.getenv("TMDB_TOKEN")
+```
+
+---
+
+## Exercise 1: Search Movies Using an API Key
+
+This is the simplest auth pattern — identical to how you used the NASA and OpenWeather APIs.
+
+```{r search-key}
+req <- request("https://api.themoviedb.org/3/search/movie") |>
+  req_url_query(
+    api_key  = tmdb_key,
+    query    = "Interstellar",
+    language = "en-US",
+    page     = 1
+  )
+
+response <- req_perform(req)
+search_data <- resp_body_json(response)
+
+cat("Total results:", search_data$total_results, "\n")
+cat("Pages:", search_data$total_pages, "\n")
+```
+
+```{r search-flatten}
+# Flatten the results array
+movies_df <- lapply(search_data$results, function(m) {
+  data.frame(
+    id            = m$id,
+    title         = m$title,
+    release_date  = m$release_date %||% NA_character_,
+    vote_average  = m$vote_average,
+    vote_count    = m$vote_count,
+    popularity    = m$popularity,
+    overview      = substr(m$overview %||% "", 1, 100)
+  )
+}) |> bind_rows()
+
+movies_df |> select(title, release_date, vote_average, popularity)
+```
+
+---
+
+## Exercise 2: Get Popular Movies Using a Bearer Token
+
+Now use the Bearer token. The endpoint is the same family, but the credential moves from the URL to an `Authorization` header.
+
+```{r popular-bearer}
+req <- request("https://api.themoviedb.org/3/movie/popular") |>
+  req_headers(
+    Authorization = glue("Bearer {tmdb_token}"),
+    Accept        = "application/json"
+  ) |>
+  req_url_query(language = "en-US", page = 1)
+
+response   <- req_perform(req)
+pop_data   <- resp_body_json(response)
+
+popular_df <- lapply(pop_data$results, function(m) {
+  data.frame(
+    title        = m$title,
+    release_date = m$release_date %||% NA_character_,
+    vote_average = m$vote_average,
+    popularity   = m$popularity,
+    genre_ids    = paste(unlist(m$genre_ids), collapse = ",")
+  )
+}) |> bind_rows()
+
+head(popular_df, 10)
+```
+
+::: {.callout-important}
+## Comparing the Two Approaches
+Notice what changed: with the API key, credentials were in the URL (`?api_key=...`). With the Bearer token, the URL is clean and the credential is in the `Authorization` header. The response structure is identical — only the auth mechanism differs. This is exactly the difference you saw between the NASA lab and the Cat API lab.
+:::
+
+---
+
+## Exercise 3: Retrieve Genres and Join
+
+TMDB's results include `genre_ids` (numbers) rather than genre names. This exercise fetches the genre lookup table and joins it.
+
+```{r genres}
+req <- request("https://api.themoviedb.org/3/genre/movie/list") |>
+  req_headers(Authorization = glue("Bearer {tmdb_token}")) |>
+  req_url_query(language = "en-US")
+
+genre_data <- resp_body_json(req_perform(req))
+
+genre_df <- lapply(genre_data$genres, function(g) {
+  data.frame(genre_id = g$id, genre_name = g$name)
+}) |> bind_rows()
+
+print(genre_df)
+```
+
+```{r genre-join}
+# For each movie, get its primary genre (first in the list)
+popular_df_genres <- popular_df |>
+  mutate(primary_genre_id = as.integer(sub(",.*", "", genre_ids))) |>
+  left_join(genre_df, by = c("primary_genre_id" = "genre_id"))
+
+popular_df_genres |>
+  count(genre_name, sort = TRUE)
+```
+
+```{r genre-plot}
+popular_df_genres |>
+  count(genre_name, sort = TRUE) |>
+  filter(!is.na(genre_name)) |>
+  ggplot(aes(x = reorder(genre_name, n), y = n, fill = n)) +
+  geom_col(width = 0.7) +
+  scale_fill_gradient(low = "#a5b4fc", high = "#4f46e5") +
+  coord_flip() +
+  labs(
+    title = "Most Common Genres Among Currently Popular Movies",
+    x     = NULL,
+    y     = "Number of Movies",
+    fill  = "Count"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+---
+
+## Exercise 4: Paginate Through Results
+
+TMDB returns 20 results per page. This exercise collects multiple pages.
+
+```{r paginate}
+get_popular_page <- function(page, token) {
+  req <- request("https://api.themoviedb.org/3/movie/popular") |>
+    req_headers(Authorization = glue("Bearer {token}")) |>
+    req_url_query(language = "en-US", page = page)
+
+  data <- resp_body_json(req_perform(req))
+
+  lapply(data$results, function(m) {
+    data.frame(
+      title        = m$title,
+      vote_average = m$vote_average,
+      popularity   = m$popularity
+    )
+  }) |> bind_rows()
+}
+
+# Collect 3 pages (60 movies)
+pages_1_to_3 <- lapply(1:3, get_popular_page, token = tmdb_token) |>
+  bind_rows()
+
+cat("Total movies collected:", nrow(pages_1_to_3), "\n")
+```
+
+---
+
+## Questions
+
+#### ———————
+### Q1. {.unnumbered}
+
+**(Conceptual):** You used two credentials in this lab: an API Key and a Bearer token. From TMDB's settings page, both credentials grant the same read access. What advantage does the Bearer token approach provide over the API key approach?
+
+::: {.callout-tip collapse="true" title="Answer Q1"}
+The Bearer token keeps the credential **out of the URL** — it travels in the Authorization header instead. This means it won't appear in server access logs, browser history, or accidental copy-pastes of URLs. Bearer tokens are also the foundation of OAuth 2.0, which enables more sophisticated flows like expiring tokens and scoped permissions — making them the preferred standard for professional APIs.
+:::
+#### ———————
+
+
+#### ———————
+### Q2. {.unnumbered}
+
+**(Code):** TMDB paginates results with a `page` parameter. Write a function that retrieves **all pages** of a search query (not just page 1), using the `total_pages` value from the first response to know when to stop.
+
+::: {.callout-tip collapse="true" title="Answer Q2"}
+```r
+search_all_pages <- function(query, key) {
+  first_resp <- resp_body_json(req_perform(
+    request("https://api.themoviedb.org/3/search/movie") |>
+      req_url_query(api_key = key, query = query, page = 1)
+  ))
+
+  total_pages <- min(first_resp$total_pages, 5)  # cap at 5 to be polite
+
+  all_pages <- lapply(seq_len(total_pages), function(p) {
+    data <- resp_body_json(req_perform(
+      request("https://api.themoviedb.org/3/search/movie") |>
+        req_url_query(api_key = key, query = query, page = p)
+    ))
+    lapply(data$results, function(m) data.frame(title = m$title, vote_average = m$vote_average)) |>
+      bind_rows()
+  }) |> bind_rows()
+
+  all_pages
+}
+```
+Capping at 5 pages avoids hammering the API — always be a polite client.
+:::
+#### ———————
+
+
+#### ———————
+### Q3. {.unnumbered}
+
+**(Analysis):** Using `popular_df_genres`, find the top 5 most popular movies (by `popularity` score) in the **Action** genre. Sort them descending and display their title, vote average, and popularity.
+
+::: {.callout-tip collapse="true" title="Answer Q3"}
+```r
+popular_df_genres |>
+  filter(genre_name == "Action") |>
+  arrange(desc(popularity)) |>
+  select(title, vote_average, popularity) |>
+  head(5)
+```
+The `popularity` field on TMDB is a proprietary score based on views, watchlists, and ratings — not the same as `vote_average`, which reflects quality. A movie can be very popular but not highly rated, and vice versa.
+:::
+#### ———————
