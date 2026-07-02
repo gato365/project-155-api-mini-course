@@ -8,6 +8,8 @@ title: "API Workshop"
 
 This workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.
 
+[Meet your workshop team](#workshop-team) before you begin.
+
 ---
 
 ## Workshop Schedule
@@ -33,3 +35,25 @@ This workshop covers the fundamentals of working with web APIs — from understa
 ## Getting Started
 
 Start with **[Session 0 — Getting Started](sessions/00_Getting_Started.qmd)** to download your files and get set up, then head into **[Session 1](sessions/01_JSON_and_Request_Response.qmd)**.
+
+## Workshop Team {#workshop-team}
+
+Use this 45-second introduction to know who is in the room and how to get help.
+
+::: {.profile-grid}
+::: {.profile-card}
+![](assets/immanuel-avatar.svg){fig-alt="Illustrated avatar for Immanuel Williams"}
+
+### Immanuel Williams
+
+Instructor for the API Workshop. I will guide the main walkthroughs, connect each concept to practical data work, and keep the course moving from API flow to real requests and usable data.
+:::
+
+::: {.profile-card}
+![](assets/meg-avatar.svg){fig-alt="Illustrated avatar for Meg"}
+
+### Meg
+
+Student assistant for the workshop. Meg will help with setup questions, debugging, and moments where your local file or code does something different from the screen.
+:::
+:::

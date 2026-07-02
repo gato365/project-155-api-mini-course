@@ -175,6 +175,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#workshop-schedule" id="toc-workshop-schedule" class="nav-link" data-scroll-target="#workshop-schedule">Workshop Schedule</a></li>
   <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
+  <li><a href="#workshop-team" id="toc-workshop-team" class="nav-link" data-scroll-target="#workshop-team">Workshop Team</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -205,6 +206,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Welcome to the API Workshop</h1>
 <p><strong>Empowering educators with the skills to extract real-world data using APIs.</strong></p>
 <p>This workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.</p>
+<p><a href="#workshop-team">Meet your workshop team</a> before you begin.</p>
 <hr>
 <section id="workshop-schedule" class="level2">
 <h2 class="anchored" data-anchor-id="workshop-schedule">Workshop Schedule</h2>
@@ -259,6 +261,26 @@ ul.task-list li input[type="checkbox"] {
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
 <p>Start with <strong><a href="./sessions/00_Getting_Started.html">Session 0 — Getting Started</a></strong> to download your files and get set up, then head into <strong><a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a></strong>.</p>
+</section>
+<section id="workshop-team" class="level2">
+<h2 class="anchored" data-anchor-id="workshop-team">Workshop Team</h2>
+<p>Use this 45-second introduction to know who is in the room and how to get help.</p>
+<div class="profile-grid">
+<div class="profile-card">
+<p><img src="assets/immanuel-avatar.svg" class="img-fluid" alt="Illustrated avatar for Immanuel Williams"></p>
+<section id="immanuel-williams" class="level3">
+<h3 class="anchored" data-anchor-id="immanuel-williams">Immanuel Williams</h3>
+<p>Instructor for the API Workshop. I will guide the main walkthroughs, connect each concept to practical data work, and keep the course moving from API flow to real requests and usable data.</p>
+</section>
+</div>
+<div class="profile-card">
+<p><img src="assets/meg-avatar.svg" class="img-fluid" alt="Illustrated avatar for Meg"></p>
+<section id="meg" class="level3">
+<h3 class="anchored" data-anchor-id="meg">Meg</h3>
+<p>Student assistant for the workshop. Meg will help with setup questions, debugging, and moments where your local file or code does something different from the screen.</p>
+</section>
+</div>
+</div>
 
 
 </section>
@@ -338,7 +360,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/gato365\.github\.io\/project-155-api-mini-course\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

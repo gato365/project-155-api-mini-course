@@ -1,5 +1,13 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "*.md"
+    - "sessions/**/*.qmd"
+    - "!README_ME_ONLY.md"
+    - "!downloads/**"
+  resources:
+    - downloads/api_workshop_empty.zip
 
 website:
   title: "API Workshop"

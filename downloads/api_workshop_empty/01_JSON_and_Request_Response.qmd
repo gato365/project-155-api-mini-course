@@ -60,9 +60,6 @@ b)  To allow programmatic, repeatable, and direct access to live data from an ex
 c)  To store large CSV files in the cloud.
 d)  To design the database structure for a server.
 
-::: {.callout-tip collapse="true" title="Answer Q1"}
-**b)** An API provides a structured way for a program (like an R script) to directly request and receive live data, making data acquisition automated and scalable.
-:::
 
 #### ———————
 
@@ -101,9 +98,6 @@ b)  It acts as a gateway — receiving requests from the client and routing them
 c)  It runs the backend logic that queries the database.
 d)  It is the same as the database.
 
-::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-**b)** The API is a **gateway** or controlled interface. It does not store data (that's the database) and it does not run the core business logic (that's the server). It is the stable "front door" that clients talk to, and it routes requests onward.
-:::
 
 #### ———————
 
@@ -113,9 +107,6 @@ d)  It is the same as the database.
 
 **(Open-Ended):** Using the restaurant analogy where the API is a **waiter**, describe the step-by-step process of you (the **client**) successfully ordering and receiving a "current weather forecast" from the kitchen (the **server**).
 
-::: {.callout-tip collapse="true" title="Answer Q2"}
-I (the **client**) look at the menu (API documentation) and decide what I want. I then give my specific order for the "current weather forecast" to the **waiter** (the API). The waiter takes my request to the **kitchen** (the server), which has access to the fridge (the database). The kitchen prepares my order and gives the finished dish (the JSON data response) back to the waiter, who delivers it to my table.
-:::
 
 #### ———————
 
@@ -130,9 +121,6 @@ b)  The menu
 c)  The cash register
 d)  The table number
 
-::: {.callout-tip collapse="true" title="Answer Q3"}
-**b)** The menu. Just like a menu tells you what's available and how to order it, API documentation tells you what endpoints exist, what parameters you can send, and what responses to expect.
-:::
 
 #### ———————
 
@@ -168,9 +156,6 @@ This information is traditionally provided in **JSON format**.
 
 **(Open-Ended):** What is the fundamental difference between an API **request** and an API **response**?
 
-::: {.callout-tip collapse="true" title="Answer Q4"}
-A **request** is what you *send* to a server to ask for information. It's an outgoing message that includes the endpoint URL, your API key, and the specific parameters for your query. A **response** is what the server *sends back* to you. It's an incoming message containing the data you asked for (the body), a status code indicating success or failure, and other metadata.
-:::
 
 #### ———————
 
@@ -200,9 +185,6 @@ When we send a request to an API, we get a response body, which includes the con
 
 **(Open-Ended):** The animation shows the entire response wrapped in `{ }`. When you call `resp_body_json()` in R to parse this response, what R data structure does that outer `{ }` (a JSON object) become, and how would you access the value for a key called `"temperature"` inside it?
 
-::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-A JSON object (`{ }`) becomes a **named list** in R. To access the value for `"temperature"`, you would use `result$temperature` or `result[["temperature"]]`, where `result` is the variable holding the parsed response.
-:::
 
 #### ———————
 
@@ -260,9 +242,6 @@ b)  A nested series of bullet points
 c)  Key-value pairs
 d)  Formatted paragraphs of text
 
-::: {.callout-tip collapse="true" title="Answer Q5"}
-**c)** JSON data is built on **key-value pairs** (e.g., `"city": "Chicago"`), where a "key" is a string and a "value" can be a string, number, boolean, array, or another object.
-:::
 
 #### ———————
 
@@ -272,9 +251,6 @@ d)  Formatted paragraphs of text
 
 **(Open-Ended — Callback to Q4):** Given the nested JSON example above, if you converted this to a data frame in R using `as.data.frame()`, what would the column name for the latitude value be?
 
-::: {.callout-tip collapse="true" title="Answer Q6"}
-The column name would be `coordinates.lat`. When R flattens a nested JSON structure into a data frame, it joins the nested key names with a period. So `coordinates` → `lat` becomes `coordinates.lat`.
-:::
 
 #### ———————
 
@@ -313,9 +289,6 @@ In most data API work, your goal is to get a **200** response. If you don't, the
 
 **(Discussion):** You write a script to get weather data, but it fails with a `404 Not Found` status code. Based on the 400-level error category, is it more likely that the weather company's server is broken, or that you made a mistake? What part of your request is the most likely source of the error?
 
-::: {.callout-tip collapse="true" title="Answer Q7"}
-A `404 Not Found` error is a **client-side** error (4xx), meaning the mistake is on my end. It is not a server error (5xx). The most likely problem is that the **URL endpoint** I used in my request is incorrect or misspelled — I've asked for a "page" that doesn't exist on the server.
-:::
 
 #### ———————
 
@@ -330,9 +303,6 @@ b)  Key-value pairs containing the data you requested
 c)  A redirect URL to a different API
 d)  An empty response with no content
 
-::: {.callout-tip collapse="true" title="Answer Q8"}
-**b)** A `200 OK` status means success, and the JSON body will contain the key-value pairs with the data you requested — temperature, coordinates, city name, etc.
-:::
 
 #### ———————
 
@@ -342,9 +312,6 @@ d)  An empty response with no content
 
 **(Open-Ended):** You receive a `401 Unauthorized` error when trying to access weather data. You've double-checked the URL and it's correct. What is the most likely cause, and how would you fix it?
 
-::: {.callout-tip collapse="true" title="Answer Q9"}
-A `401 Unauthorized` error means your **API key** is missing, invalid, or expired. The fix is to check that you've properly loaded your API key (e.g., from your `.Renviron` file), that the key is still active on the provider's website, and that you're passing it correctly in the request URL or headers.
-:::
 
 #### ———————
 
