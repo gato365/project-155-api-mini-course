@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>API Workshop</title>
+<title>general_notes_modifications – API Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -181,120 +181,76 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-the-api-workshop" id="toc-welcome-to-the-api-workshop" class="nav-link active" data-scroll-target="#welcome-to-the-api-workshop">Welcome to the API Workshop</a>
+  <li><a href="#session-1" id="toc-session-1" class="nav-link active" data-scroll-target="#session-1">Session 1</a>
   <ul class="collapse">
-  <li><a href="#workshop-schedule" id="toc-workshop-schedule" class="nav-link" data-scroll-target="#workshop-schedule">Workshop Schedule</a></li>
-  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a></li>
-  <li><a href="#workshop-team" id="toc-workshop-team" class="nav-link" data-scroll-target="#workshop-team">Workshop Team</a></li>
+  <li><a href="#during-break-of-session-1" id="toc-during-break-of-session-1" class="nav-link" data-scroll-target="#during-break-of-session-1">During Break of Session 1</a></li>
   </ul></li>
+  <li><a href="#session-2" id="toc-session-2" class="nav-link" data-scroll-target="#session-2">Session 2</a>
+  <ul class="collapse">
+  <li><a href="#during-break" id="toc-during-break" class="nav-link" data-scroll-target="#during-break">During Break</a></li>
+  </ul></li>
+  <li><a href="#session-3" id="toc-session-3" class="nav-link" data-scroll-target="#session-3">Session 3</a>
+  <ul class="collapse">
+  <li><a href="#during-break-1" id="toc-during-break-1" class="nav-link" data-scroll-target="#during-break-1">During Break</a></li>
+  </ul></li>
+  <li><a href="#session-4" id="toc-session-4" class="nav-link" data-scroll-target="#session-4">Session 4</a>
+  <ul class="collapse">
+  <li><a href="#during-break-2" id="toc-during-break-2" class="nav-link" data-scroll-target="#during-break-2">During Break</a></li>
+  </ul></li>
+  <li><a href="#general-notes-really-important" id="toc-general-notes-really-important" class="nav-link" data-scroll-target="#general-notes-really-important">General Notes [REALLY IMPORTANT]</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">API Workshop</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="welcome-to-the-api-workshop" class="level1">
-<h1>Welcome to the API Workshop</h1>
-<p><strong>Empowering educators with the skills to extract real-world data using APIs.</strong></p>
-<p>This workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.</p>
-<p><a href="#workshop-team">Meet your workshop team</a> before you begin.</p>
-<hr>
-<section id="workshop-schedule" class="level2">
-<h2 class="anchored" data-anchor-id="workshop-schedule">Workshop Schedule</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Day</th>
-<th>Time</th>
-<th>Session</th>
-<th>Focus</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Day 1 (8/5)</td>
-<td>8:00–9:00 AM</td>
-<td><a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a></td>
-<td>JSON Fundamentals &amp; Request/Response</td>
-</tr>
-<tr class="even">
-<td>Day 1 (8/5)</td>
-<td>9:00–10:00 AM</td>
-<td><a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2</a></td>
-<td>CRUD, HTTP Methods, URL Anatomy &amp; Dummy Server</td>
-</tr>
-<tr class="odd">
-<td>Day 2 (8/6)</td>
-<td>9:00–10:00 AM</td>
-<td><a href="./sessions/03_Weather_API_Setup.html">Session 3</a></td>
-<td>Weather API — Setup, Current Weather, Geocoding</td>
-</tr>
-<tr class="even">
-<td>Day 2 (8/6)</td>
-<td>10:00–11:00 AM</td>
-<td><a href="./sessions/04_Historical_Weather_Visualization.html">Session 4</a></td>
-<td>Historical Weather, Visualization &amp; Wrap-Up</td>
-</tr>
-</tbody>
-</table>
-<hr>
+<p>———- DONE ## Session 0 - Introduce Meg (student assistant) and I (instructor) via link (with image and short bios), only clickable on front page (45 second) - (create) Make sure that they can click on a link and it download the dir with all relevenat qmds (empty version of the files) - (change) Add if they have a question put their hand up and Meg will help, If you get stuck regarding the querstions the online version is there - briefly discuss outline for the course within the qmd 1. Understand Flow of an API and then mores specifically a responses 2. Undertstand how to make a request 3. Make our 1st API call 4. What can we do with this data</p>
+<p>———- DONE</p>
+<section id="session-1" class="level2">
+<h2 class="anchored" data-anchor-id="session-1">Session 1</h2>
+<p>[Make sure the empty version gets changed to reflect the changes below in solution] - (change) Make sure their is a gif/animation of the example of <strong>restaurant analogy</strong> this is <code>part 1</code> - (change) add in this example that the client makes a request this is part 1 - (think) when I formally address requests within <code>part 3</code>, I think I could be too complicated, i mention url and API Key, can I make this more straightforward, note I am going to come back to this in session 2 - (think) I need to explain the response with thoroughness and slowness, I think I should described the GIF 1st then show text and following by a few wasy fill in the blank</p>
+<section id="during-break-of-session-1" class="level3">
+<h3 class="anchored" data-anchor-id="during-break-of-session-1">During Break of Session 1</h3>
+<pre><code>- answer questions by attendees
+- did you finish </code></pre>
 </section>
-<section id="tools" class="level2">
-<h2 class="anchored" data-anchor-id="tools">Tools</h2>
-<ul>
-<li><strong>IDE:</strong> Positron (RStudio compatible)</li>
-<li><strong>Language:</strong> R with tidyverse</li>
-<li><strong>Key Packages:</strong> <code>httr2</code>, <code>tibble</code>, <code>dplyr</code>, <code>purrr</code>, <code>ggplot2</code>, <code>glue</code></li>
-<li><strong>API:</strong> Open-Meteo (free — no API key required)</li>
-</ul>
-<hr>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting Started</h2>
-<p>Start with <strong><a href="./sessions/00_Getting_Started.html">Session 0 — Getting Started</a></strong> to download your files and get set up, then head into <strong><a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a></strong>.</p>
+<section id="session-2" class="level2">
+<h2 class="anchored" data-anchor-id="session-2">Session 2</h2>
+<p>[Make sure the empty version gets changed to reflect the changes below in solution] - Part 5-7 may need to be cut out (I am just reading this and I am overwhelmed) - We can turn part 5-7 into optional after the class is over (no)</p>
+<section id="during-break" class="level3">
+<h3 class="anchored" data-anchor-id="during-break">During Break</h3>
+<pre><code>- answer questions by attendees
+- did you finish </code></pre>
 </section>
-<section id="workshop-team" class="level2">
-<h2 class="anchored" data-anchor-id="workshop-team">Workshop Team</h2>
-<p>Use this 45-second introduction to know who is in the room and how to get help.</p>
-<div class="profile-grid">
-<div class="profile-card">
-<p><img src="assets/immanuel-avatar.svg" class="img-fluid" alt="Illustrated avatar for Immanuel Williams"></p>
-<section id="immanuel-williams" class="level3">
-<h3 class="anchored" data-anchor-id="immanuel-williams">Immanuel Williams</h3>
-<p>Instructor for the API Workshop. I will guide the main walkthroughs, connect each concept to practical data work, and keep the course moving from API flow to real requests and usable data.</p>
 </section>
-</div>
-<div class="profile-card">
-<p><img src="assets/meg-avatar.svg" class="img-fluid" alt="Illustrated avatar for Meg"></p>
-<section id="meg" class="level3">
-<h3 class="anchored" data-anchor-id="meg">Meg</h3>
-<p>Student assistant for the workshop. Meg will help with setup questions, debugging, and moments where your local file or code does something different from the screen.</p>
+<section id="session-3" class="level2">
+<h2 class="anchored" data-anchor-id="session-3">Session 3</h2>
+<p>[Make sure the empty version gets changed to reflect the changes below in solution] - (change) the weather API URL needs to change, I used one that was free. The main end point is <code>request("https://api.open-meteo.com/v1/forecast")</code> - (change) So we need to erase the idea of of saving an API key, client, or secret we can mention thes concepts briefly - (change) I want to be sure to show them when I display the url with the query I get the information in the web browswer - (change) Show my ETV Cycle 4 notes to make life easier for AI to see how easy it - (think I do not want to use functions, to make the code short, I want to use map functionality and the anonymous to make the idea/process easy to handle</p>
+<section id="during-break-1" class="level3">
+<h3 class="anchored" data-anchor-id="during-break-1">During Break</h3>
+<pre><code>- answer questions by attendees
+- did you finish </code></pre>
 </section>
-</div>
-</div>
+</section>
+<section id="session-4" class="level2">
+<h2 class="anchored" data-anchor-id="session-4">Session 4</h2>
+<p>[Make sure the empty version gets changed to reflect the changes below in solution] - (change) Session 3 chsnges will inherently change session 4 - (change) I want simply visualizartion comparre boston vs slo during the seummer and another visualization for the winter, create 2 more quesrions - (think) Less, more quereis about different element about these cities or have it be explorative regarding the audience, they create their own query (i provide options for them to choose from to then make a plot)</p>
+<section id="during-break-2" class="level3">
+<h3 class="anchored" data-anchor-id="during-break-2">During Break</h3>
+<pre><code>- answer questions by attendees
+- did you finish 
+- resources for when this class is over</code></pre>
+</section>
+</section>
+<section id="general-notes-really-important" class="level2">
+<h2 class="anchored" data-anchor-id="general-notes-really-important">General Notes [REALLY IMPORTANT]</h2>
+<p>[Make sure the empty version gets changed to reflect the changes below in solution] - Meg’s Schedule regarding learning the materail - What am I assuming that you know before you entered this course - I want to survey the audience to know what their R experience is and how they plan to use this course to help them teach Data and STAT - am I working a) online, b) Positron (text mode), or c) Positron (visual mode) - In my own notes, make sure that I answer the questions inadvertly - Empty version needs to be created without answers - I want a list of all the questions based on session and parts - Display the Image/GIF/Animation 1st then show description using words 2nd then questions - I need to keep highlighling the purpose of being able to make a request using an API to then format the response into something we can analyze throughout sessions 1 and 2 in each part because they will feel overwhelm - Need to make videos of sessions - two videos per each - Can I recreate Animatation in steps and be able to pause - Really important - I want a version of the sessions with just images and I just go through the images giving my natural ideas and processess - (change) modify questions - (change) I think there should be one-two word(s) fill in the blank this needs to be heavier - (change) Have all questions have 5 options - (change) make the choices more obvious - (change) make sure the choice is not always b) - (change) limit open ended questions and make them more straight forward - (Keep) Q8 in sesssion 2 but put it towards the end of session 3, use letters rather bullet points - When make questions do not assume they know the functions already until i have already introduced them</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

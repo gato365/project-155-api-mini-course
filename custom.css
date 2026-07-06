@@ -308,6 +308,40 @@ html {
   vertical-align: middle;
 }
 
+/* --- Front-page team cards --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.profile-card {
+  border: 1px solid #d1fae5;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(15, 118, 110, 0.12);
+}
+
+.profile-card img {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+  box-shadow: none;
+}
+
+.profile-card img:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.profile-card h3 {
+  margin-top: 0;
+  color: #0f766e;
+}
+
 /* --- Progress / step indicators --- */
 .step-number {
   display: inline-flex;
