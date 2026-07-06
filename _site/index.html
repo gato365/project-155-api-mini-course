@@ -150,10 +150,21 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./sessions/supplemental/instructor_guide.html"> 
-<span class="menu-text">Instructor Guide</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-instructor" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Instructor</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-instructor">    
+        <li>
+    <a class="dropdown-item" href="./sessions/supplemental/instructor_guide.html">
+ <span class="dropdown-text">Instructor Guide</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./sessions/supplemental/question_bank.html">
+ <span class="dropdown-text">Question Bank</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -253,8 +264,8 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>IDE:</strong> Positron (RStudio compatible)</li>
 <li><strong>Language:</strong> R with tidyverse</li>
-<li><strong>Key Packages:</strong> <code>httr2</code>, <code>glue</code>, <code>dplyr</code>, <code>ggplot2</code>, <code>lubridate</code>, <code>dotenv</code></li>
-<li><strong>API:</strong> OpenWeather API</li>
+<li><strong>Key Packages:</strong> <code>httr2</code>, <code>tibble</code>, <code>dplyr</code>, <code>purrr</code>, <code>ggplot2</code>, <code>glue</code></li>
+<li><strong>API:</strong> Open-Meteo (free — no API key required)</li>
 </ul>
 <hr>
 </section>

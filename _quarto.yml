@@ -5,6 +5,7 @@ project:
     - "*.md"
     - "sessions/**/*.qmd"
     - "!README_ME_ONLY.md"
+    - "!CHANGES_SUMMARY.md"
     - "!downloads/**"
   resources:
     - downloads/api_workshop_empty.zip
@@ -40,8 +41,12 @@ website:
             href: sessions/supplemental/tmdb_api.qmd
           - text: "Lab 5 — GitHub REST API"
             href: sessions/supplemental/github_api.qmd
-      - text: "Instructor Guide"
-        href: sessions/supplemental/instructor_guide.qmd
+      - text: "Instructor"
+        menu:
+          - text: "Instructor Guide"
+            href: sessions/supplemental/instructor_guide.qmd
+          - text: "Question Bank"
+            href: sessions/supplemental/question_bank.qmd
 
 format:
   html:

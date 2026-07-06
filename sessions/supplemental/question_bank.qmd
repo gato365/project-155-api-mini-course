@@ -1,0 +1,84 @@
+---
+title: "Question Bank"
+subtitle: "Every question in the workshop, organized by session and part"
+author: "Immanuel Williams"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    css: ../../custom.css
+---
+
+All questions across Sessions 1–4, listed by session and part. **Types:** MC = multiple choice (five options, a–e), FIB = fill in the blank (one–two words), SA = short answer, ORD = ordering, DISC = discussion. The *Answer* column gives the correct letter for MC/ORD and the expected word(s) for FIB.
+
+## Session 1 — JSON Fundamentals & Request/Response
+
+| Part | # | Type | Question (abridged) | Answer |
+|------|---|------|----------------------|--------|
+| 1: What is an API? | Q1 | FIB | In the restaurant analogy, the waiter plays the role of the ____ | API |
+| 1: What is an API? | Q2 | MC | Primary utility of a web API for a data analyst | d |
+| 2: API Data Flow | Visual Check | MC | The API's role between Client and Server | c |
+| 2: API Data Flow | Q3 | FIB | Client → ____ → Server → Database | API |
+| 2: API Data Flow | Q4 | FIB | Restaurant story, five blanks | client, waiter, kitchen, fridge, response |
+| 2: API Data Flow | Q5 | MC | API documentation is analogous to the ____ | e (the menu) |
+| 3: Requests & Responses | Q6 | FIB | A request is written as a ____ | URL |
+| 3: Requests & Responses | Q7 | MC | The three things a response contains | a (data, metadata, status code) |
+| 4: JSON Anatomy | Quick Checks | FIB ×3 | Body wrapped in curly ____; data, ____, status code; the ____ ____ tells if it worked | braces; metadata; status code |
+| 4: JSON Anatomy | Q8 | MC | JSON's fundamental structure | c (key-value pairs) |
+| 4: JSON Anatomy | Q9 | FIB | In R, a JSON object becomes a named ____ | list |
+| 4: JSON Anatomy | Q10 | FIB | Flattened column name for latitude | coordinates.lat |
+| 5: Status Codes | Q11 | FIB | 4xx = ____ side; 5xx = ____ side | client; server |
+| 5: Status Codes | Q12 | MC | Most likely source of a 404 | e (URL incorrect) |
+| 5: Status Codes | Q13 | MC | What a 200 + JSON body contains | b |
+
+## Session 2 — CRUD, HTTP Methods & URL Anatomy
+
+| Part | # | Type | Question (abridged) | Answer |
+|------|---|------|----------------------|--------|
+| 1: CRUD | Visual Check | MC | Editing a display name maps to which operation | d (Update — PUT/PATCH) |
+| 1: CRUD | Q1 | FIB | HTTP method used to read data | GET |
+| 1: CRUD | Q2 | MC | Most common CRUD operation in data science | a (Read) |
+| 2: GET | Visual Check | FIB | Changing `/users/42` to `/users/7` changes only the ____ | path |
+| 2: GET | Q3 | MC | Which task is a GET request | e (retrieve NYT articles) |
+| 3: POST | Visual Check | MC | Where the POST payload lives | b (request body) |
+| 3: POST | Q4 | MC | Which task requires POST | c (submitting a tweet) |
+| 3: POST | Q5 | MC | POST in the restaurant analogy | a (submitting a new recipe) |
+| 4: URL Anatomy | Visual Check | FIB ×2 | Boundary character; pair separator | `?`; `&` |
+| 4: URL Anatomy | Q6 | SA | Identify endpoint + key-value pairs in Spotify URL | endpoint `/v1/search`; `q=Daft+Punk`, `type=artist` |
+| 4: URL Anatomy | Q7 | MC | GET sends a ____ and receives ____ | d (URL → JSON) |
+| Optional (after class) | Bonus Q | Open | GET vs. POST and JSON direction | JSON both ways in POST |
+
+## Session 3 — Weather API: First Real Requests & Geocoding
+
+| Part | # | Type | Question (abridged) | Answer |
+|------|---|------|----------------------|--------|
+| 1: Meet Open-Meteo | Q1 | FIB | The stable part of the URL is the ____ | endpoint |
+| 1: Meet Open-Meteo | Q2 | MC | True statement about Open-Meteo | c (free, no key) |
+| 2: Browser First | Q3 | FIB | What the browser shows is raw ____ | JSON |
+| 2: Browser First | Q4 | MC | Address bar performs which HTTP request | e (GET) |
+| 4: Extract in R | Q5 | FIB | The status number we hope to see | 200 |
+| 4: Extract in R | Q6 | MC | What `req_url_query()` does | d |
+| 5: Transform | Q7 | MC | Meaning of `\(city, latitude, longitude)` | b (anonymous function) |
+| 5: Transform | Q8 | FIB | Stack one-row tibbles with ____ | bind_rows() |
+| 6: Geocoding | Q9 | FIB | Geocoding converts a name into ____ and ____ | latitude; longitude |
+| 7: Your Turn | Q10 | ORD | Order the 5 request steps (moved from Session 2) | b → e → d → c → a |
+
+## Session 4 — Historical Weather, Visualization & Wrap-Up
+
+| Part | # | Type | Question (abridged) | Answer |
+|------|---|------|----------------------|--------|
+| 1: Extract History | Q1 | FIB | Parameters that set the date range | start_date; end_date |
+| 1: Extract History | Q2 | MC | What `unlist()` does | a (list → vector) |
+| 2: Visualize | Q3 | FIB | `ggplot()` is the tool for the ____ step | Visualize (V) |
+| 3: Boston vs. SLO | Q4 (Summer) | MC | What distinguishes the two cities' lines | e (`aes(color = city)`) |
+| 3: Boston vs. SLO | Q5 (Winter) | MC | What changed between summer/winter code | c (only the two dates) |
+| 3: Boston vs. SLO | Q6 | FIB | Which city is much colder in January | Boston |
+| 4: Your Own Query | Q7 | DISC | Where could API data integrate into your curriculum | open discussion |
+
+## Design Standards
+
+- FIB (one–two words) is the primary type; MC always has five options (a–e) with obvious distractors
+- Correct MC letters are deliberately spread: S1 {d, c, e, a, c, e, b}, S2 {d, a, e, b, c, a, d}, S3 {c, e, d, b}, S4 {a, e, c}
+- No question uses a function before it has been introduced
+- Open-ended questions are limited; discussion prompts are reserved for teaching reflection

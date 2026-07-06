@@ -43,6 +43,41 @@ By the end of the course, you should be able to:
 
 ---
 
+## What We Assume You Already Know
+
+This workshop assumes you have seen the following **before** Day 1. You do not need to be an expert — "I've done it a few times" is enough:
+
+- **Running R code** — executing a line or chunk and reading the output
+- **Assigning variables** — `x <- 5`
+- **Calling functions with arguments** — `round(3.14, digits = 1)`
+- **Data frames** — rows, columns, and looking at one with `head()` or `View()`
+- **The pipe** `|>` — passing a result into the next function (we'll remind you as we go)
+- **A basic `ggplot()`** — we will supply all plotting code, but it helps if it isn't your first time seeing it
+
+**You do *not* need to know:** anything about APIs, JSON, HTTP, URLs beyond typing one into a browser, `httr2`, or `purrr::map()`. Those are what the workshop teaches.
+
+If several items in the first list feel shaky, skim a refresher before Day 1 — for example the first chapters of [R for Data Science](https://r4ds.hadley.nz/).
+
+---
+
+## Quick Survey — Help Us Tailor the Workshop
+
+Please answer these before Day 1 (we will also ask by show of hands at the start):
+
+1. **Your R experience:**
+   a) New to R (less than a semester of use)
+   b) Comfortable — I use R for my own courses or analysis
+   c) Advanced — I teach with R and write my own functions
+2. **How do you plan to use this workshop?** (e.g., adding live data to an intro stats course, a data science elective, student projects, your own research)
+3. **How will you follow along during the sessions?**
+   a) Online — reading the session pages on this website
+   b) Positron/RStudio — working in the **source (text) editor**
+   c) Positron/RStudio — working in the **visual editor**
+
+There is no wrong answer to 3 — but knowing the split helps us pace the live coding.
+
+---
+
 ## Step 1 — Create Your Workshop Folder
 
 Before downloading anything, create a single folder on your computer where **all workshop files will live**. Keeping everything in one place avoids file-path headaches throughout the two days.
@@ -112,10 +147,10 @@ Before Day 1, confirm you have the following installed:
 - [ ] **Required R packages** — run the block below once to install everything
 
 ```{r install-packages}
-install.packages(c("httr2", "glue", "dplyr", "ggplot2", "lubridate", "dotenv"))
+install.packages(c("httr2", "tibble", "dplyr", "purrr", "ggplot2", "glue"))
 ```
 
-- [ ] **OpenWeather API key** — you will set this up during Session 3
+- [x] **API key — not needed!** We use the free [Open-Meteo](https://open-meteo.com/) weather API, which requires no sign-up, no key, and no credit card. (The optional Practice Labs use APIs that do require keys — those labs walk you through it.)
 
 ---
 

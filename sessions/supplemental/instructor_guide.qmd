@@ -16,6 +16,54 @@ This guide accompanies the five **Practice Labs** built for the API Workshop. Ea
 
 ---
 
+## Core Workshop — Production & Delivery Checklist
+
+*(Instructor-facing notes for the main Sessions 1–4. The Practice Lab material starts in the next section.)*
+
+### Meg's Schedule — Learning the Material
+
+<!-- TODO(Immanuel): fill in Meg's actual dates/milestones -->
+
+| When | Meg works through | Goal |
+|------|-------------------|------|
+| Week of ___ | Sessions 1–2 (student versions) | Can answer every S1–S2 question cold |
+| Week of ___ | Sessions 3–4 (student versions) | Runs all Open-Meteo code start to finish |
+| Week of ___ | Practice Labs 1–2 | Comfortable with API-key setup questions |
+| Dress rehearsal ___ | Full run-through with instructor | Knows where attendees will get stuck |
+
+### Video Production Plan — Two Videos per Session (8 Total)
+
+| Session | Video A (concept) | Video B (walkthrough) |
+|---------|-------------------|------------------------|
+| 1 | Restaurant analogy + API data flow | JSON anatomy + status codes |
+| 2 | CRUD + GET vs. POST | URL anatomy, reading a real URL |
+| 3 | Browser demo + ETV cycle | Extract & Transform in R, `map()` pattern |
+| 4 | Historical endpoint + first plot | Boston vs. SLO + build-your-own-query |
+
+### Animations — Stepped & Pausable
+
+The Session 1 restaurant analogy is now an **interactive stepper** (Back / Next / Play-Pause) embedded directly in the page — no GIF needed. Remaining GIFs to convert to the same stepper pattern when time allows: `api-data-flow`, `get-request`, `post-request`, `url-anatomy`, `anatomy-of-json-response`.
+
+### Images-Only Walkthrough Version
+
+Planned: a slide-style version of each session containing only the images/animations, so the instructor can narrate naturally over visuals. Not yet built.
+
+### Delivery Mode
+
+Decide (and announce in Session 0) how you and attendees are working: **a)** online (reading the site), **b)** Positron source/text mode, **c)** Positron visual mode. Session 0 now surveys attendees on this plus their R experience and how they plan to use the course in teaching Data/STAT.
+
+### Question Design Standards (applied across Sessions 1–4)
+
+- Fill-in-the-blank (one–two words) is the **primary** question type
+- Every multiple-choice question has **five options (a–e)** with deliberately obvious distractors
+- Correct answers are **distributed across letters** (never defaulting to b)
+- Open-ended questions are limited and straightforward; discussions reserved for teaching-reflection moments
+- Questions never use a function before the session has introduced it
+- Session text should answer each question *inadvertently* before it is asked
+- The full list lives in the [Question Bank](question_bank.qmd)
+
+---
+
 ## Lab Sequencing & Pedagogy
 
 The labs are ordered by increasing complexity in authentication and response structure:
@@ -96,7 +144,7 @@ Run the breed search request twice — once with the header and once without. Sh
 - Explore multi-call workflows
 
 ### Setup Time
-None additional — students already have their OpenWeather API key from Session 3.
+~10 minutes. The core workshop now uses the keyless Open-Meteo API, so students will **not** already have an OpenWeather key — they sign up at [openweathermap.org](https://openweathermap.org/api) (key activation can take up to 2 hours, so assign signup as pre-work).
 
 ### Key Teaching Points
 - The **Air Quality Index** endpoint requires coordinates (lat/lon), not a city name — reinforcing geocoding from Session 3

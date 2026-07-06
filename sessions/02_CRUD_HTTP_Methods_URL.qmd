@@ -29,7 +29,15 @@ In Session 1, we established the conceptual foundation:
 - Responses come as JSON (key-value pairs, nested structures)
 - Status codes tell us if the request succeeded (200) or not (4xx, 5xx)
 
-Now we're going to put that knowledge into action — understanding *how* we interact with APIs and *what* those interactions look like in code.
+Now we're going to put that knowledge into action — understanding *how* we interact with APIs and *what* those interactions look like.
+
+::: {.callout-important}
+## 🎯 The One Goal, Again
+
+> **Make a request to an API, then format the response into something we can analyze.**
+
+Session 1 gave us the vocabulary. This session answers one question: **how exactly do we write a request?** (Answer: it's a URL — and by the end of this hour you'll be able to read one like a sentence.)
+:::
 
 
 ---
@@ -37,7 +45,15 @@ Now we're going to put that knowledge into action — understanding *how* we int
 
 ## Part 1: The CRUD Framework
 
-What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations:
+What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations.
+
+### Look First
+
+![](images/crud-operations.jpeg){fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}
+
+### Now in Words
+
+The image maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it).
 
 | CRUD Operation | HTTP Method | Description |
 |---------------|-------------|-------------|
@@ -46,13 +62,14 @@ What type of client requests can we make? The **CRUD framework** organizes the f
 | **U**pdate | `PUT` / `PATCH` | Modify existing data on the server |
 | **D**elete | `DELETE` | Remove a resource from the server |
 
-The image below maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it). As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.
-
-![](images/crud-operations.jpeg){fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}
-
 ::: {.callout-note}
 ## For Data Science
-In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. However, `POST` is sometimes needed — for example, to submit credentials and receive an access token.
+In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.
+:::
+
+::: {.callout-tip}
+## 🎯 Goal Check
+Our workshop goal — *make a request, format the response* — lives almost entirely in the **Read (GET)** quadrant. Everything we do tomorrow is a GET.
 :::
 
 
@@ -63,11 +80,12 @@ In data science, **Read (GET)** is by far the most common operation. We're typic
 
 a) Create — POST
 b) Read — GET
-c) Update — PUT/PATCH
-d) Delete — DELETE
+c) Delete — DELETE
+d) Update — PUT/PATCH
+e) Read — POST
 
 ::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-**c) Update — PUT/PATCH.** Editing an existing record (changing a name that already exists) is an **Update** operation. PUT replaces the entire resource; PATCH modifies only the changed fields. Either could apply here, but the key point is that this is not Create (nothing new is being added) or Read (data is being changed, not just viewed).
+**d) Update — PUT/PATCH.** Editing an existing record (changing a name that already exists) is an **Update** operation — the pencil icon. It is not Create (nothing new is being added) or Read (data is being changed, not just viewed).
 :::
 #### ———————
 
@@ -75,15 +93,10 @@ d) Delete — DELETE
 #### ———————
 ### Q1. {.unnumbered}
 
-**(Multiple Choice):** Which CRUD operation is most commonly used in data science when working with APIs?
-
-a) Create
-b) Read
-c) Update
-d) Delete
+**(Fill in the Blank):** The HTTP method used to *read* (retrieve) data from a server is \_\_\_\_\_\_\_\_.
 
 ::: {.callout-tip collapse="true" title="Answer Q1"}
-**b) Read.** Data scientists most commonly use `GET` requests to *read* (retrieve) data from external sources. We're consumers of data, not typically writing to external databases.
+**GET**. Read = GET, and it is by far the most common operation in data science API work.
 :::
 #### ———————
 
@@ -91,10 +104,16 @@ d) Delete
 #### ———————
 ### Q2. {.unnumbered}
 
-**(Open-Ended — Callback to Session 1, Q4):** In Session 1, we learned that a *response* contains data, metadata, and a status code. Now, using the CRUD framework, explain: when you perform a **Read** operation, what HTTP method do you use, and what would a successful response look like?
+**(Multiple Choice):** Which CRUD operation is most commonly used in data science when working with APIs?
+
+a) Read
+b) Create
+c) Update
+d) Delete
+e) All four equally
 
 ::: {.callout-tip collapse="true" title="Answer Q2"}
-A **Read** operation uses the `GET` HTTP method. A successful response would have a **200 OK** status code, and the body would contain **JSON** data with the key-value pairs we requested — for example, `"temperature": 72` or `"city": "San Luis Obispo"`.
+**a) Read.** Data scientists most commonly use `GET` requests to *read* (retrieve) data from external sources. We're consumers of data, not typically writing to external databases.
 :::
 #### ———————
 
@@ -106,9 +125,13 @@ A **Read** operation uses the `GET` HTTP method. A successful response would hav
 
 A `GET` request is all about **retrieving** data. You're asking the server: "Give me this information."
 
-The animation below shows a GET request for the resource `GET /users/42`. Watch how the request originates at the **Client** and travels through the **API** to the **Server** and **Database**. Notice two things: first, the request carries only a path (`/users/42`) — no data payload. Second, the response brings data back to the client while nothing new is written to the database.
+### Watch First
 
 ![](images/get-request.gif){fig-alt="Animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client"}
+
+### Now in Words
+
+The animation shows a GET request for the resource `GET /users/42`. The request originates at the **Client** and travels through the **API** to the **Server** and **Database**. Notice two things: first, the request carries only a path (`/users/42`) — no data payload. Second, the response brings data back to the client while nothing new is written to the database.
 
 Here is the flow of a GET request:
 
@@ -125,14 +148,19 @@ Here is the flow of a GET request:
 - They are **idempotent** — making the same request multiple times gives the same result
 :::
 
+::: {.callout-tip}
+## 🎯 Goal Check
+"Make a request" in our goal sentence means, concretely: **send a GET request** — a URL asking for data.
+:::
+
 
 #### ———————
 ### Visual Check — GET Request. {.unnumbered}
 
-**(Open-Ended):** The animation shows a request for `GET /users/42`. If you changed the request to `GET /users/7`, what part of the request changes and what stays exactly the same?
+**(Fill in the Blank):** The animation shows `GET /users/42`. If you changed the request to `GET /users/7`, the only thing that changes is the \_\_\_\_\_\_\_\_ — the method, the flow, and everything else stay the same.
 
 ::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-The **path parameter** changes from `42` to `7` — you're now asking for a different user record. Everything else stays the same: the HTTP method is still GET, the endpoint path structure (`/users/`) is the same, and the overall flow (client → API → server → database → back) is identical. Only the specific resource being requested changes.
+The **path** (specifically, the number identifying which user you want — `42` becomes `7`). The HTTP method is still GET and the flow (client → API → server → database → back) is identical.
 :::
 #### ———————
 
@@ -140,10 +168,16 @@ The **path parameter** changes from `42` to `7` — you're now asking for a diff
 #### ———————
 ### Q3. {.unnumbered}
 
-**(Open-Ended):** Describe another example of a task a data scientist might perform using a **GET** request, beyond retrieving weather data.
+**(Multiple Choice):** Which of the following is an example of a task a data scientist would do with a **GET** request?
+
+a) Deleting old records from a company database
+b) Uploading a new profile photo
+c) Posting a comment on a forum
+d) Changing your account password
+e) Retrieving the top 10 most popular articles from the New York Times API
 
 ::: {.callout-tip collapse="true" title="Answer Q3"}
-A data scientist could use a **GET** request to retrieve a list of the top 10 most popular articles from the New York Times API, fetch historical stock price data from a financial API, or get public information about a specific user from the GitHub API.
+**e)** Retrieving articles is *reading* existing data — a GET. The other four options all change something on the server (delete, create, create, update).
 :::
 #### ———————
 
@@ -155,9 +189,13 @@ A data scientist could use a **GET** request to retrieve a list of the top 10 mo
 
 A `POST` request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."
 
-The animation below shows a POST request sending `POST /users` with a JSON payload `{ "name": "Maya", "email": "maya@example.com" }`. Compare this carefully to the GET animation: with GET, data flowed *from* the server *to* the client. With POST, data originates *at the client* and moves *toward* the server. The client is the source; the server is the destination.
+### Watch First
 
 ![](images/post-request.gif){fig-alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"}
+
+### Now in Words
+
+The animation shows a POST request sending `POST /users` with a JSON payload `{ "name": "Maya", "email": "maya@example.com" }`. Compare this carefully to the GET animation: with GET, data flowed *from* the server *to* the client. With POST, data originates *at the client* and moves *toward* the server. The client is the source; the server is the destination.
 
 Here is the flow of a POST request:
 
@@ -174,19 +212,25 @@ Here is the flow of a POST request:
 Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.
 :::
 
+::: {.callout-tip}
+## 🎯 Goal Check
+POST is good to recognize, but our goal only needs GET. If POST feels fuzzy, that's fine — it will not block anything we do tomorrow.
+:::
+
 
 #### ———————
 ### Visual Check — POST Request. {.unnumbered}
 
-**(Multiple Choice):** In the POST animation, the JSON payload `{ "name": "Maya", "email": "maya@example.com" }` travels from the Client to the Server. Where does this data live in the request, and how is that different from a GET request?
+**(Multiple Choice):** In the POST animation, the JSON payload `{ "name": "Maya", ... }` travels from the Client to the Server. Where does this data live in the request?
 
-a) It is in the URL query string, just like GET parameters.
-b) It is in the request **body** — unlike GET, which puts parameters in the URL.
-c) It is sent as a separate file attachment.
-d) It is stored in the API and forwarded automatically — no client action needed.
+a) In the URL query string, just like GET parameters.
+b) In the request **body** — unlike GET, which puts parameters in the URL.
+c) In a separate file attachment.
+d) In the status code.
+e) In the database before the request is even sent.
 
 ::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-**b)** POST sends data in the **request body** — a separate payload attached to the request. GET requests have no body; all their parameters are encoded directly in the URL (visible in the address bar). This is why POST is used for sending sensitive or large data — it keeps the payload out of the URL.
+**b)** POST sends data in the **request body** — a separate payload attached to the request. GET requests have no body; all their parameters are encoded directly in the URL (visible in the address bar).
 :::
 #### ———————
 
@@ -200,6 +244,7 @@ a) Retrieving the current temperature for a city.
 b) Getting a list of your public repositories from the GitHub API.
 c) Submitting a new tweet through the X (formerly Twitter) API.
 d) Looking up the coordinates for a specific address.
+e) Downloading yesterday's stock prices.
 
 ::: {.callout-tip collapse="true" title="Answer Q4"}
 **c)** Submitting a new tweet involves **creating** a new resource on the server, which is the primary purpose of a **POST** request. The other options involve only retrieving existing data.
@@ -210,10 +255,16 @@ d) Looking up the coordinates for a specific address.
 #### ———————
 ### Q5. {.unnumbered}
 
-**(Open-Ended — Callback to Q1):** We said POST maps to the **Create** operation in CRUD. In the restaurant analogy from Session 1, if a GET request is like *reading the menu and placing an order*, what would a POST request be analogous to?
+**(Multiple Choice — Callback to the restaurant analogy):** If a GET request is like *reading the menu and placing an order*, what would a POST request be most analogous to?
+
+a) Submitting a new recipe for the kitchen to keep in its collection
+b) Asking the waiter to repeat the specials
+c) Paying the bill with exact change
+d) Ordering the same dish twice
+e) Reading the menu a second time
 
 ::: {.callout-tip collapse="true" title="Answer Q5"}
-A **POST** request would be like **submitting a new recipe** to the restaurant's kitchen — you're not reading what's already there, you're adding something new to their collection. Or, you could think of it as filling out a comment card that gets filed in the restaurant's records.
+**a)** A POST *adds something new* to the restaurant's collection — like submitting a new recipe. Options b, d, and e are all just reading/asking again (GET-like), and paying the bill doesn't add new data to the kitchen.
 :::
 #### ———————
 
@@ -228,28 +279,33 @@ So how do we actually construct a request? A request is defined by a **URL**, wh
 - The **endpoint** (base address of the API) — the stable part
 - The **query string** (key-value pairs that customize the request) — the dynamic part
 
-The animation below shows the Client (left) and API Server (right) with the URL being broken down between them. It highlights how the full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+### Watch First
 
 ![](images/url-anatomy.gif){fig-alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"}
 
+### Now in Words
+
+The animation shows the Client (left) and API Server (right) with the URL being broken down between them. The full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+
 ### Breaking Down a URL
 
-Consider this example URL:
+Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weather API for the current temperature in San Luis Obispo:
 
 ```
-https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&appid=YOUR_KEY&units=imperial
+https://api.open-meteo.com/v1/forecast?latitude=35.28&longitude=-120.66&current=temperature_2m&temperature_unit=fahrenheit
 ```
 
 | Component | Value | Purpose |
 |-----------|-------|---------|
 | **Protocol** | `https://` | Secure communication |
-| **Base URL** | `api.openweathermap.org` | The API server |
-| **Endpoint** | `/data/2.5/weather` | Which resource you want |
+| **Base URL** | `api.open-meteo.com` | The API server |
+| **Endpoint** | `/v1/forecast` | Which resource you want |
 | **Query separator** | `?` | Marks the start of parameters |
-| **Parameter 1** | `q=San+Luis+Obispo` | City name (URL-encoded) |
+| **Parameter 1** | `latitude=35.28` | Where (north–south) |
 | **Parameter separator** | `&` | Separates key-value pairs |
-| **Parameter 2** | `appid=YOUR_KEY` | Your API key |
-| **Parameter 3** | `units=imperial` | Unit preference |
+| **Parameter 2** | `longitude=-120.66` | Where (east–west) |
+| **Parameter 3** | `current=temperature_2m` | What data you want |
+| **Parameter 4** | `temperature_unit=fahrenheit` | Unit preference |
 
 ::: {.callout-note}
 ## Key Vocabulary
@@ -258,14 +314,29 @@ https://api.openweathermap.org/data/2.5/weather?q=San+Luis+Obispo&appid=YOUR_KEY
 - A **query string** customizes the request using key-value pairs. It always starts with `?` and pairs are separated by `&`.
 :::
 
+::: {.callout-note}
+## What About API Keys?
+
+Many APIs require one extra query parameter: an **API key** (e.g., `&appid=YOUR_KEY`) — an ID that says who is making the request. The Open-Meteo API we use in this workshop is free and **does not need a key**, so our URLs stay short and simple. Just know the concept exists — you'll see it in other APIs' documentation.
+:::
+
+::: {.callout-tip}
+## 🎯 Goal Check
+This is the "make a request" half of our goal, fully unpacked: **a request = endpoint + query string.** Tomorrow we paste this exact URL into a browser and into R.
+:::
+
 
 #### ———————
 ### Visual Check — URL Anatomy. {.unnumbered}
 
-**(Open-Ended):** Looking at the animation and the URL breakdown above, what single character marks the boundary between the endpoint and the query string? And if you accidentally left out your API key parameter entirely, which HTTP status code from Session 1 would you most likely receive back?
+**(Fill in the Blanks):** One character each.
+
+1. The character that marks the boundary between the endpoint and the query string is \_\_\_\_.
+2. The character that separates one key-value pair from the next is \_\_\_\_.
 
 ::: {.callout-tip collapse="true" title="Answer — Visual Check"}
-The **`?`** character marks the end of the endpoint and the start of the query string. Everything before `?` is the stable address of the resource; everything after it is customization. If you omit your API key, the server cannot verify who you are — you would most likely receive a **401 Unauthorized** status code, since authentication is missing.
+1. The **`?`** — everything before it is the stable address; everything after it is customization.
+2. The **`&`** — it chains multiple key-value pairs together.
 :::
 #### ———————
 
@@ -273,7 +344,7 @@ The **`?`** character marks the end of the endpoint and the start of the query s
 #### ———————
 ### Q6. {.unnumbered}
 
-**(Open-Ended):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.
+**(Short Answer):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.
 
 ::: {.callout-tip collapse="true" title="Answer Q6"}
 - **Endpoint:** `https://api.spotify.com/v1/search`
@@ -285,15 +356,16 @@ The **`?`** character marks the end of the endpoint and the start of the query s
 #### ———————
 ### Q7. {.unnumbered}
 
-**(Multiple Choice — Callback to Session 1 Q4):** When your R script makes a `GET` request to the OpenWeather API, which statement is correct?
+**(Multiple Choice — Callback to Session 1):** When your R script makes a `GET` request to a weather API, which statement is correct?
 
 a) Your script sends JSON and receives a URL.
-b) Your script sends a URL and receives JSON.
-c) Your script sends JSON and receives JSON.
-d) Your script sends a URL and receives a URL.
+b) Your script sends JSON and receives JSON.
+c) Your script sends a URL and receives a URL.
+d) Your script sends a URL and receives JSON.
+e) Your script sends a data frame and receives a plot.
 
 ::: {.callout-tip collapse="true" title="Answer Q7"}
-**b)** The request itself is a carefully constructed **URL** containing the endpoint and query parameters. The API's response comes back as **JSON** containing the data, metadata, and status code.
+**d)** The request itself is a carefully constructed **URL** containing the endpoint and query parameters. The API's response comes back as **JSON** containing the data, metadata, and status code.
 :::
 #### ———————
 
@@ -301,7 +373,45 @@ d) Your script sends a URL and receives a URL.
 ---
 
 
-## Part 5: Under the Hood — What Happens When You Make a Request
+## Session 2 Recap
+
+In this session, we learned how requests are actually written:
+
+1. **CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
+2. **GET Requests** — retrieve data, parameters in the URL
+3. **POST Requests** — send new data in the request body
+4. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
+
+🎯 Goal progress: we can now *read and write the request half* of our goal sentence. **Up next in Session 3 (tomorrow):** we make it real — we'll send that exact Open-Meteo URL from a browser and from R, get live weather back, and format the response into a data frame. No API key needed.
+
+
+---
+
+
+## During the Break {.unnumbered}
+
+Before we wrap up Day 1:
+
+- **Questions?** Come up and ask — Meg and I will be here for the whole break.
+- **Did you finish?** Check yourself:
+    - [ ] I can name what each of the four CRUD operations does
+    - [ ] I can point at a URL and find the endpoint, the `?`, and the key-value pairs
+    - [ ] I answered the questions in Parts 1–4
+- If you finished everything, try writing (on paper!) what you think a URL asking Open-Meteo for the temperature in **your hometown** would look like. You only need to change two numbers.
+
+
+---
+
+
+## Optional — After the Workshop: Going Deeper {.unnumbered}
+
+::: {.callout-warning}
+## Read This Later, Not Today
+
+The three sections below are **optional enrichment** — we will *not* cover them live. They preview the R code you'll see in Sessions 3–4 and go deeper into error handling. If today already felt like a lot, skip this entirely; nothing tomorrow depends on it.
+:::
+
+### Optional A: Under the Hood — What Happens When You Make a Request
 
 Let's connect everything together:
 
@@ -318,35 +428,9 @@ We are **not** sending JSON when we make a GET request. We're sending a URL with
 :::
 
 
-#### ———————
-### Q8. {.unnumbered}
+### Optional B: Making Requests to a Dummy Server in R
 
-**(Open-Ended):** Put the following steps in the correct order for making an API request in R:
-
-- Parse the JSON response into a data frame
-- Construct the URL with endpoint and query parameters
-- Check the status code for success (200)
-- Send the request using `req_perform()`
-- Create a request object with `request()`
-
-::: {.callout-tip collapse="true" title="Answer Q8"}
-1. **Construct the URL** with endpoint and query parameters
-2. **Create a request object** with `request()`
-3. **Send the request** using `req_perform()`
-4. **Check the status code** for success (200)
-5. **Parse the JSON response** into a data frame
-:::
-#### ———————
-
-
----
-
-
-## Part 6: Hands-On — Making Requests to a Dummy Server
-
-Now let's get our hands dirty! We'll make real requests to a practice server to see how this works before moving to the Weather API tomorrow.
-
-### Load Libraries
+These blocks show real requests to a practice server. You can run them any time after the workshop.
 
 ```{r}
 #| output: false
@@ -356,10 +440,7 @@ library(dplyr)       # Data manipulation
 library(glue)        # String construction
 ```
 
-
-### Making a GET Request
-
-Let's start with a simple GET request to a public test API:
+A simple GET request to a public test API:
 
 ```{r}
 # Step 1: Define the URL
@@ -392,14 +473,12 @@ user_df <- as.data.frame(result)
 print(user_df)
 ```
 
-
-### Making a GET Request with Query Parameters
+A GET request with query parameters:
 
 ```{r}
 # Get posts by a specific user
 posts_url <- "https://jsonplaceholder.typicode.com/posts"
 
-# Method 1: Using glue to build the URL
 posts_url_query <- glue("{posts_url}?userId=1")
 
 req <- request(posts_url_query)
@@ -411,10 +490,7 @@ if (resp_status(response) == 200) {
 }
 ```
 
-
-### Making a POST Request
-
-Now let's **send** data to the server:
+And a POST request — **sending** data to the server:
 
 ```{r}
 # Step 1: Define the endpoint
@@ -447,23 +523,7 @@ Notice we got a `201 Created` instead of `200 OK`. This is the standard success 
 :::
 
 
-#### ———————
-### Q9. {.unnumbered}
-
-**(Open-Ended — Callback to Q7):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?
-
-::: {.callout-tip collapse="true" title="Answer Q9"}
-This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.
-:::
-#### ———————
-
-
----
-
-
-## Part 7: Handling Response Metadata and Status Codes
-
-Let's explore what happens when things go wrong:
+### Optional C: Handling Errors with Status Codes
 
 ```{r}
 # Try requesting a resource that doesn't exist
@@ -482,7 +542,7 @@ safe_get <- function(url) {
   req <- request(url)
   response <- req_perform(req)
   status <- resp_status(response)
-  
+
   if (status == 200) {
     cat("Success! Status:", status, "\n")
     return(resp_body_json(response))
@@ -499,19 +559,12 @@ safe_get <- function(url) {
 result <- safe_get("https://jsonplaceholder.typicode.com/users/1")
 ```
 
+#### ———————
+### Bonus Q. {.unnumbered}
 
----
+**(Open-Ended):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?
 
-
-## Session 2 Recap
-
-In this session, we moved from concepts to code:
-
-1. **CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
-2. **GET Requests** — retrieve data, parameters in the URL
-3. **POST Requests** — send new data in the request body
-4. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
-5. **Hands-on practice** — making real GET and POST requests to a dummy server
-6. **Error handling** — using status codes to diagnose problems
-
-**Up next in Session 3 (tomorrow):** We'll set up our API key, make real requests to the OpenWeather API, and build functions to retrieve weather data!
+::: {.callout-tip collapse="true" title="Answer — Bonus Q"}
+This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.
+:::
+#### ———————

@@ -27,8 +27,8 @@ This workshop covers the fundamentals of working with web APIs — from understa
 
 - **IDE:** Positron (RStudio compatible)
 - **Language:** R with tidyverse
-- **Key Packages:** `httr2`, `glue`, `dplyr`, `ggplot2`, `lubridate`, `dotenv`
-- **API:** OpenWeather API
+- **Key Packages:** `httr2`, `tibble`, `dplyr`, `purrr`, `ggplot2`, `glue`
+- **API:** Open-Meteo (free — no API key required)
 
 ---
 

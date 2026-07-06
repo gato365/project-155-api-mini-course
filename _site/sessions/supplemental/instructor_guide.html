@@ -186,10 +186,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="../../sessions/supplemental/instructor_guide.html" aria-current="page"> 
-<span class="menu-text">Instructor Guide</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-instructor" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Instructor</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-instructor">    
+        <li>
+    <a class="dropdown-item" href="../../sessions/supplemental/instructor_guide.html">
+ <span class="dropdown-text">Instructor Guide</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../sessions/supplemental/question_bank.html">
+ <span class="dropdown-text">Question Bank</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -207,6 +218,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#core-workshop-production-delivery-checklist" id="toc-core-workshop-production-delivery-checklist" class="nav-link" data-scroll-target="#core-workshop-production-delivery-checklist">Core Workshop — Production &amp; Delivery Checklist</a>
+  <ul class="collapse">
+  <li><a href="#megs-schedule-learning-the-material" id="toc-megs-schedule-learning-the-material" class="nav-link" data-scroll-target="#megs-schedule-learning-the-material">Meg’s Schedule — Learning the Material</a></li>
+  <li><a href="#video-production-plan-two-videos-per-session-8-total" id="toc-video-production-plan-two-videos-per-session-8-total" class="nav-link" data-scroll-target="#video-production-plan-two-videos-per-session-8-total">Video Production Plan — Two Videos per Session (8 Total)</a></li>
+  <li><a href="#animations-stepped-pausable" id="toc-animations-stepped-pausable" class="nav-link" data-scroll-target="#animations-stepped-pausable">Animations — Stepped &amp; Pausable</a></li>
+  <li><a href="#images-only-walkthrough-version" id="toc-images-only-walkthrough-version" class="nav-link" data-scroll-target="#images-only-walkthrough-version">Images-Only Walkthrough Version</a></li>
+  <li><a href="#delivery-mode" id="toc-delivery-mode" class="nav-link" data-scroll-target="#delivery-mode">Delivery Mode</a></li>
+  <li><a href="#question-design-standards-applied-across-sessions-14" id="toc-question-design-standards-applied-across-sessions-14" class="nav-link" data-scroll-target="#question-design-standards-applied-across-sessions-14">Question Design Standards (applied across Sessions 1–4)</a></li>
+  </ul></li>
   <li><a href="#lab-sequencing-pedagogy" id="toc-lab-sequencing-pedagogy" class="nav-link" data-scroll-target="#lab-sequencing-pedagogy">Lab Sequencing &amp; Pedagogy</a></li>
   <li><a href="#lab-1-nasa-open-apis" id="toc-lab-1-nasa-open-apis" class="nav-link" data-scroll-target="#lab-1-nasa-open-apis">Lab 1 — NASA Open APIs</a>
   <ul class="collapse">
@@ -293,6 +313,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This guide accompanies the five <strong>Practice Labs</strong> built for the API Workshop. Each lab targets a different API and introduces a new concept in credential handling, authentication, or response structure. The labs are self-contained — students can work through any of them after completing the core workshop sessions.</p>
 <hr>
+</section>
+<section id="core-workshop-production-delivery-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="core-workshop-production-delivery-checklist">Core Workshop — Production &amp; Delivery Checklist</h2>
+<p><em>(Instructor-facing notes for the main Sessions 1–4. The Practice Lab material starts in the next section.)</em></p>
+<section id="megs-schedule-learning-the-material" class="level3">
+<h3 class="anchored" data-anchor-id="megs-schedule-learning-the-material">Meg’s Schedule — Learning the Material</h3>
+<!-- TODO(Immanuel): fill in Meg's actual dates/milestones -->
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 61%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>When</th>
+<th>Meg works through</th>
+<th>Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Week of ___</td>
+<td>Sessions 1–2 (student versions)</td>
+<td>Can answer every S1–S2 question cold</td>
+</tr>
+<tr class="even">
+<td>Week of ___</td>
+<td>Sessions 3–4 (student versions)</td>
+<td>Runs all Open-Meteo code start to finish</td>
+</tr>
+<tr class="odd">
+<td>Week of ___</td>
+<td>Practice Labs 1–2</td>
+<td>Comfortable with API-key setup questions</td>
+</tr>
+<tr class="even">
+<td>Dress rehearsal ___</td>
+<td>Full run-through with instructor</td>
+<td>Knows where attendees will get stuck</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="video-production-plan-two-videos-per-session-8-total" class="level3">
+<h3 class="anchored" data-anchor-id="video-production-plan-two-videos-per-session-8-total">Video Production Plan — Two Videos per Session (8 Total)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 36%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Session</th>
+<th>Video A (concept)</th>
+<th>Video B (walkthrough)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Restaurant analogy + API data flow</td>
+<td>JSON anatomy + status codes</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>CRUD + GET vs.&nbsp;POST</td>
+<td>URL anatomy, reading a real URL</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Browser demo + ETV cycle</td>
+<td>Extract &amp; Transform in R, <code>map()</code> pattern</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Historical endpoint + first plot</td>
+<td>Boston vs.&nbsp;SLO + build-your-own-query</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="animations-stepped-pausable" class="level3">
+<h3 class="anchored" data-anchor-id="animations-stepped-pausable">Animations — Stepped &amp; Pausable</h3>
+<p>The Session 1 restaurant analogy is now an <strong>interactive stepper</strong> (Back / Next / Play-Pause) embedded directly in the page — no GIF needed. Remaining GIFs to convert to the same stepper pattern when time allows: <code>api-data-flow</code>, <code>get-request</code>, <code>post-request</code>, <code>url-anatomy</code>, <code>anatomy-of-json-response</code>.</p>
+</section>
+<section id="images-only-walkthrough-version" class="level3">
+<h3 class="anchored" data-anchor-id="images-only-walkthrough-version">Images-Only Walkthrough Version</h3>
+<p>Planned: a slide-style version of each session containing only the images/animations, so the instructor can narrate naturally over visuals. Not yet built.</p>
+</section>
+<section id="delivery-mode" class="level3">
+<h3 class="anchored" data-anchor-id="delivery-mode">Delivery Mode</h3>
+<p>Decide (and announce in Session 0) how you and attendees are working: <strong>a)</strong> online (reading the site), <strong>b)</strong> Positron source/text mode, <strong>c)</strong> Positron visual mode. Session 0 now surveys attendees on this plus their R experience and how they plan to use the course in teaching Data/STAT.</p>
+</section>
+<section id="question-design-standards-applied-across-sessions-14" class="level3">
+<h3 class="anchored" data-anchor-id="question-design-standards-applied-across-sessions-14">Question Design Standards (applied across Sessions 1–4)</h3>
+<ul>
+<li>Fill-in-the-blank (one–two words) is the <strong>primary</strong> question type</li>
+<li>Every multiple-choice question has <strong>five options (a–e)</strong> with deliberately obvious distractors</li>
+<li>Correct answers are <strong>distributed across letters</strong> (never defaulting to b)</li>
+<li>Open-ended questions are limited and straightforward; discussions reserved for teaching-reflection moments</li>
+<li>Questions never use a function before the session has introduced it</li>
+<li>Session text should answer each question <em>inadvertently</em> before it is asked</li>
+<li>The full list lives in the <a href="../../sessions/supplemental/question_bank.html">Question Bank</a></li>
+</ul>
+<hr>
+</section>
 </section>
 <section id="lab-sequencing-pedagogy" class="level2">
 <h2 class="anchored" data-anchor-id="lab-sequencing-pedagogy">Lab Sequencing &amp; Pedagogy</h2>
@@ -494,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setup-time-2" class="level3">
 <h3 class="anchored" data-anchor-id="setup-time-2">Setup Time</h3>
-<p>None additional — students already have their OpenWeather API key from Session 3.</p>
+<p>~10 minutes. The core workshop now uses the keyless Open-Meteo API, so students will <strong>not</strong> already have an OpenWeather key — they sign up at <a href="https://openweathermap.org/api">openweathermap.org</a> (key activation can take up to 2 hours, so assign signup as pre-work).</p>
 </section>
 <section id="key-teaching-points-2" class="level3">
 <h3 class="anchored" data-anchor-id="key-teaching-points-2">Key Teaching Points</h3>

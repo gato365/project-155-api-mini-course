@@ -187,10 +187,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../sessions/supplemental/instructor_guide.html"> 
-<span class="menu-text">Instructor Guide</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-instructor" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Instructor</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-instructor">    
+        <li>
+    <a class="dropdown-item" href="../sessions/supplemental/instructor_guide.html">
+ <span class="dropdown-text">Instructor Guide</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../sessions/supplemental/question_bank.html">
+ <span class="dropdown-text">Question Bank</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -210,35 +221,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#welcome-orientation" id="toc-welcome-orientation" class="nav-link active" data-scroll-target="#welcome-orientation">Welcome &amp; Orientation</a></li>
   <li><a href="#part-1-what-is-an-api" id="toc-part-1-what-is-an-api" class="nav-link" data-scroll-target="#part-1-what-is-an-api">Part 1: What is an API?</a>
   <ul class="collapse">
+  <li><a href="#watch-first-the-restaurant-analogy" id="toc-watch-first-the-restaurant-analogy" class="nav-link" data-scroll-target="#watch-first-the-restaurant-analogy">Watch First: The Restaurant Analogy</a></li>
+  <li><a href="#now-in-words" id="toc-now-in-words" class="nav-link" data-scroll-target="#now-in-words">Now in Words</a></li>
   <li><a href="#q1." id="toc-q1." class="nav-link" data-scroll-target="#q1.">Q1.</a></li>
+  <li><a href="#q2." id="toc-q2." class="nav-link" data-scroll-target="#q2.">Q2.</a></li>
   </ul></li>
   <li><a href="#part-2-api-data-flow" id="toc-part-2-api-data-flow" class="nav-link" data-scroll-target="#part-2-api-data-flow">Part 2: API Data Flow</a>
   <ul class="collapse">
+  <li><a href="#watch-first" id="toc-watch-first" class="nav-link" data-scroll-target="#watch-first">Watch First</a></li>
+  <li><a href="#now-in-words-1" id="toc-now-in-words-1" class="nav-link" data-scroll-target="#now-in-words-1">Now in Words</a></li>
   <li><a href="#visual-check-api-data-flow." id="toc-visual-check-api-data-flow." class="nav-link" data-scroll-target="#visual-check-api-data-flow.">Visual Check — API Data Flow.</a></li>
-  <li><a href="#q2." id="toc-q2." class="nav-link" data-scroll-target="#q2.">Q2.</a></li>
   <li><a href="#q3." id="toc-q3." class="nav-link" data-scroll-target="#q3.">Q3.</a></li>
+  <li><a href="#q4." id="toc-q4." class="nav-link" data-scroll-target="#q4.">Q4.</a></li>
+  <li><a href="#q5." id="toc-q5." class="nav-link" data-scroll-target="#q5.">Q5.</a></li>
   </ul></li>
   <li><a href="#part-3-requests-and-responses" id="toc-part-3-requests-and-responses" class="nav-link" data-scroll-target="#part-3-requests-and-responses">Part 3: Requests and Responses</a>
   <ul class="collapse">
   <li><a href="#what-is-a-request" id="toc-what-is-a-request" class="nav-link" data-scroll-target="#what-is-a-request">What is a Request?</a></li>
   <li><a href="#what-is-a-response" id="toc-what-is-a-response" class="nav-link" data-scroll-target="#what-is-a-response">What is a Response?</a></li>
-  <li><a href="#q4." id="toc-q4." class="nav-link" data-scroll-target="#q4.">Q4.</a></li>
+  <li><a href="#q6." id="toc-q6." class="nav-link" data-scroll-target="#q6.">Q6.</a></li>
+  <li><a href="#q7." id="toc-q7." class="nav-link" data-scroll-target="#q7.">Q7.</a></li>
   </ul></li>
   <li><a href="#part-4-anatomy-of-a-json-response" id="toc-part-4-anatomy-of-a-json-response" class="nav-link" data-scroll-target="#part-4-anatomy-of-a-json-response">Part 4: Anatomy of a JSON Response</a>
   <ul class="collapse">
-  <li><a href="#visual-check-json-response-anatomy." id="toc-visual-check-json-response-anatomy." class="nav-link" data-scroll-target="#visual-check-json-response-anatomy.">Visual Check — JSON Response Anatomy.</a></li>
+  <li><a href="#watch-first-1" id="toc-watch-first-1" class="nav-link" data-scroll-target="#watch-first-1">Watch First</a></li>
+  <li><a href="#now-in-words-2" id="toc-now-in-words-2" class="nav-link" data-scroll-target="#now-in-words-2">Now in Words</a></li>
+  <li><a href="#quick-checks-json-response-anatomy." id="toc-quick-checks-json-response-anatomy." class="nav-link" data-scroll-target="#quick-checks-json-response-anatomy.">Quick Checks — JSON Response Anatomy.</a></li>
   <li><a href="#json-structure-key-value-pairs" id="toc-json-structure-key-value-pairs" class="nav-link" data-scroll-target="#json-structure-key-value-pairs">JSON Structure: Key-Value Pairs</a></li>
   <li><a href="#nested-json-example" id="toc-nested-json-example" class="nav-link" data-scroll-target="#nested-json-example">Nested JSON Example</a></li>
-  <li><a href="#q5." id="toc-q5." class="nav-link" data-scroll-target="#q5.">Q5.</a></li>
-  <li><a href="#q6." id="toc-q6." class="nav-link" data-scroll-target="#q6.">Q6.</a></li>
+  <li><a href="#q8." id="toc-q8." class="nav-link" data-scroll-target="#q8.">Q8.</a></li>
+  <li><a href="#q9." id="toc-q9." class="nav-link" data-scroll-target="#q9.">Q9.</a></li>
+  <li><a href="#q10." id="toc-q10." class="nav-link" data-scroll-target="#q10.">Q10.</a></li>
   </ul></li>
   <li><a href="#part-5-status-codes" id="toc-part-5-status-codes" class="nav-link" data-scroll-target="#part-5-status-codes">Part 5: Status Codes</a>
   <ul class="collapse">
-  <li><a href="#q7." id="toc-q7." class="nav-link" data-scroll-target="#q7.">Q7.</a></li>
-  <li><a href="#q8." id="toc-q8." class="nav-link" data-scroll-target="#q8.">Q8.</a></li>
-  <li><a href="#q9." id="toc-q9." class="nav-link" data-scroll-target="#q9.">Q9.</a></li>
+  <li><a href="#q11." id="toc-q11." class="nav-link" data-scroll-target="#q11.">Q11.</a></li>
+  <li><a href="#q12." id="toc-q12." class="nav-link" data-scroll-target="#q12.">Q12.</a></li>
+  <li><a href="#q13." id="toc-q13." class="nav-link" data-scroll-target="#q13.">Q13.</a></li>
   </ul></li>
   <li><a href="#session-1-recap" id="toc-session-1-recap" class="nav-link" data-scroll-target="#session-1-recap">Session 1 Recap</a></li>
+  <li><a href="#during-the-break" id="toc-during-the-break" class="nav-link" data-scroll-target="#during-the-break">During the Break</a></li>
   </ul>
 </nav>
     </div>
@@ -324,33 +346,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p><strong>Tool Note:</strong> We will be working in <strong>Positron</strong> throughout. You can follow along in RStudio, but Positron will give you a richer experience for this workshop.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>🎯 The One Goal of This Workshop
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Everything we do — today and tomorrow — builds toward <strong>one skill</strong>:</p>
+<blockquote class="blockquote">
+<p><strong>Make a request to an API, then format the response into something we can analyze.</strong></p>
+</blockquote>
+<p>If you ever feel overwhelmed, come back to this sentence. Every part of every session is just one small step toward it.</p>
+</div>
+</div>
 <hr>
 </section>
 <section id="part-1-what-is-an-api" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-what-is-an-api">Part 1: What is an API?</h2>
 <p><strong>API</strong> stands for <strong>Application Programming Interface</strong>. At its core, an API is a way for software to communicate with other software. In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.</p>
-<p>Think of the <strong>restaurant analogy</strong>:</p>
+<section id="watch-first-the-restaurant-analogy" class="level3">
+<h3 class="anchored" data-anchor-id="watch-first-the-restaurant-analogy">Watch First: The Restaurant Analogy</h3>
+<p>Use the buttons to step through the animation — go at your own pace, pause, or replay any step.</p>
+<div id="restaurant-stepper" style="border:2px solid #d0d7de; border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; background:#fafbfc;">
+  <div style="display:flex; justify-content:space-between; gap:.5rem; text-align:center; margin-bottom:1rem; flex-wrap:wrap;">
+    <div class="rs-actor" id="rs-client" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;">
+      <div style="font-size:2.2rem;">🙋</div><strong>You</strong><br><small>the Client</small>
+    </div>
+    <div style="align-self:center; font-size:1.4rem; color:#8b949e;">⇄</div>
+    <div class="rs-actor" id="rs-waiter" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;">
+      <div style="font-size:2.2rem;">🤵</div><strong>Waiter</strong><br><small>the API</small>
+    </div>
+    <div style="align-self:center; font-size:1.4rem; color:#8b949e;">⇄</div>
+    <div class="rs-actor" id="rs-kitchen" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;">
+      <div style="font-size:2.2rem;">👨‍🍳</div><strong>Kitchen</strong><br><small>the Server</small>
+    </div>
+    <div style="align-self:center; font-size:1.4rem; color:#8b949e;">⇄</div>
+    <div class="rs-actor" id="rs-fridge" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;">
+      <div style="font-size:2.2rem;">🧊</div><strong>Fridge</strong><br><small>the Database</small>
+    </div>
+  </div>
+  <div id="rs-caption" style="min-height:3.2em; font-size:1.05rem; text-align:center; padding:.5rem; background:#fff; border-radius:8px; border:1px solid #d0d7de;"></div>
+  <div style="display:flex; justify-content:center; align-items:center; gap:.5rem; margin-top:.85rem; flex-wrap:wrap;">
+    <button id="rs-restart" class="rs-btn">⏮ Restart</button>
+    <button id="rs-back" class="rs-btn">◀ Back</button>
+    <span id="rs-dots" style="letter-spacing:.35em; font-size:1rem; color:#8b949e;"></span>
+    <button id="rs-next" class="rs-btn">Next ▶</button>
+    <button id="rs-play" class="rs-btn" style="min-width:6.5em;">▶ Play</button>
+  </div>
+</div>
+<style>
+  .rs-btn { border:1px solid #d0d7de; background:#fff; border-radius:8px; padding:.35rem .8rem; cursor:pointer; font-size:.9rem; }
+  .rs-btn:hover { background:#f3f4f6; }
+  .rs-on { border-color:#0969da !important; background:#ddf4ff !important; }
+</style>
+<script>
+(function() {
+  const steps = [
+    { text: "<strong>Step 1:</strong> You (the <strong>client</strong>) sit down and read the <strong>menu</strong> — the menu is the API documentation. It tells you what you are allowed to order.", on: ["rs-client"] },
+    { text: "<strong>Step 2:</strong> You <strong>make a request</strong> — the client places an order with the waiter. 📝 <em>This is the request!</em>", on: ["rs-client", "rs-waiter"] },
+    { text: "<strong>Step 3:</strong> The <strong>waiter (API)</strong> carries your order to the <strong>kitchen (server)</strong>. You never walk into the kitchen yourself.", on: ["rs-waiter", "rs-kitchen"] },
+    { text: "<strong>Step 4:</strong> The <strong>kitchen (server)</strong> pulls ingredients from the <strong>fridge (database)</strong> and prepares your dish.", on: ["rs-kitchen", "rs-fridge"] },
+    { text: "<strong>Step 5:</strong> The waiter brings your meal back to the table. 🍽 <em>This is the response!</em>", on: ["rs-waiter", "rs-client"] }
+  ];
+  let i = 0, timer = null;
+  const $ = id => document.getElementById(id);
+  function render() {
+    document.querySelectorAll("#restaurant-stepper .rs-actor").forEach(el => el.classList.remove("rs-on"));
+    steps[i].on.forEach(id => $(id).classList.add("rs-on"));
+    $("rs-caption").innerHTML = steps[i].text;
+    $("rs-dots").textContent = steps.map((_, k) => k === i ? "●" : "○").join("");
+  }
+  function stopPlay() { if (timer) { clearInterval(timer); timer = null; $("rs-play").textContent = "▶ Play"; } }
+  $("rs-next").onclick = () => { stopPlay(); i = (i + 1) % steps.length; render(); };
+  $("rs-back").onclick = () => { stopPlay(); i = (i - 1 + steps.length) % steps.length; render(); };
+  $("rs-restart").onclick = () => { stopPlay(); i = 0; render(); };
+  $("rs-play").onclick = () => {
+    if (timer) { stopPlay(); return; }
+    $("rs-play").textContent = "⏸ Pause";
+    timer = setInterval(() => { i = (i + 1) % steps.length; render(); }, 2600);
+  };
+  render();
+})();
+</script>
+</section>
+<section id="now-in-words" class="level3">
+<h3 class="anchored" data-anchor-id="now-in-words">Now in Words</h3>
+<p>Here is the same story, written out:</p>
 <ul>
-<li><strong>You</strong> (the client) look at the menu and place an order.</li>
-<li><strong>The waiter</strong> (the API) carries your order to the kitchen.</li>
-<li><strong>The kitchen</strong> (the server/database) prepares your food.</li>
-<li><strong>The waiter</strong> brings back your meal (the response).</li>
+<li><strong>You</strong> (the client) look at the menu and <strong>make a request</strong> — you place your order.</li>
+<li><strong>The waiter</strong> (the API) carries your request to the kitchen.</li>
+<li><strong>The kitchen</strong> (the server, with its fridge — the database) prepares your food.</li>
+<li><strong>The waiter</strong> brings back your meal (the <strong>response</strong>).</li>
 </ul>
-<p>The key insight: you never walk into the kitchen yourself. The API is the controlled interface that lets you interact with the data source.</p>
+<p>The key insight: you never walk into the kitchen yourself. The API is the controlled interface that lets you interact with the data source. And notice who starts everything: <strong>the client makes the request.</strong> Nothing happens until you order.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🎯 Goal Check
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this analogy, our workshop goal is simply: <em>place an order (make a request) and turn the meal that arrives (the response) into something we can analyze.</em></p>
+</div>
+</div>
 <section id="section" class="level4">
 <h4 class="anchored" data-anchor-id="section">———————</h4>
 </section>
+</section>
 <section id="q1." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q1.">Q1.</h3>
-<p><strong>(Multiple Choice):</strong> What is the primary utility of a web API for a data analyst?</p>
-<ol type="a">
-<li>To create visual websites for data projects.</li>
-<li>To allow programmatic, repeatable, and direct access to live data from an external source.</li>
-<li>To store large CSV files in the cloud.</li>
-<li>To design the database structure for a server.</li>
-</ol>
+<p><strong>(Fill in the Blank):</strong> In the restaurant analogy, the waiter plays the role of the ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q1">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -359,25 +473,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>b)</strong> An API provides a structured way for a program (like an R script) to directly request and receive live data, making data acquisition automated and scalable.</p>
+<p>The <strong>API</strong>. The waiter is the go-between: it carries your request to the kitchen (server) and brings the response back to you (client).</p>
 </div>
 </div>
 </div>
 <section id="section-1" class="level4">
 <h4 class="anchored" data-anchor-id="section-1">———————</h4>
+</section>
+<section id="section-2" class="level4">
+<h4 class="anchored" data-anchor-id="section-2">———————</h4>
+</section>
+</section>
+<section id="q2." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q2.">Q2.</h3>
+<p><strong>(Multiple Choice):</strong> What is the primary utility of a web API for a data analyst?</p>
+<ol type="a">
+<li>To create visual websites for data projects.</li>
+<li>To store large CSV files in the cloud.</li>
+<li>To design the database structure for a server.</li>
+<li>To allow programmatic, repeatable, and direct access to live data from an external source.</li>
+<li>To replace the need for any programming language.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q2">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>d)</strong> An API provides a structured way for a program (like an R script) to directly request and receive live data, making data acquisition automated and scalable.</p>
+</div>
+</div>
+</div>
+<section id="section-3" class="level4">
+<h4 class="anchored" data-anchor-id="section-3">———————</h4>
 <hr>
 </section>
 </section>
 </section>
 <section id="part-2-api-data-flow" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-api-data-flow">Part 2: API Data Flow</h2>
-<p>Let’s go deeper into the architecture. The flow of data through an API follows a predictable pattern:</p>
+<p>Let’s go deeper into the architecture — same story as the restaurant, now with the technical names.</p>
+<section id="watch-first" class="level3">
+<h3 class="anchored" data-anchor-id="watch-first">Watch First</h3>
+<p><img src="images/api-data-flow.gif" class="img-fluid" alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"></p>
+</section>
+<section id="now-in-words-1" class="level3">
+<h3 class="anchored" data-anchor-id="now-in-words-1">Now in Words</h3>
+<p>The animation traces a single API call from start to finish. There are four components in the chain: the <strong>Client</strong> (your R script or browser), the <strong>API</strong> (the endpoint — the “front door”), the <strong>Server</strong> (backend logic that processes the request), and the <strong>Database</strong> (where the actual data lives).</p>
 <p><strong>Request direction:</strong> Client (request) → API → Server → Database</p>
 <p><strong>Response direction:</strong> Client ← API ← Server (response) ← Database</p>
-<p>The animation below traces a single API call from start to finish. There are four components in the chain: the <strong>Client</strong> (your R script or browser), the <strong>API</strong> (the endpoint — the “front door”), the <strong>Server</strong> (backend logic that processes the request), and the <strong>Database</strong> (where the actual data lives). The request moves left to right; the response travels the same path in reverse.</p>
-<p><img src="images/api-data-flow.gif" class="img-fluid" alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"></p>
+<p>The request moves left to right; the response travels the same path in reverse.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -397,20 +550,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 </div>
-<section id="section-2" class="level4">
-<h4 class="anchored" data-anchor-id="section-2">———————</h4>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🎯 Goal Check
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chain is exactly what happens every time we run our workshop goal: <em>the client (our R script) makes a request, and a response comes back for us to analyze.</em></p>
+</div>
+</div>
+<section id="section-4" class="level4">
+<h4 class="anchored" data-anchor-id="section-4">———————</h4>
+</section>
 </section>
 <section id="visual-check-api-data-flow." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="visual-check-api-data-flow.">Visual Check — API Data Flow.</h3>
 <p><strong>(Multiple Choice):</strong> In the animation, the API sits between the Client and the Server. What best describes the API’s role in this chain?</p>
 <ol type="a">
 <li>It stores the data permanently.</li>
-<li>It acts as a gateway — receiving requests from the client and routing them to the server.</li>
 <li>It runs the backend logic that queries the database.</li>
+<li>It acts as a gateway — receiving requests from the client and routing them to the server.</li>
 <li>It is the same as the database.</li>
+<li>It draws the plots at the end of the analysis.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -419,35 +587,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>b)</strong> The API is a <strong>gateway</strong> or controlled interface. It does not store data (that’s the database) and it does not run the core business logic (that’s the server). It is the stable “front door” that clients talk to, and it routes requests onward.</p>
-</div>
-</div>
-</div>
-<section id="section-3" class="level4">
-<h4 class="anchored" data-anchor-id="section-3">———————</h4>
-</section>
-<section id="section-4" class="level4">
-<h4 class="anchored" data-anchor-id="section-4">———————</h4>
-</section>
-</section>
-<section id="q2." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q2.">Q2.</h3>
-<p><strong>(Open-Ended):</strong> Using the restaurant analogy where the API is a <strong>waiter</strong>, describe the step-by-step process of you (the <strong>client</strong>) successfully ordering and receiving a “current weather forecast” from the kitchen (the <strong>server</strong>).</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q2">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q2
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>I (the <strong>client</strong>) look at the menu (API documentation) and decide what I want. I then give my specific order for the “current weather forecast” to the <strong>waiter</strong> (the API). The waiter takes my request to the <strong>kitchen</strong> (the server), which has access to the fridge (the database). The kitchen prepares my order and gives the finished dish (the JSON data response) back to the waiter, who delivers it to my table.</p>
+<p><strong>c)</strong> The API is a <strong>gateway</strong> or controlled interface. It does not store data (that’s the database) and it does not run the core business logic (that’s the server). It is the stable “front door” that clients talk to, and it routes requests onward.</p>
 </div>
 </div>
 </div>
@@ -460,15 +602,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="q3." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q3.">Q3.</h3>
-<p><strong>(Multiple Choice — Callback to Q1):</strong> In the restaurant analogy, the API documentation is most analogous to:</p>
-<ol type="a">
-<li>The kitchen equipment</li>
-<li>The menu</li>
-<li>The cash register</li>
-<li>The table number</li>
-</ol>
+<p><strong>(Fill in the Blank):</strong> A request travels: Client → ________ → Server → Database.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q3">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -477,49 +613,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>b)</strong> The menu. Just like a menu tells you what’s available and how to order it, API documentation tells you what endpoints exist, what parameters you can send, and what responses to expect.</p>
+<p>The <strong>API</strong>. The API always sits between the client and the server — requests go through it on the way in, and responses come back through it on the way out.</p>
 </div>
 </div>
 </div>
 <section id="section-7" class="level4">
 <h4 class="anchored" data-anchor-id="section-7">———————</h4>
-<hr>
 </section>
-</section>
-</section>
-<section id="part-3-requests-and-responses" class="level2">
-<h2 class="anchored" data-anchor-id="part-3-requests-and-responses">Part 3: Requests and Responses</h2>
-<p>Now let’s zoom in on the two key actions: <strong>requests</strong> and <strong>responses</strong>.</p>
-<section id="what-is-a-request" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-a-request">What is a Request?</h3>
-<p>The client sends a <strong>request</strong> asking for information. This request includes:</p>
-<ul>
-<li>A <strong>URL</strong> (e.g., with parameters like <code>?q=San+Luis+Obispo</code>)</li>
-<li>Possibly an <strong>API key</strong> (for authentication)</li>
-<li>A <strong>method</strong> (e.g., <code>GET</code> or <code>POST</code> — more on these in Session 2)</li>
-</ul>
-<p>The request is constructed as a URL string. We’ll dissect URL anatomy in the next session.</p>
-</section>
-<section id="what-is-a-response" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-a-response">What is a Response?</h3>
-<p>The server returns a <strong>response</strong> which contains:</p>
-<ul>
-<li><strong>Data</strong> — the actual information you requested (temperature, artist name, forecast, etc.)</li>
-<li><strong>Metadata</strong> — information <em>about</em> the response (timestamps, rate limits, etc.)</li>
-<li><strong>Status code</strong> — tells you whether the request was successful (e.g., <code>200 OK</code>)</li>
-</ul>
-<p>This information is traditionally provided in <strong>JSON format</strong>.</p>
 <section id="section-8" class="level4">
 <h4 class="anchored" data-anchor-id="section-8">———————</h4>
 </section>
 </section>
 <section id="q4." class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="q4.">Q4.</h3>
-<p><strong>(Open-Ended):</strong> What is the fundamental difference between an API <strong>request</strong> and an API <strong>response</strong>?</p>
+<p><strong>(Fill in the Blanks — the restaurant story):</strong> Fill in each blank with one word from: <em>client, waiter, kitchen, fridge, response.</em></p>
+<blockquote class="blockquote">
+<p>I (the _____) look at the menu and place my order with the _____. My order is carried to the _____, which pulls ingredients from the _____. The finished dish comes back to my table — that dish is the _____.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q4">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -528,14 +642,144 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A <strong>request</strong> is what you <em>send</em> to a server to ask for information. It’s an outgoing message that includes the endpoint URL, your API key, and the specific parameters for your query. A <strong>response</strong> is what the server <em>sends back</em> to you. It’s an incoming message containing the data you asked for (the body), a status code indicating success or failure, and other metadata.</p>
+<p>I (the <strong>client</strong>) look at the menu and place my order with the <strong>waiter</strong>. My order is carried to the <strong>kitchen</strong>, which pulls ingredients from the <strong>fridge</strong>. The finished dish comes back to my table — that dish is the <strong>response</strong>.</p>
+<p>(Translation: client → API → server → database → response.)</p>
 </div>
 </div>
 </div>
 <section id="section-9" class="level4">
 <h4 class="anchored" data-anchor-id="section-9">———————</h4>
+</section>
+<section id="section-10" class="level4">
+<h4 class="anchored" data-anchor-id="section-10">———————</h4>
+</section>
+</section>
+<section id="q5." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q5.">Q5.</h3>
+<p><strong>(Multiple Choice — Callback to Q1):</strong> In the restaurant analogy, the API documentation is most analogous to:</p>
+<ol type="a">
+<li>The kitchen equipment</li>
+<li>The cash register</li>
+<li>The table number</li>
+<li>The chef’s secret recipe book</li>
+<li>The menu</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q5">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q5
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>e)</strong> The menu. Just like a menu tells you what’s available and how to order it, API documentation tells you what you can ask for and how to ask for it.</p>
+</div>
+</div>
+</div>
+<section id="section-11" class="level4">
+<h4 class="anchored" data-anchor-id="section-11">———————</h4>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-3-requests-and-responses" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-requests-and-responses">Part 3: Requests and Responses</h2>
+<p>Now let’s zoom in on the two key actions: <strong>requests</strong> and <strong>responses</strong>. We’ll keep this simple — the details come in Session 2.</p>
+<section id="what-is-a-request" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-request">What is a Request?</h3>
+<p>A request is the client <em>asking</em> for information. Here is the one thing to remember today:</p>
+<blockquote class="blockquote">
+<p><strong>A request is written as a URL — a web address.</strong></p>
+</blockquote>
+<p>That’s it. When we want data from an API, we build a web address that describes what we want, and we send it. In Session 2 we will dissect exactly how that web address is put together, piece by piece.</p>
+<p><em>(One aside for later: some APIs also ask you to include an ID called an <strong>API key</strong> — like showing a library card. The weather API we use in this workshop is free and doesn’t need one, so we can set that idea aside for now.)</em></p>
+</section>
+<section id="what-is-a-response" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-response">What is a Response?</h3>
+<p>The server returns a <strong>response</strong> which contains:</p>
+<ul>
+<li><strong>Data</strong> — the actual information you requested (temperature, artist name, forecast, etc.)</li>
+<li><strong>Metadata</strong> — information <em>about</em> the response (timestamps, units, etc.)</li>
+<li><strong>Status code</strong> — tells you whether the request was successful (e.g., <code>200 OK</code>)</li>
+</ul>
+<p>This information is traditionally provided in <strong>JSON format</strong> — which is exactly what Part 4 is about.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>🎯 Goal Check
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Two halves of our goal, side by side: the <strong>request</strong> is a URL we send; the <strong>response</strong> is what we’ll format into something we can analyze.</p>
+</div>
+</div>
+<section id="section-12" class="level4">
+<h4 class="anchored" data-anchor-id="section-12">———————</h4>
+</section>
+</section>
+<section id="q6." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q6.">Q6.</h3>
+<p><strong>(Fill in the Blank):</strong> A request is written as a ________ — a web address that asks the API for specific information.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q6">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q6
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A <strong>URL</strong>. That’s the entire request: a carefully built web address.</p>
+</div>
+</div>
+</div>
+<section id="section-13" class="level4">
+<h4 class="anchored" data-anchor-id="section-13">———————</h4>
+</section>
+<section id="section-14" class="level4">
+<h4 class="anchored" data-anchor-id="section-14">———————</h4>
+</section>
+</section>
+<section id="q7." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q7.">Q7.</h3>
+<p><strong>(Multiple Choice):</strong> A response from an API contains which three things?</p>
+<ol type="a">
+<li>Data, metadata, and a status code</li>
+<li>A URL, an API key, and a password</li>
+<li>A plot, a table, and a summary</li>
+<li>HTML, CSS, and JavaScript</li>
+<li>Rows, columns, and cell values</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q7">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q7
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> A response contains the <strong>data</strong> you asked for, <strong>metadata</strong> about the response, and a <strong>status code</strong> that says whether the request worked.</p>
+</div>
+</div>
+</div>
+<section id="section-15" class="level4">
+<h4 class="anchored" data-anchor-id="section-15">———————</h4>
 <hr>
 </section>
 </section>
@@ -543,50 +787,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="part-4-anatomy-of-a-json-response" class="level2">
 <h2 class="anchored" data-anchor-id="part-4-anatomy-of-a-json-response">Part 4: Anatomy of a JSON Response</h2>
 <p>Now let’s focus on the <strong>response</strong> — specifically, what it looks like. API responses are almost always formatted as <strong>JSON</strong> (JavaScript Object Notation).</p>
-<p>The animation below reveals the layers of a JSON response. The entire thing — everything the server sends back — is called the <strong>Body</strong> or <strong>Content</strong>. It is wrapped in curly braces <code>{ }</code>. Inside that body, the content is divided into three zones: the <strong>data</strong> (what you asked for), <strong>metadata</strong> (context about the response), and the <strong>status code</strong> (the success or failure signal). The animation builds these zones one at a time so you can see how they fit together.</p>
+<section id="watch-first-1" class="level3">
+<h3 class="anchored" data-anchor-id="watch-first-1">Watch First</h3>
 <p><img src="images/anatomy-of-json-response.gif" class="img-fluid" alt="Animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence"></p>
-<div class="callout callout-style-default callout-note callout-titled">
+</section>
+<section id="now-in-words-2" class="level3">
+<h3 class="anchored" data-anchor-id="now-in-words-2">Now in Words</h3>
+<p>The animation reveals the layers of a JSON response, one at a time:</p>
+<ol type="1">
+<li>The entire thing — everything the server sends back — is called the <strong>Body</strong> (or <strong>Content</strong>). It is wrapped in curly braces <code>{ }</code>.</li>
+<li>Inside that body, the content is divided into three zones:
+<ul>
+<li><strong>Data</strong>: what we actually wanted (temperature, city name, coordinates)</li>
+<li><strong>Metadata</strong>: information about the response (timestamps, units)</li>
+<li><strong>Status code</strong>: tells us if the request worked</li>
+</ul></li>
+</ol>
+<p>Take this slowly — this structure will show up in <em>every</em> response for the rest of the workshop.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>What is JSON?
+<span class="screen-reader-only">Tip</span>🎯 Goal Check
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When we send a request to an API, we get a response body, which includes the content — typically JSON — divided into:</p>
-<ul>
-<li><strong>Data</strong>: what we actually wanted (temperature, city name, coordinates)</li>
-<li><strong>Metadata</strong>: information about the response (timestamps, units, request ID)</li>
-<li><strong>Status code</strong>: tells us if the request worked</li>
-</ul>
+<p>The response body is the raw material. Our goal — “format the response into something we can analyze” — means taking this JSON and turning it into an R data frame.</p>
 </div>
 </div>
-<section id="section-10" class="level4">
-<h4 class="anchored" data-anchor-id="section-10">———————</h4>
+<section id="section-16" class="level4">
+<h4 class="anchored" data-anchor-id="section-16">———————</h4>
 </section>
-<section id="visual-check-json-response-anatomy." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="visual-check-json-response-anatomy.">Visual Check — JSON Response Anatomy.</h3>
-<p><strong>(Open-Ended):</strong> The animation shows the entire response wrapped in <code>{ }</code>. When you call <code>resp_body_json()</code> in R to parse this response, what R data structure does that outer <code>{ }</code> (a JSON object) become, and how would you access the value for a key called <code>"temperature"</code> inside it?</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer — Visual Check">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+</section>
+<section id="quick-checks-json-response-anatomy." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="quick-checks-json-response-anatomy.">Quick Checks — JSON Response Anatomy.</h3>
+<p><strong>(Fill in the Blanks):</strong> One or two words each.</p>
+<ol type="1">
+<li>Everything the server sends back is called the body or content, and it is wrapped in curly ________.</li>
+<li>The three zones inside the body are the data, the ________, and the status code.</li>
+<li>The ______ ______ tells us whether the request worked.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answers — Quick Checks">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer — Visual Check
+<span class="screen-reader-only">Tip</span>Answers — Quick Checks
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A JSON object (<code>{ }</code>) becomes a <strong>named list</strong> in R. To access the value for <code>"temperature"</code>, you would use <code>result$temperature</code> or <code>result[["temperature"]]</code>, where <code>result</code> is the variable holding the parsed response.</p>
+<ol type="1">
+<li>Curly <strong>braces</strong> <code>{ }</code></li>
+<li>The <strong>metadata</strong></li>
+<li>The <strong>status code</strong></li>
+</ol>
 </div>
 </div>
 </div>
-<section id="section-11" class="level4">
-<h4 class="anchored" data-anchor-id="section-11">———————</h4>
+<section id="section-17" class="level4">
+<h4 class="anchored" data-anchor-id="section-17">———————</h4>
 </section>
 </section>
 <section id="json-structure-key-value-pairs" class="level3">
@@ -633,63 +897,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In R, a JSON response becomes a <strong>named list</strong> — potentially containing other named lists inside it. This is what we mean by “nested.” When we flatten it with <code>as.data.frame()</code>, nested keys become column names like <code>coordinates.lat</code> or <code>weather.temp</code>.</p>
 </div>
 </div>
-<section id="section-12" class="level4">
-<h4 class="anchored" data-anchor-id="section-12">———————</h4>
+<section id="section-18" class="level4">
+<h4 class="anchored" data-anchor-id="section-18">———————</h4>
 </section>
 </section>
-<section id="q5." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q5.">Q5.</h3>
+<section id="q8." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q8.">Q8.</h3>
 <p><strong>(Multiple Choice):</strong> The JSON data format, commonly used in API responses, organizes information using what fundamental structure?</p>
 <ol type="a">
 <li>Rows and columns</li>
 <li>A nested series of bullet points</li>
 <li>Key-value pairs</li>
 <li>Formatted paragraphs of text</li>
+<li>Comma-separated values</li>
 </ol>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q5">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q8">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q5
+<span class="screen-reader-only">Tip</span>Answer Q8
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>c)</strong> JSON data is built on <strong>key-value pairs</strong> (e.g., <code>"city": "Chicago"</code>), where a “key” is a string and a “value” can be a string, number, boolean, array, or another object.</p>
 </div>
 </div>
 </div>
-<section id="section-13" class="level4">
-<h4 class="anchored" data-anchor-id="section-13">———————</h4>
+<section id="section-19" class="level4">
+<h4 class="anchored" data-anchor-id="section-19">———————</h4>
 </section>
-<section id="section-14" class="level4">
-<h4 class="anchored" data-anchor-id="section-14">———————</h4>
+<section id="section-20" class="level4">
+<h4 class="anchored" data-anchor-id="section-20">———————</h4>
 </section>
 </section>
-<section id="q6." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q6.">Q6.</h3>
-<p><strong>(Open-Ended — Callback to Q4):</strong> Given the nested JSON example above, if you converted this to a data frame in R using <code>as.data.frame()</code>, what would the column name for the latitude value be?</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q6">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<section id="q9." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q9.">Q9.</h3>
+<p><strong>(Fill in the Blank):</strong> In R, a JSON object <code>{ }</code> becomes a named ________.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q9">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q6
+<span class="screen-reader-only">Tip</span>Answer Q9
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The column name would be <code>coordinates.lat</code>. When R flattens a nested JSON structure into a data frame, it joins the nested key names with a period. So <code>coordinates</code> → <code>lat</code> becomes <code>coordinates.lat</code>.</p>
+<p>A named <strong>list</strong>. Each JSON key becomes a name in the list, and nested JSON objects become lists inside the list.</p>
 </div>
 </div>
 </div>
-<section id="section-15" class="level4">
-<h4 class="anchored" data-anchor-id="section-15">———————</h4>
+<section id="section-21" class="level4">
+<h4 class="anchored" data-anchor-id="section-21">———————</h4>
+</section>
+<section id="section-22" class="level4">
+<h4 class="anchored" data-anchor-id="section-22">———————</h4>
+</section>
+</section>
+<section id="q10." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q10.">Q10.</h3>
+<p><strong>(Fill in the Blank — using the nested example above):</strong> If you flatten the nested JSON example with <code>as.data.frame()</code>, the column holding the latitude value would be named ________.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q10">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q10
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>coordinates.lat</code> — when R flattens nested JSON into a data frame, it joins the nested key names with a period. So <code>coordinates</code> → <code>lat</code> becomes <code>coordinates.lat</code>.</p>
+</div>
+</div>
+</div>
+<section id="section-23" class="level4">
+<h4 class="anchored" data-anchor-id="section-23">———————</h4>
 <hr>
 </section>
 </section>
@@ -736,7 +1027,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>The most important ones for data work:</strong></p>
 <ul>
 <li><strong>200 OK</strong> — Success! You got your data.</li>
-<li><strong>401 Unauthorized</strong> — Your API key is missing or invalid.</li>
+<li><strong>401 Unauthorized</strong> — Your credentials (e.g., an API key) are missing or invalid.</li>
 <li><strong>403 Forbidden</strong> — You don’t have permission to access this resource.</li>
 <li><strong>404 Not Found</strong> — The endpoint or resource doesn’t exist.</li>
 <li><strong>429 Too Many Requests</strong> — You’ve hit the rate limit.</li>
@@ -755,88 +1046,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In most data API work, your goal is to get a <strong>200</strong> response. If you don’t, the status code tells you <em>where</em> to look for the problem — your request (4xx) or their server (5xx).</p>
 </div>
 </div>
-<section id="section-16" class="level4">
-<h4 class="anchored" data-anchor-id="section-16">———————</h4>
-</section>
-<section id="q7." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q7.">Q7.</h3>
-<p><strong>(Discussion):</strong> You write a script to get weather data, but it fails with a <code>404 Not Found</code> status code. Based on the 400-level error category, is it more likely that the weather company’s server is broken, or that you made a mistake? What part of your request is the most likely source of the error?</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q7">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q7
+<span class="screen-reader-only">Tip</span>🎯 Goal Check
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The status code is the first thing we check after making a request: a <strong>200</strong> means “the response arrived — go ahead and format it for analysis.”</p>
+</div>
+</div>
+<section id="section-24" class="level4">
+<h4 class="anchored" data-anchor-id="section-24">———————</h4>
+</section>
+<section id="q11." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q11.">Q11.</h3>
+<p><strong>(Fill in the Blank):</strong> A status code in the 4xx range means the mistake is on the ________ side; a 5xx code means the problem is on the ________ side.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q11">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q11
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A <code>404 Not Found</code> error is a <strong>client-side</strong> error (4xx), meaning the mistake is on my end. It is not a server error (5xx). The most likely problem is that the <strong>URL endpoint</strong> I used in my request is incorrect or misspelled — I’ve asked for a “page” that doesn’t exist on the server.</p>
+<p>4xx = the <strong>client</strong> side (you — your URL or request has a problem). 5xx = the <strong>server</strong> side (them — their system broke).</p>
 </div>
 </div>
 </div>
-<section id="section-17" class="level4">
-<h4 class="anchored" data-anchor-id="section-17">———————</h4>
+<section id="section-25" class="level4">
+<h4 class="anchored" data-anchor-id="section-25">———————</h4>
 </section>
-<section id="section-18" class="level4">
-<h4 class="anchored" data-anchor-id="section-18">———————</h4>
+<section id="section-26" class="level4">
+<h4 class="anchored" data-anchor-id="section-26">———————</h4>
 </section>
 </section>
-<section id="q8." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q8.">Q8.</h3>
-<p><strong>(Multiple Choice — Callback to Q5):</strong> If you receive a response with a status code of <code>200</code> and the body contains JSON, which of the following would you expect to find in that response?</p>
+<section id="q12." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q12.">Q12.</h3>
+<p><strong>(Multiple Choice):</strong> Your script fails with a <code>404 Not Found</code> status code. What is the most likely source of the error?</p>
+<ol type="a">
+<li>The weather company’s server crashed.</li>
+<li>Your internet is disconnected.</li>
+<li>R is not installed correctly.</li>
+<li>The database deleted your account.</li>
+<li>The URL in your request is incorrect or misspelled.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q12">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answer Q12
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>e)</strong> A <code>404 Not Found</code> is a <strong>client-side</strong> (4xx) error — you asked for a “page” that doesn’t exist on the server. The most likely culprit is a typo or mistake in the URL you built.</p>
+</div>
+</div>
+</div>
+<section id="section-27" class="level4">
+<h4 class="anchored" data-anchor-id="section-27">———————</h4>
+</section>
+<section id="section-28" class="level4">
+<h4 class="anchored" data-anchor-id="section-28">———————</h4>
+</section>
+</section>
+<section id="q13." class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="q13.">Q13.</h3>
+<p><strong>(Multiple Choice — Callback to Q8):</strong> If you receive a response with a status code of <code>200</code> and the body contains JSON, which of the following would you expect to find in that response?</p>
 <ol type="a">
 <li>An error message explaining what went wrong</li>
 <li>Key-value pairs containing the data you requested</li>
 <li>A redirect URL to a different API</li>
 <li>An empty response with no content</li>
+<li>A request for payment</li>
 </ol>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q8">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q13">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q8
+<span class="screen-reader-only">Tip</span>Answer Q13
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>b)</strong> A <code>200 OK</code> status means success, and the JSON body will contain the key-value pairs with the data you requested — temperature, coordinates, city name, etc.</p>
 </div>
 </div>
 </div>
-<section id="section-19" class="level4">
-<h4 class="anchored" data-anchor-id="section-19">———————</h4>
-</section>
-<section id="section-20" class="level4">
-<h4 class="anchored" data-anchor-id="section-20">———————</h4>
-</section>
-</section>
-<section id="q9." class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="q9.">Q9.</h3>
-<p><strong>(Open-Ended):</strong> You receive a <code>401 Unauthorized</code> error when trying to access weather data. You’ve double-checked the URL and it’s correct. What is the most likely cause, and how would you fix it?</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Answer Q9">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Answer Q9
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>A <code>401 Unauthorized</code> error means your <strong>API key</strong> is missing, invalid, or expired. The fix is to check that you’ve properly loaded your API key (e.g., from your <code>.Renviron</code> file), that the key is still active on the provider’s website, and that you’re passing it correctly in the request URL or headers.</p>
-</div>
-</div>
-</div>
-<section id="section-21" class="level4">
-<h4 class="anchored" data-anchor-id="section-21">———————</h4>
+<section id="section-29" class="level4">
+<h4 class="anchored" data-anchor-id="section-29">———————</h4>
 <hr>
 </section>
 </section>
@@ -845,13 +1157,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="session-1-recap">Session 1 Recap</h2>
 <p>In this session, we covered the <strong>conceptual foundation</strong> for working with APIs:</p>
 <ol type="1">
-<li><strong>What an API is</strong> — a controlled interface for software-to-software communication</li>
+<li><strong>What an API is</strong> — a controlled interface for software-to-software communication (the waiter!)</li>
 <li><strong>API data flow</strong> — Client → API → Server → Database (and back)</li>
-<li><strong>Requests vs.&nbsp;Responses</strong> — what you send vs.&nbsp;what you get back</li>
+<li><strong>Requests vs.&nbsp;Responses</strong> — a request is a URL you send; a response is what comes back</li>
 <li><strong>JSON format</strong> — key-value pairs, nesting, and how it maps to R data structures</li>
 <li><strong>Status codes</strong> — how to diagnose what happened with your request</li>
 </ol>
+<p>🎯 And the goal, one more time: <strong>make a request, then format the response into something we can analyze.</strong> Today was the vocabulary; tomorrow we do it for real.</p>
 <p><strong>Up next in Session 2:</strong> We’ll learn about CRUD operations, HTTP methods (GET vs.&nbsp;POST), URL anatomy, and make our first requests to a dummy server!</p>
+<hr>
+</section>
+<section id="during-the-break" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="during-the-break">During the Break</h2>
+<p>Before Session 2 starts:</p>
+<ul>
+<li><strong>Questions?</strong> Come up and ask — Meg and I will be here for the whole break.</li>
+<li><strong>Did you finish?</strong> Check yourself:
+<ul class="task-list">
+<li><label><input type="checkbox">I can name the four components: client, API, server, database</label></li>
+<li><label><input type="checkbox">I answered the questions in Parts 1–5 (peek at the answers if you need)</label></li>
+<li><label><input type="checkbox">I can say the workshop goal in one sentence</label></li>
+</ul></li>
+<li>If you finished everything, replay the restaurant animation and try narrating the five steps using the technical words (client, API, server, database, response).</li>
+</ul>
 
 
 <!-- -->
@@ -1346,333 +1674,541 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>**Tool Note:** We will be working in **Positron** throughout. You can follow along in RStudio, but Positron will give you a richer experience for this workshop.</span>
 <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 1: What is an API?</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>**API** stands for **Application Programming Interface**. At its core, an API is a way for software to communicate with other software. In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>Think of the **restaurant analogy**:</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**You** (the client) look at the menu and place an order.</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The waiter** (the API) carries your order to the kitchen.</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The kitchen** (the server/database) prepares your food.</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The waiter** brings back your meal (the response).</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>The key insight: you never walk into the kitchen yourself. The API is the controlled interface that lets you interact with the data source.</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** What is the primary utility of a web API for a data analyst?</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>a)  To create visual websites for data projects.</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>b)  To allow programmatic, repeatable, and direct access to live data from an external source.</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>c)  To store large CSV files in the cloud.</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>d)  To design the database structure for a server.</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>**b)** An API provides a structured way for a program (like an R script) to directly request and receive live data, making data acquisition automated and scalable.</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: API Data Flow</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>Let's go deeper into the architecture. The flow of data through an API follows a predictable pattern:</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>**Request direction:** Client (request) → API → Server → Database</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>**Response direction:** Client ← API ← Server (response) ← Database</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>The animation below traces a single API call from start to finish. There are four components in the chain: the **Client** (your R script or browser), the **API** (the endpoint — the "front door"), the **Server** (backend logic that processes the request), and the **Database** (where the actual data lives). The request moves left to right; the response travels the same path in reverse.</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/api-data-flow.gif)</span>{fig-alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"}</span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Observations</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **client** is your R script or browser — anything making the request.</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **API** is the endpoint — the "front door" of the data service.</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **server** processes the request and queries the **database**.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The response travels back the same path.</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A client and server can exist on the same computer — this is common in local development.</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — API Data Flow. {.unnumbered}</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** In the animation, the API sits between the Client and the Server. What best describes the API's role in this chain?</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>a)  It stores the data permanently.</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>b)  It acts as a gateway — receiving requests from the client and routing them to the server.</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>c)  It runs the backend logic that queries the database.</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>d)  It is the same as the database.</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>**b)** The API is a **gateway** or controlled interface. It does not store data (that's the database) and it does not run the core business logic (that's the server). It is the stable "front door" that clients talk to, and it routes requests onward.</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** Using the restaurant analogy where the API is a **waiter**, describe the step-by-step process of you (the **client**) successfully ordering and receiving a "current weather forecast" from the kitchen (the **server**).</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>I (the **client**) look at the menu (API documentation) and decide what I want. I then give my specific order for the "current weather forecast" to the **waiter** (the API). The waiter takes my request to the **kitchen** (the server), which has access to the fridge (the database). The kitchen prepares my order and gives the finished dish (the JSON data response) back to the waiter, who delivers it to my table.</span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Q1):** In the restaurant analogy, the API documentation is most analogous to:</span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>a)  The kitchen equipment</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>b)  The menu</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>c)  The cash register</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>d)  The table number</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>**b)** The menu. Just like a menu tells you what's available and how to order it, API documentation tells you what endpoints exist, what parameters you can send, and what responses to expect.</span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: Requests and Responses</span></span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>Now let's zoom in on the two key actions: **requests** and **responses**.</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### What is a Request?</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>The client sends a **request** asking for information. This request includes:</span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A **URL** (e.g., with parameters like <span class="in">`?q=San+Luis+Obispo`</span>)</span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Possibly an **API key** (for authentication)</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A **method** (e.g., <span class="in">`GET`</span> or <span class="in">`POST`</span> — more on these in Session 2)</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>The request is constructed as a URL string. We'll dissect URL anatomy in the next session.</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### What is a Response?</span></span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>The server returns a **response** which contains:</span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Data** — the actual information you requested (temperature, artist name, forecast, etc.)</span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Metadata** — information *about* the response (timestamps, rate limits, etc.)</span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Status code** — tells you whether the request was successful (e.g., <span class="in">`200 OK`</span>)</span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>This information is traditionally provided in **JSON format**.</span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** What is the fundamental difference between an API **request** and an API **response**?</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>A **request** is what you *send* to a server to ask for information. It's an outgoing message that includes the endpoint URL, your API key, and the specific parameters for your query. A **response** is what the server *sends back* to you. It's an incoming message containing the data you asked for (the body), a status code indicating success or failure, and other metadata.</span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Anatomy of a JSON Response</span></span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>Now let's focus on the **response** — specifically, what it looks like. API responses are almost always formatted as **JSON** (JavaScript Object Notation).</span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>The animation below reveals the layers of a JSON response. The entire thing — everything the server sends back — is called the **Body** or **Content**. It is wrapped in curly braces `{ }`. Inside that body, the content is divided into three zones: the **data** (what you asked for), **metadata** (context about the response), and the **status code** (the success or failure signal). The animation builds these zones one at a time so you can see how they fit together.</span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/anatomy-of-json-response.gif)</span>{fig-alt="Animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence"}</span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is JSON?</span></span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>When we send a request to an API, we get a response body, which includes the content — typically JSON — divided into:</span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Data**: what we actually wanted (temperature, city name, coordinates)</span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Metadata**: information about the response (timestamps, units, request ID)</span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Status code**: tells us if the request worked</span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — JSON Response Anatomy. {.unnumbered}</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>::: callout-important</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 The One Goal of This Workshop</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>Everything we do — today and tomorrow — builds toward **one skill**:</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Make a request to an API, then format the response into something we can analyze.**</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>If you ever feel overwhelmed, come back to this sentence. Every part of every session is just one small step toward it.</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 1: What is an API?</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>**API** stands for **Application Programming Interface**. At its core, an API is a way for software to communicate with other software. In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### Watch First: The Restaurant Analogy</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>Use the buttons to step through the animation — go at your own pace, pause, or replay any step.</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div id="restaurant-stepper" style="border:2px solid #d0d7de; border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; background:#fafbfc;"&gt;</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;div style="display:flex; justify-content:space-between; gap:.5rem; text-align:center; margin-bottom:1rem; flex-wrap:wrap;"&gt;</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div class="rs-actor" id="rs-client" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;"&gt;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="in">      &lt;div style="font-size:2.2rem;"&gt;🙋&lt;/div&gt;&lt;strong&gt;You&lt;/strong&gt;&lt;br&gt;&lt;small&gt;the Client&lt;/small&gt;</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;/div&gt;</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div style="align-self:center; font-size:1.4rem; color:#8b949e;"&gt;⇄&lt;/div&gt;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div class="rs-actor" id="rs-waiter" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;"&gt;</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="in">      &lt;div style="font-size:2.2rem;"&gt;🤵&lt;/div&gt;&lt;strong&gt;Waiter&lt;/strong&gt;&lt;br&gt;&lt;small&gt;the API&lt;/small&gt;</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;/div&gt;</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div style="align-self:center; font-size:1.4rem; color:#8b949e;"&gt;⇄&lt;/div&gt;</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div class="rs-actor" id="rs-kitchen" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;"&gt;</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="in">      &lt;div style="font-size:2.2rem;"&gt;👨‍🍳&lt;/div&gt;&lt;strong&gt;Kitchen&lt;/strong&gt;&lt;br&gt;&lt;small&gt;the Server&lt;/small&gt;</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;/div&gt;</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div style="align-self:center; font-size:1.4rem; color:#8b949e;"&gt;⇄&lt;/div&gt;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;div class="rs-actor" id="rs-fridge" style="flex:1; min-width:110px; padding:.75rem .25rem; border-radius:10px; border:2px solid transparent; transition:all .4s;"&gt;</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="in">      &lt;div style="font-size:2.2rem;"&gt;🧊&lt;/div&gt;&lt;strong&gt;Fridge&lt;/strong&gt;&lt;br&gt;&lt;small&gt;the Database&lt;/small&gt;</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;/div&gt;</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;/div&gt;</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;div id="rs-caption" style="min-height:3.2em; font-size:1.05rem; text-align:center; padding:.5rem; background:#fff; border-radius:8px; border:1px solid #d0d7de;"&gt;&lt;/div&gt;</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;div style="display:flex; justify-content:center; align-items:center; gap:.5rem; margin-top:.85rem; flex-wrap:wrap;"&gt;</span></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;button id="rs-restart" class="rs-btn"&gt;⏮ Restart&lt;/button&gt;</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;button id="rs-back" class="rs-btn"&gt;◀ Back&lt;/button&gt;</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;span id="rs-dots" style="letter-spacing:.35em; font-size:1rem; color:#8b949e;"&gt;&lt;/span&gt;</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;button id="rs-next" class="rs-btn"&gt;Next ▶&lt;/button&gt;</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;button id="rs-play" class="rs-btn" style="min-width:6.5em;"&gt;▶ Play&lt;/button&gt;</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="in">  &lt;/div&gt;</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;/div&gt;</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;style&gt;</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">  .rs-btn { border:1px solid #d0d7de; background:#fff; border-radius:8px; padding:.35rem .8rem; cursor:pointer; font-size:.9rem; }</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="in">  .rs-btn:hover { background:#f3f4f6; }</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="in">  .rs-on { border-color:#0969da !important; background:#ddf4ff !important; }</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;/style&gt;</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;script&gt;</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">(function() {</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="in">  const steps = [</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="in">    { text: "&lt;strong&gt;Step 1:&lt;/strong&gt; You (the &lt;strong&gt;client&lt;/strong&gt;) sit down and read the &lt;strong&gt;menu&lt;/strong&gt; — the menu is the API documentation. It tells you what you are allowed to order.", on: ["rs-client"] },</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">    { text: "&lt;strong&gt;Step 2:&lt;/strong&gt; You &lt;strong&gt;make a request&lt;/strong&gt; — the client places an order with the waiter. 📝 &lt;em&gt;This is the request!&lt;/em&gt;", on: ["rs-client", "rs-waiter"] },</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="in">    { text: "&lt;strong&gt;Step 3:&lt;/strong&gt; The &lt;strong&gt;waiter (API)&lt;/strong&gt; carries your order to the &lt;strong&gt;kitchen (server)&lt;/strong&gt;. You never walk into the kitchen yourself.", on: ["rs-waiter", "rs-kitchen"] },</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="in">    { text: "&lt;strong&gt;Step 4:&lt;/strong&gt; The &lt;strong&gt;kitchen (server)&lt;/strong&gt; pulls ingredients from the &lt;strong&gt;fridge (database)&lt;/strong&gt; and prepares your dish.", on: ["rs-kitchen", "rs-fridge"] },</span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="in">    { text: "&lt;strong&gt;Step 5:&lt;/strong&gt; The waiter brings your meal back to the table. 🍽 &lt;em&gt;This is the response!&lt;/em&gt;", on: ["rs-waiter", "rs-client"] }</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="in">  ];</span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="in">  let i = 0, timer = null;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="in">  const $ = id =&gt; document.getElementById(id);</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="in">  function render() {</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="in">    document.querySelectorAll("#restaurant-stepper .rs-actor").forEach(el =&gt; el.classList.remove("rs-on"));</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a><span class="in">    steps[i].on.forEach(id =&gt; $(id).classList.add("rs-on"));</span></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="in">    $("rs-caption").innerHTML = steps[i].text;</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="in">    $("rs-dots").textContent = steps.map((_, k) =&gt; k === i ? "●" : "○").join("");</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="in">  function stopPlay() { if (timer) { clearInterval(timer); timer = null; $("rs-play").textContent = "▶ Play"; } }</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="in">  $("rs-next").onclick = () =&gt; { stopPlay(); i = (i + 1) % steps.length; render(); };</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="in">  $("rs-back").onclick = () =&gt; { stopPlay(); i = (i - 1 + steps.length) % steps.length; render(); };</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="in">  $("rs-restart").onclick = () =&gt; { stopPlay(); i = 0; render(); };</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="in">  $("rs-play").onclick = () =&gt; {</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="in">    if (timer) { stopPlay(); return; }</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="in">    $("rs-play").textContent = "⏸ Pause";</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="in">    timer = setInterval(() =&gt; { i = (i + 1) % steps.length; render(); }, 2600);</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">  };</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in">  render();</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">})();</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;/script&gt;</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>Here is the same story, written out:</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**You** (the client) look at the menu and **make a request** — you place your order.</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The waiter** (the API) carries your request to the kitchen.</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The kitchen** (the server, with its fridge — the database) prepares your food.</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The waiter** brings back your meal (the **response**).</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>The key insight: you never walk into the kitchen yourself. The API is the controlled interface that lets you interact with the data source. And notice who starts everything: **the client makes the request.** Nothing happens until you order.</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>In this analogy, our workshop goal is simply: *place an order (make a request) and turn the meal that arrives (the response) into something we can analyze.*</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** In the restaurant analogy, the waiter plays the role of the <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>The **API**. The waiter is the go-between: it carries your request to the kitchen (server) and brings the response back to you (client).</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** What is the primary utility of a web API for a data analyst?</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>a)  To create visual websites for data projects.</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>b)  To store large CSV files in the cloud.</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>c)  To design the database structure for a server.</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>d)  To allow programmatic, repeatable, and direct access to live data from an external source.</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>e)  To replace the need for any programming language.</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a>**d)** An API provides a structured way for a program (like an R script) to directly request and receive live data, making data acquisition automated and scalable.</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: API Data Flow</span></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>Let's go deeper into the architecture — same story as the restaurant, now with the technical names.</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a><span class="fu">### Watch First</span></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/api-data-flow.gif)</span>{fig-alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"}</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>The animation traces a single API call from start to finish. There are four components in the chain: the **Client** (your R script or browser), the **API** (the endpoint — the "front door"), the **Server** (backend logic that processes the request), and the **Database** (where the actual data lives).</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>**Request direction:** Client (request) → API → Server → Database</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>**Response direction:** Client ← API ← Server (response) ← Database</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>The request moves left to right; the response travels the same path in reverse.</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Observations</span></span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **client** is your R script or browser — anything making the request.</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **API** is the endpoint — the "front door" of the data service.</span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The **server** processes the request and queries the **database**.</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The response travels back the same path.</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A client and server can exist on the same computer — this is common in local development.</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
 <span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** The animation shows the entire response wrapped in <span class="in">`{ }`</span>. When you call <span class="in">`resp_body_json()`</span> in R to parse this response, what R data structure does that outer <span class="in">`{ }`</span> (a JSON object) become, and how would you access the value for a key called <span class="in">`"temperature"`</span> inside it?</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>A JSON object (<span class="in">`{ }`</span>) becomes a **named list** in R. To access the value for <span class="in">`"temperature"`</span>, you would use <span class="in">`result$temperature`</span> or <span class="in">`result[["temperature"]]`</span>, where <span class="in">`result`</span> is the variable holding the parsed response.</span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### JSON Structure: Key-Value Pairs</span></span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>JSON organizes data using **key-value pairs**. Here's a simple example:</span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
-<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>  <span class="st">"city"</span><span class="op">:</span> <span class="st">"San Luis Obispo"</span><span class="op">,</span></span>
-<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span><span class="op">:</span> <span class="dv">72</span><span class="op">,</span></span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>  <span class="st">"units"</span><span class="op">:</span> <span class="st">"imperial"</span><span class="op">,</span></span>
-<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>  <span class="st">"conditions"</span><span class="op">:</span> <span class="st">"clear sky"</span></span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>This chain is exactly what happens every time we run our workshop goal: *the client (our R script) makes a request, and a response comes back for us to analyze.*</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual Check — API Data Flow. {.unnumbered}</span></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** In the animation, the API sits between the Client and the Server. What best describes the API's role in this chain?</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>a)  It stores the data permanently.</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>b)  It runs the backend logic that queries the database.</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>c)  It acts as a gateway — receiving requests from the client and routing them to the server.</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a>d)  It is the same as the database.</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a>e)  It draws the plots at the end of the analysis.</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer — Visual Check"}</span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a>**c)** The API is a **gateway** or controlled interface. It does not store data (that's the database) and it does not run the core business logic (that's the server). It is the stable "front door" that clients talk to, and it routes requests onward.</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>Key features of JSON:</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Data is wrapped in curly braces <span class="in">`{ }`</span></span>
-<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each entry is a <span class="in">`"key": value`</span> pair</span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Values can be strings, numbers, booleans, arrays, or **nested objects**</span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Nested objects are JSON inside JSON — like a list within a list</span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="fu">### Nested JSON Example</span></span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
-<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>  <span class="st">"city"</span><span class="op">:</span> <span class="st">"San Luis Obispo"</span><span class="op">,</span></span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coordinates"</span><span class="op">:</span> {</span>
-<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lat"</span><span class="op">:</span> <span class="fl">35.28</span><span class="op">,</span></span>
-<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lon"</span><span class="op">:</span> <span class="op">-</span><span class="fl">120.66</span></span>
-<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>  <span class="st">"weather"</span><span class="op">:</span> {</span>
-<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>    <span class="st">"main"</span><span class="op">:</span> <span class="st">"Clear"</span><span class="op">,</span></span>
-<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temp"</span><span class="op">:</span> <span class="dv">72</span><span class="op">,</span></span>
-<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>    <span class="st">"humidity"</span><span class="op">:</span> <span class="dv">45</span></span>
-<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>::: callout-important</span>
-<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thinking in R Terms</span></span>
-<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a>In R, a JSON response becomes a **named list** — potentially containing other named lists inside it. This is what we mean by "nested." When we flatten it with <span class="in">`as.data.frame()`</span>, nested keys become column names like <span class="in">`coordinates.lat`</span> or <span class="in">`weather.temp`</span>.</span>
-<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** A request travels: Client → <span class="sc">\_\_\_\_\_\_\_\_</span> → Server → Database.</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>The **API**. The API always sits between the client and the server — requests go through it on the way in, and responses come back through it on the way out.</span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blanks — the restaurant story):** Fill in each blank with one word from: *client, waiter, kitchen, fridge, response.*</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; I (the </span><span class="sc">\_\_\_\_\_</span><span class="at">) look at the menu and place my order with the </span><span class="sc">\_\_\_\_\_</span><span class="at">. My order is carried to the </span><span class="sc">\_\_\_\_\_</span><span class="at">, which pulls ingredients from the </span><span class="sc">\_\_\_\_\_</span><span class="at">. The finished dish comes back to my table — that dish is the </span><span class="sc">\_\_\_\_\_</span><span class="at">.</span></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>I (the **client**) look at the menu and place my order with the **waiter**. My order is carried to the **kitchen**, which pulls ingredients from the **fridge**. The finished dish comes back to my table — that dish is the **response**.</span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>(Translation: client → API → server → database → response.)</span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
 <span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Q1):** In the restaurant analogy, the API documentation is most analogous to:</span>
 <span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** The JSON data format, commonly used in API responses, organizes information using what fundamental structure?</span>
-<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>a)  Rows and columns</span>
-<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a>b)  A nested series of bullet points</span>
-<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a>c)  Key-value pairs</span>
-<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a>d)  Formatted paragraphs of text</span>
-<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
-<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a>**c)** JSON data is built on **key-value pairs** (e.g., <span class="in">`"city": "Chicago"`</span>), where a "key" is a string and a "value" can be a string, number, boolean, array, or another object.</span>
-<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
-<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a>**(Open-Ended — Callback to Q4):** Given the nested JSON example above, if you converted this to a data frame in R using <span class="in">`as.data.frame()`</span>, what would the column name for the latitude value be?</span>
-<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
-<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>The column name would be <span class="in">`coordinates.lat`</span>. When R flattens a nested JSON structure into a data frame, it joins the nested key names with a period. So <span class="in">`coordinates`</span> → <span class="in">`lat`</span> becomes <span class="in">`coordinates.lat`</span>.</span>
-<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 5: Status Codes</span></span>
-<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>Status codes tell you what happened with your request. They are grouped by category:</span>
-<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Range   <span class="pp">|</span> Category      <span class="pp">|</span> Meaning                               <span class="pp">|</span></span>
-<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|---------------|---------------------------------------|</span></span>
-<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **1xx** <span class="pp">|</span> Informational <span class="pp">|</span> Request received, processing...       <span class="pp">|</span></span>
-<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **2xx** <span class="pp">|</span> Success       <span class="pp">|</span> Request was successful                <span class="pp">|</span></span>
-<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **3xx** <span class="pp">|</span> Redirect      <span class="pp">|</span> Resource moved to a different URL     <span class="pp">|</span></span>
-<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **4xx** <span class="pp">|</span> Client Error  <span class="pp">|</span> Something wrong with *your* request   <span class="pp">|</span></span>
-<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **5xx** <span class="pp">|</span> Server Error  <span class="pp">|</span> Something wrong on the *server's* end <span class="pp">|</span></span>
-<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a>**The most important ones for data work:**</span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a>a)  The kitchen equipment</span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a>b)  The cash register</span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>c)  The table number</span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a>d)  The chef's secret recipe book</span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a>e)  The menu</span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a>**e)** The menu. Just like a menu tells you what's available and how to order it, API documentation tells you what you can ask for and how to ask for it.</span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: Requests and Responses</span></span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a>Now let's zoom in on the two key actions: **requests** and **responses**. We'll keep this simple — the details come in Session 2.</span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### What is a Request?</span></span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>A request is the client *asking* for information. Here is the one thing to remember today:</span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **A request is written as a URL — a web address.**</span></span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>That's it. When we want data from an API, we build a web address that describes what we want, and we send it. In Session 2 we will dissect exactly how that web address is put together, piece by piece.</span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>*(One aside for later: some APIs also ask you to include an ID called an **API key** — like showing a library card. The weather API we use in this workshop is free and doesn't need one, so we can set that idea aside for now.)*</span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a><span class="fu">### What is a Response?</span></span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>The server returns a **response** which contains:</span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Data** — the actual information you requested (temperature, artist name, forecast, etc.)</span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Metadata** — information *about* the response (timestamps, units, etc.)</span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Status code** — tells you whether the request was successful (e.g., <span class="in">`200 OK`</span>)</span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a>This information is traditionally provided in **JSON format** — which is exactly what Part 4 is about.</span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
 <span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**200 OK** — Success! You got your data.</span>
-<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**401 Unauthorized** — Your API key is missing or invalid.</span>
-<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**403 Forbidden** — You don't have permission to access this resource.</span>
-<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**404 Not Found** — The endpoint or resource doesn't exist.</span>
-<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**429 Too Many Requests** — You've hit the rate limit.</span>
-<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**500 Internal Server Error** — The server broke; not your fault.</span>
+<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a>Two halves of our goal, side by side: the **request** is a URL we send; the **response** is what we'll format into something we can analyze.</span>
+<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
 <span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practical Tip</span></span>
-<span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a>In most data API work, your goal is to get a **200** response. If you don't, the status code tells you *where* to look for the problem — your request (4xx) or their server (5xx).</span>
+<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** A request is written as a <span class="sc">\_\_\_\_\_\_\_\_</span> — a web address that asks the API for specific information.</span>
+<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
+<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a>A **URL**. That's the entire request: a carefully built web address.</span>
 <span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
+<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a>**(Discussion):** You write a script to get weather data, but it fails with a <span class="in">`404 Not Found`</span> status code. Based on the 400-level error category, is it more likely that the weather company's server is broken, or that you made a mistake? What part of your request is the most likely source of the error?</span>
+<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
 <span id="cb3-315"><a href="#cb3-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
-<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a>A <span class="in">`404 Not Found`</span> error is a **client-side** error (4xx), meaning the mistake is on my end. It is not a server error (5xx). The most likely problem is that the **URL endpoint** I used in my request is incorrect or misspelled — I've asked for a "page" that doesn't exist on the server.</span>
-<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** A response from an API contains which three things?</span>
+<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a>a)  Data, metadata, and a status code</span>
+<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a>b)  A URL, an API key, and a password</span>
+<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a>c)  A plot, a table, and a summary</span>
+<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a>d)  HTML, CSS, and JavaScript</span>
+<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a>e)  Rows, columns, and cell values</span>
 <span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
-<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Q5):** If you receive a response with a status code of <span class="in">`200`</span> and the body contains JSON, which of the following would you expect to find in that response?</span>
+<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
+<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a>**a)** A response contains the **data** you asked for, **metadata** about the response, and a **status code** that says whether the request worked.</span>
+<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-327"><a href="#cb3-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a>a)  An error message explaining what went wrong</span>
-<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a>b)  Key-value pairs containing the data you requested</span>
-<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a>c)  A redirect URL to a different API</span>
-<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a>d)  An empty response with no content</span>
-<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
-<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a>**b)** A <span class="in">`200 OK`</span> status means success, and the JSON body will contain the key-value pairs with the data you requested — temperature, coordinates, city name, etc.</span>
-<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-336"><a href="#cb3-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-337"><a href="#cb3-337" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-338"><a href="#cb3-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-339"><a href="#cb3-339" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-340"><a href="#cb3-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-341"><a href="#cb3-341" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
-<span id="cb3-342"><a href="#cb3-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-343"><a href="#cb3-343" aria-hidden="true" tabindex="-1"></a>**(Open-Ended):** You receive a <span class="in">`401 Unauthorized`</span> error when trying to access weather data. You've double-checked the URL and it's correct. What is the most likely cause, and how would you fix it?</span>
-<span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
-<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a>A <span class="in">`401 Unauthorized`</span> error means your **API key** is missing, invalid, or expired. The fix is to check that you've properly loaded your API key (e.g., from your <span class="in">`.Renviron`</span> file), that the key is still active on the provider's website, and that you're passing it correctly in the request URL or headers.</span>
-<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 1 Recap</span></span>
+<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Anatomy of a JSON Response</span></span>
+<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a>Now let's focus on the **response** — specifically, what it looks like. API responses are almost always formatted as **JSON** (JavaScript Object Notation).</span>
+<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-336"><a href="#cb3-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### Watch First</span></span>
+<span id="cb3-337"><a href="#cb3-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-338"><a href="#cb3-338" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/anatomy-of-json-response.gif)</span>{fig-alt="Animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence"}</span>
+<span id="cb3-339"><a href="#cb3-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-340"><a href="#cb3-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb3-341"><a href="#cb3-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-342"><a href="#cb3-342" aria-hidden="true" tabindex="-1"></a>The animation reveals the layers of a JSON response, one at a time:</span>
+<span id="cb3-343"><a href="#cb3-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>The entire thing — everything the server sends back — is called the **Body** (or **Content**). It is wrapped in curly braces <span class="in">`{ }`</span>.</span>
+<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Inside that body, the content is divided into three zones:</span>
+<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Data**: what we actually wanted (temperature, city name, coordinates)</span>
+<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Metadata**: information about the response (timestamps, units)</span>
+<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Status code**: tells us if the request worked</span>
+<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a>Take this slowly — this structure will show up in *every* response for the rest of the workshop.</span>
+<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
 <span id="cb3-354"><a href="#cb3-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a>In this session, we covered the **conceptual foundation** for working with APIs:</span>
-<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-357"><a href="#cb3-357" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**What an API is** — a controlled interface for software-to-software communication</span>
-<span id="cb3-358"><a href="#cb3-358" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**API data flow** — Client → API → Server → Database (and back)</span>
-<span id="cb3-359"><a href="#cb3-359" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Requests vs. Responses** — what you send vs. what you get back</span>
-<span id="cb3-360"><a href="#cb3-360" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**JSON format** — key-value pairs, nesting, and how it maps to R data structures</span>
-<span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Status codes** — how to diagnose what happened with your request</span>
-<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a>**Up next in Session 2:** We'll learn about CRUD operations, HTTP methods (GET vs. POST), URL anatomy, and make our first requests to a dummy server!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a>The response body is the raw material. Our goal — "format the response into something we can analyze" — means taking this JSON and turning it into an R data frame.</span>
+<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-357"><a href="#cb3-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-358"><a href="#cb3-358" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-359"><a href="#cb3-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-360"><a href="#cb3-360" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quick Checks — JSON Response Anatomy. {.unnumbered}</span></span>
+<span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blanks):** One or two words each.</span>
+<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-364"><a href="#cb3-364" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Everything the server sends back is called the body or content, and it is wrapped in curly <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb3-365"><a href="#cb3-365" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The three zones inside the body are the data, the <span class="sc">\_\_\_\_\_\_\_\_</span>, and the status code.</span>
+<span id="cb3-366"><a href="#cb3-366" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The <span class="sc">\_\_\_\_\_\_</span> <span class="sc">\_\_\_\_\_\_</span> tells us whether the request worked.</span>
+<span id="cb3-367"><a href="#cb3-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-368"><a href="#cb3-368" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answers — Quick Checks"}</span>
+<span id="cb3-369"><a href="#cb3-369" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Curly **braces** <span class="in">`{ }`</span></span>
+<span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The **metadata**</span>
+<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>The **status code**</span>
+<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-374"><a href="#cb3-374" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-375"><a href="#cb3-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-376"><a href="#cb3-376" aria-hidden="true" tabindex="-1"></a><span class="fu">### JSON Structure: Key-Value Pairs</span></span>
+<span id="cb3-377"><a href="#cb3-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-378"><a href="#cb3-378" aria-hidden="true" tabindex="-1"></a>JSON organizes data using **key-value pairs**. Here's a simple example:</span>
+<span id="cb3-379"><a href="#cb3-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-380"><a href="#cb3-380" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
+<span id="cb3-381"><a href="#cb3-381" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-382"><a href="#cb3-382" aria-hidden="true" tabindex="-1"></a>  <span class="st">"city"</span><span class="op">:</span> <span class="st">"San Luis Obispo"</span><span class="op">,</span></span>
+<span id="cb3-383"><a href="#cb3-383" aria-hidden="true" tabindex="-1"></a>  <span class="st">"temperature"</span><span class="op">:</span> <span class="dv">72</span><span class="op">,</span></span>
+<span id="cb3-384"><a href="#cb3-384" aria-hidden="true" tabindex="-1"></a>  <span class="st">"units"</span><span class="op">:</span> <span class="st">"imperial"</span><span class="op">,</span></span>
+<span id="cb3-385"><a href="#cb3-385" aria-hidden="true" tabindex="-1"></a>  <span class="st">"conditions"</span><span class="op">:</span> <span class="st">"clear sky"</span></span>
+<span id="cb3-386"><a href="#cb3-386" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-387"><a href="#cb3-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-388"><a href="#cb3-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-389"><a href="#cb3-389" aria-hidden="true" tabindex="-1"></a>Key features of JSON:</span>
+<span id="cb3-390"><a href="#cb3-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-391"><a href="#cb3-391" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Data is wrapped in curly braces <span class="in">`{ }`</span></span>
+<span id="cb3-392"><a href="#cb3-392" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each entry is a <span class="in">`"key": value`</span> pair</span>
+<span id="cb3-393"><a href="#cb3-393" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Values can be strings, numbers, booleans, arrays, or **nested objects**</span>
+<span id="cb3-394"><a href="#cb3-394" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Nested objects are JSON inside JSON — like a list within a list</span>
+<span id="cb3-395"><a href="#cb3-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-396"><a href="#cb3-396" aria-hidden="true" tabindex="-1"></a><span class="fu">### Nested JSON Example</span></span>
+<span id="cb3-397"><a href="#cb3-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-398"><a href="#cb3-398" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
+<span id="cb3-399"><a href="#cb3-399" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-400"><a href="#cb3-400" aria-hidden="true" tabindex="-1"></a>  <span class="st">"city"</span><span class="op">:</span> <span class="st">"San Luis Obispo"</span><span class="op">,</span></span>
+<span id="cb3-401"><a href="#cb3-401" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coordinates"</span><span class="op">:</span> {</span>
+<span id="cb3-402"><a href="#cb3-402" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lat"</span><span class="op">:</span> <span class="fl">35.28</span><span class="op">,</span></span>
+<span id="cb3-403"><a href="#cb3-403" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lon"</span><span class="op">:</span> <span class="op">-</span><span class="fl">120.66</span></span>
+<span id="cb3-404"><a href="#cb3-404" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb3-405"><a href="#cb3-405" aria-hidden="true" tabindex="-1"></a>  <span class="st">"weather"</span><span class="op">:</span> {</span>
+<span id="cb3-406"><a href="#cb3-406" aria-hidden="true" tabindex="-1"></a>    <span class="st">"main"</span><span class="op">:</span> <span class="st">"Clear"</span><span class="op">,</span></span>
+<span id="cb3-407"><a href="#cb3-407" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temp"</span><span class="op">:</span> <span class="dv">72</span><span class="op">,</span></span>
+<span id="cb3-408"><a href="#cb3-408" aria-hidden="true" tabindex="-1"></a>    <span class="st">"humidity"</span><span class="op">:</span> <span class="dv">45</span></span>
+<span id="cb3-409"><a href="#cb3-409" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-410"><a href="#cb3-410" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-411"><a href="#cb3-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-412"><a href="#cb3-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-413"><a href="#cb3-413" aria-hidden="true" tabindex="-1"></a>::: callout-important</span>
+<span id="cb3-414"><a href="#cb3-414" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thinking in R Terms</span></span>
+<span id="cb3-415"><a href="#cb3-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-416"><a href="#cb3-416" aria-hidden="true" tabindex="-1"></a>In R, a JSON response becomes a **named list** — potentially containing other named lists inside it. This is what we mean by "nested." When we flatten it with <span class="in">`as.data.frame()`</span>, nested keys become column names like <span class="in">`coordinates.lat`</span> or <span class="in">`weather.temp`</span>.</span>
+<span id="cb3-417"><a href="#cb3-417" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-418"><a href="#cb3-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-419"><a href="#cb3-419" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-420"><a href="#cb3-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-421"><a href="#cb3-421" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
+<span id="cb3-422"><a href="#cb3-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-423"><a href="#cb3-423" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** The JSON data format, commonly used in API responses, organizes information using what fundamental structure?</span>
+<span id="cb3-424"><a href="#cb3-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-425"><a href="#cb3-425" aria-hidden="true" tabindex="-1"></a>a)  Rows and columns</span>
+<span id="cb3-426"><a href="#cb3-426" aria-hidden="true" tabindex="-1"></a>b)  A nested series of bullet points</span>
+<span id="cb3-427"><a href="#cb3-427" aria-hidden="true" tabindex="-1"></a>c)  Key-value pairs</span>
+<span id="cb3-428"><a href="#cb3-428" aria-hidden="true" tabindex="-1"></a>d)  Formatted paragraphs of text</span>
+<span id="cb3-429"><a href="#cb3-429" aria-hidden="true" tabindex="-1"></a>e)  Comma-separated values</span>
+<span id="cb3-430"><a href="#cb3-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-431"><a href="#cb3-431" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
+<span id="cb3-432"><a href="#cb3-432" aria-hidden="true" tabindex="-1"></a>**c)** JSON data is built on **key-value pairs** (e.g., <span class="in">`"city": "Chicago"`</span>), where a "key" is a string and a "value" can be a string, number, boolean, array, or another object.</span>
+<span id="cb3-433"><a href="#cb3-433" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-434"><a href="#cb3-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-435"><a href="#cb3-435" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-436"><a href="#cb3-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-437"><a href="#cb3-437" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-438"><a href="#cb3-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-439"><a href="#cb3-439" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
+<span id="cb3-440"><a href="#cb3-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-441"><a href="#cb3-441" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** In R, a JSON object <span class="in">`{ }`</span> becomes a named <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb3-442"><a href="#cb3-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-443"><a href="#cb3-443" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
+<span id="cb3-444"><a href="#cb3-444" aria-hidden="true" tabindex="-1"></a>A named **list**. Each JSON key becomes a name in the list, and nested JSON objects become lists inside the list.</span>
+<span id="cb3-445"><a href="#cb3-445" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-446"><a href="#cb3-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-447"><a href="#cb3-447" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-448"><a href="#cb3-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-449"><a href="#cb3-449" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-450"><a href="#cb3-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-451"><a href="#cb3-451" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q10. {.unnumbered}</span></span>
+<span id="cb3-452"><a href="#cb3-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-453"><a href="#cb3-453" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank — using the nested example above):** If you flatten the nested JSON example with <span class="in">`as.data.frame()`</span>, the column holding the latitude value would be named <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb3-454"><a href="#cb3-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-455"><a href="#cb3-455" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q10"}</span>
+<span id="cb3-456"><a href="#cb3-456" aria-hidden="true" tabindex="-1"></a><span class="in">`coordinates.lat`</span> — when R flattens nested JSON into a data frame, it joins the nested key names with a period. So <span class="in">`coordinates`</span> → <span class="in">`lat`</span> becomes <span class="in">`coordinates.lat`</span>.</span>
+<span id="cb3-457"><a href="#cb3-457" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-458"><a href="#cb3-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-459"><a href="#cb3-459" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-460"><a href="#cb3-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-461"><a href="#cb3-461" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-462"><a href="#cb3-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-463"><a href="#cb3-463" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 5: Status Codes</span></span>
+<span id="cb3-464"><a href="#cb3-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-465"><a href="#cb3-465" aria-hidden="true" tabindex="-1"></a>Status codes tell you what happened with your request. They are grouped by category:</span>
+<span id="cb3-466"><a href="#cb3-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-467"><a href="#cb3-467" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Range   <span class="pp">|</span> Category      <span class="pp">|</span> Meaning                               <span class="pp">|</span></span>
+<span id="cb3-468"><a href="#cb3-468" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|---------------|---------------------------------------|</span></span>
+<span id="cb3-469"><a href="#cb3-469" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **1xx** <span class="pp">|</span> Informational <span class="pp">|</span> Request received, processing...       <span class="pp">|</span></span>
+<span id="cb3-470"><a href="#cb3-470" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **2xx** <span class="pp">|</span> Success       <span class="pp">|</span> Request was successful                <span class="pp">|</span></span>
+<span id="cb3-471"><a href="#cb3-471" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **3xx** <span class="pp">|</span> Redirect      <span class="pp">|</span> Resource moved to a different URL     <span class="pp">|</span></span>
+<span id="cb3-472"><a href="#cb3-472" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **4xx** <span class="pp">|</span> Client Error  <span class="pp">|</span> Something wrong with *your* request   <span class="pp">|</span></span>
+<span id="cb3-473"><a href="#cb3-473" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **5xx** <span class="pp">|</span> Server Error  <span class="pp">|</span> Something wrong on the *server's* end <span class="pp">|</span></span>
+<span id="cb3-474"><a href="#cb3-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-475"><a href="#cb3-475" aria-hidden="true" tabindex="-1"></a>**The most important ones for data work:**</span>
+<span id="cb3-476"><a href="#cb3-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-477"><a href="#cb3-477" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**200 OK** — Success! You got your data.</span>
+<span id="cb3-478"><a href="#cb3-478" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**401 Unauthorized** — Your credentials (e.g., an API key) are missing or invalid.</span>
+<span id="cb3-479"><a href="#cb3-479" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**403 Forbidden** — You don't have permission to access this resource.</span>
+<span id="cb3-480"><a href="#cb3-480" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**404 Not Found** — The endpoint or resource doesn't exist.</span>
+<span id="cb3-481"><a href="#cb3-481" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**429 Too Many Requests** — You've hit the rate limit.</span>
+<span id="cb3-482"><a href="#cb3-482" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**500 Internal Server Error** — The server broke; not your fault.</span>
+<span id="cb3-483"><a href="#cb3-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-484"><a href="#cb3-484" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb3-485"><a href="#cb3-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## Practical Tip</span></span>
+<span id="cb3-486"><a href="#cb3-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-487"><a href="#cb3-487" aria-hidden="true" tabindex="-1"></a>In most data API work, your goal is to get a **200** response. If you don't, the status code tells you *where* to look for the problem — your request (4xx) or their server (5xx).</span>
+<span id="cb3-488"><a href="#cb3-488" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-489"><a href="#cb3-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-490"><a href="#cb3-490" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb3-491"><a href="#cb3-491" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
+<span id="cb3-492"><a href="#cb3-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-493"><a href="#cb3-493" aria-hidden="true" tabindex="-1"></a>The status code is the first thing we check after making a request: a **200** means "the response arrived — go ahead and format it for analysis."</span>
+<span id="cb3-494"><a href="#cb3-494" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-495"><a href="#cb3-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-496"><a href="#cb3-496" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-497"><a href="#cb3-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-498"><a href="#cb3-498" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q11. {.unnumbered}</span></span>
+<span id="cb3-499"><a href="#cb3-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-500"><a href="#cb3-500" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** A status code in the 4xx range means the mistake is on the <span class="sc">\_\_\_\_\_\_\_\_</span> side; a 5xx code means the problem is on the <span class="sc">\_\_\_\_\_\_\_\_</span> side.</span>
+<span id="cb3-501"><a href="#cb3-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-502"><a href="#cb3-502" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q11"}</span>
+<span id="cb3-503"><a href="#cb3-503" aria-hidden="true" tabindex="-1"></a>4xx = the **client** side (you — your URL or request has a problem). 5xx = the **server** side (them — their system broke).</span>
+<span id="cb3-504"><a href="#cb3-504" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-505"><a href="#cb3-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-506"><a href="#cb3-506" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-507"><a href="#cb3-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-508"><a href="#cb3-508" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-509"><a href="#cb3-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-510"><a href="#cb3-510" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q12. {.unnumbered}</span></span>
+<span id="cb3-511"><a href="#cb3-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-512"><a href="#cb3-512" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Your script fails with a <span class="in">`404 Not Found`</span> status code. What is the most likely source of the error?</span>
+<span id="cb3-513"><a href="#cb3-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-514"><a href="#cb3-514" aria-hidden="true" tabindex="-1"></a>a)  The weather company's server crashed.</span>
+<span id="cb3-515"><a href="#cb3-515" aria-hidden="true" tabindex="-1"></a>b)  Your internet is disconnected.</span>
+<span id="cb3-516"><a href="#cb3-516" aria-hidden="true" tabindex="-1"></a>c)  R is not installed correctly.</span>
+<span id="cb3-517"><a href="#cb3-517" aria-hidden="true" tabindex="-1"></a>d)  The database deleted your account.</span>
+<span id="cb3-518"><a href="#cb3-518" aria-hidden="true" tabindex="-1"></a>e)  The URL in your request is incorrect or misspelled.</span>
+<span id="cb3-519"><a href="#cb3-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-520"><a href="#cb3-520" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q12"}</span>
+<span id="cb3-521"><a href="#cb3-521" aria-hidden="true" tabindex="-1"></a>**e)** A `404 Not Found` is a **client-side** (4xx) error — you asked for a "page" that doesn't exist on the server. The most likely culprit is a typo or mistake in the URL you built.</span>
+<span id="cb3-522"><a href="#cb3-522" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-523"><a href="#cb3-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-524"><a href="#cb3-524" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-525"><a href="#cb3-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-526"><a href="#cb3-526" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-527"><a href="#cb3-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-528"><a href="#cb3-528" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q13. {.unnumbered}</span></span>
+<span id="cb3-529"><a href="#cb3-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-530"><a href="#cb3-530" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice — Callback to Q8):** If you receive a response with a status code of <span class="in">`200`</span> and the body contains JSON, which of the following would you expect to find in that response?</span>
+<span id="cb3-531"><a href="#cb3-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-532"><a href="#cb3-532" aria-hidden="true" tabindex="-1"></a>a)  An error message explaining what went wrong</span>
+<span id="cb3-533"><a href="#cb3-533" aria-hidden="true" tabindex="-1"></a>b)  Key-value pairs containing the data you requested</span>
+<span id="cb3-534"><a href="#cb3-534" aria-hidden="true" tabindex="-1"></a>c)  A redirect URL to a different API</span>
+<span id="cb3-535"><a href="#cb3-535" aria-hidden="true" tabindex="-1"></a>d)  An empty response with no content</span>
+<span id="cb3-536"><a href="#cb3-536" aria-hidden="true" tabindex="-1"></a>e)  A request for payment</span>
+<span id="cb3-537"><a href="#cb3-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-538"><a href="#cb3-538" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q13"}</span>
+<span id="cb3-539"><a href="#cb3-539" aria-hidden="true" tabindex="-1"></a>**b)** A <span class="in">`200 OK`</span> status means success, and the JSON body will contain the key-value pairs with the data you requested — temperature, coordinates, city name, etc.</span>
+<span id="cb3-540"><a href="#cb3-540" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-541"><a href="#cb3-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-542"><a href="#cb3-542" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb3-543"><a href="#cb3-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-544"><a href="#cb3-544" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-545"><a href="#cb3-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-546"><a href="#cb3-546" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 1 Recap</span></span>
+<span id="cb3-547"><a href="#cb3-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-548"><a href="#cb3-548" aria-hidden="true" tabindex="-1"></a>In this session, we covered the **conceptual foundation** for working with APIs:</span>
+<span id="cb3-549"><a href="#cb3-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-550"><a href="#cb3-550" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**What an API is** — a controlled interface for software-to-software communication (the waiter!)</span>
+<span id="cb3-551"><a href="#cb3-551" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**API data flow** — Client → API → Server → Database (and back)</span>
+<span id="cb3-552"><a href="#cb3-552" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Requests vs. Responses** — a request is a URL you send; a response is what comes back</span>
+<span id="cb3-553"><a href="#cb3-553" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**JSON format** — key-value pairs, nesting, and how it maps to R data structures</span>
+<span id="cb3-554"><a href="#cb3-554" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Status codes** — how to diagnose what happened with your request</span>
+<span id="cb3-555"><a href="#cb3-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-556"><a href="#cb3-556" aria-hidden="true" tabindex="-1"></a>🎯 And the goal, one more time: **make a request, then format the response into something we can analyze.** Today was the vocabulary; tomorrow we do it for real.</span>
+<span id="cb3-557"><a href="#cb3-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-558"><a href="#cb3-558" aria-hidden="true" tabindex="-1"></a>**Up next in Session 2:** We'll learn about CRUD operations, HTTP methods (GET vs. POST), URL anatomy, and make our first requests to a dummy server!</span>
+<span id="cb3-559"><a href="#cb3-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-560"><a href="#cb3-560" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb3-561"><a href="#cb3-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-562"><a href="#cb3-562" aria-hidden="true" tabindex="-1"></a><span class="fu">## During the Break {.unnumbered}</span></span>
+<span id="cb3-563"><a href="#cb3-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-564"><a href="#cb3-564" aria-hidden="true" tabindex="-1"></a>Before Session 2 starts:</span>
+<span id="cb3-565"><a href="#cb3-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-566"><a href="#cb3-566" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Questions?** Come up and ask — Meg and I will be here for the whole break.</span>
+<span id="cb3-567"><a href="#cb3-567" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Did you finish?** Check yourself:</span>
+<span id="cb3-568"><a href="#cb3-568" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="va">[ ]</span> I can name the four components: client, API, server, database</span>
+<span id="cb3-569"><a href="#cb3-569" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="va">[ ]</span> I answered the questions in Parts 1–5 (peek at the answers if you need)</span>
+<span id="cb3-570"><a href="#cb3-570" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="va">[ ]</span> I can say the workshop goal in one sentence</span>
+<span id="cb3-571"><a href="#cb3-571" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If you finished everything, replay the restaurant animation and try narrating the five steps using the technical words (client, API, server, database, response).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
