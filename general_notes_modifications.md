@@ -16,7 +16,7 @@
 ---------- DONE
 
 ## Session 1
-
+[Make sure the empty version gets changed to reflect the changes below in solution]
 - (change) Make sure their is a gif/animation of the example of **restaurant analogy** this is `part 1`
 - (change) add in this example that the client makes a request this is part 1
 - (think) when I formally address requests within `part 3`, I think I could be too complicated, i mention url and API Key, can I make this more straightforward, note I am going to come back to this  in session 2
@@ -28,7 +28,7 @@
     - did you finish 
 
 ## Session 2
- 
+ [Make sure the empty version gets changed to reflect the changes below in solution]
  - Part 5-7 may need to be cut out (I am just reading this and I am overwhelmed)
  - We can turn part 5-7 into optional after the class is over (no)
 
@@ -38,7 +38,7 @@
     - did you finish 
 
 ## Session 3
-
+[Make sure the empty version gets changed to reflect the changes below in solution]
 - (change) the weather API URL needs to change, I used one that was free. The main end point is `request("https://api.open-meteo.com/v1/forecast")`
     - (change)  So we need to erase the idea of of saving an API key, client, or secret we can mention thes concepts briefly 
 - (change) I want to be sure to show them when I display the url with the query I get the information in the web browswer
@@ -50,7 +50,7 @@
     - did you finish 
 
 ## Session 4
-
+[Make sure the empty version gets changed to reflect the changes below in solution]
 - (change) Session 3 chsnges will inherently change session 4
 - (change) I want simply visualizartion comparre boston vs slo during the seummer and another visualization for the winter, create 2 more quesrions
 - (think) Less, more quereis about different element about these cities or have it be explorative regarding the audience, they create their own query (i provide options for them to choose from to then make a plot)
@@ -64,7 +64,7 @@
 
 
 ##  General Notes [REALLY IMPORTANT]
-
+[Make sure the empty version gets changed to reflect the changes below in solution]
 - Meg's Schedule regarding learning the materail
 - What am I assuming that you know before you entered this course
 - I want to survey the audience to know what their R experience is and how they plan to use this course to help them teach Data and STAT
