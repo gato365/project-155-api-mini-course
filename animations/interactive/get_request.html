@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTTP GET Request — Interactive</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <main class="page">
+    <a class="home-link" href="index.html">&larr; All animations</a>
+    <h1>HTTP Method: GET</h1>
+    <p id="status" class="status"></p>
+
+    <section id="scene"></section>
+    <section id="narration"></section>
+    <div id="controls"></div>
+    <p class="kbd-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> step &middot; <kbd>space</kbd> play / pause</p>
+  </main>
+
+  <script src="flow-scene.js"></script>
+  <script src="player.js"></script>
+  <script>
+    const scene = createFlowScene(document.getElementById('scene'), {
+      nodes: [
+        { id: 'client',   name: 'Client',   icon: 'client',
+          payload: '{\n  "id": 42,\n  "name": "Maya"\n}' },
+        { id: 'api',      name: 'API',      icon: 'api' },
+        { id: 'server',   name: 'Server',   icon: 'server' },
+        { id: 'database', name: 'Database', icon: 'database' }
+      ]
+    });
+
+    const steps = [
+      {
+        title: 'GET: asking for data',
+        text: 'A GET request reads data — it asks the server for something that already exists, without changing anything.',
+        status: 'The most common HTTP method'
+      },
+      {
+        title: 'Client sends the GET request',
+        text: 'The client requests one user record by its ID. A GET request carries no body — everything it needs is in the URL.',
+        status: 'Requesting <span class="mono c-request">GET /users/42</span>',
+        nodes: { client: 'request', api: 'request' },
+        arrows: [{ from: 'client', to: 'api', kind: 'request' }],
+        packet: { from: 'client', to: 'api', kind: 'request', label: 'GET' },
+        actions: { client: 'Requesting data…' }
+      },
+      {
+        title: 'API routes it to the server',
+        text: 'The API matches /users/42 to the right handler and passes the request to the server.',
+        status: 'Requesting <span class="mono c-request">GET /users/42</span>',
+        nodes: { api: 'request', server: 'request' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request' }
+        ],
+        packet: { from: 'api', to: 'server', kind: 'request', label: 'GET' }
+      },
+      {
+        title: 'Server queries the database',
+        text: 'The server translates the request into a database lookup: find the user whose id is 42.',
+        status: '<span class="c-query">Server queries the database…</span>',
+        nodes: { server: 'request', database: 'query' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request', dim: true },
+          { from: 'server', to: 'database', kind: 'query' }
+        ],
+        actions: { database: 'Retrieving data…' }
+      },
+      {
+        title: 'Database returns the record',
+        text: 'The database finds the matching row and returns it to the server.',
+        status: '<span class="c-query">Record found</span>',
+        nodes: { database: 'query', server: 'query' },
+        arrows: [
+          { from: 'server', to: 'database', kind: 'query', dim: true },
+          { from: 'database', to: 'server', kind: 'query' }
+        ],
+        actions: { database: 'Data found!' }
+      },
+      {
+        title: 'Server sends the response',
+        text: 'The server wraps the record as JSON and sends it back through the API.',
+        status: '<span class="c-response">Server sends the response…</span>',
+        nodes: { server: 'response', api: 'response' },
+        arrows: [{ from: 'server', to: 'api', kind: 'response' }],
+        packet: { from: 'server', to: 'api', kind: 'response', label: '{ … }' }
+      },
+      {
+        title: 'Client receives the JSON',
+        text: 'The response arrives: a JSON object with the user’s data. The client can now use it — display it, analyze it, store it.',
+        status: '<span class="c-response">200 OK — data received</span>',
+        nodes: { api: 'response', client: 'response' },
+        arrows: [
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response' }
+        ],
+        packet: { from: 'api', to: 'client', kind: 'response', label: '{ … }' },
+        actions: { client: 'Data received!' },
+        payload: ['client']
+      },
+      {
+        title: 'GET in one sentence',
+        text: 'GET reads: the client asks by URL, the server looks it up, and JSON comes back. Nothing on the server changes.',
+        status: '<span class="mono c-request">GET</span> = read-only',
+        nodes: { client: 'response' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request', dim: true },
+          { from: 'server', to: 'database', kind: 'query', dim: true },
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response', dim: true }
+        ],
+        payload: ['client']
+      }
+    ];
+
+    initPlayer({
+      steps: steps,
+      apply: function (step, i) {
+        setStatus(step.status);
+        scene.apply(step, i);
+      }
+    });
+  </script>
+</body>
+</html>

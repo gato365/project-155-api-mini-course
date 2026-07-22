@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anatomy of a JSON Response — Interactive</title>
+  <link rel="stylesheet" href="player.css">
+  <style>
+    .json-card {
+      max-width: 620px;
+      margin: 0 auto;
+      background: var(--panel);
+      border: 2px solid var(--panel-3);
+      border-radius: var(--radius);
+      padding: 22px 26px;
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    }
+    .json-card.body-highlight {
+      border-color: var(--frost-steel);
+      box-shadow: 0 0 26px rgba(129, 161, 193, 0.22);
+    }
+    .json-card .brace { color: var(--muted); font-size: 1.15rem; }
+
+    .json-part {
+      position: relative;
+      margin: 12px 0 12px 16px;
+      padding: 8px 12px 8px 16px;
+      border-left: 4px solid transparent;
+      border-radius: 0 8px 8px 0;
+    }
+    .json-part .part-label {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--bg);
+      padding: 2px 10px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.25s;
+    }
+    .json-part.visible .part-label { opacity: 1; }
+
+    #part-data     { border-left-color: var(--frost-blue); }
+    #part-data     .part-label { background: var(--frost-blue); }
+    #part-metadata { border-left-color: var(--purple); }
+    #part-metadata .part-label { background: var(--purple); }
+    #part-status   { border-left-color: var(--green); }
+    #part-status   .part-label { background: var(--green); }
+
+    .json-part.spotlight { background: var(--bg-soft); }
+
+    .k   { color: var(--frost-steel); }
+    .s   { color: var(--green); }
+    .n   { color: var(--purple); }
+    .pun { color: var(--muted); }
+    .key-data     { color: var(--frost-blue); font-weight: 600; }
+    .key-metadata { color: var(--purple); font-weight: 600; }
+    .key-status   { color: var(--green); font-weight: 600; }
+    .indent { margin-left: 22px; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="home-link" href="index.html">&larr; All animations</a>
+    <h1>Anatomy of a JSON Response</h1>
+    <p id="status" class="status"></p>
+
+    <section id="scene">
+      <div id="json-card" class="json-card">
+        <div class="brace">{</div>
+
+        <div id="part-data" class="json-part reveal">
+          <span class="part-label">data</span>
+          <div><span class="key-data">"data"</span><span class="pun">: {</span></div>
+          <div class="indent"><span class="k">"temperature"</span><span class="pun">:</span> <span class="n">72.5</span><span class="pun">,</span></div>
+          <div class="indent"><span class="k">"description"</span><span class="pun">:</span> <span class="s">"clear sky"</span></div>
+          <div><span class="pun">},</span></div>
+        </div>
+
+        <div id="part-metadata" class="json-part reveal">
+          <span class="part-label">metadata</span>
+          <div><span class="key-metadata">"metadata"</span><span class="pun">: {</span></div>
+          <div class="indent"><span class="k">"timestamp"</span><span class="pun">:</span> <span class="n">1719945600</span><span class="pun">,</span></div>
+          <div class="indent"><span class="k">"units"</span><span class="pun">:</span> <span class="s">"imperial"</span><span class="pun">,</span></div>
+          <div class="indent"><span class="k">"source"</span><span class="pun">:</span> <span class="s">"OpenWeather"</span></div>
+          <div><span class="pun">},</span></div>
+        </div>
+
+        <div id="part-status" class="json-part reveal">
+          <span class="part-label">status</span>
+          <div><span class="key-status">"status_code"</span><span class="pun">:</span> <span class="n">200</span></div>
+        </div>
+
+        <div class="brace">}</div>
+      </div>
+    </section>
+
+    <section id="narration"></section>
+    <div id="controls"></div>
+    <p class="kbd-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> step &middot; <kbd>space</kbd> play / pause</p>
+  </main>
+
+  <script src="player.js"></script>
+  <script>
+    const card = document.getElementById('json-card');
+    const parts = {
+      data: document.getElementById('part-data'),
+      metadata: document.getElementById('part-metadata'),
+      status: document.getElementById('part-status')
+    };
+
+    function setStatus(html) {
+      document.getElementById('status').innerHTML = html || '&nbsp;';
+    }
+
+    const steps = [
+      {
+        title: 'A response arrives',
+        text: 'When an API answers your request, it sends back a JSON response. Let’s open it up piece by piece.',
+        status: 'What’s inside an API response?',
+        body: false, show: [], spotlight: null
+      },
+      {
+        title: 'The body',
+        text: 'The entire JSON object is the body (or content) of the response — everything the server sent back lives inside these braces.',
+        status: 'The whole thing is the <span class="c-request">body</span>',
+        body: true, show: [], spotlight: null
+      },
+      {
+        title: 'The status code',
+        text: 'The status code tells you whether the request succeeded. 200 means OK; 404 means not found; 500 means a server error.',
+        status: '<span class="c-response">"status_code": 200</span> — did it work?',
+        body: true, show: ['status'], spotlight: 'status'
+      },
+      {
+        title: 'The metadata',
+        text: 'Metadata is information about the response: when it was generated, what units it uses, and where the data came from.',
+        status: '<span class="c-write">Metadata</span> — info about the response',
+        body: true, show: ['status', 'metadata'], spotlight: 'metadata'
+      },
+      {
+        title: 'The data',
+        text: 'The data section is the core information you actually asked for — here, the current temperature and sky conditions.',
+        status: '<span class="c-request">Data</span> — what you actually requested',
+        body: true, show: ['status', 'metadata', 'data'], spotlight: 'data'
+      },
+      {
+        title: 'All together',
+        text: 'Body wraps everything; status tells you if it worked; metadata describes the response; data is your answer. Every JSON response follows this pattern.',
+        status: 'Body &middot; Status &middot; Metadata &middot; Data',
+        body: true, show: ['status', 'metadata', 'data'], spotlight: null
+      }
+    ];
+
+    initPlayer({
+      steps: steps,
+      apply: function (step) {
+        setStatus(step.status);
+        card.classList.toggle('body-highlight', step.body);
+        Object.keys(parts).forEach(function (id) {
+          parts[id].classList.toggle('visible', step.show.indexOf(id) !== -1);
+          parts[id].classList.toggle('spotlight', step.spotlight === id);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
