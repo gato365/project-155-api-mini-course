@@ -132,6 +132,11 @@ function initPlayer(opts) {
     else if (e.key === ' ') { e.preventDefault(); if (playing) pause(); else play(); }
   });
 
+  // GIF capture mode: page.html?gif=1 hides the interactive chrome
+  if (/[?&]gif=/.test(window.location.search)) {
+    document.body.classList.add('gif-mode');
+  }
+
   // Optional deep link: page.html?step=3 opens on step 3 (1-based)
   const match = /[?&]step=(\d+)/.exec(window.location.search);
   if (match) {

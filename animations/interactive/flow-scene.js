@@ -23,12 +23,13 @@
    Kinds → colors: request, response, query, write, post
    ============================================================ */
 
+/* Website palette (see ../../custom.css) */
 const FLOW_COLORS = {
-  request:  '#88c0d0',
-  response: '#a3be8c',
-  query:    '#ebcb8b',
-  write:    '#b48ead',
-  post:     '#d08770'
+  request:  '#4f46e5',
+  response: '#10b981',
+  query:    '#f59e0b',
+  write:    '#7c3aed',
+  post:     '#d97706'
 };
 
 const FLOW_ICONS = {
