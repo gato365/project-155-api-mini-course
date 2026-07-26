@@ -255,6 +255,93 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 </main> <!-- /main -->
+<!-- Site-wide helpers: outline (TOC) show/hide toggle + auto-sizing for
+     embedded interactive animations. Included on every page via _quarto.yml. -->
+<style>
+  #toc-toggle-btn {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 1050;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #312e81;
+    background: #ffffff;
+    border: 1px solid #c7d2fe;
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.18);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  }
+  #toc-toggle-btn:hover { background: #eef2ff; border-color: #6366f1; }
+  #toc-toggle-btn:active { transform: scale(0.97); }
+
+  body.toc-hidden #quarto-margin-sidebar { display: none !important; }
+
+  /* Quarto collapses the right-margin TOC below 992px, so hide the button too */
+  @media (max-width: 991.98px) {
+    #toc-toggle-btn { display: none !important; }
+  }
+
+  @media print {
+    #toc-toggle-btn { display: none !important; }
+  }
+</style>
+<script>
+  (function () {
+    // ---------- Outline (TOC) show/hide toggle ----------
+    var sidebar = document.getElementById('quarto-margin-sidebar');
+    var hasToc = sidebar && sidebar.querySelector('nav a, ul a');
+    if (hasToc) {
+      var KEY = 'api-workshop-toc-hidden';
+      var btn = document.createElement('button');
+      btn.id = 'toc-toggle-btn';
+      btn.type = 'button';
+      btn.title = 'Show or hide the page outline';
+
+      function sync() {
+        var hidden = document.body.classList.contains('toc-hidden');
+        btn.innerHTML = hidden ? '&#9776;&nbsp; Show outline' : '&#10005;&nbsp; Hide outline';
+        btn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      }
+
+      try {
+        if (localStorage.getItem(KEY) === '1') {
+          document.body.classList.add('toc-hidden');
+        }
+      } catch (e) { /* localStorage unavailable — start visible */ }
+
+      btn.addEventListener('click', function () {
+        var hidden = document.body.classList.toggle('toc-hidden');
+        try { localStorage.setItem(KEY, hidden ? '1' : '0'); } catch (e) {}
+        sync();
+      });
+
+      sync();
+      document.body.appendChild(btn);
+    }
+
+    // ---------- Auto-size embedded animation iframes ----------
+    // The interactive players (animations/interactive/*.html?embed=1) post
+    // their content height; match the message to its iframe and resize it.
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || d.type !== 'anim-embed-height' || !(d.height > 0)) return;
+      var frames = document.querySelectorAll('iframe.anim-embed');
+      for (var i = 0; i < frames.length; i++) {
+        if (frames[i].contentWindow === e.source) {
+          frames[i].style.height = Math.ceil(d.height) + 'px';
+          break;
+        }
+      }
+    });
+  })();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

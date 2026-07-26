@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTTP POST Request — Interactive</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <main class="page">
+    <a class="home-link" href="index.html">&larr; All animations</a>
+    <h1>HTTP Method: POST</h1>
+    <p id="status" class="status"></p>
+
+    <section id="scene"></section>
+    <section id="narration"></section>
+    <div id="controls"></div>
+    <p class="kbd-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> step &middot; <kbd>space</kbd> play / pause</p>
+  </main>
+
+  <script src="flow-scene.js"></script>
+  <script src="player.js"></script>
+  <script>
+    const scene = createFlowScene(document.getElementById('scene'), {
+      nodes: [
+        { id: 'client',   name: 'Client',   icon: 'client',
+          payload: '{\n  "name": "Maya",\n  "email": "maya@example.com"\n}' },
+        { id: 'api',      name: 'API',      icon: 'api' },
+        { id: 'server',   name: 'Server',   icon: 'server' },
+        { id: 'database', name: 'Database', icon: 'database' }
+      ]
+    });
+
+    const steps = [
+      {
+        title: 'POST: sending new data',
+        text: 'A POST request creates something new. Unlike GET, it carries a body — the JSON data the client wants the server to store.',
+        status: 'The method for creating records'
+      },
+      {
+        title: 'Client prepares the payload',
+        text: 'The client bundles the new user’s details into a JSON body. This payload travels with the request.',
+        status: 'Preparing <span class="mono c-post">POST /users</span>',
+        nodes: { client: 'post' },
+        payload: ['client'],
+        actions: { client: 'Preparing new data…' }
+      },
+      {
+        title: 'Client sends the POST request',
+        text: 'The request — with its JSON body attached — heads to the API endpoint.',
+        status: 'Sending new data via <span class="mono c-post">POST /users</span>',
+        nodes: { client: 'post', api: 'post' },
+        arrows: [{ from: 'client', to: 'api', kind: 'post' }],
+        packet: { from: 'client', to: 'api', kind: 'post', label: 'POST' },
+        payload: ['client'],
+        actions: { client: 'Sending new data…' }
+      },
+      {
+        title: 'API routes it to the server',
+        text: 'The API validates the request and hands it — body and all — to the server.',
+        status: 'Sending new data via <span class="mono c-post">POST /users</span>',
+        nodes: { api: 'post', server: 'post' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'post', dim: true },
+          { from: 'api', to: 'server', kind: 'post' }
+        ],
+        packet: { from: 'api', to: 'server', kind: 'post', label: 'POST' },
+        payload: ['client']
+      },
+      {
+        title: 'Server writes to the database',
+        text: 'The server checks the data and inserts a brand-new record into the database.',
+        status: '<span class="c-write">Server writes to the database…</span>',
+        nodes: { server: 'post', database: 'write' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'post', dim: true },
+          { from: 'api', to: 'server', kind: 'post', dim: true },
+          { from: 'server', to: 'database', kind: 'write' }
+        ],
+        actions: { database: 'Storing new entry…' },
+        payload: ['client']
+      },
+      {
+        title: 'Database confirms the write',
+        text: 'The new row is saved. The database confirms it back to the server.',
+        status: '<span class="c-write">New record stored</span>',
+        nodes: { database: 'write', server: 'write' },
+        arrows: [
+          { from: 'server', to: 'database', kind: 'write', dim: true },
+          { from: 'database', to: 'server', kind: 'write' }
+        ],
+        actions: { database: 'Entry saved!' },
+        payload: ['client']
+      },
+      {
+        title: 'Server responds: 201 Created',
+        text: 'The server confirms success with status code 201 Created and sends the confirmation back through the API.',
+        status: '<span class="c-response">Success! Record created.</span>',
+        nodes: { server: 'response', api: 'response' },
+        arrows: [{ from: 'server', to: 'api', kind: 'response' }],
+        packet: { from: 'server', to: 'api', kind: 'response', label: '201 Created' },
+        payload: ['client']
+      },
+      {
+        title: 'Client gets the confirmation',
+        text: 'The client receives 201 Created — proof that its data is now safely stored on the server.',
+        status: '<span class="c-response">201 Created — confirmation received</span>',
+        nodes: { api: 'response', client: 'response' },
+        arrows: [
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response' }
+        ],
+        packet: { from: 'api', to: 'client', kind: 'response', label: '201 Created' },
+        actions: { client: 'Success confirmation received!' },
+        payload: ['client']
+      },
+      {
+        title: 'POST in one sentence',
+        text: 'POST creates: the client sends a JSON body, the server stores it, and a 201 Created confirms the new record.',
+        status: '<span class="mono c-post">POST</span> = create',
+        nodes: { client: 'response' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'post', dim: true },
+          { from: 'api', to: 'server', kind: 'post', dim: true },
+          { from: 'server', to: 'database', kind: 'write', dim: true },
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response', dim: true }
+        ],
+        payload: ['client']
+      }
+    ];
+
+    initPlayer({
+      steps: steps,
+      apply: function (step, i) {
+        setStatus(step.status);
+        scene.apply(step, i);
+      }
+    });
+  </script>
+</body>
+</html>
