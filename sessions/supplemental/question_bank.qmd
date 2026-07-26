@@ -22,15 +22,17 @@ All questions across Sessions 1–4, listed by session and part. **Types:** MC =
 | 2: API Data Flow | Q3 | FIB | Client → ____ → Server → Database | API |
 | 2: API Data Flow | Q4 | FIB | Restaurant story, five blanks | client, waiter, kitchen, fridge, response |
 | 2: API Data Flow | Q5 | MC | API documentation is analogous to the ____ | e (the menu) |
-| 3: Requests & Responses | Q6 | FIB | A request is written as a ____ | URL |
-| 3: Requests & Responses | Q7 | MC | The three things a response contains | a (data, metadata, status code) |
-| 4: JSON Anatomy | Quick Checks | FIB ×3 | Body wrapped in curly ____; data, ____, status code; the ____ ____ tells if it worked | braces; metadata; status code |
-| 4: JSON Anatomy | Q8 | MC | JSON's fundamental structure | c (key-value pairs) |
-| 4: JSON Anatomy | Q9 | FIB | In R, a JSON object becomes a named ____ | list |
-| 4: JSON Anatomy | Q10 | FIB | Flattened column name for latitude | coordinates.lat |
-| 5: Status Codes | Q11 | FIB | 4xx = ____ side; 5xx = ____ side | client; server |
-| 5: Status Codes | Q12 | MC | Most likely source of a 404 | e (URL incorrect) |
-| 5: Status Codes | Q13 | MC | What a 200 + JSON body contains | b |
+| 3: JSON Detour | Guided Activity | SA ×5 | Read the avocado-toast JSON: count top-level pairs; type of `vegetarian`; which key is an array; which is a nested object; value of `country` | 6; boolean `true`; `toppings` (2 items); `origin`; "Australia" |
+| 3: JSON Detour | Your Turn | Edit | Complete the coffee-order JSON (fill three typed blanks, add `"to_go": true`) | any values with correct types + comma before new pair |
+| 3: JSON Detour | Q6 | MC | JSON's fundamental structure | c (key-value pairs) |
+| 3: JSON Detour | Q7 | FIB | In R, a JSON object becomes a named ____ | list |
+| 3: JSON Detour | Q8 | FIB | Flattened column name for latitude | coordinates.lat |
+| 4: Requests & Responses | Q9 | FIB | A request is written as a ____ | URL |
+| 4: Requests & Responses | Q10 | MC | The three things a response contains | a (data, metadata, status code) |
+| 5: JSON Anatomy | Quick Checks | FIB ×3 | Body wrapped in curly ____; data, ____, status code; the ____ ____ tells if it worked | braces; metadata; status code |
+| 6: Status Codes | Q11 | FIB | 4xx = ____ side; 5xx = ____ side | client; server |
+| 6: Status Codes | Q12 | MC | Most likely source of a 404 | e (URL incorrect) |
+| 6: Status Codes | Q13 | MC | What a 200 + JSON body contains | b |
 
 ## Session 2 — CRUD, HTTP Methods & URL Anatomy
 
@@ -79,6 +81,6 @@ All questions across Sessions 1–4, listed by session and part. **Types:** MC =
 ## Design Standards
 
 - FIB (one–two words) is the primary type; MC always has five options (a–e) with obvious distractors
-- Correct MC letters are deliberately spread: S1 {d, c, e, a, c, e, b}, S2 {d, a, e, b, c, a, d}, S3 {c, e, d, b}, S4 {a, e, c}
+- Correct MC letters are deliberately spread: S1 {d, c, e, c, a, e, b}, S2 {d, a, e, b, c, a, d}, S3 {c, e, d, b}, S4 {a, e, c}
 - No question uses a function before it has been introduced
 - Open-ended questions are limited; discussion prompts are reserved for teaching reflection

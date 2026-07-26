@@ -271,7 +271,226 @@ e)  The menu
 
 ------------------------------------------------------------------------
 
-## Part 3: Requests and Responses
+## Part 3: A Quick Detour — What is JSON?
+
+Before we talk about what comes back from an API, we need a ten-minute detour. The responses we'll be reading for the rest of this workshop are written in a format called **JSON** — so let's meet it on its own first, before it shows up inside a response.
+
+::: callout-note
+## Why the Detour?
+
+In the restaurant, the kitchen doesn't hand you food in a random pile — every dish arrives plated in a predictable way. Data works the same way: servers send information back in one standard written format so that any program can read it. That format is JSON. Ten minutes here makes everything that follows easier.
+:::
+
+### What is JSON?
+
+**JSON** stands for **JavaScript Object Notation**. Don't let the name scare you — you do not need to know JavaScript. JSON is just **plain text**, written with a few simple punctuation rules, used to describe structured data.
+
+APIs almost universally speak JSON because it is:
+
+-   **Human-readable** — you can open it and read it with your eyes
+-   **Machine-readable** — every programming language (including R) can parse it
+-   **Language-independent** — a Python server can send it and your R script can read it
+-   **Lightweight** — it's just text, so it travels fast
+
+::: callout-important
+## JSON is a Format, Not the API
+
+Keep these two ideas separate: the **API** is the waiter — the messenger. **JSON** is the language the receipt is written in. When we say "the API returns JSON," we mean: the messenger hands you a note, and the note is written in JSON.
+:::
+
+### Keys and Values
+
+Here is a small, complete JSON example — a single breakfast order:
+
+``` json
+{
+  "dish": "veggie omelet",
+  "price": 12.50,
+  "gluten_free": true
+}
+```
+
+Every entry follows the same pattern: `"key": value`.
+
+-   The **key** is the label — always wrapped in double quotes: `"dish"`
+-   The **value** is the information itself, and how it's written depends on its type:
+    -   **Strings** (text) are in quotes: `"veggie omelet"`
+    -   **Numbers** are bare: `12.50`
+    -   **Booleans** (true/false) are bare and lowercase: `true`
+-   A colon `:` connects each key to its value; commas separate the pairs
+-   Curly braces `{ }` wrap the whole thing
+
+### Objects, Arrays, and Nesting
+
+Three more words of vocabulary and you can read almost any JSON in the wild:
+
+-   An **object** is anything wrapped in curly braces `{ }` — a set of key-value pairs. The breakfast order above is one object.
+-   An **array** is an ordered list, wrapped in square brackets `[ ]` — like `["egg", "cheese", "spinach"]`.
+-   **Nesting** means an object (or array) sitting *inside* another object, as a value.
+
+All three in one order:
+
+``` json
+{
+  "table": 7,
+  "customer": {
+    "name": "Maya",
+    "rewards_member": true
+  },
+  "items": ["pancakes", "omelet", "coffee"],
+  "total": 31.25
+}
+```
+
+Read it out loud: table 7; the customer is a nested object with a name and a membership flag; the items are an array of three dishes; the total is a number. That's it — that's JSON.
+
+#### ———————
+
+### Guided Activity — Read the JSON. {.unnumbered}
+
+Work through these together using the JSON below (\~5 minutes):
+
+``` json
+{
+  "name": "Avocado Toast",
+  "category": "breakfast",
+  "vegetarian": true,
+  "calories": 350,
+  "toppings": ["egg", "chili flakes"],
+  "origin": {
+    "country": "Australia",
+    "decade": "2010s"
+  }
+}
+```
+
+1.  How many key-value pairs are at the top level of this object?
+2.  What is the value of `"vegetarian"`, and what type is it?
+3.  Which key holds an **array**? How many items does it have?
+4.  Which key holds a **nested object**?
+5.  What is the value of `"country"`?
+
+::: {.callout-tip collapse="true" title="Answers — Read the JSON"}
+1.  **Six**: `name`, `category`, `vegetarian`, `calories`, `toppings`, `origin`.
+2.  `true` — a **boolean** (notice: no quotes around it).
+3.  `toppings` — an array with **two** items.
+4.  `origin` — its value is wrapped in its own curly braces `{ }`.
+5.  `"Australia"` — a string, found *inside* the nested `origin` object.
+:::
+
+#### ———————
+
+#### ———————
+
+### Your Turn — Complete the JSON. {.unnumbered}
+
+This JSON describes a coffee order, but it's unfinished (\~5 minutes). Fill in the three blanks with a value of the right **type**, then **add one more key-value pair**: `"to_go"` with the value `true`.
+
+``` json
+{
+  "drink": "________",
+  "size_oz": ____,
+  "iced": ____,
+  "flavors": ["vanilla", "caramel"]
+}
+```
+
+As you write, check yourself against the rules: keys and strings get double quotes; numbers and booleans don't; every pair except the last needs a comma after it.
+
+::: {.callout-tip collapse="true" title="One Possible Answer — Complete the JSON"}
+``` json
+{
+  "drink": "latte",
+  "size_oz": 16,
+  "iced": false,
+  "flavors": ["vanilla", "caramel"],
+  "to_go": true
+}
+```
+
+Any drink string, any number, and either boolean works. The two things that matter: the **types** are right (quotes only around strings), and a **comma** was added after the `flavors` array before the new pair.
+:::
+
+#### ———————
+
+### From the Café to the API
+
+Now the payoff. Here is the same structure with different keys — this is the shape of a real weather API response:
+
+``` json
+{
+  "city": "San Luis Obispo",
+  "coordinates": {
+    "lat": 35.28,
+    "lon": -120.66
+  },
+  "weather": {
+    "main": "Clear",
+    "temp": 72,
+    "humidity": 45
+  }
+}
+```
+
+Nothing here is new: one object with keys and values, two of which (`coordinates` and `weather`) are nested objects. If you could read the avocado toast, you can read this — and this is exactly what will arrive every time our R script calls the weather API tomorrow.
+
+::: callout-important
+## Thinking in R Terms
+
+In R, a JSON **object** becomes a **named list**, and a JSON **array** becomes a vector or list. Nested objects become lists inside lists. When we flatten it all with `as.data.frame()`, nested keys become column names like `coordinates.lat` or `weather.temp`.
+:::
+
+::: callout-tip
+## 🎯 Goal Check
+
+Half of our goal is "format the response into something we can analyze." You just did the first step by eye: reading JSON and finding the values you care about. Tomorrow, R does the same thing — just faster.
+:::
+
+#### ———————
+
+### Q6. {.unnumbered}
+
+**(Multiple Choice):** The JSON data format, commonly used in API responses, organizes information using what fundamental structure?
+
+a)  Rows and columns
+b)  A nested series of bullet points
+c)  Key-value pairs
+d)  Formatted paragraphs of text
+e)  Comma-separated values
+
+::: {.callout-tip collapse="true" title="Answer Q6"}
+**c)** JSON data is built on **key-value pairs** (e.g., `"city": "Chicago"`), where a "key" is a string and a "value" can be a string, number, boolean, array, or another object.
+:::
+
+#### ———————
+
+#### ———————
+
+### Q7. {.unnumbered}
+
+**(Fill in the Blank):** In R, a JSON object `{ }` becomes a named \_\_\_\_\_\_\_\_.
+
+::: {.callout-tip collapse="true" title="Answer Q7"}
+A named **list**. Each JSON key becomes a name in the list, and nested JSON objects become lists inside the list.
+:::
+
+#### ———————
+
+#### ———————
+
+### Q8. {.unnumbered}
+
+**(Fill in the Blank — using the weather example above):** If you flatten the weather JSON example with `as.data.frame()`, the column holding the latitude value would be named \_\_\_\_\_\_\_\_.
+
+::: {.callout-tip collapse="true" title="Answer Q8"}
+`coordinates.lat` — when R flattens nested JSON into a data frame, it joins the nested key names with a period. So `coordinates` → `lat` becomes `coordinates.lat`.
+:::
+
+#### ———————
+
+------------------------------------------------------------------------
+
+## Part 4: Requests and Responses
 
 Now let's zoom in on the two key actions: **requests** and **responses**. We'll keep this simple — the details come in Session 2.
 
@@ -289,11 +508,13 @@ That's it. When we want data from an API, we build a web address that describes 
 
 The server returns a **response** which contains:
 
--   **Data** — the actual information you requested (temperature, artist name, forecast, etc.)
--   **Metadata** — information *about* the response (timestamps, units, etc.)
 -   **Status code** — tells you whether the request was successful (e.g., `200 OK`)
+-   **Metadata** — information *about* the response (timestamps, units, etc.)
+-   **Data** — the actual information you requested (temperature, artist name, forecast, etc.)
 
-This information is traditionally provided in **JSON format** — which is exactly what Part 4 is about.
+
+
+This information is traditionally provided in **JSON format** — the format we just met in Part 3. In Part 5, we'll see how a full response body is laid out.
 
 ::: callout-tip
 ## 🎯 Goal Check
@@ -303,11 +524,11 @@ Two halves of our goal, side by side: the **request** is a URL we send; the **re
 
 #### ———————
 
-### Q6. {.unnumbered}
+### Q9. {.unnumbered}
 
 **(Fill in the Blank):** A request is written as a \_\_\_\_\_\_\_\_ — a web address that asks the API for specific information.
 
-::: {.callout-tip collapse="true" title="Answer Q6"}
+::: {.callout-tip collapse="true" title="Answer Q9"}
 A **URL**. That's the entire request: a carefully built web address.
 :::
 
@@ -315,7 +536,7 @@ A **URL**. That's the entire request: a carefully built web address.
 
 #### ———————
 
-### Q7. {.unnumbered}
+### Q10. {.unnumbered}
 
 **(Multiple Choice):** A response from an API contains which three things?
 
@@ -325,7 +546,7 @@ c)  A plot, a table, and a summary
 d)  HTML, CSS, and JavaScript
 e)  Rows, columns, and cell values
 
-::: {.callout-tip collapse="true" title="Answer Q7"}
+::: {.callout-tip collapse="true" title="Answer Q10"}
 **a)** A response contains the **data** you asked for, **metadata** about the response, and a **status code** that says whether the request worked.
 :::
 
@@ -333,9 +554,9 @@ e)  Rows, columns, and cell values
 
 ------------------------------------------------------------------------
 
-## Part 4: Anatomy of a JSON Response
+## Part 5: Anatomy of a JSON Response
 
-Now let's focus on the **response** — specifically, what it looks like. API responses are almost always formatted as **JSON** (JavaScript Object Notation).
+Now let's put the two previous parts together: a response arrives (Part 4), and it's written in JSON (Part 3). So what does the *whole* response body look like when we zoom out?
 
 ### Watch First
 
@@ -381,94 +602,17 @@ The response body is the raw material. Our goal — "format the response into so
 
 #### ———————
 
-### JSON Structure: Key-Value Pairs
+::: callout-note
+## You Already Know How to Read This
 
-JSON organizes data using **key-value pairs**. Here's a simple example:
-
-``` json
-{
-  "city": "San Luis Obispo",
-  "temperature": 72,
-  "units": "imperial",
-  "conditions": "clear sky"
-}
-```
-
-Key features of JSON:
-
--   Data is wrapped in curly braces `{ }`
--   Each entry is a `"key": value` pair
--   Values can be strings, numbers, booleans, arrays, or **nested objects**
--   Nested objects are JSON inside JSON — like a list within a list
-
-### Nested JSON Example
-
-``` json
-{
-  "city": "San Luis Obispo",
-  "coordinates": {
-    "lat": 35.28,
-    "lon": -120.66
-  },
-  "weather": {
-    "main": "Clear",
-    "temp": 72,
-    "humidity": 45
-  }
-}
-```
-
-::: callout-important
-## Thinking in R Terms
-
-In R, a JSON response becomes a **named list** — potentially containing other named lists inside it. This is what we mean by "nested." When we flatten it with `as.data.frame()`, nested keys become column names like `coordinates.lat` or `weather.temp`.
-:::
-
-#### ———————
-
-### Q8. {.unnumbered}
-
-**(Multiple Choice):** The JSON data format, commonly used in API responses, organizes information using what fundamental structure?
-
-a)  Rows and columns
-b)  A nested series of bullet points
-c)  Key-value pairs
-d)  Formatted paragraphs of text
-e)  Comma-separated values
-
-::: {.callout-tip collapse="true" title="Answer Q8"}
-**c)** JSON data is built on **key-value pairs** (e.g., `"city": "Chicago"`), where a "key" is a string and a "value" can be a string, number, boolean, array, or another object.
-:::
-
-#### ———————
-
-#### ———————
-
-### Q9. {.unnumbered}
-
-**(Fill in the Blank):** In R, a JSON object `{ }` becomes a named \_\_\_\_\_\_\_\_.
-
-::: {.callout-tip collapse="true" title="Answer Q9"}
-A named **list**. Each JSON key becomes a name in the list, and nested JSON objects become lists inside the list.
-:::
-
-#### ———————
-
-#### ———————
-
-### Q10. {.unnumbered}
-
-**(Fill in the Blank — using the nested example above):** If you flatten the nested JSON example with `as.data.frame()`, the column holding the latitude value would be named \_\_\_\_\_\_\_\_.
-
-::: {.callout-tip collapse="true" title="Answer Q10"}
-`coordinates.lat` — when R flattens nested JSON into a data frame, it joins the nested key names with a period. So `coordinates` → `lat` becomes `coordinates.lat`.
+Inside each zone it's just what Part 3 taught: keys, values, and nesting. The anatomy here is about the *zones* — which keys are the data you wanted, which are information about the response, and which tell you whether it worked.
 :::
 
 #### ———————
 
 ------------------------------------------------------------------------
 
-## Part 5: Status Codes
+## Part 6: Status Codes
 
 Status codes tell you what happened with your request. They are grouped by category:
 
@@ -535,7 +679,7 @@ e)  The URL in your request is incorrect or misspelled.
 
 ### Q13. {.unnumbered}
 
-**(Multiple Choice — Callback to Q8):** If you receive a response with a status code of `200` and the body contains JSON, which of the following would you expect to find in that response?
+**(Multiple Choice — Callback to Q6):** If you receive a response with a status code of `200` and the body contains JSON, which of the following would you expect to find in that response?
 
 a)  An error message explaining what went wrong
 b)  Key-value pairs containing the data you requested
@@ -557,9 +701,10 @@ In this session, we covered the **conceptual foundation** for working with APIs:
 
 1.  **What an API is** — a controlled interface for software-to-software communication (the waiter!)
 2.  **API data flow** — Client → API → Server → Database (and back)
-3.  **Requests vs. Responses** — a request is a URL you send; a response is what comes back
-4.  **JSON format** — key-value pairs, nesting, and how it maps to R data structures
-5.  **Status codes** — how to diagnose what happened with your request
+3.  **JSON** — key-value pairs, objects, arrays, nesting — and how it all maps to R lists
+4.  **Requests vs. Responses** — a request is a URL you send; a response is what comes back, written in JSON
+5.  **Anatomy of a JSON response** — one body, three zones: data, metadata, status code
+6.  **Status codes** — how to diagnose what happened with your request
 
 🎯 And the goal, one more time: **make a request, then format the response into something we can analyze.** Today was the vocabulary; tomorrow we do it for real.
 
@@ -574,6 +719,7 @@ Before Session 2 starts:
 -   **Questions?** Come up and ask — Meg and I will be here for the whole break.
 -   **Did you finish?** Check yourself:
     -   [ ] I can name the four components: client, API, server, database
-    -   [ ] I answered the questions in Parts 1–5 (peek at the answers if you need)
+    -   [ ] I can read a JSON object and point to a key, a value, an array, and a nested object
+    -   [ ] I answered the questions in Parts 1–6 (peek at the answers if you need)
     -   [ ] I can say the workshop goal in one sentence
 -   If you finished everything, replay the restaurant animation and try narrating the five steps using the technical words (client, API, server, database, response).

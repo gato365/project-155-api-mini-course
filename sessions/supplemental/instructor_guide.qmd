@@ -42,7 +42,7 @@ This guide accompanies the five **Practice Labs** built for the API Workshop. Ea
 
 ### Animations — Stepped & Pausable
 
-The Session 1 restaurant analogy is now an **interactive stepper** (Back / Next / Play-Pause) embedded directly in the page — no GIF needed. Remaining GIFs to convert to the same stepper pattern when time allows: `api-data-flow`, `get-request`, `post-request`, `url-anatomy`, `anatomy-of-json-response`.
+All Session 1 and 2 animations are now **interactive click-through players** (Back / Next / Play-Pause, arrow keys, spacebar) embedded directly in the pages: the restaurant analogy is an inline stepper, and `api-data-flow`, `get-request`, `post-request`, `url-anatomy`, and `anatomy-of-json-response` load the players from `animations/interactive/` in auto-sizing iframes. The attendee download keeps the static GIF versions.
 
 ### Images-Only Walkthrough Version
 
