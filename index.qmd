@@ -42,7 +42,7 @@ Use this 45-second introduction to know who is in the room and how to get help.
 
 ::: {.profile-grid}
 ::: {.profile-card}
-![](assets/immanuel-avatar.svg){fig-alt="Illustrated avatar for Immanuel Williams"}
+![](assets/GATO365-24.jpg){fig-alt="Illustrated avatar for Immanuel Williams"}
 
 ### Immanuel Williams
 
