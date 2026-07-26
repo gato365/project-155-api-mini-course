@@ -173,7 +173,11 @@ Let's go deeper into the architecture — same story as the restaurant, now with
 
 ### Watch First
 
-![](images/api-data-flow.gif){fig-alt="Animation showing API request traveling from Client through API Endpoint to Server and Database, then the response returning the same path in reverse"}
+Step through the request and response at your own pace — Next, Back, or press Play.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/request_gif.html?embed=1" title="Interactive animation showing an API request traveling from Client through API to Server and Database, then the response returning the same path in reverse" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
 
 ### Now in Words
 
@@ -335,7 +339,11 @@ Now let's focus on the **response** — specifically, what it looks like. API re
 
 ### Watch First
 
-![](images/anatomy-of-json-response.gif){fig-alt="Animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence"}
+Step through the layers one at a time — each click reveals the next zone.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/anatomy_of_json.html?embed=1" title="Interactive animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
 
 ### Now in Words
 

@@ -78,49 +78,43 @@ There is no wrong answer to 3 — but knowing the split helps us pace the live c
 
 ---
 
-## Step 1 — Create Your Workshop Folder
+## Step 1 — Download Your Workshop Folder
 
-Before downloading anything, create a single folder on your computer where **all workshop files will live**. Keeping everything in one place avoids file-path headaches throughout the two days.
-
-**Suggested location:**
-
-```
-Desktop/
-└── api_workshop/       ← put everything here
-    ├── 01_JSON_and_Request_Response.qmd
-    ├── 02_CRUD_HTTP_Methods_URL.qmd
-    ├── 03_Weather_API_Setup.qmd
-    └── 04_Historical_Weather_Visualization.qmd
-```
-
-> **Why this matters:** R and Quarto look for files relative to where your `.qmd` lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions.
-
----
-
-## Step 2 — Download the Session Files
-
-Download the student files as one folder, then unzip it into your `api_workshop/` folder:
+Download the complete student folder:
 
 [Download all student QMD files](../downloads/api_workshop_empty.zip)
 
-The zip contains the empty student versions of the Session 1–4 `.qmd` files, plus the image assets they reference.
+Move the downloaded zip file to a convenient location, such as your Desktop, and unzip it. **Work directly from the extracted `api_workshop_empty/` folder** so the session files and their image assets keep the directory structure they need.
+
+The extracted folder contains:
+
+```
+api_workshop_empty/
+├── 01_JSON_and_Request_Response.qmd
+├── 02_CRUD_HTTP_Methods_URL.qmd
+├── 03_Weather_API_Setup.qmd
+├── 04_Historical_Weather_Visualization.qmd
+├── README.md
+└── images/
+```
+
+> **Why this matters:** R and Quarto look for files relative to the `.qmd` files. Keeping the downloaded structure intact means the workshop files work without changing paths.
 
 If the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.
 
-**How to save a file from your browser:**
+**How to get started:**
 
 1. Click the download link above.
-2. Move the zip file into your `api_workshop/` folder.
-3. Unzip it.
-4. Open the session file for today.
+2. Move the zip file to your Desktop or another convenient location.
+3. Unzip it and leave everything inside the extracted folder.
 
 ---
 
-## Step 3 — Open the File in Positron
+## Step 2 — Open the File in Positron
 
 1. Open **Positron** (or RStudio)
 2. Go to **File → Open File...**
-3. Navigate to your `api_workshop/` folder and open the session file for today
+3. Navigate to the extracted `api_workshop_empty/` folder and open the session file for today
 
 You do not need to open a project — just open the `.qmd` file directly.
 

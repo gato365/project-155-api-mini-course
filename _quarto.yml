@@ -9,6 +9,7 @@ project:
     - "!downloads/**"
   resources:
     - downloads/api_workshop_empty.zip
+    - animations/interactive/**
 
 website:
   title: "API Workshop"
@@ -54,3 +55,4 @@ format:
     theme: cosmo
     css: custom.css
     toc: true
+    include-after-body: assets/site-tools.html

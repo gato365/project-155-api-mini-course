@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request &amp; Response — Interactive</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <main class="page">
+    <a class="home-link" href="index.html">&larr; All animations</a>
+    <h1>Request &amp; Response</h1>
+    <p id="status" class="status"></p>
+
+    <section id="scene"></section>
+    <section id="narration"></section>
+    <div id="controls"></div>
+    <p class="kbd-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> step &middot; <kbd>space</kbd> play / pause</p>
+  </main>
+
+  <script src="flow-scene.js"></script>
+  <script src="player.js"></script>
+  <script>
+    const scene = createFlowScene(document.getElementById('scene'), {
+      nodes: [
+        { id: 'client',   name: 'Client',   sub: '(e.g., Browser)',  icon: 'client' },
+        { id: 'api',      name: 'API',      sub: '(Endpoint)',       icon: 'api' },
+        { id: 'server',   name: 'Server',   sub: '(Backend Logic)',  icon: 'server' },
+        { id: 'database', name: 'Database', sub: '(Storage)',        icon: 'database' }
+      ]
+    });
+
+    const steps = [
+      {
+        title: 'Setting the scene',
+        text: 'A request travels from the client all the way to the database — and the response makes the same journey in reverse.',
+        status: 'Follow one request end to end'
+      },
+      {
+        title: 'Request: Client → API',
+        text: 'The client sends its request to the API endpoint — the public address of the service.',
+        status: '<span class="c-request">Client makes a request…</span>',
+        nodes: { client: 'request', api: 'request' },
+        arrows: [{ from: 'client', to: 'api', kind: 'request' }],
+        packet: { from: 'client', to: 'api', kind: 'request', label: 'request' }
+      },
+      {
+        title: 'Request: API → Server',
+        text: 'The API forwards the request to the server, which knows how to fulfill it.',
+        status: '<span class="c-request">The request moves inward…</span>',
+        nodes: { api: 'request', server: 'request' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request' }
+        ],
+        packet: { from: 'api', to: 'server', kind: 'request', label: 'request' }
+      },
+      {
+        title: 'Request: Server → Database',
+        text: 'The server reaches into the database, where the actual data lives.',
+        status: '<span class="c-request">The request reaches storage…</span>',
+        nodes: { server: 'request', database: 'request' },
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request', dim: true },
+          { from: 'server', to: 'database', kind: 'request' }
+        ],
+        packet: { from: 'server', to: 'database', kind: 'request', label: 'request' }
+      },
+      {
+        title: 'Response: Database → Server',
+        text: 'The database finds the data and starts the return journey: it hands the result to the server.',
+        status: '<span class="c-response">Server provides a response…</span>',
+        nodes: { database: 'response', server: 'response' },
+        arrows: [{ from: 'database', to: 'server', kind: 'response' }],
+        packet: { from: 'database', to: 'server', kind: 'response', label: 'response' }
+      },
+      {
+        title: 'Response: Server → API',
+        text: 'The server formats the data into a proper response and passes it back to the API.',
+        status: '<span class="c-response">The response travels back…</span>',
+        nodes: { server: 'response', api: 'response' },
+        arrows: [
+          { from: 'database', to: 'server', kind: 'response', dim: true },
+          { from: 'server', to: 'api', kind: 'response' }
+        ],
+        packet: { from: 'server', to: 'api', kind: 'response', label: 'response' }
+      },
+      {
+        title: 'Response: API → Client',
+        text: 'The API delivers the response to the client. The data has completed its round trip.',
+        status: '<span class="c-response">Response delivered!</span>',
+        nodes: { api: 'response', client: 'response' },
+        arrows: [
+          { from: 'database', to: 'server', kind: 'response', dim: true },
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response' }
+        ],
+        packet: { from: 'api', to: 'client', kind: 'response', label: 'response' },
+        actions: { client: 'Data received!' }
+      },
+      {
+        title: 'The full journey',
+        text: 'Request: Client → API → Server → Database. Response: Database → Server → API → Client. Same road, both directions.',
+        status: 'One complete request–response cycle',
+        arrows: [
+          { from: 'client', to: 'api', kind: 'request', dim: true },
+          { from: 'api', to: 'server', kind: 'request', dim: true },
+          { from: 'server', to: 'database', kind: 'request', dim: true },
+          { from: 'database', to: 'server', kind: 'response', dim: true },
+          { from: 'server', to: 'api', kind: 'response', dim: true },
+          { from: 'api', to: 'client', kind: 'response', dim: true }
+        ]
+      }
+    ];
+
+    initPlayer({
+      steps: steps,
+      apply: function (step, i) {
+        setStatus(step.status);
+        scene.apply(step, i);
+      }
+    });
+  </script>
+</body>
+</html>

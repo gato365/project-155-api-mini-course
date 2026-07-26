@@ -127,7 +127,11 @@ A `GET` request is all about **retrieving** data. You're asking the server: "Giv
 
 ### Watch First
 
-![](images/get-request.gif){fig-alt="Animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client"}
+Step through the GET request at your own pace — Next, Back, or press Play.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/get_request.html?embed=1" title="Interactive animation of GET /users/42 request: Client sends request right through API to Server and Database, then data flows back left to the Client" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
 
 ### Now in Words
 
@@ -191,7 +195,11 @@ A `POST` request is about **sending** new data to the server. You're telling the
 
 ### Watch First
 
-![](images/post-request.gif){fig-alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"}
+Step through the POST request — watch where the payload starts and where it ends up.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/post_request.html?embed=1" title="Interactive animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
 
 ### Now in Words
 
@@ -281,7 +289,11 @@ So how do we actually construct a request? A request is defined by a **URL**, wh
 
 ### Watch First
 
-![](images/url-anatomy.gif){fig-alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"}
+Step through the URL piece by piece — each click highlights the next component.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/url_breakdown.html?embed=1" title="Interactive animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
 
 ### Now in Words
 

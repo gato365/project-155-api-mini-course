@@ -223,9 +223,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#workshop-overview" id="toc-workshop-overview" class="nav-link" data-scroll-target="#workshop-overview">Workshop Overview</a></li>
   <li><a href="#what-we-assume-you-already-know" id="toc-what-we-assume-you-already-know" class="nav-link" data-scroll-target="#what-we-assume-you-already-know">What We Assume You Already Know</a></li>
   <li><a href="#quick-survey-help-us-tailor-the-workshop" id="toc-quick-survey-help-us-tailor-the-workshop" class="nav-link" data-scroll-target="#quick-survey-help-us-tailor-the-workshop">Quick Survey — Help Us Tailor the Workshop</a></li>
-  <li><a href="#step-1-create-your-workshop-folder" id="toc-step-1-create-your-workshop-folder" class="nav-link" data-scroll-target="#step-1-create-your-workshop-folder">Step 1 — Create Your Workshop Folder</a></li>
-  <li><a href="#step-2-download-the-session-files" id="toc-step-2-download-the-session-files" class="nav-link" data-scroll-target="#step-2-download-the-session-files">Step 2 — Download the Session Files</a></li>
-  <li><a href="#step-3-open-the-file-in-positron" id="toc-step-3-open-the-file-in-positron" class="nav-link" data-scroll-target="#step-3-open-the-file-in-positron">Step 3 — Open the File in Positron</a></li>
+  <li><a href="#step-1-download-your-workshop-folder" id="toc-step-1-download-your-workshop-folder" class="nav-link" data-scroll-target="#step-1-download-your-workshop-folder">Step 1 — Download Your Workshop Folder</a></li>
+  <li><a href="#step-2-open-the-file-in-positron" id="toc-step-2-open-the-file-in-positron" class="nav-link" data-scroll-target="#step-2-open-the-file-in-positron">Step 2 — Open the File in Positron</a></li>
   <li><a href="#if-you-get-stuck" id="toc-if-you-get-stuck" class="nav-link" data-scroll-target="#if-you-get-stuck">If You Get Stuck</a></li>
   <li><a href="#tools-checklist" id="toc-tools-checklist" class="nav-link" data-scroll-target="#tools-checklist">Tools Checklist</a></li>
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions?</a></li>
@@ -357,42 +356,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>There is no wrong answer to 3 — but knowing the split helps us pace the live coding.</p>
 <hr>
 </section>
-<section id="step-1-create-your-workshop-folder" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-create-your-workshop-folder">Step 1 — Create Your Workshop Folder</h2>
-<p>Before downloading anything, create a single folder on your computer where <strong>all workshop files will live</strong>. Keeping everything in one place avoids file-path headaches throughout the two days.</p>
-<p><strong>Suggested location:</strong></p>
-<pre><code>Desktop/
-└── api_workshop/       ← put everything here
-    ├── 01_JSON_and_Request_Response.qmd
-    ├── 02_CRUD_HTTP_Methods_URL.qmd
-    ├── 03_Weather_API_Setup.qmd
-    └── 04_Historical_Weather_Visualization.qmd</code></pre>
-<blockquote class="blockquote">
-<p><strong>Why this matters:</strong> R and Quarto look for files relative to where your <code>.qmd</code> lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions.</p>
-</blockquote>
-<hr>
-</section>
-<section id="step-2-download-the-session-files" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-download-the-session-files">Step 2 — Download the Session Files</h2>
-<p>Download the student files as one folder, then unzip it into your <code>api_workshop/</code> folder:</p>
+<section id="step-1-download-your-workshop-folder" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-download-your-workshop-folder">Step 1 — Download Your Workshop Folder</h2>
+<p>Download the complete student folder:</p>
 <p><a href="../downloads/api_workshop_empty.zip">Download all student QMD files</a></p>
-<p>The zip contains the empty student versions of the Session 1–4 <code>.qmd</code> files, plus the image assets they reference.</p>
+<p>Move the downloaded zip file to a convenient location, such as your Desktop, and unzip it. <strong>Work directly from the extracted <code>api_workshop_empty/</code> folder</strong> so the session files and their image assets keep the directory structure they need.</p>
+<p>The extracted folder contains:</p>
+<pre><code>api_workshop_empty/
+├── 01_JSON_and_Request_Response.qmd
+├── 02_CRUD_HTTP_Methods_URL.qmd
+├── 03_Weather_API_Setup.qmd
+├── 04_Historical_Weather_Visualization.qmd
+├── README.md
+└── images/</code></pre>
+<blockquote class="blockquote">
+<p><strong>Why this matters:</strong> R and Quarto look for files relative to the <code>.qmd</code> files. Keeping the downloaded structure intact means the workshop files work without changing paths.</p>
+</blockquote>
 <p>If the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.</p>
-<p><strong>How to save a file from your browser:</strong></p>
+<p><strong>How to get started:</strong></p>
 <ol type="1">
 <li>Click the download link above.</li>
-<li>Move the zip file into your <code>api_workshop/</code> folder.</li>
-<li>Unzip it.</li>
-<li>Open the session file for today.</li>
+<li>Move the zip file to your Desktop or another convenient location.</li>
+<li>Unzip it and leave everything inside the extracted folder.</li>
 </ol>
 <hr>
 </section>
-<section id="step-3-open-the-file-in-positron" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-open-the-file-in-positron">Step 3 — Open the File in Positron</h2>
+<section id="step-2-open-the-file-in-positron" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-open-the-file-in-positron">Step 2 — Open the File in Positron</h2>
 <ol type="1">
 <li>Open <strong>Positron</strong> (or RStudio)</li>
 <li>Go to <strong>File → Open File…</strong></li>
-<li>Navigate to your <code>api_workshop/</code> folder and open the session file for today</li>
+<li>Navigate to the extracted <code>api_workshop_empty/</code> folder and open the session file for today</li>
 </ol>
 <p>You do not need to open a project — just open the <code>.qmd</code> file directly.</p>
 <hr>
@@ -434,6 +428,93 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 
 </main> <!-- /main -->
+<!-- Site-wide helpers: outline (TOC) show/hide toggle + auto-sizing for
+     embedded interactive animations. Included on every page via _quarto.yml. -->
+<style>
+  #toc-toggle-btn {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 1050;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #312e81;
+    background: #ffffff;
+    border: 1px solid #c7d2fe;
+    border-radius: 999px;
+    padding: 8px 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.18);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  }
+  #toc-toggle-btn:hover { background: #eef2ff; border-color: #6366f1; }
+  #toc-toggle-btn:active { transform: scale(0.97); }
+
+  body.toc-hidden #quarto-margin-sidebar { display: none !important; }
+
+  /* Quarto collapses the right-margin TOC below 992px, so hide the button too */
+  @media (max-width: 991.98px) {
+    #toc-toggle-btn { display: none !important; }
+  }
+
+  @media print {
+    #toc-toggle-btn { display: none !important; }
+  }
+</style>
+<script>
+  (function () {
+    // ---------- Outline (TOC) show/hide toggle ----------
+    var sidebar = document.getElementById('quarto-margin-sidebar');
+    var hasToc = sidebar && sidebar.querySelector('nav a, ul a');
+    if (hasToc) {
+      var KEY = 'api-workshop-toc-hidden';
+      var btn = document.createElement('button');
+      btn.id = 'toc-toggle-btn';
+      btn.type = 'button';
+      btn.title = 'Show or hide the page outline';
+
+      function sync() {
+        var hidden = document.body.classList.contains('toc-hidden');
+        btn.innerHTML = hidden ? '&#9776;&nbsp; Show outline' : '&#10005;&nbsp; Hide outline';
+        btn.setAttribute('aria-pressed', hidden ? 'true' : 'false');
+      }
+
+      try {
+        if (localStorage.getItem(KEY) === '1') {
+          document.body.classList.add('toc-hidden');
+        }
+      } catch (e) { /* localStorage unavailable — start visible */ }
+
+      btn.addEventListener('click', function () {
+        var hidden = document.body.classList.toggle('toc-hidden');
+        try { localStorage.setItem(KEY, hidden ? '1' : '0'); } catch (e) {}
+        sync();
+      });
+
+      sync();
+      document.body.appendChild(btn);
+    }
+
+    // ---------- Auto-size embedded animation iframes ----------
+    // The interactive players (animations/interactive/*.html?embed=1) post
+    // their content height; match the message to its iframe and resize it.
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || d.type !== 'anim-embed-height' || !(d.height > 0)) return;
+      var frames = document.querySelectorAll('iframe.anim-embed');
+      for (var i = 0; i < frames.length; i++) {
+        if (frames[i].contentWindow === e.source) {
+          frames[i].style.height = Math.ceil(d.height) + 'px';
+          break;
+        }
+      }
+    });
+  })();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -965,87 +1046,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1 — Create Your Workshop Folder</span></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 1 — Download Your Workshop Folder</span></span>
 <span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>Before downloading anything, create a single folder on your computer where **all workshop files will live**. Keeping everything in one place avoids file-path headaches throughout the two days.</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>Download the complete student folder:</span>
 <span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>**Suggested location:**</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Download all student QMD files</span><span class="co">](../downloads/api_workshop_empty.zip)</span></span>
 <span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="in">Desktop/</span></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="in">└── api_workshop/       ← put everything here</span></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── 01_JSON_and_Request_Response.qmd</span></span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── 02_CRUD_HTTP_Methods_URL.qmd</span></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="in">    ├── 03_Weather_API_Setup.qmd</span></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="in">    └── 04_Historical_Weather_Visualization.qmd</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Why this matters:** R and Quarto look for files relative to where your </span><span class="in">`.qmd`</span><span class="at"> lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions.</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2 — Download the Session Files</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>Download the student files as one folder, then unzip it into your <span class="in">`api_workshop/`</span> folder:</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Download all student QMD files</span><span class="co">](../downloads/api_workshop_empty.zip)</span></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>The zip contains the empty student versions of the Session 1–4 <span class="in">`.qmd`</span> files, plus the image assets they reference.</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>If the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>**How to save a file from your browser:**</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Click the download link above.</span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Move the zip file into your <span class="in">`api_workshop/`</span> folder.</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Unzip it.</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Open the session file for today.</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>Move the downloaded zip file to a convenient location, such as your Desktop, and unzip it. **Work directly from the extracted `api_workshop_empty/` folder** so the session files and their image assets keep the directory structure they need.</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>The extracted folder contains:</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="in">api_workshop_empty/</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="in">├── 01_JSON_and_Request_Response.qmd</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">├── 02_CRUD_HTTP_Methods_URL.qmd</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="in">├── 03_Weather_API_Setup.qmd</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="in">├── 04_Historical_Weather_Visualization.qmd</span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="in">├── README.md</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a><span class="in">└── images/</span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Why this matters:** R and Quarto look for files relative to the </span><span class="in">`.qmd`</span><span class="at"> files. Keeping the downloaded structure intact means the workshop files work without changing paths.</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>If the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>**How to get started:**</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Click the download link above.</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Move the zip file to your Desktop or another convenient location.</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Unzip it and leave everything inside the extracted folder.</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 2 — Open the File in Positron</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open **Positron** (or RStudio)</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Go to **File → Open File...**</span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Navigate to the extracted <span class="in">`api_workshop_empty/`</span> folder and open the session file for today</span>
 <span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step 3 — Open the File in Positron</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>You do not need to open a project — just open the <span class="in">`.qmd`</span> file directly.</span>
 <span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open **Positron** (or RStudio)</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Go to **File → Open File...**</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Navigate to your <span class="in">`api_workshop/`</span> folder and open the session file for today</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## If You Get Stuck</span></span>
 <span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>You do not need to open a project — just open the <span class="in">`.qmd`</span> file directly.</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>If you have a question during the workshop, **put your hand up and Meg will help**. If you get stuck on one of the questions, the online version is also here for you.</span>
 <span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>**All session content — including completed code — is available on this website.**</span>
 <span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## If You Get Stuck</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>Use the **Sessions** menu in the navigation bar at the top of this page to browse any session. Each page shows the full document with all code blocks visible, so you can reference it at any point during the workshop.</span>
 <span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>If you have a question during the workshop, **put your hand up and Meg will help**. If you get stuck on one of the questions, the online version is also here for you.</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; You are encouraged to try the exercises yourself first, then check the website if you need a hint or want to verify your answer.</span></span>
 <span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>**All session content — including completed code — is available on this website.**</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>Use the **Sessions** menu in the navigation bar at the top of this page to browse any session. Each page shows the full document with all code blocks visible, so you can reference it at any point during the workshop.</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tools Checklist</span></span>
 <span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; You are encouraged to try the exercises yourself first, then check the website if you need a hint or want to verify your answer.</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>Before Day 1, confirm you have the following installed:</span>
 <span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tools Checklist</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **R** (version 4.2 or later) — <span class="co">[</span><span class="ot">download here</span><span class="co">](https://cran.r-project.org)</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **Positron** or **RStudio** — <span class="co">[</span><span class="ot">Positron download</span><span class="co">](https://positron.posit.co)</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **Required R packages** — run the block below once to install everything</span>
 <span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>Before Day 1, confirm you have the following installed:</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **R** (version 4.2 or later) — <span class="co">[</span><span class="ot">download here</span><span class="co">](https://cran.r-project.org)</span></span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **Positron** or **RStudio** — <span class="co">[</span><span class="ot">Positron download</span><span class="co">](https://positron.posit.co)</span></span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> **Required R packages** — run the block below once to install everything</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r install-packages}</span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"httr2"</span>, <span class="st">"tibble"</span>, <span class="st">"dplyr"</span>, <span class="st">"purrr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"glue"</span>))</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> **API key — not needed!** We use the free <span class="co">[</span><span class="ot">Open-Meteo</span><span class="co">](https://open-meteo.com/)</span> weather API, which requires no sign-up, no key, and no credit card. (The optional Practice Labs use APIs that do require keys — those labs walk you through it.)</span>
 <span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r install-packages}</span></span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"httr2"</span>, <span class="st">"tibble"</span>, <span class="st">"dplyr"</span>, <span class="st">"purrr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"glue"</span>))</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions?</span></span>
 <span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> **API key — not needed!** We use the free <span class="co">[</span><span class="ot">Open-Meteo</span><span class="co">](https://open-meteo.com/)</span> weather API, which requires no sign-up, no key, and no credit card. (The optional Practice Labs use APIs that do require keys — those labs walk you through it.)</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>Reach out before or during the workshop. We will also leave time at the start of each session to resolve any setup issues.</span>
 <span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Questions?</span></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>Reach out before or during the workshop. We will also leave time at the start of each session to resolve any setup issues.</span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>See you there!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>See you there!</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
