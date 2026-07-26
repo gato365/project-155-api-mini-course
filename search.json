@@ -322,25 +322,18 @@
     "text": "Quick Survey — Help Us Tailor the Workshop\nPlease answer these before Day 1 (we will also ask by show of hands at the start):\n\nYour R experience:\n\nNew to R (less than a semester of use)\nComfortable — I use R for my own courses or analysis\nAdvanced — I teach with R and write my own functions\n\nHow do you plan to use this workshop? (e.g., adding live data to an intro stats course, a data science elective, student projects, your own research)\nHow will you follow along during the sessions?\n\nOnline — reading the session pages on this website\nPositron/RStudio — working in the source (text) editor\nPositron/RStudio — working in the visual editor\n\n\nThere is no wrong answer to 3 — but knowing the split helps us pace the live coding."
   },
   {
-    "objectID": "sessions/00_Getting_Started.html#step-1-create-your-workshop-folder",
-    "href": "sessions/00_Getting_Started.html#step-1-create-your-workshop-folder",
+    "objectID": "sessions/00_Getting_Started.html#step-1-download-your-workshop-folder",
+    "href": "sessions/00_Getting_Started.html#step-1-download-your-workshop-folder",
     "title": "Session 0: Getting Started",
-    "section": "Step 1 — Create Your Workshop Folder",
-    "text": "Step 1 — Create Your Workshop Folder\nBefore downloading anything, create a single folder on your computer where all workshop files will live. Keeping everything in one place avoids file-path headaches throughout the two days.\nSuggested location:\nDesktop/\n└── api_workshop/       ← put everything here\n    ├── 01_JSON_and_Request_Response.qmd\n    ├── 02_CRUD_HTTP_Methods_URL.qmd\n    ├── 03_Weather_API_Setup.qmd\n    └── 04_Historical_Weather_Visualization.qmd\n\nWhy this matters: R and Quarto look for files relative to where your .qmd lives. If all four files share the same folder, every script will just work — no adjusting paths between sessions."
+    "section": "Step 1 — Download Your Workshop Folder",
+    "text": "Step 1 — Download Your Workshop Folder\nDownload the complete student folder:\nDownload all student QMD files\nMove the downloaded zip file to a convenient location, such as your Desktop, and unzip it. Work directly from the extracted api_workshop_empty/ folder so the session files and their image assets keep the directory structure they need.\nThe extracted folder contains:\napi_workshop_empty/\n├── 01_JSON_and_Request_Response.qmd\n├── 02_CRUD_HTTP_Methods_URL.qmd\n├── 03_Weather_API_Setup.qmd\n├── 04_Historical_Weather_Visualization.qmd\n├── README.md\n└── images/\n\nWhy this matters: R and Quarto look for files relative to the .qmd files. Keeping the downloaded structure intact means the workshop files work without changing paths.\n\nIf the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.\nHow to get started:\n\nClick the download link above.\nMove the zip file to your Desktop or another convenient location.\nUnzip it and leave everything inside the extracted folder."
   },
   {
-    "objectID": "sessions/00_Getting_Started.html#step-2-download-the-session-files",
-    "href": "sessions/00_Getting_Started.html#step-2-download-the-session-files",
+    "objectID": "sessions/00_Getting_Started.html#step-2-open-the-file-in-positron",
+    "href": "sessions/00_Getting_Started.html#step-2-open-the-file-in-positron",
     "title": "Session 0: Getting Started",
-    "section": "Step 2 — Download the Session Files",
-    "text": "Step 2 — Download the Session Files\nDownload the student files as one folder, then unzip it into your api_workshop/ folder:\nDownload all student QMD files\nThe zip contains the empty student versions of the Session 1–4 .qmd files, plus the image assets they reference.\nIf the zip download is blocked on your computer, put your hand up and we will help you get the same student folder.\nHow to save a file from your browser:\n\nClick the download link above.\nMove the zip file into your api_workshop/ folder.\nUnzip it.\nOpen the session file for today."
-  },
-  {
-    "objectID": "sessions/00_Getting_Started.html#step-3-open-the-file-in-positron",
-    "href": "sessions/00_Getting_Started.html#step-3-open-the-file-in-positron",
-    "title": "Session 0: Getting Started",
-    "section": "Step 3 — Open the File in Positron",
-    "text": "Step 3 — Open the File in Positron\n\nOpen Positron (or RStudio)\nGo to File → Open File…\nNavigate to your api_workshop/ folder and open the session file for today\n\nYou do not need to open a project — just open the .qmd file directly."
+    "section": "Step 2 — Open the File in Positron",
+    "text": "Step 2 — Open the File in Positron\n\nOpen Positron (or RStudio)\nGo to File → Open File…\nNavigate to the extracted api_workshop_empty/ folder and open the session file for today\n\nYou do not need to open a project — just open the .qmd file directly."
   },
   {
     "objectID": "sessions/00_Getting_Started.html#if-you-get-stuck",
