@@ -62,6 +62,12 @@ The image maps each CRUD operation to a visual icon: a **plus sign** for Create/
 | **U**pdate | `PUT` / `PATCH` | Modify existing data on the server |
 | **D**elete | `DELETE` | Remove a resource from the server |
 
+::: {.callout-important icon="false"}
+## 📖 Definition — HTTP
+
+**HTTP** (**HyperText Transfer Protocol**) is the standard set of rules for sending requests and responses across the web. The methods in the table — GET, POST, PUT, DELETE — are HTTP's built-in verbs: they announce *what kind of action* a request is asking for.
+:::
+
 ::: {.callout-note}
 ## For Data Science
 In data science, **Read (GET)** is by far the most common operation. We're typically *pulling* data, not writing to databases. As a data scientist, the eye (Read/GET) quadrant will cover the vast majority of your API work.
@@ -170,15 +176,29 @@ e) Retrieving the top 10 most popular articles from the New York Times API
 ---
 
 
-## Part 3: POST Requests
+## Part 3: POST Requests (Optional)
 
 A `POST` request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."
 
-### Watch First
+**Live decision, based on time:** everything we do tomorrow is GET, so this part is a flex. Pick a tab — the quick version takes one minute; the full walkthrough about ten.
+
+::: {.panel-tabset}
+
+### ⏭ Quick Version (\~1 min)
+
+One idea is enough: **POST sends new data to the server**, and that data travels in the request **body** — unlike GET, which carries everything in the URL and only *asks* for data.
+
+Think of it this way: **GET is borrowing a book from the library. POST is donating a new book to it.**
+
+That's all this workshop needs — if we skipped the details today, come back to the Full Walkthrough tab after the workshop.
+
+### 📮 Full Walkthrough (\~10 min)
+
+#### Watch First
 
 ![](images/post-request.gif){fig-alt="Animation of POST /users request: Client holds JSON payload with name and email, data travels right through API to Server and Database, then confirmation returns to Client"}
 
-### Now in Words
+#### Now in Words
 
 The animation shows a POST request sending `POST /users` with a JSON payload `{ "name": "Maya", "email": "maya@example.com" }`. Compare this carefully to the GET animation: with GET, data flowed *from* the server *to* the client. With POST, data originates *at the client* and moves *toward* the server. The client is the source; the server is the destination.
 
@@ -197,14 +217,9 @@ Here is the flow of a POST request:
 Think of it this way: GET is reading a book from the library. POST is donating a new book to the library.
 :::
 
-::: {.callout-tip}
-## 🎯 Goal Check
-POST is good to recognize, but our goal only needs GET. If POST feels fuzzy, that's fine — it will not block anything we do tomorrow.
-:::
-
 
 #### ———————
-### Visual Check — POST Request. {.unnumbered}
+#### Visual Check — POST Request. {.unnumbered}
 
 **(Multiple Choice):** In the POST animation, the JSON payload `{ "name": "Maya", ... }` travels from the Client to the Server. Where does this data live in the request?
 
@@ -218,7 +233,7 @@ e) In the database before the request is even sent.
 
 
 #### ———————
-### Q4. {.unnumbered}
+#### Q4. {.unnumbered}
 
 **(Multiple Choice):** Which of the following data science tasks would most likely require a **POST** request instead of a GET request?
 
@@ -232,7 +247,7 @@ e) Downloading yesterday's stock prices.
 
 
 #### ———————
-### Q5. {.unnumbered}
+#### Q5. {.unnumbered}
 
 **(Multiple Choice — Callback to the restaurant analogy):** If a GET request is like *reading the menu and placing an order*, what would a POST request be most analogous to?
 
@@ -244,11 +259,24 @@ e) Reading the menu a second time
 
 #### ———————
 
+:::
+
+::: {.callout-tip}
+## 🎯 Goal Check
+POST is good to recognize, but our goal only needs GET. Whichever tab we took, nothing tomorrow depends on POST.
+:::
+
 
 ---
 
 
 ## Part 4: URL Anatomy
+
+::: {.callout-important icon="false"}
+## 📖 Definition — URL
+
+A **URL** (**Uniform Resource Locator**) is a web address: a single string of text that says exactly where a resource lives and how to reach it. For API work this matters doubly, because **the URL *is* the request** — everything we ask for is encoded in that one string.
+:::
 
 So how do we actually construct a request? A request is defined by a **URL**, which contains both:
 
@@ -265,23 +293,95 @@ The animation shows the Client (left) and API Server (right) with the URL being 
 
 ### Breaking Down a URL
 
-Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weather API for the current temperature in San Luis Obispo:
+Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weather API for the current temperature in San Luis Obispo. Click **Next** to light up one piece at a time:
 
-```
-https://api.open-meteo.com/v1/forecast?latitude=35.28&longitude=-120.66&current=temperature_2m&temperature_unit=fahrenheit
+```{=html}
+<div id="url-stepper" style="border:2px solid #c7d2fe; border-radius:14px; padding:1.1rem 1.25rem; margin:1rem 0; background:#f6f7ff;">
+  <div style="font-family:ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size:0.95rem; line-height:2.2; word-break:break-all; background:#ffffff; border:1px solid #e0e7ff; border-radius:10px; padding:.85rem 1rem;">
+    <span class="us-seg" id="us-proto">https://</span><span class="us-seg" id="us-host">api.open-meteo.com</span><span class="us-seg" id="us-end">/v1/forecast</span><span class="us-seg" id="us-q">?</span><span class="us-seg" id="us-p1">latitude=35.28</span><span class="us-seg" id="us-amp1">&amp;</span><span class="us-seg" id="us-p2">longitude=-120.66</span><span class="us-seg" id="us-amp2">&amp;</span><span class="us-seg" id="us-p3">current=temperature_2m</span><span class="us-seg" id="us-amp3">&amp;</span><span class="us-seg" id="us-p4">temperature_unit=fahrenheit</span>
+  </div>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:.78rem; color:#64748b; margin-top:.6rem;">
+    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#7c3aed;"></span> Protocol</span>
+    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#4f46e5;"></span> Base URL</span>
+    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#d97706;"></span> Endpoint</span>
+    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#be123c;"></span> Separators <code style="font-size:.9em;">? &amp;</code></span>
+    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#059669;"></span> Key-value pairs</span>
+  </div>
+  <div id="us-caption" style="min-height:3em; font-size:1rem; text-align:center; padding:.6rem .8rem; background:#fff; border-radius:8px; border:1px solid #e0e7ff; margin-top:.8rem;"></div>
+  <div style="display:flex; justify-content:center; align-items:center; gap:.5rem; margin-top:.8rem; flex-wrap:wrap;">
+    <button id="us-restart" class="us-btn">⏮ Restart</button>
+    <button id="us-back" class="us-btn">◀ Back</button>
+    <span id="us-dots" style="letter-spacing:.35em; font-size:1rem; color:#8b949e;"></span>
+    <button id="us-next" class="us-btn">Next ▶</button>
+    <button id="us-play" class="us-btn" style="min-width:6.5em;">▶ Play</button>
+  </div>
+</div>
+<style>
+  .us-btn { border:1px solid #c7d2fe; background:#fff; border-radius:8px; padding:.35rem .8rem; cursor:pointer; font-size:.9rem; color:#312e81; }
+  .us-btn:hover { background:#eef2ff; }
+  .us-seg { border-radius:5px; padding:.12em .1em; transition: all .35s ease; border-bottom:3px solid transparent; }
+  .us-dim { opacity:.32; }
+  .us-violet  { background:#f3e8ff; color:#6d28d9; border-bottom-color:#7c3aed; font-weight:700; }
+  .us-indigo  { background:#e0e7ff; color:#3730a3; border-bottom-color:#4f46e5; font-weight:700; }
+  .us-orange  { background:#ffedd5; color:#c2410c; border-bottom-color:#d97706; font-weight:700; }
+  .us-rose    { background:#ffe4e6; color:#be123c; border-bottom-color:#be123c; font-weight:700; }
+  .us-emerald { background:#d1fae5; color:#047857; border-bottom-color:#059669; font-weight:700; }
+</style>
+<script>
+(function() {
+  const ALL = ["us-proto","us-host","us-end","us-q","us-p1","us-amp1","us-p2","us-amp2","us-p3","us-amp3","us-p4"];
+  const FINAL = { "us-proto":"us-violet", "us-host":"us-indigo", "us-end":"us-orange", "us-q":"us-rose",
+                  "us-p1":"us-emerald", "us-amp1":"us-rose", "us-p2":"us-emerald", "us-amp2":"us-rose",
+                  "us-p3":"us-emerald", "us-amp3":"us-rose", "us-p4":"us-emerald" };
+  const steps = [
+    { text: "One string carries the <strong>entire request</strong>. Click <strong>Next</strong> to break it apart, piece by piece.", on: {} },
+    { text: "<strong>Protocol</strong> — <code>https://</code>: <em>how</em> to communicate. The <strong>s</strong> means the connection is secure.", on: { "us-proto":"us-violet" } },
+    { text: "<strong>Base URL</strong> — <code>api.open-meteo.com</code>: <em>which server</em> to talk to. This is the API's home address.", on: { "us-host":"us-indigo" } },
+    { text: "<strong>Endpoint</strong> — <code>/v1/forecast</code>: <em>which resource</em> you want. The stable part — it stays the same from request to request.", on: { "us-end":"us-orange" } },
+    { text: "<strong>The <code>?</code></strong> — the boundary. The address ends here; the customization begins.", on: { "us-q":"us-rose" } },
+    { text: "<strong>Key-value pair</strong> — <code>latitude=35.28</code>: key on the left, value on the right. Where (north–south)?", on: { "us-p1":"us-emerald" } },
+    { text: "<strong><code>&amp;</code> chains pairs together</strong> — next pair: <code>longitude=-120.66</code>. Where (east–west)?", on: { "us-amp1":"us-rose", "us-p2":"us-emerald" } },
+    { text: "<code>current=temperature_2m</code> — <em>what data</em> you want.", on: { "us-amp2":"us-rose", "us-p3":"us-emerald" } },
+    { text: "<code>temperature_unit=fahrenheit</code> — your unit preference.", on: { "us-amp3":"us-rose", "us-p4":"us-emerald" } },
+    { text: "<strong>The full anatomy</strong>: protocol + base URL + endpoint + <code>?</code> + key-value pairs chained by <code>&amp;</code>. Tomorrow we send exactly this.", on: FINAL }
+  ];
+  let i = 0, timer = null;
+  const $ = id => document.getElementById(id);
+  function render() {
+    const active = Object.keys(steps[i].on).length > 0;
+    ALL.forEach(id => {
+      const el = $(id);
+      el.className = "us-seg";
+      const cls = steps[i].on[id];
+      if (cls) el.classList.add(cls);
+      else if (active && i !== steps.length - 1) el.classList.add("us-dim");
+    });
+    $("us-caption").innerHTML = steps[i].text;
+    $("us-dots").textContent = steps.map((_, k) => k === i ? "●" : "○").join("");
+  }
+  function stopPlay() { if (timer) { clearInterval(timer); timer = null; $("us-play").textContent = "▶ Play"; } }
+  $("us-next").onclick = () => { stopPlay(); i = (i + 1) % steps.length; render(); };
+  $("us-back").onclick = () => { stopPlay(); i = (i - 1 + steps.length) % steps.length; render(); };
+  $("us-restart").onclick = () => { stopPlay(); i = 0; render(); };
+  $("us-play").onclick = () => {
+    if (timer) { stopPlay(); return; }
+    $("us-play").textContent = "⏸ Pause";
+    timer = setInterval(() => { i = (i + 1) % steps.length; render(); }, 3400);
+  };
+  render();
+})();
+</script>
 ```
 
-| Component | Value | Purpose |
-|-----------|-------|---------|
-| **Protocol** | `https://` | Secure communication |
-| **Base URL** | `api.open-meteo.com` | The API server |
-| **Endpoint** | `/v1/forecast` | Which resource you want |
-| **Query separator** | `?` | Marks the start of parameters |
-| **Parameter 1** | `latitude=35.28` | Where (north–south) |
-| **Parameter separator** | `&` | Separates key-value pairs |
-| **Parameter 2** | `longitude=-120.66` | Where (east–west) |
-| **Parameter 3** | `current=temperature_2m` | What data you want |
-| **Parameter 4** | `temperature_unit=fahrenheit` | Unit preference |
+And the same anatomy, condensed to five pieces:
+
+| | Component | Value | Purpose |
+|--|-----------|-------|---------|
+| 🟣 | **Protocol** | `https://` | *How* — secure communication |
+| 🔵 | **Base URL** | `api.open-meteo.com` | *Who* — the API server |
+| 🟠 | **Endpoint** | `/v1/forecast` | *What resource* — the stable part |
+| 🔴 | **Separators** | `?` then `&` | `?` starts the customization; `&` chains pairs |
+| 🟢 | **Key-value pairs** | `latitude=35.28`, … | *The details* — where, what data, which units |
 
 ::: {.callout-note}
 ## Key Vocabulary
@@ -344,7 +444,7 @@ In this session, we learned how requests are actually written:
 
 1. **CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
 2. **GET Requests** — retrieve data, parameters in the URL
-3. **POST Requests** — send new data in the request body
+3. **POST Requests** *(optional)* — send new data in the request body
 4. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
 
 🎯 Goal progress: we can now *read and write the request half* of our goal sentence. **Up next in Session 3 (tomorrow):** we make it real — we'll send that exact Open-Meteo URL from a browser and from R, get live weather back, and format the response into a data frame. No API key needed.

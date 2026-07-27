@@ -48,7 +48,13 @@ If you ever feel overwhelmed, come back to this sentence. Every part of every se
 
 ## Part 1: What is an API?
 
-**API** stands for **Application Programming Interface**. At its core, an API is a way for software to communicate with other software. In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.
+::: {.callout-important icon="false"}
+## 📖 Definition — API
+
+An **API** (**Application Programming Interface**) is a structured way for one piece of software to request data or services from another — an agreed-upon set of rules that lets programs talk to each other without either one needing to know how the other works inside.
+:::
+
+In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.
 
 ### Watch First: The Restaurant Analogy
 

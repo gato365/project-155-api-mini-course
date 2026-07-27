@@ -1,0 +1,84 @@
+---
+title: "Glossary"
+subtitle: "Every key term in the workshop, in one place"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    css: custom.css
+---
+
+Quick reference for every term we use across the four sessions. Each entry notes where the term is first introduced, so you can jump back to the full explanation.
+
+## The Cast — Who's Involved
+
+**API** (Application Programming Interface) — a structured way for one piece of software to request data or services from another; an agreed-upon set of rules that lets programs talk to each other without either needing to know how the other works inside. In the restaurant analogy: the waiter. *([Session 1, Part 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Client** — the program making the request: your R script, your browser, an app. In the analogy: you, placing the order. *([Session 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Server** — the computer/program that receives requests, runs the backend logic, and prepares responses. The kitchen. *([Session 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Database** — where the data actually lives; the server queries it to fulfill requests. The fridge. *([Session 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Endpoint** — the specific URL where an API resource can be accessed; the *stable* part of the URL that doesn't change from one request to the next (e.g., `/v1/forecast`). *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+## The Conversation — Requests & Responses
+
+**Request** — the client *asking* for something. For our purposes, a request is written as a **URL**. *([Session 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Response** — what the server sends back: **data**, **metadata**, and a **status code**, almost always formatted as JSON. *([Session 1](sessions/01_JSON_and_Request_Response.qmd))*
+
+**HTTP** (HyperText Transfer Protocol) — the standard set of rules for sending requests and responses across the web. GET, POST, PUT, and DELETE are HTTP's built-in verbs. *([Session 2, Part 1](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**HTTP Method** — the verb of a request, announcing what kind of action it asks for: `GET` (read), `POST` (create), `PUT`/`PATCH` (update), `DELETE` (remove). *([Session 2](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**GET** — the HTTP method for *reading* data. Parameters travel in the URL; nothing changes on the server. Nearly all data science API work is GET. *([Session 2, Part 2](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**POST** — the HTTP method for *sending new data* to the server; the data travels in the request **body** rather than the URL. *([Session 2, Part 3](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**CRUD** — the four fundamental operations: **C**reate (POST), **R**ead (GET), **U**pdate (PUT/PATCH), **D**elete (DELETE). *([Session 2, Part 1](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**Status Code** — a number in every response saying what happened: `2xx` success (`200 OK`), `4xx` client-side problem (`404 Not Found`), `5xx` server-side problem (`500`). *([Session 1, Part 6](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Rate Limit** — a cap on how many requests you may make in a time window; exceeding it returns status `429 Too Many Requests`. *([Session 1, Part 6](sessions/01_JSON_and_Request_Response.qmd))*
+
+## The Address — Anatomy of a URL
+
+**URL** (Uniform Resource Locator) — a web address: a single string that says exactly where a resource lives and how to reach it. For APIs, **the URL is the request**. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**Protocol** — the first piece of a URL (`https://`): *how* to communicate. The `s` means secure. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**Base URL** — the server's address (`api.open-meteo.com`): *who* to talk to. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**Query String** — everything after the `?`: the key-value pairs that customize the request, chained together with `&`. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**Query Parameter** — one key-value pair inside the query string, like `latitude=35.28`. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+**API Key** — an ID some APIs require as an extra query parameter (or header) to identify who is making the request — like showing a library card. Open-Meteo doesn't need one. *([Session 2, Part 4](sessions/02_CRUD_HTTP_Methods_URL.qmd))*
+
+## The Data — JSON
+
+**JSON** (JavaScript Object Notation) — the plain-text format APIs use to send data: human-readable, machine-readable, and language-independent. No JavaScript knowledge required. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Key / Value** — the fundamental JSON pattern `"key": value`. The key is the label (always in double quotes); the value is the information — a string, number, boolean, array, or object. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Object** — a set of key-value pairs wrapped in curly braces `{ }`. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Array** — an ordered list wrapped in square brackets `[ ]`, like `["egg", "cheese"]`. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Nesting** — an object or array sitting *inside* another object as a value, like `"coordinates": { "lat": 35.28, "lon": -120.66 }`. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Body / Content** — everything the server sends back in a response; the JSON wrapped in the outermost curly braces. *([Session 1, Part 5](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Metadata** — information *about* the response rather than the data itself: timestamps, units, generation time. *([Session 1, Part 5](sessions/01_JSON_and_Request_Response.qmd))*
+
+## In R
+
+**Named List** — what a JSON object becomes in R: each key becomes a name, each nested object becomes a list inside the list. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**Parsing** — converting the raw JSON text of a response into R data structures (e.g., with `resp_body_json()`). *([Session 3](sessions/03_Weather_API_Setup.qmd))*
+
+**Flattening** — turning nested lists into a flat data frame (e.g., with `as.data.frame()`); nested keys join with periods, so `coordinates` → `lat` becomes the column `coordinates.lat`. *([Session 1, Part 3](sessions/01_JSON_and_Request_Response.qmd))*
+
+**httr2** — the R package we use to build and perform requests: `request()`, `req_url_query()`, `req_perform()`, `resp_status()`, `resp_body_json()`. *([Session 3](sessions/03_Weather_API_Setup.qmd))*

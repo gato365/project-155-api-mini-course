@@ -31,6 +31,8 @@ website:
           - text: "Session 4 — Historical Weather & Visualization"
             href: sessions/04_Historical_Weather_Visualization.qmd
     right:
+      - text: "Glossary"
+        href: glossary.qmd
       - text: "Practice Labs"
         menu:
           - text: "Lab 1 — NASA Open APIs"

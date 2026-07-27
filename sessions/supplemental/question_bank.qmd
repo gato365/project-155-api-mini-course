@@ -44,9 +44,9 @@ All questions across Sessions 1–4, listed by session and part. **Types:** MC =
 | 1: CRUD | Q2 | MC | Most common CRUD operation in data science | a (Read) |
 | 2: GET | Visual Check | FIB | Changing `/users/42` to `/users/7` changes only the ____ | path |
 | 2: GET | Q3 | MC | Which task is a GET request | e (retrieve NYT articles) |
-| 3: POST | Visual Check | MC | Where the POST payload lives | b (request body) |
-| 3: POST | Q4 | MC | Which task requires POST | c (submitting a tweet) |
-| 3: POST | Q5 | MC | POST in the restaurant analogy | a (submitting a new recipe) |
+| 3: POST (optional, full tab) | Visual Check | MC | Where the POST payload lives | b (request body) |
+| 3: POST (optional, full tab) | Q4 | MC | Which task requires POST | c (submitting a tweet) |
+| 3: POST (optional, full tab) | Q5 | MC | POST in the restaurant analogy | a (submitting a new recipe) |
 | 4: URL Anatomy | Visual Check | FIB ×2 | Boundary character; pair separator | `?`; `&` |
 | 4: URL Anatomy | Q6 | SA | Identify endpoint + key-value pairs in Spotify URL | endpoint `/v1/search`; `q=Daft+Punk`, `type=artist` |
 | 4: URL Anatomy | Q7 | MC | GET sends a ____ and receives ____ | d (URL → JSON) |
