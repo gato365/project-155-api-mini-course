@@ -55,6 +55,17 @@ request("https://api.open-meteo.com/v1/forecast")
 That address — `https://api.open-meteo.com/v1/forecast` — is the **endpoint** from Session 2: the stable "front door" that never changes. Everything else we want (which city, which measurements, which units) goes in the **query string**.
 
 ::: {.callout-note}
+## Why `api.open-meteo.com` and Not Just `open-meteo.com`?
+
+Notice the endpoint is **not** the same address as the regular website. Open-Meteo actually has *two* front doors:
+
+- **`open-meteo.com`** — the door for **humans**: a web page with documentation, meant to be read in a browser.
+- **`api.open-meteo.com`** — the door for **programs**: a server whose only job is to answer requests with raw JSON data.
+
+Putting the API on its own `api.` subdomain is a near-universal convention — it lets the company run, scale, and update the data service separately from the marketing/docs website. When you see `api.` at the front of a domain, you're looking at the machine door, not the human one. Keep this in mind: later today we'll meet a *third* door for a different service.
+:::
+
+::: {.callout-note}
 ## What About API Keys, Clients & Secrets?
 
 Many commercial APIs (OpenWeather, X, Spotify, ...) require you to register and receive credentials — an **API key**, sometimes a **client ID** and **secret** — which you attach to every request like an ID card, and which you must store carefully (never directly in your script!). It's an important real-world concept, and the Practice Labs on this site show it in action.
@@ -99,17 +110,27 @@ e) It only returns data for cities in Europe.
 ---
 
 
-## Part 2: See It in the Browser First
+## Part 2: See It in the Browser First — The Big Moment
 
-Here is the payoff of Session 2's URL anatomy: **a request is just a URL — so a web browser can make one.**
+**Stop. This is the moment the last two sessions have been building toward.**
 
-Copy this URL and paste it into a new browser tab, exactly as it is:
+For a day and a half, "request" and "response" have been arrows on a diagram. In the next sixty seconds they become *real* — and you will not write a single line of code to do it.
+
+Here is the payoff of Session 2's URL anatomy: **a request is just a URL — so a web browser can make one.** Look at this URL *before* you paste it. You can already read every piece of it — that's Session 2:
 
 ```
 https://api.open-meteo.com/v1/forecast?latitude=35.28&longitude=-120.66&current=temperature_2m&temperature_unit=fahrenheit
 ```
 
-**Try it now.** What comes back is not a web page — it is raw **JSON**, right there in your browser:
+- `https://api.open-meteo.com/v1/forecast` — the **endpoint** (the stable front door)
+- `?` — "here come my details"
+- `latitude=35.28&longitude=-120.66` — *where* (San Luis Obispo)
+- `current=temperature_2m` — *what* (the temperature right now)
+- `temperature_unit=fahrenheit` — *how* (in °F)
+
+**You are literally looking at a request, written out as a URL.** Now copy it, paste it into a new browser tab, and press Enter.
+
+**What just happened?** Your browser sent that request across the internet to Open-Meteo's server, and the server answered. What came back is not a web page — no colors, no buttons, no ads. It is a raw **JSON response**, exactly the structure we studied in Session 1, sitting right there in your browser:
 
 ``` json
 {
@@ -124,18 +145,26 @@ https://api.open-meteo.com/v1/forecast?latitude=35.28&longitude=-120.66&current=
 }
 ```
 
-Look at what you can already recognize from Sessions 1 and 2:
+Take a second and let this land. Every single piece of what's on your screen is something you already know:
 
-- The **endpoint** and the **query string** in the address bar (`?`, `&`, key-value pairs)
-- The response wrapped in curly braces `{ }` — the **body**
-- **Data** (`temperature_2m: 71.4`), and **metadata** (`current_units`, `timezone`)
-- Your browser made a **GET** request — typing a URL into the address bar is always a GET
+- The **endpoint** and the **query string** in the address bar (`?`, `&`, key-value pairs) — *Session 2*
+- The response wrapped in curly braces `{ }` — the **body**, in **JSON** — *Session 1*
+- **Data** (`temperature_2m: 71.4`) and **metadata** (`current_units`, `timezone`) — *Session 1*
+- Your browser made a **GET** request — typing a URL into the address bar is always a GET — *Session 2*
 
-Now change `latitude=35.28&longitude=-120.66` to another location (Boston is `latitude=42.36&longitude=-71.06`) and reload. Live data, different city, same endpoint.
+That number — `71.4` — is the actual temperature in San Luis Obispo *right now*. A server you've never seen just measured the world and handed you the answer, because you asked correctly.
 
-::: {.callout-tip}
-## 🎯 Goal Check
-You just completed the first half of the goal — **you made a request** — with zero code. R is only going to automate what the browser just did.
+Now change `latitude=35.28&longitude=-120.66` to another location (Boston is `latitude=42.36&longitude=-71.06`) and reload. Live data, different city, same endpoint. Edit the URL, press Enter, new answer — **you are having a conversation with a server, by hand.**
+
+::: {.callout-important}
+## 🎯 The Goal — Half Met Already
+
+Read the goal sentence again: *"Make a request to an API, then format the response into something we can analyze."*
+
+- **Make a request to an API** — ✅ you just did it. That URL *was* the request.
+- **Get a response** — ✅ you just did that too. That JSON *was* the response.
+
+With **zero lines of code**, the request/response loop from Sessions 1 and 2 just happened for real, on your screen. So what's left for R? **Automation.** The browser can make one request at a time, by hand, and you have to read the JSON with your eyes. R will do *exactly the same thing* the browser just did — same URL, same GET, same JSON — but it can do it a hundred times in a loop and hand the answers back as data you can analyze. That's the entire rest of the workshop: not a new idea, just automating the thing you just did.
 :::
 
 
@@ -186,6 +215,8 @@ We'll do **E** and **T** in this session and add **V** in Session 4. Whenever yo
 
 ### Load Libraries
 
+Each library we load is hired for **one specific ETV job**. Read the comments as a map of the whole workshop:
+
 ```{r}
 #| output: false
 library(httr2)       # E: makes web requests
@@ -195,9 +226,24 @@ library(purrr)       # T: map() — apply a recipe to many inputs
 library(ggplot2)     # V: visualizations
 ```
 
+### The Functions Behind Each Letter
+
+Here's the deeper look — the specific functions each library gives us, and exactly where they sit in the cycle:
+
+| Library | Key functions | ETV step | What it actually does |
+|---------|---------------|----------|------------------------|
+| `httr2` | `request()`, `req_url_query()`, `req_perform()` | **E** | `request()` starts from the endpoint, `req_url_query()` builds the query string (the part after `?`), and `req_perform()` actually sends it — together they do what your browser's address bar did in Part 2 |
+| `httr2` | `resp_status()`, `resp_body_json()` | **E → T** (the handoff) | `resp_status()` checks for `200`, and `resp_body_json()` unwraps the JSON body into an R named list — the bridge from *response* to *data* |
+| `tibble` | `tibble()`, `tribble()` | **T** | Builds the rectangular data frame — the "something we can analyze" from the goal sentence |
+| `dplyr` | `bind_rows()` | **T** | Stacks many small tibbles into one big one (we'll need this the moment we ask about more than one city) |
+| `purrr` | `map()`, `pmap()` | **T** (the multiplier) | Applies the same E+T recipe to many inputs — this is the "automation" that makes R better than the browser |
+| `ggplot2` | `ggplot()` | **V** | Turns the tibble into a plot — Session 4's job |
+
+Notice the shape of that table: **E is entirely `httr2`**, **T is `tibble` + `dplyr` + `purrr`**, and **V is `ggplot2`**. When an error message mentions a function, the library it came from tells you *which ETV step broke* — that's your debugging compass for the rest of the workshop.
+
 ::: {.callout-tip}
 ## 🎯 Goal Check
-ETV *is* the goal sentence, written as three letters: **E** = make a request, **T** = format the response, **V** = analyze it.
+ETV *is* the goal sentence, written as three letters: **E** = make a request, **T** = format the response, **V** = analyze it. And the libraries are the goal sentence written as code: `httr2` makes the request, `tibble`/`dplyr`/`purrr` format the response, `ggplot2` analyzes it.
 :::
 
 
@@ -382,16 +428,29 @@ e) It is a file path.
 
 ## Part 6: Geocoding — Where Do the Coordinates Come From?
 
-We typed the latitude and longitude by hand. But Open-Meteo also has a **geocoding** endpoint that converts a city *name* into coordinates. Browser first, as always — paste this:
+We typed the latitude and longitude by hand. But Open-Meteo also has a **geocoding** endpoint that converts a city *name* into coordinates.
+
+::: {.callout-important}
+## ⚠️ Look Closely — This Is a *Different Endpoint*
+
+Compare the two front doors:
+
+- Forecast: `https://api.open-meteo.com/v1/forecast`
+- Geocoding: `https://geocoding-api.open-meteo.com/v1/search`
+
+**Everything changed** — different subdomain (`geocoding-api` vs. `api`), different path (`/search` vs. `/forecast`), and it will take different query parameters (`name` and `count` instead of `latitude` and `longitude`). Remember Part 1: each service gets its own machine door. Different endpoint = different service = different inputs and different response shape. Reading an endpoint's requirements is a skill you'll use with *every* API you ever touch.
+:::
+
+Browser first, as always — and this time let's use **Boston** as our example. Paste this:
 
 ```
-https://geocoding-api.open-meteo.com/v1/search?name=San+Luis+Obispo&count=1
+https://geocoding-api.open-meteo.com/v1/search?name=Boston&count=1
 ```
 
-You'll see JSON with a `results` array whose first entry contains `latitude`, `longitude`, `population`, and more. Now the same thing in R — with `map()` and an anonymous function again:
+You'll see JSON with a `results` array whose first entry contains Boston's `latitude` (about 42.36), `longitude` (about -71.06), `population`, and more. We asked a *name* question at a *different door* and got a *coordinates* answer — same request/response loop, brand-new service. Now the same thing in R — with `map()` and an anonymous function again:
 
 ```{r}
-city_names <- c("San Luis Obispo", "Boston", "Ames")
+city_names <- c("Boston", "San Luis Obispo", "Ames")
 
 coords_df <- city_names |>
   map(\(nm) {
@@ -415,11 +474,11 @@ coords_df <- city_names |>
 coords_df
 ```
 
-Now we can find *any* city's coordinates — which Session 4 will need, because the historical weather endpoint only speaks latitude/longitude.
+Now we can find *any* city's coordinates — which Session 4 will need, because the historical weather endpoint only speaks latitude/longitude (and Boston is one of the two cities Session 4 compares).
 
 ::: {.callout-tip}
 ## 🎯 Goal Check
-Notice we just ran the **same ETV pattern a third time** — different endpoint, same skills. That's the whole trick: every API interaction is the same cycle.
+Notice we just ran the **same ETV pattern a third time** — on a **completely different endpoint**, with different parameters and a different response shape — and none of our skills changed. That's the whole trick: every API interaction, at every endpoint, at every company, is the same cycle.
 :::
 
 
@@ -538,12 +597,12 @@ e) Create a request object with `request()`
 Today the goal became real:
 
 1. **Open-Meteo API** — free, no API key, endpoint `https://api.open-meteo.com/v1/forecast`
-2. **Browser first** — a request is just a URL; the browser shows the raw JSON response
-3. **ETV Cycle** — Extract (request), Transform (JSON → tibble), Visualize (Session 4)
+2. **Browser first** — a request is just a URL; pasting it made a real request and the raw JSON on screen was a real response — the goal, met with zero code. R doesn't do anything new; it **automates** what the browser did
+3. **ETV Cycle** — Extract (request), Transform (JSON → tibble), Visualize (Session 4) — with each library owning one letter: `httr2` = E, `tibble`/`dplyr`/`purrr` = T, `ggplot2` = V
 4. **Extract in R** — `request()` |> `req_url_query()` |> `req_perform()` |> `resp_body_json()`
 5. **Transform in R** — pulling values from the named list into a `tibble()`
 6. **Scaling with `map()`** — anonymous functions `\( )` apply the same recipe to many cities, no copy-paste
-7. **Geocoding** — converting city names into the coordinates other endpoints need
+7. **Geocoding** — a **different endpoint** (`geocoding-api.open-meteo.com/v1/search`) that converts city names (like Boston) into the coordinates other endpoints need — different door, same ETV skills
 
 **Up next in Session 4:** the **V** in ETV — historical weather data for Boston vs. San Luis Obispo, and your own visualizations!
 
