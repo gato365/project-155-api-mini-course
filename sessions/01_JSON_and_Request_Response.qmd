@@ -281,7 +281,67 @@ Before we talk about what comes back from an API, we need a ten-minute detour. T
 In the restaurant, the kitchen doesn't hand you food in a random pile — every dish arrives plated in a predictable way. Data works the same way: servers send information back in one standard written format so that any program can read it. That format is JSON. Ten minutes here makes everything that follows easier.
 :::
 
-### What is JSON?
+**Two ways through this part.** Depending on how the hour is going, pick a tab: the **Short Version** covers everything in one example (\~5 minutes); the **Full Version** adds the two hands-on activities (\~15 minutes). Both paths end at the same weather JSON, and the questions afterward work for either one.
+
+::: {.panel-tabset}
+
+### ⚡ Short Version (\~5 min)
+
+**JSON** (JavaScript Object Notation) is the plain-text format APIs use to send data. It's human-readable, and every programming language — including R — can parse it. Don't let the name worry you: no JavaScript required. And keep one distinction straight: **the API is the waiter; JSON is the language the receipt is written in.**
+
+Everything you need to read JSON fits in this one restaurant order:
+
+``` json
+{
+  "table": 7,
+  "customer": {
+    "name": "Maya",
+    "rewards_member": true
+  },
+  "items": ["pancakes", "omelet", "coffee"],
+  "total": 31.25
+}
+```
+
+Four rules:
+
+-   Every entry is a **`"key": value`** pair — keys always in double quotes, a colon between, commas separating the pairs
+-   **Values have types**: strings in quotes (`"Maya"`), numbers bare (`31.25`), booleans bare and lowercase (`true`)
+-   Curly braces `{ }` make an **object** — a set of key-value pairs. `customer` is an object **nested** inside the order
+-   Square brackets `[ ]` make an **array** — an ordered list. `items` holds three strings
+
+#### Quick Check — Point and Read. {.unnumbered}
+
+Together, point to: one key, one string, one number, one boolean, the array, and the nested object. Then answer: what is the value of `"name"`, and where does it live?
+
+::: {.callout-tip collapse="true" title="Answer — Point and Read"}
+`"Maya"` — a string, living inside the nested `customer` object. (Top-level keys: `table`, `customer`, `items`, `total`; inside `customer`: `name` and `rewards_member`. The array is `items`; the boolean is `true`.)
+:::
+
+#### The Payoff
+
+Same structure, different keys — this is the shape of a real weather API response, and it's exactly what our R script will receive tomorrow:
+
+``` json
+{
+  "city": "San Luis Obispo",
+  "coordinates": {
+    "lat": 35.28,
+    "lon": -120.66
+  },
+  "weather": {
+    "main": "Clear",
+    "temp": 72,
+    "humidity": 45
+  }
+}
+```
+
+Nothing new: keys and values, with `coordinates` and `weather` as nested objects.
+
+### 🧭 Full Version (\~15 min)
+
+#### What is JSON?
 
 **JSON** stands for **JavaScript Object Notation**. Don't let the name scare you — you do not need to know JavaScript. JSON is just **plain text**, written with a few simple punctuation rules, used to describe structured data.
 
@@ -298,7 +358,7 @@ APIs almost universally speak JSON because it is:
 Keep these two ideas separate: the **API** is the waiter — the messenger. **JSON** is the language the receipt is written in. When we say "the API returns JSON," we mean: the messenger hands you a note, and the note is written in JSON.
 :::
 
-### Keys and Values
+#### Keys and Values
 
 Here is a small, complete JSON example — a single breakfast order:
 
@@ -320,7 +380,7 @@ Every entry follows the same pattern: `"key": value`.
 -   A colon `:` connects each key to its value; commas separate the pairs
 -   Curly braces `{ }` wrap the whole thing
 
-### Objects, Arrays, and Nesting
+#### Objects, Arrays, and Nesting
 
 Three more words of vocabulary and you can read almost any JSON in the wild:
 
@@ -346,7 +406,7 @@ Read it out loud: table 7; the customer is a nested object with a name and a mem
 
 #### ———————
 
-### Guided Activity — Read the JSON. {.unnumbered}
+#### Guided Activity — Read the JSON. {.unnumbered}
 
 Work through these together using the JSON below (\~5 minutes):
 
@@ -382,7 +442,7 @@ Work through these together using the JSON below (\~5 minutes):
 
 #### ———————
 
-### Your Turn — Complete the JSON. {.unnumbered}
+#### Your Turn — Complete the JSON. {.unnumbered}
 
 This JSON describes a coffee order, but it's unfinished (\~5 minutes). Fill in the three blanks with a value of the right **type**, then **add one more key-value pair**: `"to_go"` with the value `true`.
 
@@ -413,7 +473,7 @@ Any drink string, any number, and either boolean works. The two things that matt
 
 #### ———————
 
-### From the Café to the API
+#### From the Café to the API
 
 Now the payoff. Here is the same structure with different keys — this is the shape of a real weather API response:
 
@@ -433,6 +493,8 @@ Now the payoff. Here is the same structure with different keys — this is the s
 ```
 
 Nothing here is new: one object with keys and values, two of which (`coordinates` and `weather`) are nested objects. If you could read the avocado toast, you can read this — and this is exactly what will arrive every time our R script calls the weather API tomorrow.
+
+:::
 
 ::: callout-important
 ## Thinking in R Terms

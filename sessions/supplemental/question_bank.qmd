@@ -22,8 +22,9 @@ All questions across Sessions 1–4, listed by session and part. **Types:** MC =
 | 2: API Data Flow | Q3 | FIB | Client → ____ → Server → Database | API |
 | 2: API Data Flow | Q4 | FIB | Restaurant story, five blanks | client, waiter, kitchen, fridge, response |
 | 2: API Data Flow | Q5 | MC | API documentation is analogous to the ____ | e (the menu) |
-| 3: JSON Detour | Guided Activity | SA ×5 | Read the avocado-toast JSON: count top-level pairs; type of `vegetarian`; which key is an array; which is a nested object; value of `country` | 6; boolean `true`; `toppings` (2 items); `origin`; "Australia" |
-| 3: JSON Detour | Your Turn | Edit | Complete the coffee-order JSON (fill three typed blanks, add `"to_go": true`) | any values with correct types + comma before new pair |
+| 3: JSON Detour (short tab) | Quick Check | SA | Point to a key, string, number, boolean, array, nested object; value of `name` | "Maya", inside the nested `customer` object |
+| 3: JSON Detour (full tab) | Guided Activity | SA ×5 | Read the avocado-toast JSON: count top-level pairs; type of `vegetarian`; which key is an array; which is a nested object; value of `country` | 6; boolean `true`; `toppings` (2 items); `origin`; "Australia" |
+| 3: JSON Detour (full tab) | Your Turn | Edit | Complete the coffee-order JSON (fill three typed blanks, add `"to_go": true`) | any values with correct types + comma before new pair |
 | 3: JSON Detour | Q6 | MC | JSON's fundamental structure | c (key-value pairs) |
 | 3: JSON Detour | Q7 | FIB | In R, a JSON object becomes a named ____ | list |
 | 3: JSON Detour | Q8 | FIB | Flattened column name for latitude | coordinates.lat |
