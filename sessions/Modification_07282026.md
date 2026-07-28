@@ -36,7 +36,8 @@ While highlighting major concepts for the API workflow, the focus should be on *
 This already exists for all the sessions, but needs to be double-checked for completeness and consistency. Everything should be fill in blank nothing from scratch. The goal is to have participants **fill in the blanks** rather than write code from scratch.
 
 
-5. **Switch from OpenWeather API to Open-Meteo.** Open-Meteo requires no API key, which eliminates the entire API-key-setup section and the security/`.Renviron` discussion as a blocker. (Can still mention API keys conceptually as a brief aside.)
+
+DONE I do
 
 6. **Add a Session 0 (Opening) block** — the 30-minute pre-session setup and welcome. This is not a full session, but needs a slide or outline in the materials.
 
