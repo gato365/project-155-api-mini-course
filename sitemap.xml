@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/notes.html</loc>
-    <lastmod>2026-06-17T14:17:20.862Z</lastmod>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/Modification_07282026.html</loc>
+    <lastmod>2026-07-28T21:27:11.501Z</lastmod>
   </url>
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/changes_to_gifs.html</loc>
-    <lastmod>2026-07-21T23:57:33.201Z</lastmod>
+    <loc>https://gato365.github.io/project-155-api-mini-course/general_notes_modifications.html</loc>
+    <lastmod>2026-07-02T22:43:03.254Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gato365.github.io/project-155-api-mini-course/sessions/take_home_exercises.html</loc>
+    <lastmod>2026-07-30T19:35:57.246Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/supplemental/question_bank.html</loc>
-    <lastmod>2026-07-27T00:25:00.524Z</lastmod>
+    <lastmod>2026-07-30T19:41:42.225Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/supplemental/nasa_api.html</loc>
@@ -22,31 +26,31 @@
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/04_Historical_Weather_Visualization.html</loc>
-    <lastmod>2026-07-06T02:18:23.946Z</lastmod>
+    <lastmod>2026-07-30T19:38:35.380Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/02_CRUD_HTTP_Methods_URL.html</loc>
-    <lastmod>2026-07-27T00:22:35.979Z</lastmod>
+    <lastmod>2026-07-30T19:35:30.018Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/00_Getting_Started.html</loc>
-    <lastmod>2026-07-26T17:04:53.024Z</lastmod>
+    <lastmod>2026-07-30T19:39:02.504Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/glossary.html</loc>
-    <lastmod>2026-07-27T00:23:03.243Z</lastmod>
+    <lastmod>2026-07-30T19:42:09.497Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/index.html</loc>
-    <lastmod>2026-07-26T16:55:18.028Z</lastmod>
+    <lastmod>2026-07-30T19:38:50.084Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/01_JSON_and_Request_Response.html</loc>
-    <lastmod>2026-07-27T00:21:00.644Z</lastmod>
+    <lastmod>2026-07-30T19:33:49.275Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/03_Weather_API_Setup.html</loc>
-    <lastmod>2026-07-06T02:16:53.811Z</lastmod>
+    <lastmod>2026-07-30T19:37:19.788Z</lastmod>
   </url>
   <url>
     <loc>https://gato365.github.io/project-155-api-mini-course/sessions/supplemental/cat_api.html</loc>
@@ -65,7 +69,11 @@
     <lastmod>2026-06-19T00:05:35.894Z</lastmod>
   </url>
   <url>
-    <loc>https://gato365.github.io/project-155-api-mini-course/general_notes_modifications.html</loc>
-    <lastmod>2026-07-02T22:43:03.254Z</lastmod>
+    <loc>https://gato365.github.io/project-155-api-mini-course/changes_to_gifs.html</loc>
+    <lastmod>2026-07-21T23:57:33.201Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gato365.github.io/project-155-api-mini-course/notes.html</loc>
+    <lastmod>2026-06-17T14:17:20.862Z</lastmod>
   </url>
 </urlset>

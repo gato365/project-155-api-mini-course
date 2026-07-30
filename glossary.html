@@ -106,19 +106,23 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="./sessions/01_JSON_and_Request_Response.html">
- <span class="dropdown-text">Session 1 — JSON &amp; Request/Response</span></a>
+ <span class="dropdown-text">Session 1 — API Mechanics &amp; Response Fundamentals</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./sessions/02_CRUD_HTTP_Methods_URL.html">
- <span class="dropdown-text">Session 2 — CRUD, HTTP Methods &amp; URL Anatomy</span></a>
+ <span class="dropdown-text">Session 2 — The Anatomy of a Request</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./sessions/03_Weather_API_Setup.html">
- <span class="dropdown-text">Session 3 — Weather API Setup</span></a>
+ <span class="dropdown-text">Session 3 — Weather API — First Real Requests</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./sessions/04_Historical_Weather_Visualization.html">
- <span class="dropdown-text">Session 4 — Historical Weather &amp; Visualization</span></a>
+ <span class="dropdown-text">Session 4 — Historical Weather, Visualization &amp; Wrap-Up</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sessions/take_home_exercises.html">
+ <span class="dropdown-text">Take-Home Exercises</span></a>
   </li>  
     </ul>
   </li>
@@ -224,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Client</strong> — the program making the request: your R script, your browser, an app. In the analogy: you, placing the order. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a>)</em></p>
 <p><strong>Server</strong> — the computer/program that receives requests, runs the backend logic, and prepares responses. The kitchen. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a>)</em></p>
 <p><strong>Database</strong> — where the data actually lives; the server queries it to fulfill requests. The fridge. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a>)</em></p>
-<p><strong>Endpoint</strong> — the specific URL where an API resource can be accessed; the <em>stable</em> part of the URL that doesn’t change from one request to the next (e.g., <code>/v1/forecast</code>). <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
+<p><strong>Endpoint</strong> — the specific URL where an API resource can be accessed; the <em>stable</em> part of the URL that doesn’t change from one request to the next (e.g., <code>/v1/forecast</code>). <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
 </section>
 <section id="the-conversation-requests-responses" class="level2">
 <h2 class="anchored" data-anchor-id="the-conversation-requests-responses">The Conversation — Requests &amp; Responses</h2>
@@ -233,35 +237,35 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>HTTP</strong> (HyperText Transfer Protocol) — the standard set of rules for sending requests and responses across the web. GET, POST, PUT, and DELETE are HTTP’s built-in verbs. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 1</a>)</em></p>
 <p><strong>HTTP Method</strong> — the verb of a request, announcing what kind of action it asks for: <code>GET</code> (read), <code>POST</code> (create), <code>PUT</code>/<code>PATCH</code> (update), <code>DELETE</code> (remove). <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2</a>)</em></p>
 <p><strong>GET</strong> — the HTTP method for <em>reading</em> data. Parameters travel in the URL; nothing changes on the server. Nearly all data science API work is GET. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 2</a>)</em></p>
-<p><strong>POST</strong> — the HTTP method for <em>sending new data</em> to the server; the data travels in the request <strong>body</strong> rather than the URL. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>POST</strong> — the HTTP method for <em>sending new data</em> to the server; the data travels in the request <strong>body</strong> rather than the URL. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 2</a>)</em></p>
 <p><strong>CRUD</strong> — the four fundamental operations: <strong>C</strong>reate (POST), <strong>R</strong>ead (GET), <strong>U</strong>pdate (PUT/PATCH), <strong>D</strong>elete (DELETE). <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 1</a>)</em></p>
-<p><strong>Status Code</strong> — a number in every response saying what happened: <code>2xx</code> success (<code>200 OK</code>), <code>4xx</code> client-side problem (<code>404 Not Found</code>), <code>5xx</code> server-side problem (<code>500</code>). <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 6</a>)</em></p>
-<p><strong>Rate Limit</strong> — a cap on how many requests you may make in a time window; exceeding it returns status <code>429 Too Many Requests</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 6</a>)</em></p>
+<p><strong>Status Code</strong> — a number in every response saying what happened: <code>2xx</code> success (<code>200 OK</code>), <code>4xx</code> client-side problem (<code>404 Not Found</code>), <code>5xx</code> server-side problem (<code>500</code>). <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 4</a>)</em></p>
+<p><strong>Rate Limit</strong> — a cap on how many requests you may make in a time window; exceeding it returns status <code>429 Too Many Requests</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 4</a>)</em></p>
 </section>
 <section id="the-address-anatomy-of-a-url" class="level2">
 <h2 class="anchored" data-anchor-id="the-address-anatomy-of-a-url">The Address — Anatomy of a URL</h2>
-<p><strong>URL</strong> (Uniform Resource Locator) — a web address: a single string that says exactly where a resource lives and how to reach it. For APIs, <strong>the URL is the request</strong>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
-<p><strong>Protocol</strong> — the first piece of a URL (<code>https://</code>): <em>how</em> to communicate. The <code>s</code> means secure. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
-<p><strong>Base URL</strong> — the server’s address (<code>api.open-meteo.com</code>): <em>who</em> to talk to. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
-<p><strong>Query String</strong> — everything after the <code>?</code>: the key-value pairs that customize the request, chained together with <code>&amp;</code>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
-<p><strong>Query Parameter</strong> — one key-value pair inside the query string, like <code>latitude=35.28</code>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
-<p><strong>API Key</strong> — an ID some APIs require as an extra query parameter (or header) to identify who is making the request — like showing a library card. Open-Meteo doesn’t need one. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 4</a>)</em></p>
+<p><strong>URL</strong> (Uniform Resource Locator) — a web address: a single string that says exactly where a resource lives and how to reach it. For APIs, <strong>the URL is the request</strong>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>Protocol</strong> — the first piece of a URL (<code>https://</code>): <em>how</em> to communicate. The <code>s</code> means secure. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>Base URL</strong> — the server’s address (<code>api.open-meteo.com</code>): <em>who</em> to talk to. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>Query String</strong> — everything after the <code>?</code>: the key-value pairs that customize the request, chained together with <code>&amp;</code>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>Query Parameter</strong> — one key-value pair inside the query string, like <code>latitude=35.28</code>. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
+<p><strong>API Key</strong> — an ID some APIs require as an extra query parameter (or header) to identify who is making the request — like showing a library card. Open-Meteo doesn’t need one. <em>(<a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2, Part 3</a>)</em></p>
 </section>
 <section id="the-data-json" class="level2">
 <h2 class="anchored" data-anchor-id="the-data-json">The Data — JSON</h2>
-<p><strong>JSON</strong> (JavaScript Object Notation) — the plain-text format APIs use to send data: human-readable, machine-readable, and language-independent. No JavaScript knowledge required. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
-<p><strong>Key / Value</strong> — the fundamental JSON pattern <code>"key": value</code>. The key is the label (always in double quotes); the value is the information — a string, number, boolean, array, or object. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
-<p><strong>Object</strong> — a set of key-value pairs wrapped in curly braces <code>{ }</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
-<p><strong>Array</strong> — an ordered list wrapped in square brackets <code>[ ]</code>, like <code>["egg", "cheese"]</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
-<p><strong>Nesting</strong> — an object or array sitting <em>inside</em> another object as a value, like <code>"coordinates": { "lat": 35.28, "lon": -120.66 }</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
-<p><strong>Body / Content</strong> — everything the server sends back in a response; the JSON wrapped in the outermost curly braces. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 5</a>)</em></p>
-<p><strong>Metadata</strong> — information <em>about</em> the response rather than the data itself: timestamps, units, generation time. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 5</a>)</em></p>
+<p><strong>JSON</strong> (JavaScript Object Notation) — the plain-text format APIs use to send data: human-readable, machine-readable, and language-independent. No JavaScript knowledge required. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
+<p><strong>Key / Value</strong> — the fundamental JSON pattern <code>"key": value</code>. The key is the label (always in double quotes); the value is the information — a string, number, boolean, array, or object. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
+<p><strong>Object</strong> — a set of key-value pairs wrapped in curly braces <code>{ }</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
+<p><strong>Array</strong> — an ordered list wrapped in square brackets <code>[ ]</code>, like <code>["egg", "cheese"]</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
+<p><strong>Nesting</strong> — an object or array sitting <em>inside</em> another object as a value, like <code>"coordinates": { "lat": 35.28, "lon": -120.66 }</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
+<p><strong>Body / Content</strong> — everything the server sends back in a response; the JSON wrapped in the outermost curly braces. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
+<p><strong>Metadata</strong> — information <em>about</em> the response rather than the data itself: timestamps, units, generation time. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
 </section>
 <section id="in-r" class="level2">
 <h2 class="anchored" data-anchor-id="in-r">In R</h2>
-<p><strong>Named List</strong> — what a JSON object becomes in R: each key becomes a name, each nested object becomes a list inside the list. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
+<p><strong>Named List</strong> — what a JSON object becomes in R: each key becomes a name, each nested object becomes a list inside the list. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
 <p><strong>Parsing</strong> — converting the raw JSON text of a response into R data structures (e.g., with <code>resp_body_json()</code>). <em>(<a href="./sessions/03_Weather_API_Setup.html">Session 3</a>)</em></p>
-<p><strong>Flattening</strong> — turning nested lists into a flat data frame (e.g., with <code>as.data.frame()</code>); nested keys join with periods, so <code>coordinates</code> → <code>lat</code> becomes the column <code>coordinates.lat</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 3</a>)</em></p>
+<p><strong>Flattening</strong> — turning nested lists into a flat data frame (e.g., with <code>as.data.frame()</code>); nested keys join with periods, so <code>coordinates</code> → <code>lat</code> becomes the column <code>coordinates.lat</code>. <em>(<a href="./sessions/01_JSON_and_Request_Response.html">Session 1, Part 2</a>)</em></p>
 <p><strong>httr2</strong> — the R package we use to build and perform requests: <code>request()</code>, <code>req_url_query()</code>, <code>req_perform()</code>, <code>resp_status()</code>, <code>resp_body_json()</code>. <em>(<a href="./sessions/03_Weather_API_Setup.html">Session 3</a>)</em></p>
 
 
