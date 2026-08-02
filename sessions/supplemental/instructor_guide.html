@@ -168,6 +168,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../../glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../shiny-weather-app/index.html"> 
+<span class="menu-text">Shiny Capstone</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-practice-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Practice Labs</span>
@@ -229,6 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#core-workshop-production-delivery-checklist" id="toc-core-workshop-production-delivery-checklist" class="nav-link" data-scroll-target="#core-workshop-production-delivery-checklist">Core Workshop — Production &amp; Delivery Checklist</a>
   <ul class="collapse">
+  <li><a href="#session-schedule-and-solution-review" id="toc-session-schedule-and-solution-review" class="nav-link" data-scroll-target="#session-schedule-and-solution-review">Session schedule and solution review</a></li>
   <li><a href="#megs-schedule-learning-the-material" id="toc-megs-schedule-learning-the-material" class="nav-link" data-scroll-target="#megs-schedule-learning-the-material">Meg’s Schedule — Learning the Material</a></li>
   <li><a href="#video-production-plan-two-videos-per-session-8-total" id="toc-video-production-plan-two-videos-per-session-8-total" class="nav-link" data-scroll-target="#video-production-plan-two-videos-per-session-8-total">Video Production Plan — Two Videos per Session (8 Total)</a></li>
   <li><a href="#animations-stepped-pausable" id="toc-animations-stepped-pausable" class="nav-link" data-scroll-target="#animations-stepped-pausable">Animations — Stepped &amp; Pausable</a></li>
@@ -326,6 +331,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="core-workshop-production-delivery-checklist" class="level2">
 <h2 class="anchored" data-anchor-id="core-workshop-production-delivery-checklist">Core Workshop — Production &amp; Delivery Checklist</h2>
 <p><em>(Instructor-facing notes for the main Sessions 1–4. The Practice Lab material starts in the next section.)</em></p>
+<section id="session-schedule-and-solution-review" class="level3">
+<h3 class="anchored" data-anchor-id="session-schedule-and-solution-review">Session schedule and solution review</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Date and time</th>
+<th>Room</th>
+<th>Before participants arrive</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Thursday, August 6, 8:00–9:50 AM</td>
+<td>Columbus I &amp; II</td>
+<td>Run the Session 1–2 answer-key code; test every URL and copy button</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Friday, August 7, 10:00–11:50 AM</td>
+<td>Columbus I &amp; II</td>
+<td>Run the Session 3–4 answer-key code and the Shiny app; confirm current and historical responses</td>
+</tr>
+</tbody>
+</table>
+<p>Keep Positron/RStudio’s <strong>Console pane visible</strong> during every code demonstration. Before each Run action, ask participants to identify the endpoint and predict the response from the URL. End each weather activity by returning to: <strong>How does weather compare across our selected cities?</strong></p>
+<p>Use the completed website pages as the solution key. Review them side by side with the <code>-Blank.qmd</code> student files before each session; do not first discover an API or date error during the live demonstration.</p>
+</section>
 <section id="megs-schedule-learning-the-material" class="level3">
 <h3 class="anchored" data-anchor-id="megs-schedule-learning-the-material">Meg’s Schedule — Learning the Material</h3>
 <!-- TODO(Immanuel): fill in Meg's actual dates/milestones -->
@@ -954,6 +994,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           break;
         }
       }
+    });
+
+    // Add a dedicated Copy URL action to blocks containing an API URL.
+    document.querySelectorAll('pre').forEach(function (block) {
+      var value = block.textContent.trim();
+      if (!/^https:\/\/[^\s]+$/i.test(value)) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-url-btn';
+      button.textContent = 'Copy URL';
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(value).then(function () {
+          button.textContent = 'Copied!';
+          setTimeout(function () { button.textContent = 'Copy URL'; }, 1500);
+        });
+      });
+      block.insertAdjacentElement('afterend', button);
     });
   })();
 </script>

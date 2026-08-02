@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>API Workshop</title>
+<title>Integrating APIs into Data Science Education – API Workshop</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,6 +132,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./shiny-weather-app/index.html"> 
+<span class="menu-text">Shiny Capstone</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-practice-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Practice Labs</span>
@@ -190,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-the-api-workshop" id="toc-welcome-to-the-api-workshop" class="nav-link active" data-scroll-target="#welcome-to-the-api-workshop">Welcome to the API Workshop</a>
+  <li><a href="#teaching-math-and-statistics-by-learning-how-weather-apis-work" id="toc-teaching-math-and-statistics-by-learning-how-weather-apis-work" class="nav-link active" data-scroll-target="#teaching-math-and-statistics-by-learning-how-weather-apis-work">Teaching Math and Statistics by Learning How Weather APIs Work</a>
   <ul class="collapse">
   <li><a href="#workshop-schedule" id="toc-workshop-schedule" class="nav-link" data-scroll-target="#workshop-schedule">Workshop Schedule</a></li>
   <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
@@ -205,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">API Workshop</h1>
+<h1 class="title">Integrating APIs into Data Science Education</h1>
 </div>
 
 
@@ -222,10 +226,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome-to-the-api-workshop" class="level1">
-<h1>Welcome to the API Workshop</h1>
+<section id="teaching-math-and-statistics-by-learning-how-weather-apis-work" class="level1">
+<h1>Teaching Math and Statistics by Learning How Weather APIs Work</h1>
 <p><strong>Empowering educators with the skills to extract real-world data using APIs.</strong></p>
-<p>This workshop covers the fundamentals of working with web APIs — from understanding JSON and HTTP methods to making real requests and building visualizations with live data.</p>
+<p>Learn API basics by asking a motivating question: <strong>How does weather compare across cities?</strong> We will read JSON, make requests, and analyze live and historical weather data.</p>
 <p><a href="#workshop-team">Meet your workshop team</a> before you begin.</p>
 <hr>
 <section id="workshop-schedule" class="level2">
@@ -241,28 +245,28 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Day 1 (8/5)</td>
-<td>8:00–9:00 AM</td>
+<td>Part A — Thu, Aug 6</td>
+<td>8:00–8:55 AM</td>
 <td><a href="./sessions/01_JSON_and_Request_Response.html">Session 1</a></td>
-<td>API Mechanics &amp; Response Fundamentals</td>
+<td>API responses</td>
 </tr>
 <tr class="even">
-<td>Day 1 (8/5)</td>
-<td>9:00–10:00 AM</td>
+<td>Part A — Thu, Aug 6</td>
+<td>8:55–9:50 AM</td>
 <td><a href="./sessions/02_CRUD_HTTP_Methods_URL.html">Session 2</a></td>
-<td>The Anatomy of a Request</td>
+<td>API requests and URLs</td>
 </tr>
 <tr class="odd">
-<td>Day 2 (8/6)</td>
-<td>9:00–10:00 AM</td>
+<td>Part B — Fri, Aug 7</td>
+<td>10:00–10:55 AM</td>
 <td><a href="./sessions/03_Weather_API_Setup.html">Session 3</a></td>
-<td>Weather API — First Real Requests</td>
+<td>Current weather by city</td>
 </tr>
 <tr class="even">
-<td>Day 2 (8/6)</td>
-<td>10:00–11:00 AM</td>
+<td>Part B — Fri, Aug 7</td>
+<td>10:55–11:50 AM</td>
 <td><a href="./sessions/04_Historical_Weather_Visualization.html">Session 4</a></td>
-<td>Historical Weather, Visualization &amp; Wrap-Up</td>
+<td>Historical city comparisons</td>
 </tr>
 </tbody>
 </table>
@@ -391,6 +395,23 @@ ul.task-list li input[type="checkbox"] {
           break;
         }
       }
+    });
+
+    // Add a dedicated Copy URL action to blocks containing an API URL.
+    document.querySelectorAll('pre').forEach(function (block) {
+      var value = block.textContent.trim();
+      if (!/^https:\/\/[^\s]+$/i.test(value)) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-url-btn';
+      button.textContent = 'Copy URL';
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(value).then(function () {
+          button.textContent = 'Copied!';
+          setTimeout(function () { button.textContent = 'Copy URL'; }, 1500);
+        });
+      });
+      block.insertAdjacentElement('afterend', button);
     });
   })();
 </script>

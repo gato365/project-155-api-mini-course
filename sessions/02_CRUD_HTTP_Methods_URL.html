@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Immanuel Williams">
-<meta name="dcterms.date" content="2026-08-05">
+<meta name="dcterms.date" content="2026-08-06">
 
 <title>Session 2: The Anatomy of a Request – API Workshop</title>
 <style>
@@ -169,6 +169,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../shiny-weather-app/index.html"> 
+<span class="menu-text">Shiny Capstone</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-practice-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Practice Labs</span>
@@ -271,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Session 2: The Anatomy of a Request</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Day 1 — 9:00 AM to 10:00 AM</p>
+<p class="subtitle lead">Part A — Thursday, August 6, 8:55–9:50 AM · Columbus I &amp; II</p>
 </div>
 
 
@@ -288,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 5, 2026</p>
+      <p class="date">August 6, 2026</p>
     </div>
   </div>
   
@@ -1291,6 +1295,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         }
       }
     });
+
+    // Add a dedicated Copy URL action to blocks containing an API URL.
+    document.querySelectorAll('pre').forEach(function (block) {
+      var value = block.textContent.trim();
+      if (!/^https:\/\/[^\s]+$/i.test(value)) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-url-btn';
+      button.textContent = 'Copy URL';
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(value).then(function () {
+          button.textContent = 'Copied!';
+          setTimeout(function () { button.textContent = 'Copy URL'; }, 1500);
+        });
+      });
+      block.insertAdjacentElement('afterend', button);
+    });
   })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1746,9 +1767,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Session 2: The Anatomy of a Request"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Day 1 — 9:00 AM to 10:00 AM"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Part A — Thursday, August 6, 8:55–9:50 AM · Columbus I &amp; II"</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Immanuel Williams"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 5, 2026"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 6, 2026"</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>

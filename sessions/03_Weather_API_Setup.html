@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Immanuel Williams">
-<meta name="dcterms.date" content="2026-08-06">
+<meta name="dcterms.date" content="2026-08-07">
 
 <title>Session 3: Weather API — First Real Requests – API Workshop</title>
 <style>
@@ -169,6 +169,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../shiny-weather-app/index.html"> 
+<span class="menu-text">Shiny Capstone</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-practice-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Practice Labs</span>
@@ -227,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-back-day-2" id="toc-welcome-back-day-2" class="nav-link active" data-scroll-target="#welcome-back-day-2">Welcome Back — Day 2</a></li>
+  <li><a href="#welcome-back-part-b" id="toc-welcome-back-part-b" class="nav-link active" data-scroll-target="#welcome-back-part-b">Welcome Back — Part B</a></li>
   <li><a href="#part-1-meet-the-open-meteo-api-browser-demo" id="toc-part-1-meet-the-open-meteo-api-browser-demo" class="nav-link" data-scroll-target="#part-1-meet-the-open-meteo-api-browser-demo">Part 1: Meet the Open-Meteo API + Browser Demo</a>
   <ul class="collapse">
   <li><a href="#look-first-a-real-request-and-a-real-response" id="toc-look-first-a-real-request-and-a-real-response" class="nav-link" data-scroll-target="#look-first-a-real-request-and-a-real-response">Look First — A Real Request and a Real Response</a></li>
@@ -273,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Session 3: Weather API — First Real Requests</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Day 2 — 9:00 AM to 10:00 AM</p>
+<p class="subtitle lead">Part B — Friday, August 7, 10:00–10:55 AM · Columbus I &amp; II</p>
 </div>
 
 
@@ -290,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 6, 2026</p>
+      <p class="date">August 7, 2026</p>
     </div>
   </div>
   
@@ -302,8 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="welcome-back-day-2" class="level2">
-<h2 class="anchored" data-anchor-id="welcome-back-day-2">Welcome Back — Day 2</h2>
+<section id="welcome-back-part-b" class="level2">
+<h2 class="anchored" data-anchor-id="welcome-back-part-b">Welcome Back — Part B</h2>
 <p>Yesterday we built the conceptual foundation:</p>
 <ul>
 <li><strong>Session 1 — API Mechanics &amp; Response Fundamentals:</strong> JSON structure, request/response flow, status codes</li>
@@ -335,7 +339,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="look-first-a-real-request-and-a-real-response">Look First — A Real Request and a Real Response</h3>
 <p><strong>Stop. This is the moment the last two sessions have been building toward.</strong> Here is a complete, real API request — and you can already read every piece of it from Session 2:</p>
 <pre><code>https://api.open-meteo.com/v1/forecast?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m&amp;temperature_unit=fahrenheit</code></pre>
-<p><strong>Copy it, paste it into a new browser tab, and press Enter.</strong> What comes back is not a web page — no colors, no buttons, no ads. It is a raw <strong>JSON response</strong>, exactly the structure we studied in Session 1, sitting right there in your browser:</p>
+<p>Before you run anything, <strong>inspect the URL</strong>: identify the endpoint, location, requested variable, and units. Then select <strong>Copy URL</strong>, paste it into a browser, and press Enter. The result is raw JSON.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Investigate Before You Run
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Predict what the server will return from the URL alone. Only then press <strong>Run</strong> in R. Keep the <strong>R console visible</strong> so everyone can see the request, status, and response.</p>
+</div>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"latitude"</span><span class="fu">:</span> <span class="fl">35.28</span><span class="fu">,</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"longitude"</span><span class="fu">:</span> <span class="fl">-120.66</span><span class="fu">,</span></span>
@@ -365,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Your browser made a <strong>GET</strong> request — typing a URL into the address bar is always a GET — <em>Session 2</em></li>
 </ul>
 <p>That number — <code>71.4</code> — is the actual temperature in San Luis Obispo <em>right now</em>. A server you’ve never seen just measured the world and handed you the answer, because you asked correctly.</p>
-<p>Now change <code>latitude=35.28&amp;longitude=-120.66</code> to another location (Boston is <code>latitude=42.36&amp;longitude=-71.06</code>) and reload. Live data, different city, same endpoint. Edit the URL, press Enter, new answer — <strong>you are having a conversation with a server, by hand.</strong></p>
+<p>Change the coordinates to Boston (<code>42.36</code>, <code>-71.06</code>) and reload. Ask: <strong>How does its weather compare with San Luis Obispo?</strong> This is the question we will answer across cities and dates.</p>
 </section>
 <section id="about-this-api" class="level3">
 <h3 class="anchored" data-anchor-id="about-this-api">About This API</h3>
@@ -432,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="q1.">Q1.</h3>
 <p><strong>(Fill in the Blank):</strong> The stable part of the URL — <code>https://api.open-meteo.com/v1/forecast</code> — that never changes from one request to the next is called the ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q1">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -441,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <strong>endpoint</strong>. The changing part (after the <code>?</code>) is the query string.</p>
 </div>
@@ -465,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It only returns data for cities in Europe.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q2">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -474,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>c)</strong> Open-Meteo is free and open — no key, no registration. (Many other APIs <em>do</em> require a key; that’s the “ID card” concept from the callout above.)</p>
 </div>
@@ -491,7 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="q3.">Q3.</h3>
 <p><strong>(Fill in the Blank):</strong> When you paste the request URL into a browser, what comes back is not a web page — it is raw ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q3">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -500,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>JSON</strong> — the same body/content structure we studied in Session 1.</p>
 </div>
@@ -524,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>GET</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q4">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -533,7 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>e)</strong> The address bar always makes a <strong>GET</strong> request — you are <em>reading</em> data, exactly like our R scripts will.</p>
 </div>
@@ -728,7 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="q5.">Q5.</h3>
 <p><strong>(Fill in the Blank):</strong> After <code>req_perform()</code>, we call <code>resp_status(response)</code> and hope to see the number ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q5">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -737,7 +754,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>200</strong> — the “OK” success code. Anything in the 4xx range would mean <em>we</em> made a mistake in the request; 5xx would mean the server had a problem.</p>
 </div>
@@ -761,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It draws a plot of the response.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q6">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -770,7 +787,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>d)</strong> <code>req_url_query()</code> <em>builds</em> the query string onto the endpoint. Sending is <code>req_perform()</code>, parsing is <code>resp_body_json()</code>.</p>
 </div>
@@ -872,7 +889,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It is a file path.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q7">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -881,7 +898,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>b)</strong> <code>\( )</code> is R’s shorthand for <code>function( )</code>. It defines a small nameless function on the spot, which <code>pmap()</code> then applies to every row.</p>
 </div>
@@ -898,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="q8.">Q8.</h3>
 <p><strong>(Fill in the Blank):</strong> After <code>pmap()</code> returns a list of one-row tibbles, we stack them into a single data frame using ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q8">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -907,7 +924,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>bind_rows()</code> — it binds the rows of each small tibble into one combined tibble.</p>
 </div>
@@ -994,7 +1011,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="unnumbered anchored" data-anchor-id="q9.">Q9.</h3>
 <p><strong>(Fill in the Blank):</strong> The geocoding endpoint converts a city name into ________ and ________.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answer Q9">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1003,7 +1020,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Latitude</strong> and <strong>longitude</strong> — the coordinates the forecast and historical endpoints require.</p>
 </div>
@@ -1050,7 +1067,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>my_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1059,7 +1076,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>my_coords <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
@@ -1210,6 +1227,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           break;
         }
       }
+    });
+
+    // Add a dedicated Copy URL action to blocks containing an API URL.
+    document.querySelectorAll('pre').forEach(function (block) {
+      var value = block.textContent.trim();
+      if (!/^https:\/\/[^\s]+$/i.test(value)) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-url-btn';
+      button.textContent = 'Copy URL';
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(value).then(function () {
+          button.textContent = 'Copied!';
+          setTimeout(function () { button.textContent = 'Copy URL'; }, 1500);
+        });
+      });
+      block.insertAdjacentElement('afterend', button);
     });
   })();
 </script>
@@ -1666,9 +1700,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Session 3: Weather API — First Real Requests"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Day 2 — 9:00 AM to 10:00 AM"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Part B — Friday, August 7, 10:00–10:55 AM · Columbus I &amp; II"</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Immanuel Williams"</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 6, 2026"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 7, 2026"</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -1686,7 +1720,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Welcome Back — Day 2</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Welcome Back — Part B</span></span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>Yesterday we built the conceptual foundation:</span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
@@ -1719,535 +1753,541 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="in">https://api.open-meteo.com/v1/forecast?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m&amp;temperature_unit=fahrenheit</span></span>
 <span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>**Copy it, paste it into a new browser tab, and press Enter.** What comes back is not a web page — no colors, no buttons, no ads. It is a raw **JSON response**, exactly the structure we studied in Session 1, sitting right there in your browser:</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>Before you run anything, **inspect the URL**: identify the endpoint, location, requested variable, and units. Then select **Copy URL**, paste it into a browser, and press Enter. The result is raw JSON.</span>
 <span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>  <span class="st">"latitude"</span><span class="op">:</span> <span class="fl">35.28</span><span class="op">,</span></span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  <span class="st">"longitude"</span><span class="op">:</span> <span class="op">-</span><span class="fl">120.66</span><span class="op">,</span></span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>  <span class="st">"timezone"</span><span class="op">:</span> <span class="st">"GMT"</span><span class="op">,</span></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  <span class="st">"current_units"</span><span class="op">:</span> { <span class="st">"time"</span><span class="op">:</span> <span class="st">"iso8601"</span><span class="op">,</span> <span class="st">"temperature_2m"</span><span class="op">:</span> <span class="st">"°F"</span> }<span class="op">,</span></span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>  <span class="st">"current"</span><span class="op">:</span> {</span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"time"</span><span class="op">:</span> <span class="st">"2026-08-06T16:00"</span><span class="op">,</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature_2m"</span><span class="op">:</span> <span class="fl">71.4</span></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>For a day and a half, "request" and "response" have been arrows on a diagram. They just became *real* — and you did not write a single line of code. That was the payoff of Session 2's URL anatomy: **a request is just a URL — so a web browser can make one.** Reading the URL piece by piece:</span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://api.open-meteo.com/v1/forecast`</span> — the **endpoint** (the stable front door)</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`?`</span> — "here come my details"</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`latitude=35.28&amp;longitude=-120.66`</span> — *where* (San Luis Obispo)</span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`current=temperature_2m`</span> — *what* (the temperature right now)</span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`temperature_unit=fahrenheit`</span> — *how* (in °F)</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## Investigate Before You Run</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>Predict what the server will return from the URL alone. Only then press **Run** in R. Keep the **R console visible** so everyone can see the request, status, and response.</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="in">``` json</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  <span class="st">"latitude"</span><span class="op">:</span> <span class="fl">35.28</span><span class="op">,</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  <span class="st">"longitude"</span><span class="op">:</span> <span class="op">-</span><span class="fl">120.66</span><span class="op">,</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>  <span class="st">"timezone"</span><span class="op">:</span> <span class="st">"GMT"</span><span class="op">,</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>  <span class="st">"current_units"</span><span class="op">:</span> { <span class="st">"time"</span><span class="op">:</span> <span class="st">"iso8601"</span><span class="op">,</span> <span class="st">"temperature_2m"</span><span class="op">:</span> <span class="st">"°F"</span> }<span class="op">,</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>  <span class="st">"current"</span><span class="op">:</span> {</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">"time"</span><span class="op">:</span> <span class="st">"2026-08-06T16:00"</span><span class="op">,</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperature_2m"</span><span class="op">:</span> <span class="fl">71.4</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>For a day and a half, "request" and "response" have been arrows on a diagram. They just became *real* — and you did not write a single line of code. That was the payoff of Session 2's URL anatomy: **a request is just a URL — so a web browser can make one.** Reading the URL piece by piece:</span>
 <span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>And every piece of the response is something you already know:</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **endpoint** and the **query string** in the address bar (<span class="in">`?`</span>, <span class="in">`&amp;`</span>, key-value pairs) — *Session 2*</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The response wrapped in curly braces <span class="in">`{ }`</span> — the **body**, in **JSON** — *Session 1*</span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data** (`temperature_2m: 71.4`) and **metadata** (<span class="in">`current_units`</span>, <span class="in">`timezone`</span>) — *Session 1*</span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Your browser made a **GET** request — typing a URL into the address bar is always a GET — *Session 2*</span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>That number — <span class="in">`71.4`</span> — is the actual temperature in San Luis Obispo *right now*. A server you've never seen just measured the world and handed you the answer, because you asked correctly.</span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>Now change <span class="in">`latitude=35.28&amp;longitude=-120.66`</span> to another location (Boston is <span class="in">`latitude=42.36&amp;longitude=-71.06`</span>) and reload. Live data, different city, same endpoint. Edit the URL, press Enter, new answer — **you are having a conversation with a server, by hand.**</span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### About This API</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`https://api.open-meteo.com/v1/forecast`</span> — the **endpoint** (the stable front door)</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`?`</span> — "here come my details"</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`latitude=35.28&amp;longitude=-120.66`</span> — *where* (San Luis Obispo)</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`current=temperature_2m`</span> — *what* (the temperature right now)</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`temperature_unit=fahrenheit`</span> — *how* (in °F)</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>And every piece of the response is something you already know:</span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **endpoint** and the **query string** in the address bar (<span class="in">`?`</span>, <span class="in">`&amp;`</span>, key-value pairs) — *Session 2*</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The response wrapped in curly braces <span class="in">`{ }`</span> — the **body**, in **JSON** — *Session 1*</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data** (`temperature_2m: 71.4`) and **metadata** (<span class="in">`current_units`</span>, <span class="in">`timezone`</span>) — *Session 1*</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Your browser made a **GET** request — typing a URL into the address bar is always a GET — *Session 2*</span>
 <span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>We will use **Open-Meteo** for the rest of the workshop — a free weather API built for exactly this kind of learning:</span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a>That number — <span class="in">`71.4`</span> — is the actual temperature in San Luis Obispo *right now*. A server you've never seen just measured the world and handed you the answer, because you asked correctly.</span>
 <span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No sign-up. No API key. No credit card.** You can start making requests immediately.</span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The main endpoint is <span class="in">`https://api.open-meteo.com/v1/forecast`</span> — the **endpoint** from Session 2: the stable "front door" that never changes. Everything else we want (which city, which measurements, which units) goes in the **query string**.</span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why `api.open-meteo.com` and Not Just `open-meteo.com`?</span></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a>Change the coordinates to Boston (<span class="in">`42.36`</span>, <span class="in">`-71.06`</span>) and reload. Ask: **How does its weather compare with San Luis Obispo?** This is the question we will answer across cities and dates.</span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### About This API</span></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a>We will use **Open-Meteo** for the rest of the workshop — a free weather API built for exactly this kind of learning:</span>
 <span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>Notice the endpoint is **not** the same address as the regular website. Open-Meteo actually has *two* front doors:</span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`open-meteo.com`** — the door for **humans**: a web page with documentation, meant to be read in a browser.</span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`api.open-meteo.com`** — the door for **programs**: a server whose only job is to answer requests with raw JSON data.</span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>Putting the API on its own <span class="in">`api.`</span> subdomain is a near-universal convention — it lets the company run, scale, and update the data service separately from the marketing/docs website. When you see <span class="in">`api.`</span> at the front of a domain, you're looking at the machine door, not the human one. Keep this in mind: later today we'll meet a *third* door for a different service.</span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No sign-up. No API key. No credit card.** You can start making requests immediately.</span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The main endpoint is <span class="in">`https://api.open-meteo.com/v1/forecast`</span> — the **endpoint** from Session 2: the stable "front door" that never changes. Everything else we want (which city, which measurements, which units) goes in the **query string**.</span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why `api.open-meteo.com` and Not Just `open-meteo.com`?</span></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>Notice the endpoint is **not** the same address as the regular website. Open-Meteo actually has *two* front doors:</span>
 <span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## What About API Keys, Clients &amp; Secrets?</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`open-meteo.com`** — the door for **humans**: a web page with documentation, meant to be read in a browser.</span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`api.open-meteo.com`** — the door for **programs**: a server whose only job is to answer requests with raw JSON data.</span>
 <span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>Many commercial APIs (OpenWeather, X, Spotify, ...) require you to register and receive credentials — an **API key**, sometimes a **client ID** and **secret** — which you attach to every request like an ID card, and which you must store carefully (never directly in your script!). It's an important real-world concept, and the Practice Labs on this site show it in action.</span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>**But today we get to skip all of it.** Open-Meteo is free and open — so we can spend our hour on the actual skill: requests and responses.</span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 The Goal — Half Met Already</span></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>Putting the API on its own <span class="in">`api.`</span> subdomain is a near-universal convention — it lets the company run, scale, and update the data service separately from the marketing/docs website. When you see <span class="in">`api.`</span> at the front of a domain, you're looking at the machine door, not the human one. Keep this in mind: later today we'll meet a *third* door for a different service.</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a><span class="fu">## What About API Keys, Clients &amp; Secrets?</span></span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>Many commercial APIs (OpenWeather, X, Spotify, ...) require you to register and receive credentials — an **API key**, sometimes a **client ID** and **secret** — which you attach to every request like an ID card, and which you must store carefully (never directly in your script!). It's an important real-world concept, and the Practice Labs on this site show it in action.</span>
 <span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>Read the goal sentence again: *"Make a request to an API, then format the response into something we can analyze."*</span>
-<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Make a request to an API** — ✅ you just did it. That URL *was* the request.</span>
-<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Get a response** — ✅ you just did that too. That JSON *was* the response.</span>
-<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a>With **zero lines of code**, the request/response loop from Sessions 1 and 2 just happened for real, on your screen. So what's left for R? **Automation.** The browser can make one request at a time, by hand, and you have to read the JSON with your eyes. R will do *exactly the same thing* the browser just did — same URL, same GET, same JSON — but it can do it a hundred times in a loop and hand the answers back as data you can analyze. That's the entire rest of the workshop: not a new idea, just automating the thing you just did.</span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>**But today we get to skip all of it.** Open-Meteo is free and open — so we can spend our hour on the actual skill: requests and responses.</span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 The Goal — Half Met Already</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>Read the goal sentence again: *"Make a request to an API, then format the response into something we can analyze."*</span>
 <span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** The stable part of the URL — <span class="in">`https://api.open-meteo.com/v1/forecast`</span> — that never changes from one request to the next is called the <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Make a request to an API** — ✅ you just did it. That URL *was* the request.</span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Get a response** — ✅ you just did that too. That JSON *was* the response.</span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a>With **zero lines of code**, the request/response loop from Sessions 1 and 2 just happened for real, on your screen. So what's left for R? **Automation.** The browser can make one request at a time, by hand, and you have to read the JSON with your eyes. R will do *exactly the same thing* the browser just did — same URL, same GET, same JSON — but it can do it a hundred times in a loop and hand the answers back as data you can analyze. That's the entire rest of the workshop: not a new idea, just automating the thing you just did.</span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
-<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a>The **endpoint**. The changing part (after the <span class="in">`?`</span>) is the query string.</span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q1. {.unnumbered}</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** The stable part of the URL — <span class="in">`https://api.open-meteo.com/v1/forecast`</span> — that never changes from one request to the next is called the <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
 <span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
-<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which statement about the Open-Meteo API is true?</span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q1"}</span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>The **endpoint**. The changing part (after the <span class="in">`?`</span>) is the query string.</span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>a) It requires a paid subscription.</span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a>b) It requires an API key stored in <span class="in">`.Renviron`</span>.</span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>c) It is free and requires no API key at all.</span>
-<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>d) It only works inside Positron.</span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>e) It only returns data for cities in Europe.</span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q2. {.unnumbered}</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Which statement about the Open-Meteo API is true?</span>
 <span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>**c)** Open-Meteo is free and open — no key, no registration. (Many other APIs *do* require a key; that's the "ID card" concept from the callout above.)</span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a>a) It requires a paid subscription.</span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a>b) It requires an API key stored in <span class="in">`.Renviron`</span>.</span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>c) It is free and requires no API key at all.</span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a>d) It only works inside Positron.</span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a>e) It only returns data for cities in Europe.</span>
 <span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
-<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** When you paste the request URL into a browser, what comes back is not a web page — it is raw <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q2"}</span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a>**c)** Open-Meteo is free and open — no key, no registration. (Many other APIs *do* require a key; that's the "ID card" concept from the callout above.)</span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
-<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a>**JSON** — the same body/content structure we studied in Session 1.</span>
-<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q3. {.unnumbered}</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** When you paste the request URL into a browser, what comes back is not a web page — it is raw <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
 <span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
-<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Typing a URL into the browser's address bar and pressing Enter performs which kind of HTTP request?</span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q3"}</span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>**JSON** — the same body/content structure we studied in Session 1.</span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a>a) POST</span>
-<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a>b) DELETE</span>
-<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a>c) PUT</span>
-<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a>d) PATCH</span>
-<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>e) GET</span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q4. {.unnumbered}</span></span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** Typing a URL into the browser's address bar and pressing Enter performs which kind of HTTP request?</span>
 <span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
-<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>**e)** The address bar always makes a **GET** request — you are *reading* data, exactly like our R scripts will.</span>
-<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a>a) POST</span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a>b) DELETE</span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a>c) PUT</span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a>d) PATCH</span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a>e) GET</span>
 <span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: The ETV Cycle + Extract in R</span></span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q4"}</span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a>**e)** The address bar always makes a **GET** request — you are *reading* data, exactly like our R scripts will.</span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a><span class="fu">### Look First — The Map for the Rest of the Workshop</span></span>
-<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">(Immanuel): link/embed your ETV Cycle 4 notes here --&gt;</span></span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>Everything we do from here on follows one repeating cycle — **ETV**:</span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2: The ETV Cycle + Extract in R</span></span>
 <span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Step <span class="pp">|</span> Name <span class="pp">|</span> What it means <span class="pp">|</span> In code <span class="pp">|</span></span>
-<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|----------------|---------|</span></span>
-<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **E** | **Extract** <span class="pp">|</span> Make the request, receive the JSON response <span class="pp">|</span> <span class="in">`request()`</span> → <span class="in">`req_url_query()`</span> → <span class="in">`req_perform()`</span> <span class="pp">|</span></span>
-<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T** | **Transform** <span class="pp">|</span> Format the response into a data frame <span class="pp">|</span> <span class="in">`resp_body_json()`</span> → <span class="in">`tibble()`</span> <span class="pp">|</span></span>
-<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **V** | **Visualize** <span class="pp">|</span> Turn the data frame into a plot <span class="pp">|</span> <span class="in">`ggplot()`</span> <span class="pp">|</span></span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### Look First — The Map for the Rest of the Workshop</span></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">(Immanuel): link/embed your ETV Cycle 4 notes here --&gt;</span></span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>Everything we do from here on follows one repeating cycle — **ETV**:</span>
 <span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
-<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>We'll do **E** and **T** in this session and add **V** in Session 4. Whenever you feel lost in code, ask: *which ETV step am I on right now?*</span>
-<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load Libraries</span></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Step <span class="pp">|</span> Name <span class="pp">|</span> What it means <span class="pp">|</span> In code <span class="pp">|</span></span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|----------------|---------|</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **E** | **Extract** <span class="pp">|</span> Make the request, receive the JSON response <span class="pp">|</span> <span class="in">`request()`</span> → <span class="in">`req_url_query()`</span> → <span class="in">`req_perform()`</span> <span class="pp">|</span></span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **T** | **Transform** <span class="pp">|</span> Format the response into a data frame <span class="pp">|</span> <span class="in">`resp_body_json()`</span> → <span class="in">`tibble()`</span> <span class="pp">|</span></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **V** | **Visualize** <span class="pp">|</span> Turn the data frame into a plot <span class="pp">|</span> <span class="in">`ggplot()`</span> <span class="pp">|</span></span>
 <span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>Each library we load is hired for **one specific ETV job**. Read the comments as a map of the whole workshop:</span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
 <span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)       <span class="co"># E: makes web requests</span></span>
-<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)      <span class="co"># T: tidyverse data frames</span></span>
-<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)       <span class="co"># T: data manipulation</span></span>
-<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)       <span class="co"># T: map() — apply a recipe to many inputs</span></span>
-<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)     <span class="co"># V: visualizations</span></span>
-<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Functions Behind Each Letter</span></span>
-<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>Here's the deeper look — the specific functions each library gives us, and exactly where they sit in the cycle:</span>
-<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Key functions <span class="pp">|</span> ETV step <span class="pp">|</span> What it actually does <span class="pp">|</span></span>
-<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|---------------|----------|------------------------|</span></span>
-<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`httr2`</span> <span class="pp">|</span> <span class="in">`request()`</span>, <span class="in">`req_url_query()`</span>, <span class="in">`req_perform()`</span> <span class="pp">|</span> **E** <span class="pp">|</span> <span class="in">`request()`</span> starts from the endpoint, <span class="in">`req_url_query()`</span> builds the query string (the part after <span class="in">`?`</span>), and <span class="in">`req_perform()`</span> actually sends it — together they do what your browser's address bar did in Part 1 <span class="pp">|</span></span>
-<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`httr2`</span> <span class="pp">|</span> <span class="in">`resp_status()`</span>, <span class="in">`resp_body_json()`</span> <span class="pp">|</span> **E → T** (the handoff) <span class="pp">|</span> <span class="in">`resp_status()`</span> checks for <span class="in">`200`</span>, and <span class="in">`resp_body_json()`</span> unwraps the JSON body into an R named list — the bridge from *response* to *data* <span class="pp">|</span></span>
-<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`tibble`</span> <span class="pp">|</span> <span class="in">`tibble()`</span>, <span class="in">`tribble()`</span> <span class="pp">|</span> **T** <span class="pp">|</span> Builds the rectangular data frame — the "something we can analyze" from the goal sentence <span class="pp">|</span></span>
-<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dplyr`</span> <span class="pp">|</span> <span class="in">`bind_rows()`</span> <span class="pp">|</span> **T** <span class="pp">|</span> Stacks many small tibbles into one big one (we'll need this the moment we ask about more than one city) <span class="pp">|</span></span>
-<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`purrr`</span> <span class="pp">|</span> <span class="in">`map()`</span>, <span class="in">`pmap()`</span> <span class="pp">|</span> **T** (the multiplier) <span class="pp">|</span> Applies the same E+T recipe to many inputs — this is the "automation" that makes R better than the browser <span class="pp">|</span></span>
-<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`ggplot2`</span> <span class="pp">|</span> <span class="in">`ggplot()`</span> <span class="pp">|</span> **V** <span class="pp">|</span> Turns the tibble into a plot — Session 4's job <span class="pp">|</span></span>
-<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a>Notice the shape of that table: **E is entirely `httr2`**, **T is `tibble` + `dplyr` + `purrr`**, and **V is `ggplot2`**. When an error message mentions a function, the library it came from tells you *which ETV step broke* — that's your debugging compass for the rest of the workshop.</span>
-<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
-<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a>ETV *is* the goal sentence, written as three letters: **E** = make a request, **T** = format the response, **V** = analyze it. And the libraries are the goal sentence written as code: <span class="in">`httr2`</span> makes the request, <span class="in">`tibble`</span>/<span class="in">`dplyr`</span>/<span class="in">`purrr`</span> format the response, <span class="in">`ggplot2`</span> analyzes it.</span>
-<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extract — The Browser Request, Now in R</span></span>
-<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a>Let's have R do exactly what the browser just did. This block is **pre-built — run it as-is**, then read it top to bottom:</span>
-<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="co"># E is for Extract ------------------------------------------</span></span>
-<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Start from the endpoint and add the query</span></span>
-<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
-<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> <span class="fl">35.28</span>,</span>
-<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> <span class="sc">-</span><span class="fl">120.66</span>,</span>
-<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
-<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
-<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Look at the URL R built for us — same as the browser one!</span></span>
-<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>req</span>
-<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Send the request</span></span>
-<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>We'll do **E** and **T** in this session and add **V** in Session 4. Whenever you feel lost in code, ask: *which ETV step am I on right now?*</span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### Load Libraries</span></span>
+<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a>Each library we load is hired for **one specific ETV job**. Read the comments as a map of the whole workshop:</span>
+<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)       <span class="co"># E: makes web requests</span></span>
+<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)      <span class="co"># T: tidyverse data frames</span></span>
+<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)       <span class="co"># T: data manipulation</span></span>
+<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)       <span class="co"># T: map() — apply a recipe to many inputs</span></span>
+<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)     <span class="co"># V: visualizations</span></span>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Functions Behind Each Letter</span></span>
+<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>Here's the deeper look — the specific functions each library gives us, and exactly where they sit in the cycle:</span>
+<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Library <span class="pp">|</span> Key functions <span class="pp">|</span> ETV step <span class="pp">|</span> What it actually does <span class="pp">|</span></span>
+<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|---------------|----------|------------------------|</span></span>
+<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`httr2`</span> <span class="pp">|</span> <span class="in">`request()`</span>, <span class="in">`req_url_query()`</span>, <span class="in">`req_perform()`</span> <span class="pp">|</span> **E** <span class="pp">|</span> <span class="in">`request()`</span> starts from the endpoint, <span class="in">`req_url_query()`</span> builds the query string (the part after <span class="in">`?`</span>), and <span class="in">`req_perform()`</span> actually sends it — together they do what your browser's address bar did in Part 1 <span class="pp">|</span></span>
+<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`httr2`</span> <span class="pp">|</span> <span class="in">`resp_status()`</span>, <span class="in">`resp_body_json()`</span> <span class="pp">|</span> **E → T** (the handoff) <span class="pp">|</span> <span class="in">`resp_status()`</span> checks for <span class="in">`200`</span>, and <span class="in">`resp_body_json()`</span> unwraps the JSON body into an R named list — the bridge from *response* to *data* <span class="pp">|</span></span>
+<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`tibble`</span> <span class="pp">|</span> <span class="in">`tibble()`</span>, <span class="in">`tribble()`</span> <span class="pp">|</span> **T** <span class="pp">|</span> Builds the rectangular data frame — the "something we can analyze" from the goal sentence <span class="pp">|</span></span>
+<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`dplyr`</span> <span class="pp">|</span> <span class="in">`bind_rows()`</span> <span class="pp">|</span> **T** <span class="pp">|</span> Stacks many small tibbles into one big one (we'll need this the moment we ask about more than one city) <span class="pp">|</span></span>
+<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`purrr`</span> <span class="pp">|</span> <span class="in">`map()`</span>, <span class="in">`pmap()`</span> <span class="pp">|</span> **T** (the multiplier) <span class="pp">|</span> Applies the same E+T recipe to many inputs — this is the "automation" that makes R better than the browser <span class="pp">|</span></span>
+<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`ggplot2`</span> <span class="pp">|</span> <span class="in">`ggplot()`</span> <span class="pp">|</span> **V** <span class="pp">|</span> Turns the tibble into a plot — Session 4's job <span class="pp">|</span></span>
+<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a>Notice the shape of that table: **E is entirely `httr2`**, **T is `tibble` + `dplyr` + `purrr`**, and **V is `ggplot2`**. When an error message mentions a function, the library it came from tells you *which ETV step broke* — that's your debugging compass for the rest of the workshop.</span>
+<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
+<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a>ETV *is* the goal sentence, written as three letters: **E** = make a request, **T** = format the response, **V** = analyze it. And the libraries are the goal sentence written as code: <span class="in">`httr2`</span> makes the request, <span class="in">`tibble`</span>/<span class="in">`dplyr`</span>/<span class="in">`purrr`</span> format the response, <span class="in">`ggplot2`</span> analyzes it.</span>
+<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extract — The Browser Request, Now in R</span></span>
+<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a>Let's have R do exactly what the browser just did. This block is **pre-built — run it as-is**, then read it top to bottom:</span>
+<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a><span class="co"># E is for Extract ------------------------------------------</span></span>
+<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Start from the endpoint and add the query</span></span>
+<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
+<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> <span class="fl">35.28</span>,</span>
+<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> <span class="sc">-</span><span class="fl">120.66</span>,</span>
+<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
+<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
+<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code</span></span>
-<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(response)</span>
-<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>The status should be <span class="in">`200`</span> — success, just like Session 1 taught us to expect.</span>
+<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Look at the URL R built for us — same as the browser one!</span></span>
+<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>req</span>
+<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Send the request</span></span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
 <span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## `req_url_query()` Writes the URL for You</span></span>
-<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>Each argument becomes one <span class="in">`key=value`</span> pair in the query string, and <span class="in">`httr2`</span> handles the <span class="in">`?`</span>, the <span class="in">`&amp;`</span>, and any special-character encoding automatically. Printing <span class="in">`req`</span> shows the finished URL — compare it character-by-character with the one you pasted into your browser.</span>
-<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Parse the JSON body into a named list</span></span>
-<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Check the status code</span></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(response)</span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>The status should be <span class="in">`200`</span> — success, just like Session 1 taught us to expect.</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a><span class="fu">## `req_url_query()` Writes the URL for You</span></span>
+<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a>Each argument becomes one <span class="in">`key=value`</span> pair in the query string, and <span class="in">`httr2`</span> handles the <span class="in">`?`</span>, the <span class="in">`&amp;`</span>, and any special-character encoding automatically. Printing <span class="in">`req`</span> shows the finished URL — compare it character-by-character with the one you pasted into your browser.</span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Peek at the structure</span></span>
-<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(result, <span class="at">max.level =</span> <span class="dv">2</span>)</span>
-<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
-<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** After <span class="in">`req_perform()`</span>, we call <span class="in">`resp_status(response)`</span> and hope to see the number <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 5: Parse the JSON body into a named list</span></span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(response)</span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Peek at the structure</span></span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(result, <span class="at">max.level =</span> <span class="dv">2</span>)</span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
-<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>**200** — the "OK" success code. Anything in the 4xx range would mean *we* made a mistake in the request; 5xx would mean the server had a problem.</span>
-<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q5. {.unnumbered}</span></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** After <span class="in">`req_perform()`</span>, we call <span class="in">`resp_status(response)`</span> and hope to see the number <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
 <span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
-<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** What does <span class="in">`req_url_query()`</span> do?</span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q5"}</span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a>**200** — the "OK" success code. Anything in the 4xx range would mean *we* made a mistake in the request; 5xx would mean the server had a problem.</span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a>a) It sends the request to the server.</span>
-<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a>b) It parses the JSON response.</span>
-<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a>c) It checks the status code.</span>
-<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a>d) It adds <span class="in">`key=value`</span> pairs to the URL's query string, handling <span class="in">`?`</span>, <span class="in">`&amp;`</span>, and encoding for you.</span>
-<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a>e) It draws a plot of the response.</span>
+<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q6. {.unnumbered}</span></span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** What does <span class="in">`req_url_query()`</span> do?</span>
 <span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
-<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a>**d)** <span class="in">`req_url_query()`</span> *builds* the query string onto the endpoint. Sending is <span class="in">`req_perform()`</span>, parsing is <span class="in">`resp_body_json()`</span>.</span>
-<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a>a) It sends the request to the server.</span>
+<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a>b) It parses the JSON response.</span>
+<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a>c) It checks the status code.</span>
+<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a>d) It adds <span class="in">`key=value`</span> pairs to the URL's query string, handling <span class="in">`?`</span>, <span class="in">`&amp;`</span>, and encoding for you.</span>
+<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a>e) It draws a plot of the response.</span>
 <span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: Transform + Scaling with `map()`</span></span>
+<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q6"}</span>
+<span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a>**d)** <span class="in">`req_url_query()`</span> *builds* the query string onto the endpoint. Sending is <span class="in">`req_perform()`</span>, parsing is <span class="in">`resp_body_json()`</span>.</span>
+<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-320"><a href="#cb12-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a>The parsed <span class="in">`result`</span> is a **named list** (Session 1!). The piece we care about is <span class="in">`result$current`</span>:</span>
-<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a><span class="co"># T is for Transform ----------------------------------------</span></span>
-<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>current</span>
-<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull the values we want into a tibble</span></span>
-<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a>current_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"San Luis Obispo"</span>,</span>
-<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
-<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
-<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a>current_df</span>
-<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a>That's **E** and **T** — the entire workshop goal — in about ten lines.</span>
-<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scaling Up: Many Cities with `map()`</span></span>
-<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a>What if we want **several cities**? We don't need to copy-paste the code three times, and we don't need to write our own function either. We give `pmap()` a *recipe* — an **anonymous function**, written <span class="in">`\(...)`</span> — and it applies the recipe to every row of a small table.</span>
+<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3: Transform + Scaling with `map()`</span></span>
+<span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a>The parsed <span class="in">`result`</span> is a **named list** (Session 1!). The piece we care about is <span class="in">`result$current`</span>:</span>
+<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a><span class="co"># T is for Transform ----------------------------------------</span></span>
+<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>current</span>
+<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull the values we want into a tibble</span></span>
+<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a>current_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"San Luis Obispo"</span>,</span>
+<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
+<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
+<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a>current_df</span>
+<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a>**This block is pre-built.** Don't type it — **run it, watch it work, then read it** with the note below. (In your workshop file, a few blanks mark the values you choose; everything structural is already written.)</span>
+<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a>That's **E** and **T** — the entire workshop goal — in about ten lines.</span>
 <span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a><span class="co"># A small table of cities and their coordinates</span></span>
-<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>city,             <span class="sc">~</span>latitude, <span class="sc">~</span>longitude,</span>
-<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a>  <span class="st">"San Luis Obispo"</span>,     <span class="fl">35.28</span>,    <span class="sc">-</span><span class="fl">120.66</span>,</span>
-<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Boston"</span>,              <span class="fl">42.36</span>,     <span class="sc">-</span><span class="fl">71.06</span>,</span>
-<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ames"</span>,                <span class="fl">42.03</span>,     <span class="sc">-</span><span class="fl">93.62</span></span>
-<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a><span class="co"># The recipe: for one row (one city), do E and T, return a one-row tibble</span></span>
-<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a>current_df <span class="ot">&lt;-</span> cities <span class="sc">|&gt;</span></span>
-<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pmap</span>(\(city, latitude, longitude) {</span>
-<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E: extract</span></span>
-<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_url_query</span>(</span>
-<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a>        <span class="at">latitude =</span> latitude,</span>
-<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a>        <span class="at">longitude =</span> longitude,</span>
-<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a>        <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
-<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a>        <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
-<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a>      <span class="fu">resp_body_json</span>()</span>
-<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a>    <span class="co"># T: transform</span></span>
-<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a>      <span class="at">city   =</span> city,</span>
-<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a>      <span class="at">time   =</span> result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
-<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a>      <span class="at">temp_f =</span> result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
-<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a>current_df</span>
-<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reading the `map` Pattern</span></span>
+<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a><span class="fu">### Scaling Up: Many Cities with `map()`</span></span>
+<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a>What if we want **several cities**? We don't need to copy-paste the code three times, and we don't need to write our own function either. We give `pmap()` a *recipe* — an **anonymous function**, written <span class="in">`\(...)`</span> — and it applies the recipe to every row of a small table.</span>
+<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a>**This block is pre-built.** Don't type it — **run it, watch it work, then read it** with the note below. (In your workshop file, a few blanks mark the values you choose; everything structural is already written.)</span>
+<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a><span class="co"># A small table of cities and their coordinates</span></span>
+<span id="cb12-358"><a href="#cb12-358" aria-hidden="true" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb12-359"><a href="#cb12-359" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>city,             <span class="sc">~</span>latitude, <span class="sc">~</span>longitude,</span>
+<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a>  <span class="st">"San Luis Obispo"</span>,     <span class="fl">35.28</span>,    <span class="sc">-</span><span class="fl">120.66</span>,</span>
+<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Boston"</span>,              <span class="fl">42.36</span>,     <span class="sc">-</span><span class="fl">71.06</span>,</span>
+<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ames"</span>,                <span class="fl">42.03</span>,     <span class="sc">-</span><span class="fl">93.62</span></span>
+<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a><span class="co"># The recipe: for one row (one city), do E and T, return a one-row tibble</span></span>
+<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a>current_df <span class="ot">&lt;-</span> cities <span class="sc">|&gt;</span></span>
+<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pmap</span>(\(city, latitude, longitude) {</span>
+<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E: extract</span></span>
+<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_url_query</span>(</span>
+<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a>        <span class="at">latitude =</span> latitude,</span>
+<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a>        <span class="at">longitude =</span> longitude,</span>
+<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a>        <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
+<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a>        <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
+<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a>      <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a>    <span class="co"># T: transform</span></span>
+<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a>      <span class="at">city   =</span> city,</span>
+<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a>      <span class="at">time   =</span> result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
+<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a>      <span class="at">temp_f =</span> result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
+<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb12-387"><a href="#cb12-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
 <span id="cb12-388"><a href="#cb12-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`\(city, latitude, longitude) { ... }`</span> is an **anonymous function** — a recipe with no name. The <span class="in">`\( )`</span> lists the ingredients; the <span class="in">`{ }`</span> holds the steps.</span>
-<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pmap()`</span> runs the recipe once **per row** of <span class="in">`cities`</span>.</span>
-<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each run returns a one-row tibble; <span class="in">`bind_rows()`</span> stacks them into one data frame.</span>
-<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a>Same ETV steps as before — just repeated for us, without copy-paste and without defining named functions. (Writing this recipe as a named function yourself is a great <span class="co">[</span><span class="ot">take-home exercise</span><span class="co">](take_home_exercises.qmd)</span>.)</span>
-<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
-<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** In the code above, what does <span class="in">`\(city, latitude, longitude)`</span> mean?</span>
+<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a>current_df</span>
+<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reading the `map` Pattern</span></span>
+<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`\(city, latitude, longitude) { ... }`</span> is an **anonymous function** — a recipe with no name. The <span class="in">`\( )`</span> lists the ingredients; the <span class="in">`{ }`</span> holds the steps.</span>
+<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pmap()`</span> runs the recipe once **per row** of <span class="in">`cities`</span>.</span>
+<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each run returns a one-row tibble; <span class="in">`bind_rows()`</span> stacks them into one data frame.</span>
+<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a>Same ETV steps as before — just repeated for us, without copy-paste and without defining named functions. (Writing this recipe as a named function yourself is a great <span class="co">[</span><span class="ot">take-home exercise</span><span class="co">](take_home_exercises.qmd)</span>.)</span>
+<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-401"><a href="#cb12-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a>a) It creates three new columns in the tibble.</span>
-<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a>b) It is an anonymous function — a nameless recipe whose inputs are one row's city, latitude, and longitude.</span>
-<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a>c) It deletes the variables city, latitude, and longitude.</span>
-<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a>d) It is a comment that R ignores.</span>
-<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a>e) It is a file path.</span>
+<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q7. {.unnumbered}</span></span>
+<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a>**(Multiple Choice):** In the code above, what does <span class="in">`\(city, latitude, longitude)`</span> mean?</span>
 <span id="cb12-407"><a href="#cb12-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
-<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a>**b)** <span class="in">`\( )`</span> is R's shorthand for <span class="in">`function( )`</span>. It defines a small nameless function on the spot, which <span class="in">`pmap()`</span> then applies to every row.</span>
-<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a>a) It creates three new columns in the tibble.</span>
+<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a>b) It is an anonymous function — a nameless recipe whose inputs are one row's city, latitude, and longitude.</span>
+<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a>c) It deletes the variables city, latitude, and longitude.</span>
+<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a>d) It is a comment that R ignores.</span>
+<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a>e) It is a file path.</span>
 <span id="cb12-413"><a href="#cb12-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-414"><a href="#cb12-414" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-415"><a href="#cb12-415" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
-<span id="cb12-416"><a href="#cb12-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-417"><a href="#cb12-417" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** After <span class="in">`pmap()`</span> returns a list of one-row tibbles, we stack them into a single data frame using <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb12-414"><a href="#cb12-414" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q7"}</span>
+<span id="cb12-415"><a href="#cb12-415" aria-hidden="true" tabindex="-1"></a>**b)** <span class="in">`\( )`</span> is R's shorthand for <span class="in">`function( )`</span>. It defines a small nameless function on the spot, which <span class="in">`pmap()`</span> then applies to every row.</span>
+<span id="cb12-416"><a href="#cb12-416" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-417"><a href="#cb12-417" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-418"><a href="#cb12-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-419"><a href="#cb12-419" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
-<span id="cb12-420"><a href="#cb12-420" aria-hidden="true" tabindex="-1"></a><span class="in">`bind_rows()`</span> — it binds the rows of each small tibble into one combined tibble.</span>
-<span id="cb12-421"><a href="#cb12-421" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-422"><a href="#cb12-422" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-423"><a href="#cb12-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-419"><a href="#cb12-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-420"><a href="#cb12-420" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-421"><a href="#cb12-421" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q8. {.unnumbered}</span></span>
+<span id="cb12-422"><a href="#cb12-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-423"><a href="#cb12-423" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** After <span class="in">`pmap()`</span> returns a list of one-row tibbles, we stack them into a single data frame using <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
 <span id="cb12-424"><a href="#cb12-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-425"><a href="#cb12-425" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb12-426"><a href="#cb12-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-427"><a href="#cb12-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-428"><a href="#cb12-428" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Geocoding + Your Turn</span></span>
+<span id="cb12-425"><a href="#cb12-425" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q8"}</span>
+<span id="cb12-426"><a href="#cb12-426" aria-hidden="true" tabindex="-1"></a><span class="in">`bind_rows()`</span> — it binds the rows of each small tibble into one combined tibble.</span>
+<span id="cb12-427"><a href="#cb12-427" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-428"><a href="#cb12-428" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
 <span id="cb12-429"><a href="#cb12-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-430"><a href="#cb12-430" aria-hidden="true" tabindex="-1"></a>We typed the latitude and longitude by hand. But Open-Meteo also has a **geocoding** endpoint that converts a city *name* into coordinates.</span>
-<span id="cb12-431"><a href="#cb12-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-432"><a href="#cb12-432" aria-hidden="true" tabindex="-1"></a><span class="fu">### Look First — A Different Door</span></span>
+<span id="cb12-430"><a href="#cb12-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-431"><a href="#cb12-431" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-432"><a href="#cb12-432" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-433"><a href="#cb12-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-434"><a href="#cb12-434" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb12-435"><a href="#cb12-435" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⚠️ Look Closely — This Is a *Different Endpoint*</span></span>
-<span id="cb12-436"><a href="#cb12-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-437"><a href="#cb12-437" aria-hidden="true" tabindex="-1"></a>Compare the two front doors:</span>
-<span id="cb12-438"><a href="#cb12-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-439"><a href="#cb12-439" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Forecast: <span class="in">`https://api.open-meteo.com/v1/forecast`</span></span>
-<span id="cb12-440"><a href="#cb12-440" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Geocoding: <span class="in">`https://geocoding-api.open-meteo.com/v1/search`</span></span>
-<span id="cb12-441"><a href="#cb12-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-442"><a href="#cb12-442" aria-hidden="true" tabindex="-1"></a>**Everything changed** — different subdomain (<span class="in">`geocoding-api`</span> vs. <span class="in">`api`</span>), different path (<span class="in">`/search`</span> vs. <span class="in">`/forecast`</span>), and it will take different query parameters (<span class="in">`name`</span> and <span class="in">`count`</span> instead of <span class="in">`latitude`</span> and <span class="in">`longitude`</span>). Remember Part 1: each service gets its own machine door. Different endpoint = different service = different inputs and different response shape. Reading an endpoint's requirements is a skill you'll use with *every* API you ever touch.</span>
-<span id="cb12-443"><a href="#cb12-443" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-434"><a href="#cb12-434" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4: Geocoding + Your Turn</span></span>
+<span id="cb12-435"><a href="#cb12-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-436"><a href="#cb12-436" aria-hidden="true" tabindex="-1"></a>We typed the latitude and longitude by hand. But Open-Meteo also has a **geocoding** endpoint that converts a city *name* into coordinates.</span>
+<span id="cb12-437"><a href="#cb12-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-438"><a href="#cb12-438" aria-hidden="true" tabindex="-1"></a><span class="fu">### Look First — A Different Door</span></span>
+<span id="cb12-439"><a href="#cb12-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-440"><a href="#cb12-440" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb12-441"><a href="#cb12-441" aria-hidden="true" tabindex="-1"></a><span class="fu">## ⚠️ Look Closely — This Is a *Different Endpoint*</span></span>
+<span id="cb12-442"><a href="#cb12-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-443"><a href="#cb12-443" aria-hidden="true" tabindex="-1"></a>Compare the two front doors:</span>
 <span id="cb12-444"><a href="#cb12-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-445"><a href="#cb12-445" aria-hidden="true" tabindex="-1"></a>Browser first, as always — and this time let's use **Boston** as our example. Paste this:</span>
-<span id="cb12-446"><a href="#cb12-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-447"><a href="#cb12-447" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-448"><a href="#cb12-448" aria-hidden="true" tabindex="-1"></a><span class="in">https://geocoding-api.open-meteo.com/v1/search?name=Boston&amp;count=1</span></span>
-<span id="cb12-449"><a href="#cb12-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-445"><a href="#cb12-445" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Forecast: <span class="in">`https://api.open-meteo.com/v1/forecast`</span></span>
+<span id="cb12-446"><a href="#cb12-446" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Geocoding: <span class="in">`https://geocoding-api.open-meteo.com/v1/search`</span></span>
+<span id="cb12-447"><a href="#cb12-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-448"><a href="#cb12-448" aria-hidden="true" tabindex="-1"></a>**Everything changed** — different subdomain (<span class="in">`geocoding-api`</span> vs. <span class="in">`api`</span>), different path (<span class="in">`/search`</span> vs. <span class="in">`/forecast`</span>), and it will take different query parameters (<span class="in">`name`</span> and <span class="in">`count`</span> instead of <span class="in">`latitude`</span> and <span class="in">`longitude`</span>). Remember Part 1: each service gets its own machine door. Different endpoint = different service = different inputs and different response shape. Reading an endpoint's requirements is a skill you'll use with *every* API you ever touch.</span>
+<span id="cb12-449"><a href="#cb12-449" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-450"><a href="#cb12-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-451"><a href="#cb12-451" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb12-451"><a href="#cb12-451" aria-hidden="true" tabindex="-1"></a>Browser first, as always — and this time let's use **Boston** as our example. Paste this:</span>
 <span id="cb12-452"><a href="#cb12-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-453"><a href="#cb12-453" aria-hidden="true" tabindex="-1"></a>You'll see JSON with a <span class="in">`results`</span> array whose first entry contains Boston's <span class="in">`latitude`</span> (about 42.36), <span class="in">`longitude`</span> (about -71.06), <span class="in">`population`</span>, and more. We asked a *name* question at a *different door* and got a *coordinates* answer — same request/response loop, brand-new service. Now the same thing in R — **pre-built again**, with <span class="in">`map()`</span> and an anonymous function:</span>
-<span id="cb12-454"><a href="#cb12-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-457"><a href="#cb12-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-458"><a href="#cb12-458" aria-hidden="true" tabindex="-1"></a>city_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Boston"</span>, <span class="st">"San Luis Obispo"</span>, <span class="st">"Ames"</span>)</span>
-<span id="cb12-459"><a href="#cb12-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-460"><a href="#cb12-460" aria-hidden="true" tabindex="-1"></a>coords_df <span class="ot">&lt;-</span> city_names <span class="sc">|&gt;</span></span>
-<span id="cb12-461"><a href="#cb12-461" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(nm) {</span>
-<span id="cb12-462"><a href="#cb12-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-463"><a href="#cb12-463" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E: extract</span></span>
-<span id="cb12-464"><a href="#cb12-464" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-465"><a href="#cb12-465" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_url_query</span>(<span class="at">name =</span> nm, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-466"><a href="#cb12-466" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-467"><a href="#cb12-467" aria-hidden="true" tabindex="-1"></a>      <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-453"><a href="#cb12-453" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-454"><a href="#cb12-454" aria-hidden="true" tabindex="-1"></a><span class="in">https://geocoding-api.open-meteo.com/v1/search?name=Boston&amp;count=1</span></span>
+<span id="cb12-455"><a href="#cb12-455" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-456"><a href="#cb12-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-457"><a href="#cb12-457" aria-hidden="true" tabindex="-1"></a><span class="fu">### Now in Words</span></span>
+<span id="cb12-458"><a href="#cb12-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-459"><a href="#cb12-459" aria-hidden="true" tabindex="-1"></a>You'll see JSON with a <span class="in">`results`</span> array whose first entry contains Boston's <span class="in">`latitude`</span> (about 42.36), <span class="in">`longitude`</span> (about -71.06), <span class="in">`population`</span>, and more. We asked a *name* question at a *different door* and got a *coordinates* answer — same request/response loop, brand-new service. Now the same thing in R — **pre-built again**, with <span class="in">`map()`</span> and an anonymous function:</span>
+<span id="cb12-460"><a href="#cb12-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-463"><a href="#cb12-463" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-464"><a href="#cb12-464" aria-hidden="true" tabindex="-1"></a>city_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Boston"</span>, <span class="st">"San Luis Obispo"</span>, <span class="st">"Ames"</span>)</span>
+<span id="cb12-465"><a href="#cb12-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-466"><a href="#cb12-466" aria-hidden="true" tabindex="-1"></a>coords_df <span class="ot">&lt;-</span> city_names <span class="sc">|&gt;</span></span>
+<span id="cb12-467"><a href="#cb12-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(nm) {</span>
 <span id="cb12-468"><a href="#cb12-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-469"><a href="#cb12-469" aria-hidden="true" tabindex="-1"></a>    <span class="co"># T: transform (first hit in the results array)</span></span>
-<span id="cb12-470"><a href="#cb12-470" aria-hidden="true" tabindex="-1"></a>    hit <span class="ot">&lt;-</span> result<span class="sc">$</span>results[[<span class="dv">1</span>]]</span>
-<span id="cb12-471"><a href="#cb12-471" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
-<span id="cb12-472"><a href="#cb12-472" aria-hidden="true" tabindex="-1"></a>      <span class="at">city      =</span> nm,</span>
-<span id="cb12-473"><a href="#cb12-473" aria-hidden="true" tabindex="-1"></a>      <span class="at">latitude  =</span> <span class="fu">round</span>(hit<span class="sc">$</span>latitude, <span class="dv">2</span>),</span>
-<span id="cb12-474"><a href="#cb12-474" aria-hidden="true" tabindex="-1"></a>      <span class="at">longitude =</span> <span class="fu">round</span>(hit<span class="sc">$</span>longitude, <span class="dv">2</span>)</span>
-<span id="cb12-475"><a href="#cb12-475" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-476"><a href="#cb12-476" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
-<span id="cb12-477"><a href="#cb12-477" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb12-478"><a href="#cb12-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-479"><a href="#cb12-479" aria-hidden="true" tabindex="-1"></a>coords_df</span>
-<span id="cb12-480"><a href="#cb12-480" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-481"><a href="#cb12-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-482"><a href="#cb12-482" aria-hidden="true" tabindex="-1"></a>Now we can find *any* city's coordinates — which Session 4 will need, because the historical weather endpoint only speaks latitude/longitude (and Boston is one of the two cities Session 4 compares).</span>
-<span id="cb12-483"><a href="#cb12-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-484"><a href="#cb12-484" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb12-485"><a href="#cb12-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
-<span id="cb12-486"><a href="#cb12-486" aria-hidden="true" tabindex="-1"></a>Notice we just ran the **same ETV pattern a third time** — on a **completely different endpoint**, with different parameters and a different response shape — and none of our skills changed. That's the whole trick: every API interaction, at every endpoint, at every company, is the same cycle.</span>
-<span id="cb12-487"><a href="#cb12-487" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-488"><a href="#cb12-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-469"><a href="#cb12-469" aria-hidden="true" tabindex="-1"></a>    <span class="co"># E: extract</span></span>
+<span id="cb12-470"><a href="#cb12-470" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-471"><a href="#cb12-471" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_url_query</span>(<span class="at">name =</span> nm, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-472"><a href="#cb12-472" aria-hidden="true" tabindex="-1"></a>      <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-473"><a href="#cb12-473" aria-hidden="true" tabindex="-1"></a>      <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-474"><a href="#cb12-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-475"><a href="#cb12-475" aria-hidden="true" tabindex="-1"></a>    <span class="co"># T: transform (first hit in the results array)</span></span>
+<span id="cb12-476"><a href="#cb12-476" aria-hidden="true" tabindex="-1"></a>    hit <span class="ot">&lt;-</span> result<span class="sc">$</span>results[[<span class="dv">1</span>]]</span>
+<span id="cb12-477"><a href="#cb12-477" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb12-478"><a href="#cb12-478" aria-hidden="true" tabindex="-1"></a>      <span class="at">city      =</span> nm,</span>
+<span id="cb12-479"><a href="#cb12-479" aria-hidden="true" tabindex="-1"></a>      <span class="at">latitude  =</span> <span class="fu">round</span>(hit<span class="sc">$</span>latitude, <span class="dv">2</span>),</span>
+<span id="cb12-480"><a href="#cb12-480" aria-hidden="true" tabindex="-1"></a>      <span class="at">longitude =</span> <span class="fu">round</span>(hit<span class="sc">$</span>longitude, <span class="dv">2</span>)</span>
+<span id="cb12-481"><a href="#cb12-481" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-482"><a href="#cb12-482" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb12-483"><a href="#cb12-483" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb12-484"><a href="#cb12-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-485"><a href="#cb12-485" aria-hidden="true" tabindex="-1"></a>coords_df</span>
+<span id="cb12-486"><a href="#cb12-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-487"><a href="#cb12-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-488"><a href="#cb12-488" aria-hidden="true" tabindex="-1"></a>Now we can find *any* city's coordinates — which Session 4 will need, because the historical weather endpoint only speaks latitude/longitude (and Boston is one of the two cities Session 4 compares).</span>
 <span id="cb12-489"><a href="#cb12-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-490"><a href="#cb12-490" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-491"><a href="#cb12-491" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
-<span id="cb12-492"><a href="#cb12-492" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-493"><a href="#cb12-493" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** The geocoding endpoint converts a city name into <span class="sc">\_\_\_\_\_\_\_\_</span> and <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
+<span id="cb12-490"><a href="#cb12-490" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb12-491"><a href="#cb12-491" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎯 Goal Check</span></span>
+<span id="cb12-492"><a href="#cb12-492" aria-hidden="true" tabindex="-1"></a>Notice we just ran the **same ETV pattern a third time** — on a **completely different endpoint**, with different parameters and a different response shape — and none of our skills changed. That's the whole trick: every API interaction, at every endpoint, at every company, is the same cycle.</span>
+<span id="cb12-493"><a href="#cb12-493" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-494"><a href="#cb12-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-495"><a href="#cb12-495" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
-<span id="cb12-496"><a href="#cb12-496" aria-hidden="true" tabindex="-1"></a>**Latitude** and **longitude** — the coordinates the forecast and historical endpoints require.</span>
-<span id="cb12-497"><a href="#cb12-497" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-498"><a href="#cb12-498" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
-<span id="cb12-499"><a href="#cb12-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-495"><a href="#cb12-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-496"><a href="#cb12-496" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-497"><a href="#cb12-497" aria-hidden="true" tabindex="-1"></a><span class="fu">### Q9. {.unnumbered}</span></span>
+<span id="cb12-498"><a href="#cb12-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-499"><a href="#cb12-499" aria-hidden="true" tabindex="-1"></a>**(Fill in the Blank):** The geocoding endpoint converts a city name into <span class="sc">\_\_\_\_\_\_\_\_</span> and <span class="sc">\_\_\_\_\_\_\_\_</span>.</span>
 <span id="cb12-500"><a href="#cb12-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-501"><a href="#cb12-501" aria-hidden="true" tabindex="-1"></a><span class="fu">### Your Turn — Build Your Own Request</span></span>
-<span id="cb12-502"><a href="#cb12-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-503"><a href="#cb12-503" aria-hidden="true" tabindex="-1"></a>Make a current weather request for **your hometown** (or any city you choose). All the code is scaffolded — **you only fill in the blanks**: your city's name, the endpoint path, and which list elements to pull.</span>
-<span id="cb12-504"><a href="#cb12-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-505"><a href="#cb12-505" aria-hidden="true" tabindex="-1"></a><span class="fu">### Activity: Fill in the Blanks</span></span>
+<span id="cb12-501"><a href="#cb12-501" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Answer Q9"}</span>
+<span id="cb12-502"><a href="#cb12-502" aria-hidden="true" tabindex="-1"></a>**Latitude** and **longitude** — the coordinates the forecast and historical endpoints require.</span>
+<span id="cb12-503"><a href="#cb12-503" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-504"><a href="#cb12-504" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ———————</span></span>
+<span id="cb12-505"><a href="#cb12-505" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-506"><a href="#cb12-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-509"><a href="#cb12-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-510"><a href="#cb12-510" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Find your city's coordinates with the geocoding endpoint</span></span>
-<span id="cb12-511"><a href="#cb12-511" aria-hidden="true" tabindex="-1"></a>my_coords <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-512"><a href="#cb12-512" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">name =</span> <span class="st">"________"</span>, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-513"><a href="#cb12-513" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-514"><a href="#cb12-514" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
-<span id="cb12-515"><a href="#cb12-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-516"><a href="#cb12-516" aria-hidden="true" tabindex="-1"></a>my_lat <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>________</span>
-<span id="cb12-517"><a href="#cb12-517" aria-hidden="true" tabindex="-1"></a>my_lon <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>________</span>
-<span id="cb12-518"><a href="#cb12-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-519"><a href="#cb12-519" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Request the current weather (E)</span></span>
-<span id="cb12-520"><a href="#cb12-520" aria-hidden="true" tabindex="-1"></a>my_result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/________"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-521"><a href="#cb12-521" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
-<span id="cb12-522"><a href="#cb12-522" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> ________,</span>
-<span id="cb12-523"><a href="#cb12-523" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> ________,</span>
-<span id="cb12-524"><a href="#cb12-524" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
-<span id="cb12-525"><a href="#cb12-525" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
-<span id="cb12-526"><a href="#cb12-526" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-527"><a href="#cb12-527" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-528"><a href="#cb12-528" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
-<span id="cb12-529"><a href="#cb12-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-530"><a href="#cb12-530" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Format the response into a tibble (T)</span></span>
-<span id="cb12-531"><a href="#cb12-531" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb12-532"><a href="#cb12-532" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"________"</span>,</span>
-<span id="cb12-533"><a href="#cb12-533" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>________,</span>
-<span id="cb12-534"><a href="#cb12-534" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>________</span>
-<span id="cb12-535"><a href="#cb12-535" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-536"><a href="#cb12-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-537"><a href="#cb12-537" aria-hidden="true" tabindex="-1"></a>my_df</span>
-<span id="cb12-538"><a href="#cb12-538" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-539"><a href="#cb12-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-540"><a href="#cb12-540" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Solution"}</span>
-<span id="cb12-543"><a href="#cb12-543" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-544"><a href="#cb12-544" aria-hidden="true" tabindex="-1"></a>my_coords <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-545"><a href="#cb12-545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">name =</span> <span class="st">"Chicago"</span>, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-546"><a href="#cb12-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-547"><a href="#cb12-547" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
-<span id="cb12-548"><a href="#cb12-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-549"><a href="#cb12-549" aria-hidden="true" tabindex="-1"></a>my_lat <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>latitude</span>
-<span id="cb12-550"><a href="#cb12-550" aria-hidden="true" tabindex="-1"></a>my_lon <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>longitude</span>
-<span id="cb12-551"><a href="#cb12-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-552"><a href="#cb12-552" aria-hidden="true" tabindex="-1"></a>my_result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-553"><a href="#cb12-553" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
-<span id="cb12-554"><a href="#cb12-554" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> my_lat,</span>
-<span id="cb12-555"><a href="#cb12-555" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> my_lon,</span>
-<span id="cb12-556"><a href="#cb12-556" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
-<span id="cb12-557"><a href="#cb12-557" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
-<span id="cb12-558"><a href="#cb12-558" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb12-559"><a href="#cb12-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-560"><a href="#cb12-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
-<span id="cb12-561"><a href="#cb12-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-562"><a href="#cb12-562" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb12-563"><a href="#cb12-563" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"Chicago"</span>,</span>
-<span id="cb12-564"><a href="#cb12-564" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
-<span id="cb12-565"><a href="#cb12-565" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
-<span id="cb12-566"><a href="#cb12-566" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-507"><a href="#cb12-507" aria-hidden="true" tabindex="-1"></a><span class="fu">### Your Turn — Build Your Own Request</span></span>
+<span id="cb12-508"><a href="#cb12-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-509"><a href="#cb12-509" aria-hidden="true" tabindex="-1"></a>Make a current weather request for **your hometown** (or any city you choose). All the code is scaffolded — **you only fill in the blanks**: your city's name, the endpoint path, and which list elements to pull.</span>
+<span id="cb12-510"><a href="#cb12-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-511"><a href="#cb12-511" aria-hidden="true" tabindex="-1"></a><span class="fu">### Activity: Fill in the Blanks</span></span>
+<span id="cb12-512"><a href="#cb12-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-515"><a href="#cb12-515" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-516"><a href="#cb12-516" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Find your city's coordinates with the geocoding endpoint</span></span>
+<span id="cb12-517"><a href="#cb12-517" aria-hidden="true" tabindex="-1"></a>my_coords <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-518"><a href="#cb12-518" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">name =</span> <span class="st">"________"</span>, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-519"><a href="#cb12-519" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-520"><a href="#cb12-520" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-521"><a href="#cb12-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-522"><a href="#cb12-522" aria-hidden="true" tabindex="-1"></a>my_lat <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>________</span>
+<span id="cb12-523"><a href="#cb12-523" aria-hidden="true" tabindex="-1"></a>my_lon <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>________</span>
+<span id="cb12-524"><a href="#cb12-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-525"><a href="#cb12-525" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Request the current weather (E)</span></span>
+<span id="cb12-526"><a href="#cb12-526" aria-hidden="true" tabindex="-1"></a>my_result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/________"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-527"><a href="#cb12-527" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
+<span id="cb12-528"><a href="#cb12-528" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> ________,</span>
+<span id="cb12-529"><a href="#cb12-529" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> ________,</span>
+<span id="cb12-530"><a href="#cb12-530" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
+<span id="cb12-531"><a href="#cb12-531" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
+<span id="cb12-532"><a href="#cb12-532" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-533"><a href="#cb12-533" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-534"><a href="#cb12-534" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-535"><a href="#cb12-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-536"><a href="#cb12-536" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Format the response into a tibble (T)</span></span>
+<span id="cb12-537"><a href="#cb12-537" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-538"><a href="#cb12-538" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"________"</span>,</span>
+<span id="cb12-539"><a href="#cb12-539" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>________,</span>
+<span id="cb12-540"><a href="#cb12-540" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>________</span>
+<span id="cb12-541"><a href="#cb12-541" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-542"><a href="#cb12-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-543"><a href="#cb12-543" aria-hidden="true" tabindex="-1"></a>my_df</span>
+<span id="cb12-544"><a href="#cb12-544" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-545"><a href="#cb12-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-546"><a href="#cb12-546" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" title="Solution"}</span>
+<span id="cb12-549"><a href="#cb12-549" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-550"><a href="#cb12-550" aria-hidden="true" tabindex="-1"></a>my_coords <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://geocoding-api.open-meteo.com/v1/search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-551"><a href="#cb12-551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">name =</span> <span class="st">"Chicago"</span>, <span class="at">count =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-552"><a href="#cb12-552" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-553"><a href="#cb12-553" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
+<span id="cb12-554"><a href="#cb12-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-555"><a href="#cb12-555" aria-hidden="true" tabindex="-1"></a>my_lat <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>latitude</span>
+<span id="cb12-556"><a href="#cb12-556" aria-hidden="true" tabindex="-1"></a>my_lon <span class="ot">&lt;-</span> my_coords<span class="sc">$</span>results[[<span class="dv">1</span>]]<span class="sc">$</span>longitude</span>
+<span id="cb12-557"><a href="#cb12-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-558"><a href="#cb12-558" aria-hidden="true" tabindex="-1"></a>my_result <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.open-meteo.com/v1/forecast"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-559"><a href="#cb12-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(</span>
+<span id="cb12-560"><a href="#cb12-560" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> my_lat,</span>
+<span id="cb12-561"><a href="#cb12-561" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> my_lon,</span>
+<span id="cb12-562"><a href="#cb12-562" aria-hidden="true" tabindex="-1"></a>    <span class="at">current =</span> <span class="st">"temperature_2m"</span>,</span>
+<span id="cb12-563"><a href="#cb12-563" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature_unit =</span> <span class="st">"fahrenheit"</span></span>
+<span id="cb12-564"><a href="#cb12-564" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-565"><a href="#cb12-565" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-566"><a href="#cb12-566" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>()</span>
 <span id="cb12-567"><a href="#cb12-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-568"><a href="#cb12-568" aria-hidden="true" tabindex="-1"></a>my_df</span>
-<span id="cb12-569"><a href="#cb12-569" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-570"><a href="#cb12-570" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb12-571"><a href="#cb12-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-572"><a href="#cb12-572" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-573"><a href="#cb12-573" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb12-574"><a href="#cb12-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-575"><a href="#cb12-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-576"><a href="#cb12-576" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 3 Recap</span></span>
+<span id="cb12-568"><a href="#cb12-568" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb12-569"><a href="#cb12-569" aria-hidden="true" tabindex="-1"></a>  <span class="at">city   =</span> <span class="st">"Chicago"</span>,</span>
+<span id="cb12-570"><a href="#cb12-570" aria-hidden="true" tabindex="-1"></a>  <span class="at">time   =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>time,</span>
+<span id="cb12-571"><a href="#cb12-571" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp_f =</span> my_result<span class="sc">$</span>current<span class="sc">$</span>temperature_2m</span>
+<span id="cb12-572"><a href="#cb12-572" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-573"><a href="#cb12-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-574"><a href="#cb12-574" aria-hidden="true" tabindex="-1"></a>my_df</span>
+<span id="cb12-575"><a href="#cb12-575" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-576"><a href="#cb12-576" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb12-577"><a href="#cb12-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-578"><a href="#cb12-578" aria-hidden="true" tabindex="-1"></a>Today the goal became real — in four parts:</span>
-<span id="cb12-579"><a href="#cb12-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-580"><a href="#cb12-580" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Open-Meteo + the browser demo** — free, no API key; a request is just a URL, and pasting it into a browser made a real request with the raw JSON response on screen — the goal, met with zero code</span>
-<span id="cb12-581"><a href="#cb12-581" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**The ETV Cycle + Extract in R** — Extract (request), Transform (JSON → tibble), Visualize (Session 4) — with each library owning one letter (<span class="in">`httr2`</span> = E, <span class="in">`tibble`</span>/<span class="in">`dplyr`</span>/<span class="in">`purrr`</span> = T, <span class="in">`ggplot2`</span> = V), and the pre-built <span class="in">`request()`</span> |&gt; <span class="in">`req_url_query()`</span> |&gt; <span class="in">`req_perform()`</span> |&gt; <span class="in">`resp_body_json()`</span> pipeline doing what the browser did</span>
-<span id="cb12-582"><a href="#cb12-582" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Transform + scaling with `map()`** — pulling values from the named list into a <span class="in">`tibble()`</span>, then letting <span class="in">`pmap()`</span> + anonymous functions <span class="in">`\( )`</span> repeat the recipe for many cities, no copy-paste</span>
-<span id="cb12-583"><a href="#cb12-583" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Geocoding + Your Turn** — a **different endpoint** (<span class="in">`geocoding-api.open-meteo.com/v1/search`</span>) that converts city names (like Boston) into the coordinates other endpoints need — and your own hometown request, built by filling in the blanks</span>
-<span id="cb12-584"><a href="#cb12-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-585"><a href="#cb12-585" aria-hidden="true" tabindex="-1"></a>**Up next in Session 4 — Historical Weather, Visualization &amp; Wrap-Up:** the **V** in ETV — historical weather data for Boston vs. San Luis Obispo, and your own visualizations!</span>
-<span id="cb12-586"><a href="#cb12-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-587"><a href="#cb12-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-588"><a href="#cb12-588" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb12-589"><a href="#cb12-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-578"><a href="#cb12-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-579"><a href="#cb12-579" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-580"><a href="#cb12-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-581"><a href="#cb12-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-582"><a href="#cb12-582" aria-hidden="true" tabindex="-1"></a><span class="fu">## Session 3 Recap</span></span>
+<span id="cb12-583"><a href="#cb12-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-584"><a href="#cb12-584" aria-hidden="true" tabindex="-1"></a>Today the goal became real — in four parts:</span>
+<span id="cb12-585"><a href="#cb12-585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-586"><a href="#cb12-586" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Open-Meteo + the browser demo** — free, no API key; a request is just a URL, and pasting it into a browser made a real request with the raw JSON response on screen — the goal, met with zero code</span>
+<span id="cb12-587"><a href="#cb12-587" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**The ETV Cycle + Extract in R** — Extract (request), Transform (JSON → tibble), Visualize (Session 4) — with each library owning one letter (<span class="in">`httr2`</span> = E, <span class="in">`tibble`</span>/<span class="in">`dplyr`</span>/<span class="in">`purrr`</span> = T, <span class="in">`ggplot2`</span> = V), and the pre-built <span class="in">`request()`</span> |&gt; <span class="in">`req_url_query()`</span> |&gt; <span class="in">`req_perform()`</span> |&gt; <span class="in">`resp_body_json()`</span> pipeline doing what the browser did</span>
+<span id="cb12-588"><a href="#cb12-588" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Transform + scaling with `map()`** — pulling values from the named list into a <span class="in">`tibble()`</span>, then letting <span class="in">`pmap()`</span> + anonymous functions <span class="in">`\( )`</span> repeat the recipe for many cities, no copy-paste</span>
+<span id="cb12-589"><a href="#cb12-589" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Geocoding + Your Turn** — a **different endpoint** (<span class="in">`geocoding-api.open-meteo.com/v1/search`</span>) that converts city names (like Boston) into the coordinates other endpoints need — and your own hometown request, built by filling in the blanks</span>
 <span id="cb12-590"><a href="#cb12-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-591"><a href="#cb12-591" aria-hidden="true" tabindex="-1"></a><span class="fu">## During the Break {.unnumbered}</span></span>
+<span id="cb12-591"><a href="#cb12-591" aria-hidden="true" tabindex="-1"></a>**Up next in Session 4 — Historical Weather, Visualization &amp; Wrap-Up:** the **V** in ETV — historical weather data for Boston vs. San Luis Obispo, and your own visualizations!</span>
 <span id="cb12-592"><a href="#cb12-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-593"><a href="#cb12-593" aria-hidden="true" tabindex="-1"></a>Before Session 4 starts:</span>
-<span id="cb12-594"><a href="#cb12-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-595"><a href="#cb12-595" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Questions?** Come up and ask — Meg and I will be here for the whole break.</span>
-<span id="cb12-596"><a href="#cb12-596" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Did you finish?** Check yourself:</span>
-<span id="cb12-597"><a href="#cb12-597" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I pasted the forecast URL into my browser and saw JSON</span>
-<span id="cb12-598"><a href="#cb12-598" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I ran the R request and got a <span class="in">`200`</span> status</span>
-<span id="cb12-599"><a href="#cb12-599" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I built <span class="in">`my_df`</span> for my own city in Part 4</span>
-<span id="cb12-600"><a href="#cb12-600" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If you finished everything, try adding a fourth city to the <span class="in">`cities`</span> table in Part 3 and re-running the <span class="in">`pmap()`</span> block.</span>
+<span id="cb12-593"><a href="#cb12-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-594"><a href="#cb12-594" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb12-595"><a href="#cb12-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-596"><a href="#cb12-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-597"><a href="#cb12-597" aria-hidden="true" tabindex="-1"></a><span class="fu">## During the Break {.unnumbered}</span></span>
+<span id="cb12-598"><a href="#cb12-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-599"><a href="#cb12-599" aria-hidden="true" tabindex="-1"></a>Before Session 4 starts:</span>
+<span id="cb12-600"><a href="#cb12-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-601"><a href="#cb12-601" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Questions?** Come up and ask — Meg and I will be here for the whole break.</span>
+<span id="cb12-602"><a href="#cb12-602" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Did you finish?** Check yourself:</span>
+<span id="cb12-603"><a href="#cb12-603" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I pasted the forecast URL into my browser and saw JSON</span>
+<span id="cb12-604"><a href="#cb12-604" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I ran the R request and got a <span class="in">`200`</span> status</span>
+<span id="cb12-605"><a href="#cb12-605" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="va">[ ]</span> I built <span class="in">`my_df`</span> for my own city in Part 4</span>
+<span id="cb12-606"><a href="#cb12-606" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If you finished everything, try adding a fourth city to the <span class="in">`cities`</span> table in Part 3 and re-running the <span class="in">`pmap()`</span> block.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

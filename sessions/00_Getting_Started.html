@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Immanuel Williams">
-<meta name="dcterms.date" content="2026-08-05">
 
 <title>Session 0: Getting Started – API Workshop</title>
 <style>
@@ -169,6 +168,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../glossary.html"> 
 <span class="menu-text">Glossary</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../shiny-weather-app/index.html"> 
+<span class="menu-text">Shiny Capstone</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-practice-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Practice Labs</span>
@@ -262,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 5, 2026</p>
+      <p class="date">Invalid Date</p>
     </div>
   </div>
   
@@ -301,28 +304,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>Day 1 (8/5)</td>
-<td>8:00–9:00 AM</td>
+<td>Part A — Thu, Aug 6</td>
+<td>8:00–8:55 AM</td>
 <td><a href="../sessions/01_JSON_and_Request_Response.html">Session 1</a></td>
-<td>API Mechanics &amp; Response Fundamentals</td>
+<td>API responses</td>
 </tr>
 <tr class="even">
-<td>Day 1 (8/5)</td>
-<td>9:00–10:00 AM</td>
+<td>Part A — Thu, Aug 6</td>
+<td>8:55–9:50 AM</td>
 <td><a href="../sessions/02_CRUD_HTTP_Methods_URL.html">Session 2</a></td>
-<td>The Anatomy of a Request</td>
+<td>API requests and URLs</td>
 </tr>
 <tr class="odd">
-<td>Day 2 (8/6)</td>
-<td>9:00–10:00 AM</td>
+<td>Part B — Fri, Aug 7</td>
+<td>10:00–10:55 AM</td>
 <td><a href="../sessions/03_Weather_API_Setup.html">Session 3</a></td>
-<td>Weather API — First Real Requests</td>
+<td>Current weather by city</td>
 </tr>
 <tr class="even">
-<td>Day 2 (8/6)</td>
-<td>10:00–11:00 AM</td>
+<td>Part B — Fri, Aug 7</td>
+<td>10:55–11:50 AM</td>
 <td><a href="../sessions/04_Historical_Weather_Visualization.html">Session 4</a></td>
-<td>Historical Weather, Visualization &amp; Wrap-Up</td>
+<td>Historical city comparisons</td>
 </tr>
 </tbody>
 </table>
@@ -521,6 +524,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           break;
         }
       }
+    });
+
+    // Add a dedicated Copy URL action to blocks containing an API URL.
+    document.querySelectorAll('pre').forEach(function (block) {
+      var value = block.textContent.trim();
+      if (!/^https:\/\/[^\s]+$/i.test(value)) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-url-btn';
+      button.textContent = 'Copy URL';
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(value).then(function () {
+          button.textContent = 'Copied!';
+          setTimeout(function () { button.textContent = 'Copy URL'; }, 1500);
+        });
+      });
+      block.insertAdjacentElement('afterend', button);
     });
   })();
 </script>
@@ -979,7 +999,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Session 0: Getting Started"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Setup, File Downloads &amp; How to Use This Workshop"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Immanuel Williams"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 5, 2026"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "August 6–7, 2026"</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
@@ -1013,10 +1033,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Day <span class="pp">|</span> Time <span class="pp">|</span> Session <span class="pp">|</span> Focus <span class="pp">|</span></span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----|------|---------|-------|</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Day 1 (8/5) <span class="pp">|</span> 8:00–9:00 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 1</span><span class="co">](01_JSON_and_Request_Response.qmd)</span> <span class="pp">|</span> API Mechanics &amp; Response Fundamentals <span class="pp">|</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Day 1 (8/5) <span class="pp">|</span> 9:00–10:00 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 2</span><span class="co">](02_CRUD_HTTP_Methods_URL.qmd)</span> <span class="pp">|</span> The Anatomy of a Request <span class="pp">|</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Day 2 (8/6) <span class="pp">|</span> 9:00–10:00 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 3</span><span class="co">](03_Weather_API_Setup.qmd)</span> <span class="pp">|</span> Weather API — First Real Requests <span class="pp">|</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Day 2 (8/6) <span class="pp">|</span> 10:00–11:00 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 4</span><span class="co">](04_Historical_Weather_Visualization.qmd)</span> <span class="pp">|</span> Historical Weather, Visualization &amp; Wrap-Up <span class="pp">|</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Part A — Thu, Aug 6 <span class="pp">|</span> 8:00–8:55 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 1</span><span class="co">](01_JSON_and_Request_Response.qmd)</span> <span class="pp">|</span> API responses <span class="pp">|</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Part A — Thu, Aug 6 <span class="pp">|</span> 8:55–9:50 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 2</span><span class="co">](02_CRUD_HTTP_Methods_URL.qmd)</span> <span class="pp">|</span> API requests and URLs <span class="pp">|</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Part B — Fri, Aug 7 <span class="pp">|</span> 10:00–10:55 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 3</span><span class="co">](03_Weather_API_Setup.qmd)</span> <span class="pp">|</span> Current weather by city <span class="pp">|</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Part B — Fri, Aug 7 <span class="pp">|</span> 10:55–11:50 AM <span class="pp">|</span> <span class="co">[</span><span class="ot">Session 4</span><span class="co">](04_Historical_Weather_Visualization.qmd)</span> <span class="pp">|</span> Historical city comparisons <span class="pp">|</span></span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
