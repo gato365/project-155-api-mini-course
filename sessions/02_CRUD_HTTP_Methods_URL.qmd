@@ -45,13 +45,78 @@ Session 1 gave us the vocabulary. This session answers one question: **how exact
 
 ## Part 1: The CRUD Framework
 
-### Look First
+### Watch First
 
-![](images/crud-operations.jpeg){fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}
+Step through the four operations with the buttons — one quadrant lights up at a time.
+
+**What to notice:** each operation pairs one **verb** (what you want done) with one **HTTP method** (how you say it) — and one of the four quadrants is where data scientists spend nearly all their time. See if you can guess which before the last step.
+
+```{=html}
+<div id="crud-stepper" style="border:2px solid #d0d7de; border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; background:#fafbfc;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:.6rem; text-align:center; margin-bottom:1rem;">
+    <div class="crud-q" id="crud-create" style="padding:.85rem .5rem; border-radius:10px; border:2px solid transparent; background:#fff; transition:all .4s;">
+      <div style="font-size:2rem;">➕</div><strong>Create</strong><br><code>POST</code><br><small>add something new</small>
+    </div>
+    <div class="crud-q" id="crud-read" style="padding:.85rem .5rem; border-radius:10px; border:2px solid transparent; background:#fff; transition:all .4s;">
+      <div style="font-size:2rem;">👁️</div><strong>Read</strong><br><code>GET</code><br><small>look at existing data</small>
+    </div>
+    <div class="crud-q" id="crud-update" style="padding:.85rem .5rem; border-radius:10px; border:2px solid transparent; background:#fff; transition:all .4s;">
+      <div style="font-size:2rem;">✏️</div><strong>Update</strong><br><code>PUT / PATCH</code><br><small>edit something</small>
+    </div>
+    <div class="crud-q" id="crud-delete" style="padding:.85rem .5rem; border-radius:10px; border:2px solid transparent; background:#fff; transition:all .4s;">
+      <div style="font-size:2rem;">🗑️</div><strong>Delete</strong><br><code>DELETE</code><br><small>remove it</small>
+    </div>
+  </div>
+  <div id="crud-caption" style="min-height:3.2em; font-size:1.05rem; text-align:center; padding:.5rem; background:#fff; border-radius:8px; border:1px solid #d0d7de;"></div>
+  <div style="display:flex; justify-content:center; align-items:center; gap:.5rem; margin-top:.85rem; flex-wrap:wrap;">
+    <button id="crud-restart" class="crud-btn">⏮ Restart</button>
+    <button id="crud-back" class="crud-btn">◀ Back</button>
+    <span id="crud-dots" style="letter-spacing:.35em; font-size:1rem; color:#8b949e;"></span>
+    <button id="crud-next" class="crud-btn">Next ▶</button>
+    <button id="crud-play" class="crud-btn" style="min-width:6.5em;">▶ Play</button>
+  </div>
+</div>
+<style>
+  .crud-btn { border:1px solid #d0d7de; background:#fff; border-radius:8px; padding:.35rem .8rem; cursor:pointer; font-size:.9rem; }
+  .crud-btn:hover { background:#f3f4f6; }
+  .crud-on { border-color:#0969da !important; background:#ddf4ff !important; }
+  .crud-star { border-color:#1a7f37 !important; background:#dafbe1 !important; box-shadow:0 0 0 3px rgba(26,127,55,.18); }
+</style>
+<script>
+(function() {
+  const steps = [
+    { text: "Every request you'll ever make is one of <strong>four operations</strong>. Together they spell <strong>CRUD</strong>: Create, Read, Update, Delete.", on: [] },
+    { text: "<strong>➕ Create — <code>POST</code>:</strong> submit something <em>new</em> to the server. Posting a tweet, adding a record.", on: ["crud-create"] },
+    { text: "<strong>👁️ Read — <code>GET</code>:</strong> retrieve <em>existing</em> data. Nothing on the server changes — you're just looking.", on: ["crud-read"] },
+    { text: "<strong>✏️ Update — <code>PUT / PATCH</code>:</strong> edit something that already exists. Changing your display name.", on: ["crud-update"] },
+    { text: "<strong>🗑️ Delete — <code>DELETE</code>:</strong> remove a resource from the server.", on: ["crud-delete"] },
+    { text: "<strong>Here's the punchline:</strong> as a data scientist, you live in the <strong>Read (GET)</strong> quadrant. Every request in this workshop — and most you'll ever write — is a GET.", on: ["crud-read"], star: true }
+  ];
+  let i = 0, timer = null;
+  const $ = id => document.getElementById(id);
+  function render() {
+    document.querySelectorAll("#crud-stepper .crud-q").forEach(el => el.classList.remove("crud-on", "crud-star"));
+    steps[i].on.forEach(id => $(id).classList.add(steps[i].star ? "crud-star" : "crud-on"));
+    $("crud-caption").innerHTML = steps[i].text;
+    $("crud-dots").textContent = steps.map((_, k) => k === i ? "●" : "○").join("");
+  }
+  function stopPlay() { if (timer) { clearInterval(timer); timer = null; $("crud-play").textContent = "▶ Play"; } }
+  $("crud-next").onclick = () => { stopPlay(); i = (i + 1) % steps.length; render(); };
+  $("crud-back").onclick = () => { stopPlay(); i = (i - 1 + steps.length) % steps.length; render(); };
+  $("crud-restart").onclick = () => { stopPlay(); i = 0; render(); };
+  $("crud-play").onclick = () => {
+    if (timer) { stopPlay(); return; }
+    $("crud-play").textContent = "⏸ Pause";
+    timer = setInterval(() => { i = (i + 1) % steps.length; render(); }, 2600);
+  };
+  render();
+})();
+</script>
+```
 
 ### Now in Words
 
-What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations. The image maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it).
+What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations. The animation maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it).
 
 | CRUD Operation | HTTP Method | Description |
 |---------------|-------------|-------------|
@@ -80,7 +145,7 @@ Our workshop goal — *make a request, format the response* — lives almost ent
 #### ———————
 ### Visual Check — CRUD Operations. {.unnumbered}
 
-**(Multiple Choice):** A social media app lets users edit their display name. Based on the image above, which CRUD operation and HTTP method does that action map to?
+**(Multiple Choice):** A social media app lets users edit their display name. Based on the animation above, which CRUD operation and HTTP method does that action map to?
 
 a) Create — POST
 b) Read — GET
@@ -305,13 +370,22 @@ So how do we actually construct a request? A request is defined by a **URL** —
 
 Step through the URL piece by piece — each click highlights the next component.
 
+**What to notice:** the address side of the URL has exactly **three pieces — protocol, base URL, endpoint** — and together they read as one address. Then a `?` flips the URL into a different mode entirely. Watch for that flip.
+
 ```{=html}
-<iframe class="anim-embed" src="../animations/interactive/url_breakdown.html?embed=1" title="Interactive animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+<iframe class="anim-embed" src="../animations/interactive/url_breakdown.html?embed=1" title="Interactive animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, base URL, endpoint, and query string parameters" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
 ```
 
 ### Now in Words
 
-The animation shows the Client (left) and API Server (right) with the URL being broken down between them. The full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+The animation shows the Client (left) and API Server (right) with the URL being broken down between them. Say it out loud, left to right, the same way the animation reveals it:
+
+1. **Protocol** — `https://` — *how* to communicate (the `s` means secure).
+2. **Base URL** — `api.open-meteo.com` — *which server* to talk to; the API's home address.
+3. **Endpoint** — `/v1/forecast` — *which resource* on that server you want.
+4. Then the `?` — and everything after it is the **query string**: key-value pairs, chained with `&`, that customize the request.
+
+The first three pieces — protocol, base URL, endpoint — read together as **one address**: everything to the left of the `?`. That's where the request goes. Everything to the right of the `?` is what you're asking for.
 
 ::: {.callout-important icon="false"}
 ## 📖 Definition — URL
@@ -319,9 +393,9 @@ The animation shows the Client (left) and API Server (right) with the URL being 
 A **URL** (**Uniform Resource Locator**) is a web address: a single string of text that says exactly where a resource lives and how to reach it. For API work this matters doubly, because **the URL *is* the request** — everything we ask for is encoded in that one string.
 :::
 
-Every request URL contains both:
+Every request URL has two halves:
 
-- The **endpoint** (base address of the API) — the stable part
+- The **address** (protocol + base URL + endpoint) — the stable part
 - The **query string** (key-value pairs that customize the request) — the dynamic part
 
 ### Breaking Down a URL
@@ -417,9 +491,15 @@ And the same anatomy, condensed to five pieces:
 | 🟢 | **Key-value pairs** | `latitude=35.28`, … | *The details* — where, what data, which units |
 
 ::: {.callout-note}
+## From Here On: Watch the Endpoint
+
+Now that you've met all three address pieces, here's the simplification: the **protocol and base URL almost never change** — every Open-Meteo request in this workshop starts with `https://api.open-meteo.com`. From this point forward, when you look at a URL, let your eyes jump straight to the **endpoint** and the **query string** — that's where the meaning lives.
+:::
+
+::: {.callout-note}
 ## Key Vocabulary
 
-- An **endpoint** is the specific URL where an API resource can be accessed. It's the stable part of the URL that doesn't change from one request to the next.
+- An **endpoint** is the path where an API resource can be accessed (e.g., `/v1/forecast`) — the *stable* part of the URL that doesn't change from one request to the next.
 - A **query string** customizes the request using key-value pairs. It always starts with `?` and pairs are separated by `&`.
 :::
 
@@ -456,8 +536,10 @@ This is the "make a request" half of our goal, fully unpacked: **a request = end
 **(Short Answer):** In the URL `https://api.spotify.com/v1/search?q=Daft+Punk&type=artist`, identify the **endpoint** and the two **key-value pairs** that make up the query string.
 
 ::: {.callout-tip collapse="true" title="Answer Q6"}
-- **Endpoint:** `https://api.spotify.com/v1/search`
+- **Endpoint:** `/v1/search` — the path after the base URL (`api.spotify.com`)
 - **Key-Value Pairs:** `q=Daft+Punk` and `type=artist`
+
+(Full anatomy, for the record: protocol `https://`, base URL `api.spotify.com`, endpoint `/v1/search`, then the query string. But your eyes should go straight to the endpoint and the pairs.)
 :::
 #### ———————
 
@@ -534,10 +616,10 @@ e) Create a request object with `request()`
 
 ### Activity — Write a URL on Paper. {.unnumbered}
 
-No computer for this one. On paper, write the URL that asks Open-Meteo for the current temperature in **your hometown**, in Fahrenheit. Use the template below — you only need to fill in five blanks (look up your hometown's rough latitude and longitude on your phone, or ask us):
+No computer for this one. On paper, write the URL that asks Open-Meteo for the current temperature in **your hometown**, in Fahrenheit. The protocol and base URL are given — they never change. You only fill in the **endpoint** and the **query string** (look up your hometown's rough latitude and longitude on your phone, or ask us):
 
 ```
-https://________.open-meteo.com/v1/________?latitude=________&longitude=________&current=________&temperature_unit=fahrenheit
+https://api.open-meteo.com/________?latitude=________&longitude=________&current=________&temperature_unit=fahrenheit
 ```
 
 Check yourself against Part 3: endpoint first, `?` once, key-value pairs chained with `&`.
@@ -547,7 +629,7 @@ Check yourself against Part 3: endpoint first, `?` once, key-value pairs chained
 https://api.open-meteo.com/v1/forecast?latitude=41.88&longitude=-87.63&current=temperature_2m&temperature_unit=fahrenheit
 ```
 
-The two blanks that identify the *service* are `api` and `forecast`; the two that identify *where* are your latitude and longitude; the one that says *what* is `temperature_2m`. Tomorrow you will paste your paper URL into a real browser — keep it!
+The blank that identifies the *resource* is the endpoint, `/v1/forecast`; the two that identify *where* are your latitude and longitude; the one that says *what* is `temperature_2m`. Tomorrow you will paste your paper URL into a real browser — keep it!
 :::
 
 ::: {.callout-tip}

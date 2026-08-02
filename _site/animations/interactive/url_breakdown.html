@@ -19,11 +19,11 @@
     }
 
     .url-bar {
-      max-width: 640px;
+      max-width: 720px;
       margin: 0 auto 10px;
       text-align: center;
       font-family: var(--mono);
-      font-size: clamp(0.8rem, 2.2vw, 1.02rem);
+      font-size: clamp(0.72rem, 1.9vw, 0.95rem);
       background: var(--bg-soft);
       border: 1px solid var(--panel-3);
       border-radius: 10px;
@@ -31,7 +31,9 @@
       white-space: nowrap;
       overflow-x: auto;
     }
+    .url-proto { color: var(--violet); }
     .url-base  { color: var(--indigo); }
+    .url-end   { color: var(--orange-text); }
     .url-query { color: var(--emerald-text); }
 
     .breakdown {
@@ -53,11 +55,19 @@
     }
     .breakdown .value {
       font-family: var(--mono);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       text-align: center;
+      overflow-wrap: anywhere;
     }
+    #card-proto .value { color: var(--violet); }
     #card-base .value  { color: var(--indigo); }
+    #card-end .value   { color: var(--orange-text); }
     #card-query .value { color: var(--emerald-text); }
+
+    .card.focus-orange {
+      border-color: var(--orange);
+      box-shadow: 0 6px 22px rgba(217, 119, 6, 0.18);
+    }
 
     .note-card {
       max-width: 760px;
@@ -77,24 +87,32 @@
 
     <section id="scene-outer">
       <div id="url-bar" class="url-bar reveal">
-        <span class="url-base">https://api.example.com/data</span><span class="url-query">?q=city&amp;appid=API_KEY</span>
+        <span class="url-proto">https://</span><span class="url-base">api.open-meteo.com</span><span class="url-end">/v1/forecast</span><span class="url-query">?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m</span>
       </div>
 
       <section id="scene"></section>
 
       <div class="breakdown">
+        <div id="card-proto" class="card reveal">
+          <div class="label">Protocol</div>
+          <div class="value">https://</div>
+        </div>
         <div id="card-base" class="card reveal">
           <div class="label">Base URL</div>
-          <div class="value">https://api.example.com/data</div>
+          <div class="value">api.open-meteo.com</div>
+        </div>
+        <div id="card-end" class="card reveal">
+          <div class="label">Endpoint</div>
+          <div class="value">/v1/forecast</div>
         </div>
         <div id="card-query" class="card reveal">
           <div class="label">Query Parameters</div>
-          <div class="value">?q=city&amp;appid=API_KEY</div>
+          <div class="value">?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m</div>
         </div>
       </div>
 
       <div id="note" class="note-card card reveal">
-        This structure is how most <strong>GET</strong> requests work: the base URL says <em>where</em> to ask, and the query parameters say <em>what</em> you want back.
+        The address (<strong>protocol + base URL + endpoint</strong>) says <em>where</em> to ask; the query parameters say <em>what</em> you want back. The protocol and base URL rarely change — keep your eye on the <strong>endpoint</strong> and the <strong>query</strong>.
       </div>
     </section>
 
@@ -109,70 +127,90 @@
     const scene = createFlowScene(document.getElementById('scene'), {
       nodes: [
         { id: 'client', name: 'Client', sub: '(Your R script)', icon: 'client' },
-        { id: 'server', name: 'API Server', sub: '(api.example.com)', icon: 'server', iconColor: 'server' }
+        { id: 'server', name: 'API Server', sub: '(api.open-meteo.com)', icon: 'server', iconColor: 'server' }
       ]
     });
 
     const urlBar = document.getElementById('url-bar');
+    const cardProto = document.getElementById('card-proto');
     const cardBase = document.getElementById('card-base');
+    const cardEnd = document.getElementById('card-end');
     const cardQuery = document.getElementById('card-query');
     const note = document.getElementById('note');
 
     function toggle(el, on, focusClass) {
       el.classList.toggle('visible', on);
-      ['focus-blue', 'focus-green', 'focus-teal'].forEach(function (c) { el.classList.remove(c); });
+      ['focus-blue', 'focus-green', 'focus-teal', 'focus-purple', 'focus-orange'].forEach(function (c) { el.classList.remove(c); });
       if (on && focusClass) el.classList.add(focusClass);
     }
 
     const steps = [
       {
-        title: 'Two sides of a request',
-        text: 'A GET request is just a carefully built URL sent from a client to a server. Let’s see how that URL is put together.',
+        title: 'One string, four pieces',
+        text: 'A GET request is just a carefully built URL sent from a client to a server. The address side has exactly three pieces — protocol, base URL, endpoint — then a ? flips the URL into customization mode. Let’s take it apart.',
         status: 'How a request URL is built',
         extras: {}
       },
       {
-        title: 'The base URL',
-        text: 'The base URL is the address of the resource: the protocol (https), the host (api.example.com), and the path (/data). It says where to ask.',
-        status: 'Base URL: <span class="mono c-request">https://api.example.com/data</span>',
-        extras: { base: 'focus-blue' }
+        title: 'Piece 1 — the protocol',
+        text: 'The protocol (https://) says how to communicate. The s means the connection is secure.',
+        status: 'Protocol: <span class="mono c-write">https://</span>',
+        extras: { proto: 'focus-purple' }
+      },
+      {
+        title: 'Piece 2 — the base URL',
+        text: 'The base URL (api.open-meteo.com) says which server to talk to. It is the API’s home address.',
+        status: 'Base URL: <span class="mono c-request">api.open-meteo.com</span>',
+        extras: { proto: true, base: 'focus-blue' }
+      },
+      {
+        title: 'Piece 3 — the endpoint',
+        text: 'The endpoint (/v1/forecast) says which resource you want on that server. It is the stable part — the same from request to request.',
+        status: 'Endpoint: <span class="mono c-query">/v1/forecast</span>',
+        extras: { proto: true, base: true, end: 'focus-orange' }
+      },
+      {
+        title: 'Three pieces, one address',
+        text: 'Protocol + base URL + endpoint read together as one address — everything to the left of the ?. That is where the request goes.',
+        status: 'Protocol + Base URL + Endpoint = the address',
+        extras: { proto: 'focus-purple', base: 'focus-blue', end: 'focus-orange' }
       },
       {
         title: 'The query parameters',
-        text: 'After the ?, query parameters customize the request as name=value pairs joined by &. Here q picks the city and appid proves who you are.',
-        status: 'Query string: <span class="mono c-response">?q=city&amp;appid=API_KEY</span>',
-        extras: { base: true, query: 'focus-green' }
+        text: 'After the ?, query parameters customize the request as key=value pairs joined by &. Here latitude and longitude say where, and current=temperature_2m says what data you want.',
+        status: 'Query string: <span class="mono c-response">?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m</span>',
+        extras: { proto: true, base: true, end: true, query: 'focus-green' }
       },
       {
         title: 'The full request URL',
-        text: 'Base URL + query parameters = the complete request URL. This single string is the entire GET request.',
-        status: 'Base URL + query parameters',
-        extras: { base: true, query: true, url: 'focus-teal' }
+        text: 'Address + query parameters = the complete request URL. This single string is the entire GET request.',
+        status: 'Address + query parameters',
+        extras: { proto: true, base: true, end: true, query: true, url: 'focus-teal' }
       },
       {
         title: 'The client sends it',
         text: 'The client sends the GET request across the internet to the API server.',
         status: '<span class="c-request">Sending the request…</span>',
-        extras: { base: true, query: true, url: true },
+        extras: { proto: true, base: true, end: true, query: true, url: true },
         nodes: { client: 'request', server: 'request' },
-        arrows: [{ from: 'client', to: 'server', kind: 'request', label: 'GET /data?q=city&appid=API_KEY' }]
+        arrows: [{ from: 'client', to: 'server', kind: 'request', label: 'GET /v1/forecast?latitude=…' }]
       },
       {
         title: 'The server responds',
         text: 'The server reads the query parameters, gathers the matching data, and sends back a JSON response.',
         status: '<span class="c-response">Server sends the response…</span>',
-        extras: { base: true, query: true, url: true },
+        extras: { proto: true, base: true, end: true, query: true, url: true },
         nodes: { client: 'response', server: 'response' },
         arrows: [
-          { from: 'client', to: 'server', kind: 'request', dim: true, label: 'GET /data?q=city&appid=API_KEY' },
-          { from: 'server', to: 'client', kind: 'response', label: '{ "data": [...] }' }
+          { from: 'client', to: 'server', kind: 'request', dim: true, label: 'GET /v1/forecast?latitude=…' },
+          { from: 'server', to: 'client', kind: 'response', label: '{ "current": {...} }' }
         ]
       },
       {
         title: 'URL in one sentence',
-        text: 'Where to ask (base URL) + what you want (query parameters) → send it (GET) → get JSON back. That’s the anatomy of a GET request.',
-        status: 'Base URL &middot; Query parameters &middot; Response',
-        extras: { base: true, query: true, url: true, note: true },
+        text: 'Where to ask (protocol + base URL + endpoint) + what you want (query parameters) → send it (GET) → get JSON back. That’s the anatomy of a GET request.',
+        status: 'Protocol &middot; Base URL &middot; Endpoint &middot; Query parameters &middot; Response',
+        extras: { proto: true, base: true, end: true, query: true, url: true, note: true },
         arrows: [
           { from: 'client', to: 'server', kind: 'request', dim: true },
           { from: 'server', to: 'client', kind: 'response', dim: true }
@@ -186,7 +224,9 @@
         setStatus(step.status);
         const ex = step.extras || {};
         toggle(urlBar, Boolean(ex.url), typeof ex.url === 'string' ? ex.url : null);
+        toggle(cardProto, Boolean(ex.proto), typeof ex.proto === 'string' ? ex.proto : null);
         toggle(cardBase, Boolean(ex.base), typeof ex.base === 'string' ? ex.base : null);
+        toggle(cardEnd, Boolean(ex.end), typeof ex.end === 'string' ? ex.end : null);
         toggle(cardQuery, Boolean(ex.query), typeof ex.query === 'string' ? ex.query : null);
         toggle(note, Boolean(ex.note), null);
         scene.apply(step, i);

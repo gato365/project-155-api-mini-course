@@ -52,6 +52,8 @@ If you ever feel overwhelmed, come back to this sentence. Every part of every se
 
 Use the buttons to step through the animation — go at your own pace, pause, or replay any step.
 
+**Before you press anything, know what to look for.** Two things only: **who starts the exchange**, and **who you never talk to directly**. Everything else is decoration.
+
 ```{=html}
 <div id="restaurant-stepper" style="border:2px solid #d0d7de; border-radius:12px; padding:1rem 1.25rem; margin:1rem 0; background:#fafbfc;">
   <div style="display:flex; justify-content:space-between; gap:.5rem; text-align:center; margin-bottom:1rem; flex-wrap:wrap;">
@@ -179,13 +181,15 @@ Let's go deeper into the architecture — same story as the restaurant, now with
 
 Step through the request and response at your own pace — Next, Back, or press Play.
 
+**What to notice:** the request makes exactly **four stops** — and the response comes back through the **same stops in reverse**. Count them as you click.
+
 ```{=html}
 <iframe class="anim-embed" src="../animations/interactive/request_gif.html?embed=1" title="Interactive animation showing an API request traveling from Client through API to Server and Database, then the response returning the same path in reverse" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
 ```
 
 ### Now in Words
 
-The animation traces a single API call from start to finish. There are four components in the chain: the **Client** (your R script or browser), the **API** (the endpoint — the "front door"), the **Server** (backend logic that processes the request), and the **Database** (where the actual data lives).
+The animation traces a single API call from start to finish. There are four components in the chain: the **Client** (your R script or browser), the **API** (the "front door" of the data service), the **Server** (backend logic that processes the request), and the **Database** (where the actual data lives).
 
 **Request direction:** Client (request) → API → Server → Database
 
@@ -197,7 +201,7 @@ The request moves left to right; the response travels the same path in reverse.
 ## Key Observations
 
 -   The **client** is your R script or browser — anything making the request.
--   The **API** is the endpoint — the "front door" of the data service.
+-   The **API** is the "front door" of the data service. (In Session 2 we'll meet the *endpoint* — the exact address on that front door.)
 -   The **server** processes the request and queries the **database**.
 -   The response travels back the same path.
 -   A client and server can exist on the same computer — this is common in local development.
@@ -560,9 +564,19 @@ A named **list**. Each JSON key becomes a name in the list, and nested JSON obje
 
 Now let's put the pieces together: the client sends a **request**, a **response** comes back (Part 1), and that response is written in JSON (Part 2). What does the *whole* response look like when we zoom out?
 
+### The Journey, One More Time
+
+Here is the same request-and-response visual from Part 1 — replay it, but this time keep your eye on **the return trip**: the response leg is the part we dissect for the rest of this session.
+
+```{=html}
+<iframe class="anim-embed" src="../animations/interactive/request_gif.html?embed=1" title="Interactive animation showing an API request traveling from Client through API to Server and Database, then the response returning the same path in reverse" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
+```
+
 ### Watch First
 
 Step through the layers one at a time — each click reveals the next zone.
+
+**What to notice:** the response has exactly **three zones**. As you click, ask of each zone: *is this the data I wanted, information about the response, or the verdict on whether it worked?*
 
 ```{=html}
 <iframe class="anim-embed" src="../animations/interactive/anatomy_of_json.html?embed=1" title="Interactive animation revealing the anatomy of a JSON response: the full body opens as curly braces, then data, metadata, and status code zones are highlighted in sequence" style="width:100%; height:640px; border:1.5px solid #c7d2fe; border-radius:14px; background:#f6f7ff;" loading="lazy"></iframe>
@@ -599,6 +613,40 @@ The server returns a **response** which contains:
 -   **Data** — the actual information you requested (temperature, artist name, forecast, etc.)
 
 This information is traditionally provided in **JSON format** — the format we just met in Part 2, laid out in the zones the animation just showed.
+
+### Look — an Actual Response
+
+Enough diagrams: here is a **real response** from the exact weather API we'll call tomorrow, with the three zones marked. This is not a simplified teaching example — this is what arrives on your screen.
+
+```{=html}
+<div style="border:2px solid #d0d7de; border-radius:12px; overflow:hidden; margin:1rem 0; background:#fff; font-size:.92rem;">
+  <div style="background:#f6f8fa; border-bottom:1px solid #d0d7de; padding:.5rem .9rem; font-family:ui-monospace, Menlo, Consolas, monospace; font-size:.8rem; color:#57606a; overflow-wrap:anywhere;">
+    GET https://api.open-meteo.com/v1/forecast?latitude=35.28&amp;longitude=-120.66&amp;current=temperature_2m&amp;temperature_unit=fahrenheit
+  </div>
+  <div style="padding:.55rem .9rem; background:#dafbe1; border-left:6px solid #1a7f37; font-weight:700; color:#116329;">
+    ✅ Status code: 200 OK <span style="font-weight:400; color:#3d5245;">— the request worked (this rides along with the response)</span>
+  </div>
+  <pre style="margin:0; padding:.85rem .9rem; font-size:.85rem; line-height:1.5; background:#fff; overflow-x:auto;"><code>{
+<span style="display:inline-block; width:100%; background:#ddf4ff; border-left:6px solid #0969da; margin-left:-0.9rem; padding-left:calc(0.9rem - 6px);">  "latitude": 35.25,
+  "longitude": -120.75,
+  "generationtime_ms": 0.027,
+  "timezone": "America/Los_Angeles",
+  "elevation": 96.0,
+  "current_units": { "time": "iso8601", "temperature_2m": "°F" },</span>
+<span style="display:inline-block; width:100%; background:#fff1e5; border-left:6px solid #bc4c00; margin-left:-0.9rem; padding-left:calc(0.9rem - 6px);">  "current": {
+    "time": "2026-08-06T08:15",
+    "temperature_2m": 61.9
+  }</span>
+}</code></pre>
+  <div style="display:flex; gap:1.25rem; flex-wrap:wrap; padding:.6rem .9rem; border-top:1px solid #d0d7de; background:#f6f8fa; font-size:.82rem;">
+    <span><span style="display:inline-block; width:.75em; height:.75em; border-radius:3px; background:#1a7f37;"></span> <strong>Status code</strong> — did it work?</span>
+    <span><span style="display:inline-block; width:.75em; height:.75em; border-radius:3px; background:#0969da;"></span> <strong>Metadata</strong> — about the response</span>
+    <span><span style="display:inline-block; width:.75em; height:.75em; border-radius:3px; background:#bc4c00;"></span> <strong>Data</strong> — what we asked for</span>
+  </div>
+</div>
+```
+
+Read it with the anatomy in mind: the whole JSON body is wrapped in curly braces; the **metadata** zone describes the response (where, when, what units); the **data** zone — the `current` object — holds the one number we actually asked for: `temperature_2m`. The **status code** arrives alongside the body and tells us it all worked.
 
 ::: callout-note
 ## You Already Know How to Read This
