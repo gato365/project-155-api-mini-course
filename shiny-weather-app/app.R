@@ -1,5 +1,16 @@
 library(shiny)
 library(httr2)
+library(ggplot2)
+
+# One color per city, assigned in the order cities are entered (max 5).
+# Palette validated for colorblind safety on a white chart surface.
+city_palette <- c("#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4")
+
+plot_choices <- c(
+  "Daily high temperature (°F)" = "High (°F)",
+  "Daily low temperature (°F)" = "Low (°F)",
+  "Daily precipitation (in)" = "Precipitation (in)"
+)
 
 weather_label <- function(code) {
   labels <- c(
@@ -121,6 +132,13 @@ ui <- fluidPage(
   div(class = "panel-card",
       h2("Current weather comparison"),
       tableOutput("current_table")),
+  div(class = "panel-card",
+      h2("Weather trends, past 7 days"),
+      p("Each point is one day of data from the Open-Meteo API: the past seven days ",
+        "plus today, for every city you requested. Use the dropdown to switch which ",
+        "measurement is shown on the y-axis."),
+      selectInput("plot_var", "Variable on the y-axis", choices = plot_choices, width = "320px"),
+      plotOutput("history_plot", height = "440px")),
   tags$details(
     tags$summary("Show historical data (past 7 days)"),
     tableOutput("history_table")
@@ -161,6 +179,59 @@ server <- function(input, output, session) {
 
   output$current_table <- renderTable(weather()$current, striped = TRUE, hover = TRUE)
   output$history_table <- renderTable(weather()$history, striped = TRUE, hover = TRUE)
+
+  output$history_plot <- renderPlot({
+    history <- weather()$history
+    var <- input$plot_var
+    var_label <- names(plot_choices)[plot_choices == var]
+
+    history$City <- factor(history$City, levels = unique(history$City))
+    colors <- setNames(city_palette[seq_len(nlevels(history$City))], levels(history$City))
+    date_range <- format(range(history$Date), "%b %d")
+
+    base_theme <- theme_minimal(base_size = 15) +
+      theme(
+        plot.title = element_text(face = "bold", size = 17, color = "#172033"),
+        plot.subtitle = element_text(color = "#52514e", margin = margin(b = 12)),
+        plot.caption = element_text(color = "#898781"),
+        axis.title.y = element_text(color = "#52514e", margin = margin(r = 8)),
+        axis.text = element_text(color = "#52514e"),
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_line(color = "#e1e0d9", linewidth = 0.4),
+        legend.position = if (nlevels(history$City) > 1) "bottom" else "none",
+        legend.title = element_blank(),
+        legend.text = element_text(color = "#172033")
+      )
+
+    p <- ggplot(history, aes(x = Date, y = .data[[var]]))
+
+    if (var == "Precipitation (in)") {
+      p <- p +
+        geom_col(aes(fill = City), position = position_dodge2(padding = 0.2),
+                 width = 0.8) +
+        scale_fill_manual(values = colors) +
+        scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05)))
+    } else {
+      p <- p +
+        geom_line(aes(color = City), linewidth = 0.9) +
+        geom_point(aes(color = City), size = 2.6) +
+        scale_color_manual(values = colors)
+    }
+
+    p +
+      scale_x_date(date_breaks = "1 day", date_labels = "%b %d") +
+      labs(
+        title = var_label,
+        subtitle = paste0(
+          paste(levels(history$City), collapse = ", "),
+          " · ", date_range[1], "–", date_range[2]
+        ),
+        caption = "Source: Open-Meteo forecast API (past 7 days + today)",
+        x = NULL,
+        y = var_label
+      ) +
+      base_theme
+  }, res = 96)
 
   output$request_url <- renderUI({
     urls <- weather()$urls
