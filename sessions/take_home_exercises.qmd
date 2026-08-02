@@ -1,0 +1,194 @@
+---
+title: "Take-Home Exercises: Going Deeper"
+subtitle: "Optional practice for after the workshop"
+author: "Immanuel Williams"
+date: "August 5, 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    code-fold: false
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+::: {.callout-warning}
+## Read This Later, Not During the Workshop
+
+The three exercises below are **optional enrichment** — we do *not* cover them live. They preview the R code from Sessions 3–4 against a practice server and go deeper into error handling. Nothing in the live sessions depends on them; work through them at your own pace after the workshop.
+:::
+
+These exercises originally lived at the end of [Session 2 — The Anatomy of a Request](02_CRUD_HTTP_Methods_URL.qmd). They are also a good place to practice **building functions yourself** — during the workshop you mostly *used* pre-built code, and here you get to write some from scratch.
+
+
+## Exercise A: Under the Hood — What Happens When You Make a Request
+
+Let's connect everything together:
+
+1. You **construct a URL** from a base URL (endpoint) + query string (parameters).
+2. Your client sends a **GET request** using this URL to the API.
+3. The API relays this request to the **server**.
+4. The server processes the request, queries the database, and sends a **response**.
+5. The response includes a **status code** and the requested data (formatted as **JSON**).
+6. Your R code **parses** the JSON into a data structure you can work with.
+
+::: {.callout-important}
+## Common Misconception
+We are **not** sending JSON when we make a GET request. We're sending a URL with parameters. **JSON is what comes back** to us in the response.
+:::
+
+
+## Exercise B: Making Requests to a Dummy Server in R
+
+These blocks show real requests to a practice server. You can run them any time after the workshop.
+
+```{r}
+#| output: false
+library(httr2)       # Makes web requests
+library(tibble)      # Tidyverse data frames
+library(dplyr)       # Data manipulation
+library(glue)        # String construction
+```
+
+A simple GET request to a public test API:
+
+```{r}
+# Step 1: Define the URL
+test_url <- "https://jsonplaceholder.typicode.com/users/1"
+
+# Step 2: Create a request object
+req <- request(test_url)
+
+# Step 3: Perform the request
+response <- req_perform(req)
+
+# Step 4: Check the status code
+resp_status(response)
+
+# Step 5: Check the content type
+resp_content_type(response)
+```
+
+```{r}
+# Step 6: Parse the JSON response
+result <- resp_body_json(response)
+
+# Step 7: Inspect the structure
+str(result)
+```
+
+```{r}
+# Step 8: Convert to a data frame
+user_df <- as.data.frame(result)
+print(user_df)
+```
+
+A GET request with query parameters:
+
+```{r}
+# Get posts by a specific user
+posts_url <- "https://jsonplaceholder.typicode.com/posts"
+
+posts_url_query <- glue("{posts_url}?userId=1")
+
+req <- request(posts_url_query)
+response <- req_perform(req)
+
+if (resp_status(response) == 200) {
+  posts <- resp_body_json(response)
+  cat("Number of posts retrieved:", length(posts), "\n")
+}
+```
+
+And a POST request — **sending** data to the server:
+
+```{r}
+# Step 1: Define the endpoint
+post_url <- "https://jsonplaceholder.typicode.com/posts"
+
+# Step 2: Create the request with a body
+req <- request(post_url) |>
+  req_method("POST") |>
+  req_headers("Content-Type" = "application/json") |>
+  req_body_json(list(
+    title = "My API Workshop Post",
+    body = "Learning about APIs is fun!",
+    userId = 1
+  ))
+
+# Step 3: Perform the request
+response <- req_perform(req)
+
+# Step 4: Check the status code (201 = Created)
+cat("Status:", resp_status(response), "\n")
+
+# Step 5: See the response
+result <- resp_body_json(response)
+print(result)
+```
+
+::: {.callout-note}
+## Status Code 201
+Notice we got a `201 Created` instead of `200 OK`. This is the standard success code for POST requests — it means the server successfully created the new resource.
+:::
+
+
+## Exercise C: Handling Errors with Status Codes
+
+```{r}
+# Try requesting a resource that doesn't exist
+bad_url <- "https://jsonplaceholder.typicode.com/users/999999"
+
+req <- request(bad_url)
+response <- req_perform(req)
+
+# Check the status
+cat("Status code:", resp_status(response), "\n")
+```
+
+```{r}
+# Build a robust request handler
+safe_get <- function(url) {
+  req <- request(url)
+  response <- req_perform(req)
+  status <- resp_status(response)
+
+  if (status == 200) {
+    cat("Success! Status:", status, "\n")
+    return(resp_body_json(response))
+  } else if (status >= 400 & status < 500) {
+    cat("Client error! Status:", status, "- Check your URL or parameters.\n")
+    return(NULL)
+  } else if (status >= 500) {
+    cat("Server error! Status:", status, "- The server has an issue.\n")
+    return(NULL)
+  }
+}
+
+# Test it
+result <- safe_get("https://jsonplaceholder.typicode.com/users/1")
+```
+
+#### ———————
+### Bonus Q. {.unnumbered}
+
+**(Open-Ended):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?
+
+::: {.callout-tip collapse="true" title="Answer — Bonus Q"}
+This reinforces the key difference: **GET** requests encode parameters in the URL and receive JSON back. **POST** requests send data in the request body (often as JSON) and receive a confirmation (also JSON) back. So POST actually involves JSON going *both directions*, while GET only involves JSON coming back.
+:::
+#### ———————
+
+
+## More Practice
+
+- **Practice Labs on this site** — five guided labs (NASA, Cat API, OpenWeather, TMDB, GitHub), including APIs that *do* require keys
+- Rebuild the workshop's pre-built functions from scratch: write your own `geocode()` and `prev_weather()` wrappers around the Session 3–4 pipelines
+- [Open-Meteo documentation](https://open-meteo.com/en/docs) · [httr2 package site](https://httr2.r-lib.org/) · [JSONPlaceholder](https://jsonplaceholder.typicode.com/)

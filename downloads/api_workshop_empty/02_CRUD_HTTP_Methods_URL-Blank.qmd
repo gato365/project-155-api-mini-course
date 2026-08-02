@@ -1,8 +1,8 @@
 ---
-title: "Session 2: CRUD, HTTP Methods & URL Anatomy"
-subtitle: "Day 1 — 9:00 AM to 10:00 AM"
+title: "Session 2: The Anatomy of a Request"
+subtitle: "Part A — Thursday, August 6, 8:55–9:50 AM · Columbus I & II"
 author: "Immanuel Williams"
-date: "August 5, 2026"
+date: "August 6, 2026"
 format:
   html:
     toc: true
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ## Recap from Session 1
 
-In Session 1, we established the conceptual foundation:
+In Session 1 (*API Mechanics & Response Fundamentals*), we established the conceptual foundation:
 
 - APIs are interfaces for software communication
 - Data flows: Client → API → Server → Database (and back)
@@ -45,15 +45,13 @@ Session 1 gave us the vocabulary. This session answers one question: **how exact
 
 ## Part 1: The CRUD Framework
 
-What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations.
-
 ### Look First
 
 ![](images/crud-operations.jpeg){fig-alt="Four-quadrant image showing CRUD operations: Create (POST) with a plus icon, Read (GET) with an eye icon, Update (PUT/PATCH) with a pencil icon, Delete (DELETE) with a trash can icon"}
 
 ### Now in Words
 
-The image maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it).
+What type of client requests can we make? The **CRUD framework** organizes the four fundamental operations. The image maps each CRUD operation to a visual icon: a **plus sign** for Create/POST (adding something new), an **eye** for Read/GET (looking at existing data), a **pencil** for Update/PUT-PATCH (editing something), and a **trash can** for Delete/DELETE (removing it).
 
 | CRUD Operation | HTTP Method | Description |
 |---------------|-------------|-------------|
@@ -118,7 +116,7 @@ e) All four equally
 ---
 
 
-## Part 2: GET Requests
+## Part 2: GET & POST Requests
 
 A `GET` request is all about **retrieving** data. You're asking the server: "Give me this information."
 
@@ -173,14 +171,11 @@ e) Retrieving the top 10 most popular articles from the New York Times API
 #### ———————
 
 
----
-
-
-## Part 3: POST Requests (Optional)
+### POST Requests (Optional)
 
 A `POST` request is about **sending** new data to the server. You're telling the server: "Here's something new — store it."
 
-**Live decision, based on time:** everything we do tomorrow is GET, so this part is a flex. Pick a tab — the quick version takes one minute; the full walkthrough about ten.
+**Live decision, based on time:** everything we do tomorrow is GET, so this is a flex. Pick a tab — the quick version takes one minute; the full walkthrough about ten.
 
 ::: {.panel-tabset}
 
@@ -270,18 +265,9 @@ POST is good to recognize, but our goal only needs GET. Whichever tab we took, n
 ---
 
 
-## Part 4: URL Anatomy
+## Part 3: URL Anatomy
 
-::: {.callout-important icon="false"}
-## 📖 Definition — URL
-
-A **URL** (**Uniform Resource Locator**) is a web address: a single string of text that says exactly where a resource lives and how to reach it. For API work this matters doubly, because **the URL *is* the request** — everything we ask for is encoded in that one string.
-:::
-
-So how do we actually construct a request? A request is defined by a **URL**, which contains both:
-
-- The **endpoint** (base address of the API) — the stable part
-- The **query string** (key-value pairs that customize the request) — the dynamic part
+So how do we actually construct a request? A request is defined by a **URL** — let's watch one get taken apart.
 
 ### Watch First
 
@@ -290,6 +276,17 @@ So how do we actually construct a request? A request is defined by a **URL**, wh
 ### Now in Words
 
 The animation shows the Client (left) and API Server (right) with the URL being broken down between them. The full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+
+::: {.callout-important icon="false"}
+## 📖 Definition — URL
+
+A **URL** (**Uniform Resource Locator**) is a web address: a single string of text that says exactly where a resource lives and how to reach it. For API work this matters doubly, because **the URL *is* the request** — everything we ask for is encoded in that one string.
+:::
+
+Every request URL contains both:
+
+- The **endpoint** (base address of the API) — the stable part
+- The **query string** (key-value pairs that customize the request) — the dynamic part
 
 ### Breaking Down a URL
 
@@ -421,6 +418,34 @@ This is the "make a request" half of our goal, fully unpacked: **a request = end
 #### ———————
 
 
+---
+
+
+## Part 4: Putting It Together + Hands-On Preview
+
+### Look First — The Whole Journey on One Line
+
+Everything from Sessions 1 and 2 fits in a single picture:
+
+```
+        you build this ↓                                    ↓ you read this
+  ┌─────────────────────────────┐                 ┌──────────────────────────┐
+  │ GET  endpoint + ?query      │  ── request ──▶ │ 200 + JSON body          │
+  │ (the verb)   (the URL)      │  ◀─ response ── │ (status)  (data + meta)  │
+  └─────────────────────────────┘                 └──────────────────────────┘
+   Client ──▶ API ──▶ Server ──▶ Database ──▶ Server ──▶ API ──▶ Client
+```
+
+### Now in Words
+
+You now hold every piece of the request half of our goal:
+
+- The **verb** (Part 1–2): for data work, almost always **GET**
+- The **sentence** (Part 3): a URL — endpoint + `?` + key-value pairs chained by `&`
+- The **reply** (Session 1): a JSON body with data, metadata, and a status code
+
+Tomorrow morning we hand this exact recipe to a browser, then to R. Before that, let's make sure the pieces are locked in.
+
 #### ———————
 ### Q7. {.unnumbered}
 
@@ -435,19 +460,51 @@ e) Your script sends a data frame and receives a plot.
 #### ———————
 
 
+#### ———————
+### Q8. {.unnumbered}
+
+**(Ordering — Preview of tomorrow's R workflow):** Put the following steps in the correct order for making an API request in R. Write the letters in order. (You'll meet the function names tomorrow — the *order* is what you already know.)
+
+a) Parse the JSON response into a data frame
+b) Construct the URL with endpoint and query parameters
+c) Check the status code for success (200)
+d) Send the request using `req_perform()`
+e) Create a request object with `request()`
+
+#### ———————
+
+
+### Activity — Write a URL on Paper. {.unnumbered}
+
+No computer for this one. On paper, write the URL that asks Open-Meteo for the current temperature in **your hometown**, in Fahrenheit. Use the template below — you only need to fill in five blanks (look up your hometown's rough latitude and longitude on your phone, or ask us):
+
+```
+https://________.open-meteo.com/v1/________?latitude=________&longitude=________&current=________&temperature_unit=fahrenheit
+```
+
+Check yourself against Part 3: endpoint first, `?` once, key-value pairs chained with `&`.
+
+::: {.callout-tip}
+## 🎯 Goal Check
+You just **wrote a complete API request by hand**. Tomorrow's first move is pasting it into a browser and watching a real server answer you.
+:::
+
+
 ---
 
 
 ## Session 2 Recap
 
-In this session, we learned how requests are actually written:
+In this session, we learned the anatomy of a request:
 
-1. **CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
-2. **GET Requests** — retrieve data, parameters in the URL
-3. **POST Requests** *(optional)* — send new data in the request body
-4. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
+1. **The CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
+2. **GET & POST Requests** — GET retrieves data with parameters in the URL; POST *(optional)* sends new data in the request body
+3. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
+4. **Putting It Together** — verb + URL = request; JSON comes back; and you wrote your first request by hand
 
-🎯 Goal progress: we can now *read and write the request half* of our goal sentence. **Up next in Session 3 (tomorrow):** we make it real — we'll send that exact Open-Meteo URL from a browser and from R, get live weather back, and format the response into a data frame. No API key needed.
+🎯 Goal progress: we can now *read and write the request half* of our goal sentence. **Up next in Session 3 (tomorrow) — Weather API — First Real Requests:** we make it real — we'll send that exact Open-Meteo URL from a browser and from R, get live weather back, and format the response into a data frame. No API key needed.
+
+**Want to go deeper after the workshop?** The optional dummy-server practice (GET/POST in R, error handling) now lives on its own page: **Take-Home Exercises** page on the workshop website.
 
 
 ---
@@ -461,172 +518,6 @@ Before we wrap up Day 1:
 - **Did you finish?** Check yourself:
     - [ ] I can name what each of the four CRUD operations does
     - [ ] I can point at a URL and find the endpoint, the `?`, and the key-value pairs
+    - [ ] I wrote my hometown URL on paper in Part 4
     - [ ] I answered the questions in Parts 1–4
-- If you finished everything, try writing (on paper!) what you think a URL asking Open-Meteo for the temperature in **your hometown** would look like. You only need to change two numbers.
-
-
----
-
-
-## Optional — After the Workshop: Going Deeper {.unnumbered}
-
-::: {.callout-warning}
-## Read This Later, Not Today
-
-The three sections below are **optional enrichment** — we will *not* cover them live. They preview the R code you'll see in Sessions 3–4 and go deeper into error handling. If today already felt like a lot, skip this entirely; nothing tomorrow depends on it.
-:::
-
-### Optional A: Under the Hood — What Happens When You Make a Request
-
-Let's connect everything together:
-
-1. You **construct a URL** from a base URL (endpoint) + query string (parameters).
-2. Your client sends a **GET request** using this URL to the API.
-3. The API relays this request to the **server**.
-4. The server processes the request, queries the database, and sends a **response**.
-5. The response includes a **status code** and the requested data (formatted as **JSON**).
-6. Your R code **parses** the JSON into a data structure you can work with.
-
-::: {.callout-important}
-## Common Misconception
-We are **not** sending JSON when we make a GET request. We're sending a URL with parameters. **JSON is what comes back** to us in the response.
-:::
-
-
-### Optional B: Making Requests to a Dummy Server in R
-
-These blocks show real requests to a practice server. You can run them any time after the workshop.
-
-```{r}
-#| output: false
-library(httr2)       # Makes web requests
-library(tibble)      # Tidyverse data frames
-library(dplyr)       # Data manipulation
-library(glue)        # String construction
-```
-
-A simple GET request to a public test API:
-
-```{r}
-# Step 1: Define the URL
-test_url <- "https://jsonplaceholder.typicode.com/users/1"
-
-# Step 2: Create a request object
-req <- request(test_url)
-
-# Step 3: Perform the request
-response <- req_perform(req)
-
-# Step 4: Check the status code
-resp_status(response)
-
-# Step 5: Check the content type
-resp_content_type(response)
-```
-
-```{r}
-# Step 6: Parse the JSON response
-result <- resp_body_json(response)
-
-# Step 7: Inspect the structure
-str(result)
-```
-
-```{r}
-# Step 8: Convert to a data frame
-user_df <- as.data.frame(result)
-print(user_df)
-```
-
-A GET request with query parameters:
-
-```{r}
-# Get posts by a specific user
-posts_url <- "https://jsonplaceholder.typicode.com/posts"
-
-posts_url_query <- glue("{posts_url}?userId=1")
-
-req <- request(posts_url_query)
-response <- req_perform(req)
-
-if (resp_status(response) == 200) {
-  posts <- resp_body_json(response)
-  cat("Number of posts retrieved:", length(posts), "\n")
-}
-```
-
-And a POST request — **sending** data to the server:
-
-```{r}
-# Step 1: Define the endpoint
-post_url <- "https://jsonplaceholder.typicode.com/posts"
-
-# Step 2: Create the request with a body
-req <- request(post_url) |>
-  req_method("POST") |>
-  req_headers("Content-Type" = "application/json") |>
-  req_body_json(list(
-    title = "My API Workshop Post",
-    body = "Learning about APIs is fun!",
-    userId = 1
-  ))
-
-# Step 3: Perform the request
-response <- req_perform(req)
-
-# Step 4: Check the status code (201 = Created)
-cat("Status:", resp_status(response), "\n")
-
-# Step 5: See the response
-result <- resp_body_json(response)
-print(result)
-```
-
-::: {.callout-note}
-## Status Code 201
-Notice we got a `201 Created` instead of `200 OK`. This is the standard success code for POST requests — it means the server successfully created the new resource.
-:::
-
-
-### Optional C: Handling Errors with Status Codes
-
-```{r}
-# Try requesting a resource that doesn't exist
-bad_url <- "https://jsonplaceholder.typicode.com/users/999999"
-
-req <- request(bad_url)
-response <- req_perform(req)
-
-# Check the status
-cat("Status code:", resp_status(response), "\n")
-```
-
-```{r}
-# Build a robust request handler
-safe_get <- function(url) {
-  req <- request(url)
-  response <- req_perform(req)
-  status <- resp_status(response)
-
-  if (status == 200) {
-    cat("Success! Status:", status, "\n")
-    return(resp_body_json(response))
-  } else if (status >= 400 & status < 500) {
-    cat("Client error! Status:", status, "- Check your URL or parameters.\n")
-    return(NULL)
-  } else if (status >= 500) {
-    cat("Server error! Status:", status, "- The server has an issue.\n")
-    return(NULL)
-  }
-}
-
-# Test it
-result <- safe_get("https://jsonplaceholder.typicode.com/users/1")
-```
-
-#### ———————
-### Bonus Q. {.unnumbered}
-
-**(Open-Ended):** In the GET request to the dummy server, we sent a URL and received JSON. In the POST request, we sent JSON *in the request body*. How does this change what we learned about GET vs. POST?
-
-#### ———————
+- If you finished everything, trade paper URLs with a neighbor and check each other's anatomy: endpoint, one `?`, pairs chained with `&`.

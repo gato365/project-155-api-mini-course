@@ -20,7 +20,7 @@ knitr::opts_chunk$set(eval = FALSE)
 ```
 
 
-## Welcome Back — Part B
+## Welcome Back — Day 2
 
 Yesterday we built the conceptual foundation:
 
@@ -53,13 +53,7 @@ By the end of this hour, you will have done this — for real, in R, with live w
 https://api.open-meteo.com/v1/forecast?latitude=35.28&longitude=-120.66&current=temperature_2m&temperature_unit=fahrenheit
 ```
 
-Before you run anything, **inspect the URL**: identify the endpoint, location, requested variable, and units. Then select **Copy URL**, paste it into a browser, and press Enter. The result is raw JSON.
-
-::: {.callout-important}
-## Investigate Before You Run
-
-Predict what the server will return from the URL alone. Only then press **Run** in R. Keep the **R console visible** so everyone can see the request, status, and response.
-:::
+Inspect the URL first: identify the endpoint, location, variable, and units. Then use **Copy URL**, paste it into a browser, and press Enter to see the JSON response.
 
 ``` json
 {
@@ -93,7 +87,7 @@ And every piece of the response is something you already know:
 
 That number — `71.4` — is the actual temperature in San Luis Obispo *right now*. A server you've never seen just measured the world and handed you the answer, because you asked correctly.
 
-Change the coordinates to Boston (`42.36`, `-71.06`) and reload. Ask: **How does its weather compare with San Luis Obispo?** This is the question we will answer across cities and dates.
+Now change `latitude=35.28&longitude=-120.66` to another location (Boston is `latitude=42.36&longitude=-71.06`) and reload. Live data, different city, same endpoint. Edit the URL, press Enter, new answer — **you are having a conversation with a server, by hand.**
 
 ### About This API
 
@@ -138,9 +132,6 @@ With **zero lines of code**, the request/response loop from Sessions 1 and 2 jus
 
 **(Fill in the Blank):** The stable part of the URL — `https://api.open-meteo.com/v1/forecast` — that never changes from one request to the next is called the \_\_\_\_\_\_\_\_.
 
-::: {.callout-tip collapse="true" title="Answer Q1"}
-The **endpoint**. The changing part (after the `?`) is the query string.
-:::
 #### ———————
 
 
@@ -155,9 +146,6 @@ c) It is free and requires no API key at all.
 d) It only works inside Positron.
 e) It only returns data for cities in Europe.
 
-::: {.callout-tip collapse="true" title="Answer Q2"}
-**c)** Open-Meteo is free and open — no key, no registration. (Many other APIs *do* require a key; that's the "ID card" concept from the callout above.)
-:::
 #### ———————
 
 
@@ -166,9 +154,6 @@ e) It only returns data for cities in Europe.
 
 **(Fill in the Blank):** When you paste the request URL into a browser, what comes back is not a web page — it is raw \_\_\_\_\_\_\_\_.
 
-::: {.callout-tip collapse="true" title="Answer Q3"}
-**JSON** — the same body/content structure we studied in Session 1.
-:::
 #### ———————
 
 
@@ -183,9 +168,6 @@ c) PUT
 d) PATCH
 e) GET
 
-::: {.callout-tip collapse="true" title="Answer Q4"}
-**e)** The address bar always makes a **GET** request — you are *reading* data, exactly like our R scripts will.
-:::
 #### ———————
 
 
@@ -253,9 +235,9 @@ Let's have R do exactly what the browser just did. This block is **pre-built —
 # Step 1: Start from the endpoint and add the query
 req <- request("https://api.open-meteo.com/v1/forecast") |>
   req_url_query(
-    latitude = 35.28,
-    longitude = -120.66,
-    current = "temperature_2m",
+    latitude = ________,
+    longitude = ________,
+    current = "________",
     temperature_unit = "fahrenheit"
   )
 
@@ -290,9 +272,6 @@ str(result, max.level = 2)
 
 **(Fill in the Blank):** After `req_perform()`, we call `resp_status(response)` and hope to see the number \_\_\_\_\_\_\_\_.
 
-::: {.callout-tip collapse="true" title="Answer Q5"}
-**200** — the "OK" success code. Anything in the 4xx range would mean *we* made a mistake in the request; 5xx would mean the server had a problem.
-:::
 #### ———————
 
 
@@ -307,9 +286,6 @@ c) It checks the status code.
 d) It adds `key=value` pairs to the URL's query string, handling `?`, `&`, and encoding for you.
 e) It draws a plot of the response.
 
-::: {.callout-tip collapse="true" title="Answer Q6"}
-**d)** `req_url_query()` *builds* the query string onto the endpoint. Sending is `req_perform()`, parsing is `resp_body_json()`.
-:::
 #### ———————
 
 
@@ -328,8 +304,8 @@ result$current
 # Pull the values we want into a tibble
 current_df <- tibble(
   city   = "San Luis Obispo",
-  time   = result$current$time,
-  temp_f = result$current$temperature_2m
+  time   = result$current$________,
+  temp_f = result$current$________
 )
 
 current_df
@@ -361,7 +337,7 @@ current_df <- cities |>
       req_url_query(
         latitude = latitude,
         longitude = longitude,
-        current = "temperature_2m",
+        current = "________",
         temperature_unit = "fahrenheit"
       ) |>
       req_perform() |>
@@ -370,8 +346,8 @@ current_df <- cities |>
     # T: transform
     tibble(
       city   = city,
-      time   = result$current$time,
-      temp_f = result$current$temperature_2m
+      time   = result$current$________,
+      temp_f = result$current$________
     )
   }) |>
   bind_rows()
@@ -386,7 +362,7 @@ current_df
 - `pmap()` runs the recipe once **per row** of `cities`.
 - Each run returns a one-row tibble; `bind_rows()` stacks them into one data frame.
 
-Same ETV steps as before — just repeated for us, without copy-paste and without defining named functions. (Writing this recipe as a named function yourself is a great [take-home exercise](take_home_exercises.qmd).)
+Same ETV steps as before — just repeated for us, without copy-paste and without defining named functions. (Writing this recipe as a named function yourself is a great **take-home exercise** page on the workshop website.)
 :::
 
 
@@ -401,9 +377,6 @@ c) It deletes the variables city, latitude, and longitude.
 d) It is a comment that R ignores.
 e) It is a file path.
 
-::: {.callout-tip collapse="true" title="Answer Q7"}
-**b)** `\( )` is R's shorthand for `function( )`. It defines a small nameless function on the spot, which `pmap()` then applies to every row.
-:::
 #### ———————
 
 
@@ -412,9 +385,6 @@ e) It is a file path.
 
 **(Fill in the Blank):** After `pmap()` returns a list of one-row tibbles, we stack them into a single data frame using \_\_\_\_\_\_\_\_.
 
-::: {.callout-tip collapse="true" title="Answer Q8"}
-`bind_rows()` — it binds the rows of each small tibble into one combined tibble.
-:::
 #### ———————
 
 
@@ -464,8 +434,8 @@ coords_df <- city_names |>
     hit <- result$results[[1]]
     tibble(
       city      = nm,
-      latitude  = round(hit$latitude, 2),
-      longitude = round(hit$longitude, 2)
+      latitude  = round(hit$________, 2),
+      longitude = round(hit$________, 2)
     )
   }) |>
   bind_rows()
@@ -486,9 +456,6 @@ Notice we just ran the **same ETV pattern a third time** — on a **completely d
 
 **(Fill in the Blank):** The geocoding endpoint converts a city name into \_\_\_\_\_\_\_\_ and \_\_\_\_\_\_\_\_.
 
-::: {.callout-tip collapse="true" title="Answer Q9"}
-**Latitude** and **longitude** — the coordinates the forecast and historical endpoints require.
-:::
 #### ———————
 
 
@@ -528,36 +495,6 @@ my_df <- tibble(
 
 my_df
 ```
-
-::: {.callout-tip collapse="true" title="Solution"}
-```{r}
-my_coords <- request("https://geocoding-api.open-meteo.com/v1/search") |>
-  req_url_query(name = "Chicago", count = 1) |>
-  req_perform() |>
-  resp_body_json()
-
-my_lat <- my_coords$results[[1]]$latitude
-my_lon <- my_coords$results[[1]]$longitude
-
-my_result <- request("https://api.open-meteo.com/v1/forecast") |>
-  req_url_query(
-    latitude = my_lat,
-    longitude = my_lon,
-    current = "temperature_2m",
-    temperature_unit = "fahrenheit"
-  ) |>
-  req_perform() |>
-  resp_body_json()
-
-my_df <- tibble(
-  city   = "Chicago",
-  time   = my_result$current$time,
-  temp_f = my_result$current$temperature_2m
-)
-
-my_df
-```
-:::
 
 
 ---

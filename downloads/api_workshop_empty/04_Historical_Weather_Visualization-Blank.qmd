@@ -1,8 +1,8 @@
 ---
 title: "Session 4: Historical Weather, Visualization & Wrap-Up"
-subtitle: "Day 2 — 10:00 AM to 11:00 AM"
+subtitle: "Part B — Friday, August 7, 10:55–11:50 AM · Columbus I & II"
 author: "Immanuel Williams"
-date: "August 6, 2026"
+date: "August 7, 2026"
 format:
   html:
     toc: true
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 ## Recap from Session 3
 
-In Session 3, we:
+In Session 3 (*Weather API — First Real Requests*), we:
 
 - Made our first real requests to the free **Open-Meteo** API (no API key!)
 - Saw the request in the **browser first**, then automated it in R
@@ -30,7 +30,7 @@ In Session 3, we:
 - Used `map()` + anonymous functions `\( )` to repeat the recipe for many cities
 - Used the **geocoding** endpoint to turn city names into coordinates
 
-Today we complete the cycle: **historical** weather data and the **V** — visualization.
+Today we complete the cycle: **historical** weather data and the **V** — visualization. As in Session 3, the code is **pre-built** — you run it, read it, and fill in the blanks (city names, dates, column names).
 
 ::: {.callout-important}
 ## 🎯 The One Goal — Final Step
@@ -55,32 +55,44 @@ library(ggplot2)     # V: visualizations
 ---
 
 
-## Part 1: Extract — Historical Weather Data
+## Part 1: Historical Weather — The Full ETV Pipeline
 
-Open-Meteo has a second endpoint for **past** weather — the archive endpoint:
+### Look First
 
-```
-https://archive-api.open-meteo.com/v1/archive
-```
-
-Browser first, as always. Paste this — it asks for San Luis Obispo's daily high and low temperatures for one week in July 2025:
+Open-Meteo has yet another endpoint for **past** weather — the archive endpoint. Browser first, as always. Paste this — it asks for San Luis Obispo's daily high and low temperatures for one week in July 2025:
 
 ```
 https://archive-api.open-meteo.com/v1/archive?latitude=35.28&longitude=-120.66&start_date=2025-07-01&end_date=2025-07-07&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto
 ```
 
-Two new query parameters do the date work: `start_date` and `end_date`. And here's the good news — **one request returns the entire date range**. No loops needed.
+You'll see a JSON body whose `daily` object holds three parallel arrays — dates, daily highs, daily lows.
 
-Now in R:
+### Now in Words
+
+The endpoint is `https://archive-api.open-meteo.com/v1/archive` — a third door, following the same convention as Session 3's forecast and geocoding doors. Two new query parameters do the date work: `start_date` and `end_date`. And here's the good news — **one request returns the entire date range**. No loops needed.
+
+Now the **full pipeline in R, pre-built**: geocode the city name → request the historical data → build the data frame. In your workshop file, the only blanks are the **city name** and the **two dates** — everything structural is written for you:
 
 ```{r}
-# E: extract -------------------------------------------------
+# Step 0 — Geocode: city name → coordinates (Session 3's endpoint)
+city_name <- "________"
+
+geo <- request("https://geocoding-api.open-meteo.com/v1/search") |>
+  req_url_query(name = city_name, count = 1) |>
+  req_perform() |>
+  resp_body_json()
+
+hit <- geo$results[[1]]
+my_lat <- round(hit$latitude, 2)
+my_lon <- round(hit$longitude, 2)
+
+# E: extract — historical request ---------------------------
 result <- request("https://archive-api.open-meteo.com/v1/archive") |>
   req_url_query(
-    latitude = 35.28,
-    longitude = -120.66,
-    start_date = "2025-07-01",
-    end_date = "2025-07-07",
+    latitude = my_lat,
+    longitude = my_lon,
+    start_date = "________",
+    end_date = "________",
     daily = "temperature_2m_max,temperature_2m_min",
     temperature_unit = "fahrenheit",
     timezone = "auto"
@@ -97,7 +109,7 @@ The `daily` element is a named list of three parallel lists: `time`, `temperatur
 ```{r}
 # T: transform ------------------------------------------------
 slo_df <- tibble(
-  city     = "San Luis Obispo",
+  city     = city_name,
   date     = as.Date(unlist(result$daily$time)),
   temp_max = unlist(result$daily$temperature_2m_max),
   temp_min = unlist(result$daily$temperature_2m_min)
@@ -137,15 +149,17 @@ e) It sorts the dates in order.
 ---
 
 
-## Part 2: Visualize — Completing the ETV Cycle
+## Part 2: Visualize — The V in ETV
 
-We have a tidy data frame. Time for **V**:
+### Look First
+
+We have a tidy data frame. Time for **V** — run this **pre-built plot** (in your workshop file, the blanks are the two **column names** being plotted):
 
 ```{r}
 # V: visualize -------------------------------------------------
 ggplot(slo_df, aes(x = date)) +
-  geom_line(aes(y = temp_max, color = "High"), linewidth = 1.2) +
-  geom_line(aes(y = temp_min, color = "Low"), linewidth = 1.2) +
+  geom_line(aes(y = ________, color = "High"), linewidth = 1.2) +
+  geom_line(aes(y = ________, color = "Low"), linewidth = 1.2) +
   scale_color_manual(values = c("High" = "red", "Low" = "blue")) +
   labs(
     title = "Daily High and Low Temperatures in San Luis Obispo",
@@ -156,6 +170,10 @@ ggplot(slo_df, aes(x = date)) +
   ) +
   theme_minimal(base_size = 14)
 ```
+
+### Now in Words
+
+Each `geom_line()` pulls one column from the tibble: `temp_max` becomes the red "High" line, `temp_min` the blue "Low" line, and `date` runs along the x-axis. Change a column name and the plot changes with it — the plot is just the data frame, drawn.
 
 🎉 **That's the entire workshop goal, end to end:** we made a request, formatted the response, and analyzed it with a plot. Everything from here is variations on this cycle.
 
@@ -171,9 +189,13 @@ ggplot(slo_df, aes(x = date)) +
 ---
 
 
-## Part 3: Boston vs. San Luis Obispo — Two Simple Comparisons
+## Part 3: Your Turn — Full Pipeline Activity
 
-Let's use the `map()` pattern from Session 3 to compare two cities. The recipe below fetches one city's daily highs for any date range:
+Time to run the whole pipeline on **multiple cities**. First watch it work on two, then pick your own.
+
+### Look First — Boston vs. San Luis Obispo
+
+The **pre-built** recipe below uses Session 3's `pmap()` pattern to fetch each city's daily highs for any date range. Run it:
 
 ```{r}
 cities <- tribble(
@@ -183,7 +205,7 @@ cities <- tribble(
 )
 ```
 
-### Comparison 1: Summer
+#### Comparison 1: Summer
 
 ```{r}
 # E + T for both cities: July 2025
@@ -239,7 +261,7 @@ e) The line color, mapped with `aes(color = city)`
 #### ———————
 
 
-### Comparison 2: Winter
+#### Comparison 2: Winter
 
 Same recipe — the **only change is the two dates**:
 
@@ -252,8 +274,8 @@ winter_df <- cities |>
       req_url_query(
         latitude = latitude,
         longitude = longitude,
-        start_date = "2026-01-01",
-        end_date = "2026-01-31",
+        start_date = "________",
+        end_date = "________",
         daily = "temperature_2m_max",
         temperature_unit = "fahrenheit",
         timezone = "auto"
@@ -305,12 +327,9 @@ e) `pmap()` was replaced by a `for` loop.
 #### ———————
 
 
----
+### Now You — Pick 2–3 Cities and Run the Pipeline
 
-
-## Part 4: Explore — Build Your Own Query
-
-Now **you** design the question. Pick **one option from each column**, then fill in the template below and make your plot.
+**You** design the question. Pick **two or three cities** and **one option from each column**, then fill in the blanks in the scaffold below and make your plot.
 
 | 🏙 City (lat, lon) | 📊 Daily variable | 📅 Date range |
 |---|---|---|
@@ -323,39 +342,58 @@ Now **you** design the question. Pick **one option from each column**, then fill
 
 ### Activity: Fill in the Blanks
 
-```{r}
-# Your choices
-my_result <- request("https://archive-api.open-meteo.com/v1/archive") |>
-  req_url_query(
-    latitude = ________,
-    longitude = ________,
-    start_date = "________",
-    end_date = "________",
-    daily = "________",
-    temperature_unit = "fahrenheit",
-    timezone = "auto"
-  ) |>
-  req_perform() |>
-  resp_body_json()
+The pipeline is **pre-built** — your blanks are the city rows, the two dates, the daily variable, and the plot labels:
 
-my_df <- tibble(
-  date  = as.Date(unlist(my_result$daily$time)),
-  value = unlist(my_result$daily$________)
+```{r}
+# Your cities (2–3 rows — coordinates from the table, or geocode them)
+my_cities <- tribble(
+  ~city,        ~latitude, ~longitude,
+  "________",    ________,   ________,
+  "________",    ________,   ________
 )
 
-ggplot(my_df, aes(x = date, y = value)) +
-  geom_line(linewidth = 1.2, color = "steelblue") +
+# E + T: the same pre-built recipe
+my_df <- my_cities |>
+  pmap(\(city, latitude, longitude) {
+
+    result <- request("https://archive-api.open-meteo.com/v1/archive") |>
+      req_url_query(
+        latitude = latitude,
+        longitude = longitude,
+        start_date = "________",
+        end_date = "________",
+        daily = "________",
+        temperature_unit = "fahrenheit",
+        timezone = "auto"
+      ) |>
+      req_perform() |>
+      resp_body_json()
+
+    tibble(
+      city  = city,
+      date  = as.Date(unlist(result$daily$time)),
+      value = unlist(result$daily$________)
+    )
+  }) |>
+  bind_rows()
+
+# V: one line per city
+ggplot(my_df, aes(x = date, y = value, color = city)) +
+  geom_line(linewidth = 1.2) +
   labs(
     title = "________",
     x = "Date",
-    y = "________"
+    y = "________",
+    color = "City"
   ) +
   theme_minimal(base_size = 14)
 ```
 
 
-**Bonus:** Compare *two* cities on your chosen variable — copy the `pmap()` recipe from Part 3 and swap in your variable.
+---
 
+
+## Part 4: Reflection, Classroom Applications & Survey
 
 #### ———————
 ### Q7. {.unnumbered}
@@ -364,11 +402,6 @@ ggplot(my_df, aes(x = date, y = value)) +
 
 #### ———————
 
-
----
-
-
-## Part 5: Reflection & Pitfalls
 
 ### Common Pitfalls When Working with APIs
 
@@ -391,17 +424,14 @@ ggplot(my_df, aes(x = date, y = value)) +
 - What ethical considerations arise when collecting data from APIs?
 
 
----
-
-
-## Workshop Summary
+### Workshop Summary
 
 | Session | Day | Time | Key Topics |
 |---------|-----|------|------------|
-| 1 | Day 1 | 8–9 AM | JSON fundamentals, request/response, status codes |
-| 2 | Day 1 | 9–10 AM | CRUD, GET/POST, URL anatomy |
-| 3 | Day 2 | 9–10 AM | Open-Meteo requests in browser & R, ETV cycle, geocoding |
-| 4 | Day 2 | 10–11 AM | Historical weather, city comparisons, your own query |
+| 1 — API Mechanics & Response Fundamentals | Part A | 8:00–8:55 AM | API responses |
+| 2 — The Anatomy of a Request | Part A | 8:55–9:50 AM | Requests and URLs |
+| 3 — Weather API — First Real Requests | Part B | 10:00–10:55 AM | Current weather by city |
+| 4 — Historical Weather, Visualization & Wrap-Up | Part B | 10:55–11:50 AM | Historical city comparisons |
 
 **Key Takeaways:**
 
@@ -414,20 +444,31 @@ ggplot(my_df, aes(x = date, y = value)) +
 
 Thank you for participating! Take these skills and bring real-world data into your classrooms.
 
+::: {.callout-important}
+## 📋 Before You Leave — MAA MathFest 2026 Workshop Survey
+
+Please take a few minutes to complete the official workshop evaluation — it directly shapes future MAA MathFest workshops:
+
+👉 **[MAA MathFest 2026 Evaluation / Survey](https://docs.google.com/forms/d/e/1FAIpQLSd2JNOT09AWYlI-5S8q4QyMTYsV0GKn0AV7R921rexumXgHuw/viewform?usp=dialog)**
+
+Thank you — your feedback matters!
+:::
+
 
 ---
 
 
-## During the Break — and After the Workshop {.unnumbered}
+## After the Workshop {.unnumbered}
 
 - **Questions?** Come up and ask — Meg and I will stick around.
 - **Did you finish?** Check yourself:
-    - [ ] I ran the historical request and plotted San Luis Obispo's July temperatures
+    - [ ] I ran the historical pipeline and plotted San Luis Obispo's July temperatures
     - [ ] I made both Boston vs. SLO comparison plots
-    - [ ] I built and plotted **my own query** in Part 4
+    - [ ] I built and plotted **my own 2–3 city pipeline** in Part 3
+    - [ ] I filled out the **workshop survey** (link above)
 - **Resources for when this class is over:**
     - **Practice Labs on this site** — five guided labs (NASA, Cat API, OpenWeather, TMDB, GitHub), including APIs that *do* require keys
-    - **Session 2's "Optional — After the Workshop" section** — dummy-server practice with GET/POST and error handling
+    - ****Take-Home Exercises** page on the workshop website** — dummy-server practice with GET/POST in R and error handling, plus function-building practice
     - [Open-Meteo documentation](https://open-meteo.com/en/docs) — every variable and endpoint we used, and many more
     - [httr2 package site](https://httr2.r-lib.org/) — the full request/response toolkit
     - [R for Data Science (2e), Iteration chapter](https://r4ds.hadley.nz/iteration.html) — more on `map()` and friends

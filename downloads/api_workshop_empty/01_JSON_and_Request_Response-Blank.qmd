@@ -1,8 +1,8 @@
 ---
-title: "Session 1: JSON Fundamentals & Request/Response"
-subtitle: "Day 1 — 8:00 AM to 9:00 AM"
+title: "Session 1: API Mechanics & Response Fundamentals"
+subtitle: "Part A — Thursday, August 6, 8:00–8:55 AM · Columbus I & II"
 author: "Immanuel Williams"
-date: "August 5, 2026"
+date: "August 6, 2026"
 format:
   html:
     toc: true
@@ -27,10 +27,10 @@ Welcome to the **API Workshop**! Over the next two days (4 hours total), we will
 
 | Day | Time | Session | Focus |
 |-----------------|-----------------|----------------------|-----------------|
-| Day 1 | 8:00–9:00 AM | Session 1 | JSON Fundamentals & Request/Response |
-| Day 1 | 9:00–10:00 AM | Session 2 | CRUD, HTTP Methods, URL Anatomy & Dummy Server |
-| Day 2 | 9:00–10:00 AM | Session 3 | Weather API — Setup, Current Weather, Geocoding |
-| Day 2 | 10:00–11:00 AM | Session 4 | Historical Weather, Visualization & Wrap-Up |
+| Part A | 8:00–8:55 AM | Session 1 | API responses |
+| Part A | 8:55–9:50 AM | Session 2 | API requests and URLs |
+| Part B | 10:00–10:55 AM | Session 3 | Current weather by city |
+| Part B | 10:55–11:50 AM | Session 4 | Historical city comparisons |
 
 **Tool Note:** We will be working in **Positron** throughout. You can follow along in RStudio, but Positron will give you a richer experience for this workshop.
 
@@ -46,15 +46,7 @@ If you ever feel overwhelmed, come back to this sentence. Every part of every se
 
 ------------------------------------------------------------------------
 
-## Part 1: What is an API?
-
-::: {.callout-important icon="false"}
-## 📖 Definition — API
-
-An **API** (**Application Programming Interface**) is a structured way for one piece of software to request data or services from another — an agreed-upon set of rules that lets programs talk to each other without either one needing to know how the other works inside.
-:::
-
-In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.
+## Part 1: What is an API? + The Data Flow
 
 ### Watch First: The Restaurant Analogy
 
@@ -135,6 +127,14 @@ Here is the same story, written out:
 
 The key insight: you never walk into the kitchen yourself. The API is the controlled interface that lets you interact with the data source. And notice who starts everything: **the client makes the request.** Nothing happens until you order.
 
+::: {.callout-important icon="false"}
+## 📖 Definition — API
+
+An **API** (**Application Programming Interface**) is a structured way for one piece of software to request data or services from another — an agreed-upon set of rules that lets programs talk to each other without either one needing to know how the other works inside.
+:::
+
+In data science, we use APIs to programmatically request data from external servers — weather services, sports databases, social media platforms, and more.
+
 ::: callout-tip
 ## 🎯 Goal Check
 
@@ -146,7 +146,6 @@ In this analogy, our workshop goal is simply: *place an order (make a request) a
 ### Q1. {.unnumbered}
 
 **(Fill in the Blank):** In the restaurant analogy, the waiter plays the role of the \_\_\_\_\_\_\_\_.
-
 
 #### ———————
 
@@ -162,12 +161,9 @@ c)  To design the database structure for a server.
 d)  To allow programmatic, repeatable, and direct access to live data from an external source.
 e)  To replace the need for any programming language.
 
-
 #### ———————
 
-------------------------------------------------------------------------
-
-## Part 2: API Data Flow
+### The Data Flow — Same Story, Technical Names
 
 Let's go deeper into the architecture — same story as the restaurant, now with the technical names.
 
@@ -213,7 +209,6 @@ c)  It acts as a gateway — receiving requests from the client and routing them
 d)  It is the same as the database.
 e)  It draws the plots at the end of the analysis.
 
-
 #### ———————
 
 #### ———————
@@ -221,7 +216,6 @@ e)  It draws the plots at the end of the analysis.
 ### Q3. {.unnumbered}
 
 **(Fill in the Blank):** A request travels: Client → \_\_\_\_\_\_\_\_ → Server → Database.
-
 
 #### ———————
 
@@ -232,7 +226,6 @@ e)  It draws the plots at the end of the analysis.
 **(Fill in the Blanks — the restaurant story):** Fill in each blank with one word from: *client, waiter, kitchen, fridge, response.*
 
 > I (the \_\_\_\_\_) look at the menu and place my order with the \_\_\_\_\_. My order is carried to the \_\_\_\_\_, which pulls ingredients from the \_\_\_\_\_. The finished dish comes back to my table — that dish is the \_\_\_\_\_.
-
 
 #### ———————
 
@@ -248,12 +241,11 @@ c)  The table number
 d)  The chef's secret recipe book
 e)  The menu
 
-
 #### ———————
 
 ------------------------------------------------------------------------
 
-## Part 3: A Quick Detour — What is JSON?
+## Part 2: What is JSON?
 
 Before we talk about what comes back from an API, we need a ten-minute detour. The responses we'll be reading for the rest of this workshop are written in a format called **JSON** — so let's meet it on its own first, before it shows up inside a response.
 
@@ -408,7 +400,6 @@ Work through these together using the JSON below (\~5 minutes):
 4.  Which key holds a **nested object**?
 5.  What is the value of `"country"`?
 
-
 #### ———————
 
 #### ———————
@@ -427,7 +418,6 @@ This JSON describes a coffee order, but it's unfinished (\~5 minutes). Fill in t
 ```
 
 As you write, check yourself against the rules: keys and strings get double quotes; numbers and booleans don't; every pair except the last needs a comma after it.
-
 
 #### ———————
 
@@ -478,7 +468,6 @@ c)  Key-value pairs
 d)  Formatted paragraphs of text
 e)  Comma-separated values
 
-
 #### ———————
 
 #### ———————
@@ -486,7 +475,6 @@ e)  Comma-separated values
 ### Q7. {.unnumbered}
 
 **(Fill in the Blank):** In R, a JSON object `{ }` becomes a named \_\_\_\_\_\_\_\_.
-
 
 #### ———————
 
@@ -496,70 +484,13 @@ e)  Comma-separated values
 
 **(Fill in the Blank — using the weather example above):** If you flatten the weather JSON example with `as.data.frame()`, the column holding the latitude value would be named \_\_\_\_\_\_\_\_.
 
-
 #### ———————
 
 ------------------------------------------------------------------------
 
-## Part 4: Requests and Responses
+## Part 3: Requests, Responses & the JSON Body
 
-Now let's zoom in on the two key actions: **requests** and **responses**. We'll keep this simple — the details come in Session 2.
-
-### What is a Request?
-
-A request is the client *asking* for information. Here is the one thing to remember today:
-
-> **A request is written as a URL — a web address.**
-
-That's it. When we want data from an API, we build a web address that describes what we want, and we send it. In Session 2 we will dissect exactly how that web address is put together, piece by piece.
-
-*(One aside for later: some APIs also ask you to include an ID called an **API key** — like showing a library card. The weather API we use in this workshop is free and doesn't need one, so we can set that idea aside for now.)*
-
-### What is a Response?
-
-The server returns a **response** which contains:
-
--   **Data** — the actual information you requested (temperature, artist name, forecast, etc.)
--   **Metadata** — information *about* the response (timestamps, units, etc.)
--   **Status code** — tells you whether the request was successful (e.g., `200 OK`)
-
-This information is traditionally provided in **JSON format** — the format we just met in Part 3. In Part 5, we'll see how a full response body is laid out.
-
-::: callout-tip
-## 🎯 Goal Check
-
-Two halves of our goal, side by side: the **request** is a URL we send; the **response** is what we'll format into something we can analyze.
-:::
-
-#### ———————
-
-### Q9. {.unnumbered}
-
-**(Fill in the Blank):** A request is written as a \_\_\_\_\_\_\_\_ — a web address that asks the API for specific information.
-
-
-#### ———————
-
-#### ———————
-
-### Q10. {.unnumbered}
-
-**(Multiple Choice):** A response from an API contains which three things?
-
-a)  Data, metadata, and a status code
-b)  A URL, an API key, and a password
-c)  A plot, a table, and a summary
-d)  HTML, CSS, and JavaScript
-e)  Rows, columns, and cell values
-
-
-#### ———————
-
-------------------------------------------------------------------------
-
-## Part 5: Anatomy of a JSON Response
-
-Now let's put the two previous parts together: a response arrives (Part 4), and it's written in JSON (Part 3). So what does the *whole* response body look like when we zoom out?
+Now let's put the pieces together: the client sends a **request**, a **response** comes back (Part 1), and that response is written in JSON (Part 2). What does the *whole* response look like when we zoom out?
 
 ### Watch First
 
@@ -575,13 +506,61 @@ The animation reveals the layers of a JSON response, one at a time:
     -   **Metadata**: information about the response (timestamps, units)
     -   **Status code**: tells us if the request worked
 
-Take this slowly — this structure will show up in *every* response for the rest of the workshop.
+Take this slowly — this structure will show up in *every* response for the rest of the workshop. Now let's define the two sides of the exchange precisely.
+
+### What is a Request?
+
+A request is the client *asking* for information. Here is the one thing to remember today:
+
+> **A request is written as a URL — a web address.**
+
+That's it. When we want data from an API, we build a web address that describes what we want, and we send it. In Session 2 we will dissect exactly how that web address is put together, piece by piece.
+
+*(One aside for later: some APIs also ask you to include an ID called an **API key** — like showing a library card. The weather API we use in this workshop is free and doesn't need one, so we can set that idea aside for now.)*
+
+### What is a Response?
+
+The server returns a **response** which contains:
+
+-   **Status code** — tells you whether the request was successful (e.g., `200 OK`)
+-   **Metadata** — information *about* the response (timestamps, units, etc.)
+-   **Data** — the actual information you requested (temperature, artist name, forecast, etc.)
+
+This information is traditionally provided in **JSON format** — the format we just met in Part 2, laid out in the zones the animation just showed.
+
+::: callout-note
+## You Already Know How to Read This
+
+Inside each zone it's just what Part 2 taught: keys, values, and nesting. The anatomy here is about the *zones* — which keys are the data you wanted, which are information about the response, and which tell you whether it worked.
+:::
 
 ::: callout-tip
 ## 🎯 Goal Check
 
-The response body is the raw material. Our goal — "format the response into something we can analyze" — means taking this JSON and turning it into an R data frame.
+Two halves of our goal, side by side: the **request** is a URL we send; the **response** is what we'll format into something we can analyze. The response body is the raw material — our goal means taking this JSON and turning it into an R data frame.
 :::
+
+#### ———————
+
+### Q9. {.unnumbered}
+
+**(Fill in the Blank):** A request is written as a \_\_\_\_\_\_\_\_ — a web address that asks the API for specific information.
+
+#### ———————
+
+#### ———————
+
+### Q10. {.unnumbered}
+
+**(Multiple Choice):** A response from an API contains which three things?
+
+a)  Data, metadata, and a status code
+b)  A URL, an API key, and a password
+c)  A plot, a table, and a summary
+d)  HTML, CSS, and JavaScript
+e)  Rows, columns, and cell values
+
+#### ———————
 
 #### ———————
 
@@ -593,20 +572,13 @@ The response body is the raw material. Our goal — "format the response into so
 2.  The three zones inside the body are the data, the \_\_\_\_\_\_\_\_, and the status code.
 3.  The \_\_\_\_\_\_ \_\_\_\_\_\_ tells us whether the request worked.
 
-
-#### ———————
-
-::: callout-note
-## You Already Know How to Read This
-
-Inside each zone it's just what Part 3 taught: keys, values, and nesting. The anatomy here is about the *zones* — which keys are the data you wanted, which are information about the response, and which tell you whether it worked.
-:::
-
 #### ———————
 
 ------------------------------------------------------------------------
 
-## Part 6: Status Codes
+## Part 4: Status Codes
+
+### Look First
 
 Status codes tell you what happened with your request. They are grouped by category:
 
@@ -645,7 +617,6 @@ The status code is the first thing we check after making a request: a **200** me
 
 **(Fill in the Blank):** A status code in the 4xx range means the mistake is on the \_\_\_\_\_\_\_\_ side; a 5xx code means the problem is on the \_\_\_\_\_\_\_\_ side.
 
-
 #### ———————
 
 #### ———————
@@ -659,7 +630,6 @@ b)  Your internet is disconnected.
 c)  R is not installed correctly.
 d)  The database deleted your account.
 e)  The URL in your request is incorrect or misspelled.
-
 
 #### ———————
 
@@ -675,25 +645,22 @@ c)  A redirect URL to a different API
 d)  An empty response with no content
 e)  A request for payment
 
-
 #### ———————
 
 ------------------------------------------------------------------------
 
 ## Session 1 Recap
 
-In this session, we covered the **conceptual foundation** for working with APIs:
+In this session, we covered the **conceptual foundation** for working with APIs — in four parts:
 
-1.  **What an API is** — a controlled interface for software-to-software communication (the waiter!)
-2.  **API data flow** — Client → API → Server → Database (and back)
-3.  **JSON** — key-value pairs, objects, arrays, nesting — and how it all maps to R lists
-4.  **Requests vs. Responses** — a request is a URL you send; a response is what comes back, written in JSON
-5.  **Anatomy of a JSON response** — one body, three zones: data, metadata, status code
-6.  **Status codes** — how to diagnose what happened with your request
+1.  **What an API is + the data flow** — a controlled interface for software-to-software communication (the waiter!), with requests flowing Client → API → Server → Database and responses coming back the same path
+2.  **JSON** — key-value pairs, objects, arrays, nesting — and how it all maps to R lists
+3.  **Requests, responses & the JSON body** — a request is a URL you send; a response is a JSON body with three zones: data, metadata, status code
+4.  **Status codes** — how to diagnose what happened with your request
 
 🎯 And the goal, one more time: **make a request, then format the response into something we can analyze.** Today was the vocabulary; tomorrow we do it for real.
 
-**Up next in Session 2:** We'll learn about CRUD operations, HTTP methods (GET vs. POST), URL anatomy, and make our first requests to a dummy server!
+**Up next in Session 2 — The Anatomy of a Request:** We'll learn about CRUD operations, HTTP methods (GET vs. POST), and dissect a URL piece by piece — by the end of the hour you'll read one like a sentence.
 
 ------------------------------------------------------------------------
 
@@ -705,6 +672,6 @@ Before Session 2 starts:
 -   **Did you finish?** Check yourself:
     -   [ ] I can name the four components: client, API, server, database
     -   [ ] I can read a JSON object and point to a key, a value, an array, and a nested object
-    -   [ ] I answered the questions in Parts 1–6 (peek at the answers if you need)
+    -   [ ] I answered the questions in Parts 1–4 (peek at the answers if you need)
     -   [ ] I can say the workshop goal in one sentence
 -   If you finished everything, replay the restaurant animation and try narrating the five steps using the technical words (client, API, server, database, response).

@@ -4,6 +4,7 @@ project:
     - "*.qmd"
     - "*.md"
     - "sessions/**/*.qmd"
+    - "shiny-weather-app/index.qmd"
     - "!README_ME_ONLY.md"
     - "!CHANGES_SUMMARY.md"
     - "!downloads/**"
@@ -22,17 +23,21 @@ website:
         menu:
           - text: "Session 0 — Getting Started"
             href: sessions/00_Getting_Started.qmd
-          - text: "Session 1 — JSON & Request/Response"
+          - text: "Session 1 — API Mechanics & Response Fundamentals"
             href: sessions/01_JSON_and_Request_Response.qmd
-          - text: "Session 2 — CRUD, HTTP Methods & URL Anatomy"
+          - text: "Session 2 — The Anatomy of a Request"
             href: sessions/02_CRUD_HTTP_Methods_URL.qmd
-          - text: "Session 3 — Weather API Setup"
+          - text: "Session 3 — Weather API — First Real Requests"
             href: sessions/03_Weather_API_Setup.qmd
-          - text: "Session 4 — Historical Weather & Visualization"
+          - text: "Session 4 — Historical Weather, Visualization & Wrap-Up"
             href: sessions/04_Historical_Weather_Visualization.qmd
+          - text: "Take-Home Exercises"
+            href: sessions/take_home_exercises.qmd
     right:
       - text: "Glossary"
         href: glossary.qmd
+      - text: "Shiny Capstone"
+        href: shiny-weather-app/index.qmd
       - text: "Practice Labs"
         menu:
           - text: "Lab 1 — NASA Open APIs"

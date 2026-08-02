@@ -2,7 +2,7 @@
 title: "Session 0: Getting Started"
 subtitle: "Setup, File Downloads & How to Use This Workshop"
 author: "Immanuel Williams"
-date: "August 5, 2026"
+date: "August 6–7, 2026"
 format:
   html:
     toc: true
@@ -36,10 +36,10 @@ By the end of the course, you should be able to:
 
 | Day | Time | Session | Focus |
 |-----|------|---------|-------|
-| Day 1 (8/5) | 8:00–9:00 AM | [Session 1](01_JSON_and_Request_Response.qmd) | JSON Fundamentals & Request/Response |
-| Day 1 (8/5) | 9:00–10:00 AM | [Session 2](02_CRUD_HTTP_Methods_URL.qmd) | CRUD, HTTP Methods & URL Anatomy |
-| Day 2 (8/6) | 9:00–10:00 AM | [Session 3](03_Weather_API_Setup.qmd) | Weather API — Setup, Current Weather, Geocoding |
-| Day 2 (8/6) | 10:00–11:00 AM | [Session 4](04_Historical_Weather_Visualization.qmd) | Historical Weather, Visualization & Wrap-Up |
+| Part A — Thu, Aug 6 | 8:00–8:55 AM | [Session 1](01_JSON_and_Request_Response.qmd) | API responses |
+| Part A — Thu, Aug 6 | 8:55–9:50 AM | [Session 2](02_CRUD_HTTP_Methods_URL.qmd) | API requests and URLs |
+| Part B — Fri, Aug 7 | 10:00–10:55 AM | [Session 3](03_Weather_API_Setup.qmd) | Current weather by city |
+| Part B — Fri, Aug 7 | 10:55–11:50 AM | [Session 4](04_Historical_Weather_Visualization.qmd) | Historical city comparisons |
 
 ---
 
@@ -90,13 +90,15 @@ The extracted folder contains:
 
 ```
 api_workshop_empty/
-├── 01_JSON_and_Request_Response.qmd
-├── 02_CRUD_HTTP_Methods_URL.qmd
-├── 03_Weather_API_Setup.qmd
-├── 04_Historical_Weather_Visualization.qmd
+├── 01_JSON_and_Request_Response-Blank.qmd
+├── 02_CRUD_HTTP_Methods_URL-Blank.qmd
+├── 03_Weather_API_Setup-Blank.qmd
+├── 04_Historical_Weather_Visualization-Blank.qmd
 ├── README.md
 └── images/
 ```
+
+The `-Blank` in each filename means it is the **fill-in-the-blank version**: the narrative and questions match the website, but key values in the code (city names, coordinates, endpoint paths, parameter values, column names) are blanked out for you to complete during the session. The completed answer-key versions live on this website.
 
 > **Why this matters:** R and Quarto look for files relative to the `.qmd` files. Keeping the downloaded structure intact means the workshop files work without changing paths.
 

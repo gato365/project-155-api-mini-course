@@ -20,6 +20,17 @@ This guide accompanies the five **Practice Labs** built for the API Workshop. Ea
 
 *(Instructor-facing notes for the main Sessions 1–4. The Practice Lab material starts in the next section.)*
 
+### Session schedule and solution review
+
+| Part | Date and time | Room | Before participants arrive |
+|---|---|---|---|
+| A | Thursday, August 6, 8:00–9:50 AM | Columbus I & II | Run the Session 1–2 answer-key code; test every URL and copy button |
+| B | Friday, August 7, 10:00–11:50 AM | Columbus I & II | Run the Session 3–4 answer-key code and the Shiny app; confirm current and historical responses |
+
+Keep Positron/RStudio's **Console pane visible** during every code demonstration. Before each Run action, ask participants to identify the endpoint and predict the response from the URL. End each weather activity by returning to: **How does weather compare across our selected cities?**
+
+Use the completed website pages as the solution key. Review them side by side with the `-Blank.qmd` student files before each session; do not first discover an API or date error during the live demonstration.
+
 ### Meg's Schedule — Learning the Material
 
 <!-- TODO(Immanuel): fill in Meg's actual dates/milestones -->

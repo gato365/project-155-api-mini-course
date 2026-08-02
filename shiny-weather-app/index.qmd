@@ -1,0 +1,31 @@
+---
+title: "Shiny Capstone: City Weather Lab"
+---
+
+# Build the City Weather Lab
+
+This is the app participants are working toward: enter up to five cities, request current weather, compare the results, and expand a seven-day historical table.
+
+## Run the app
+
+Open the project in Positron or RStudio, then run:
+
+```r
+install.packages(c("shiny", "httr2")) # first time only
+shiny::runApp("shiny-weather-app")
+```
+
+The app uses Open-Meteo, so no API key is required. Its source is in `shiny-weather-app/app.R`.
+
+## Before selecting Get Weather Data
+
+1. Predict how the selected cities will differ.
+2. After the first request, inspect the displayed API URL.
+3. Identify its endpoint and query parameters.
+4. Select **Copy API URL** and open it in a browser to see the JSON response.
+
+Keep the R console visible while demonstrating the app so participants can connect the interface to the requests it makes.
+
+## Comparison prompt
+
+Return to the workshop question: **How does weather compare across the cities you chose?** Use both the current table and the collapsed historical table as evidence.
