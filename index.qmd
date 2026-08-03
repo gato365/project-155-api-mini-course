@@ -50,7 +50,7 @@ Instructor for the API Workshop. I will guide the main walkthroughs, connect eac
 :::
 
 ::: {.profile-card}
-![](assets/meg-avatar.svg){fig-alt="Illustrated avatar for Meg"}
+![](assets/meg.jpeg){fig-alt="Illustrated avatar for Meg"}
 
 ### Meg
 
