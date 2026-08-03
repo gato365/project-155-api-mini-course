@@ -32,7 +32,7 @@ These exercises originally lived at the end of [Session 2 — The Anatomy of a R
 
 Let's connect everything together:
 
-1. You **construct a URL** from a base URL (endpoint) + query string (parameters).
+1. You **construct a URL** from an endpoint + query string (parameters).
 2. Your client sends a **GET request** using this URL to the API.
 3. The API relays this request to the **server**.
 4. The server processes the request, queries the database, and sends a **response**.

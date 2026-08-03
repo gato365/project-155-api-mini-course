@@ -182,11 +182,16 @@ e) GET
 
 Everything we do from here on follows one repeating cycle — **ETV**:
 
+<details>
+<summary>Show the ETV reference table</summary>
+
 | Step | Name | What it means | In code |
 |------|------|----------------|---------|
 | **E** | **Extract** | Make the request, receive the JSON response | `request()` → `req_url_query()` → `req_perform()` |
 | **T** | **Transform** | Format the response into a data frame | `resp_body_json()` → `tibble()` |
 | **V** | **Visualize** | Turn the data frame into a plot | `ggplot()` |
+
+</details>
 
 ### Now in Words
 
@@ -205,7 +210,10 @@ library(purrr)       # T: map() — apply a recipe to many inputs
 library(ggplot2)     # V: visualizations
 ```
 
-### The Functions Behind Each Letter
+### Function reference
+
+<details>
+<summary>Show the ETV function table</summary>
 
 Here's the deeper look — the specific functions each library gives us, and exactly where they sit in the cycle:
 
@@ -218,6 +226,8 @@ Here's the deeper look — the specific functions each library gives us, and exa
 | `purrr` | `map()`, `pmap()` | **T** (the multiplier) | Applies the same E+T recipe to many inputs — this is the "automation" that makes R better than the browser |
 | `ggplot2` | `ggplot()` | **V** | Turns the tibble into a plot — Session 4's job |
 
+</details>
+
 Notice the shape of that table: **E is entirely `httr2`**, **T is `tibble` + `dplyr` + `purrr`**, and **V is `ggplot2`**. When an error message mentions a function, the library it came from tells you *which ETV step broke* — that's your debugging compass for the rest of the workshop.
 
 ::: {.callout-tip}
@@ -227,27 +237,40 @@ ETV *is* the goal sentence, written as three letters: **E** = make a request, **
 
 ### Extract — The Browser Request, Now in R
 
-Let's have R do exactly what the browser just did. This block is **pre-built — run it as-is**, then read it top to bottom:
+Build the browser request one step at a time. Inspect `req` after each step.
 
 ```{r}
-# E is for Extract ------------------------------------------
+# Step 1: Start with the endpoint
+req <- request("https://api.open-meteo.com/v1/forecast")
+req
+```
 
-# Step 1: Start from the endpoint and add the query
-req <- request("https://api.open-meteo.com/v1/forecast") |>
+```{r}
+# Step 2: State the method explicitly
+req <- req |>
+  req_method("GET")
+req
+```
+
+```{r}
+# Step 3: Add the query, including temperature_2m
+req <- req |>
   req_url_query(
     latitude = ________,
     longitude = ________,
-    current = "________",
+    current = "temperature_2m",
     temperature_unit = "fahrenheit"
   )
-
-# Step 2: Look at the URL R built for us — same as the browser one!
 req
+```
 
-# Step 3: Send the request
+```{r}
+# Step 4: Send the GET request
 response <- req_perform(req)
+```
 
-# Step 4: Check the status code
+```{r}
+# Step 5: Check for success
 resp_status(response)
 ```
 
@@ -292,7 +315,11 @@ e) It draws a plot of the response.
 ---
 
 
-## Part 3: Transform + Scaling with `map()`
+## Part 3: Transform the Response
+
+::: {.panel-tabset}
+
+### Main lesson: one city
 
 The parsed `result` is a **named list** (Session 1!). The piece we care about is `result$current`:
 
@@ -313,7 +340,7 @@ current_df
 
 That's **E** and **T** — the entire workshop goal — in about ten lines.
 
-### Scaling Up: Many Cities with `map()`
+### Optional: `map()` and `pmap()`
 
 What if we want **several cities**? We don't need to copy-paste the code three times, and we don't need to write our own function either. We give `pmap()` a *recipe* — an **anonymous function**, written `\(...)` — and it applies the recipe to every row of a small table.
 
@@ -367,7 +394,7 @@ Same ETV steps as before — just repeated for us, without copy-paste and withou
 
 
 #### ———————
-### Q7. {.unnumbered}
+#### Q7. {.unnumbered}
 
 **(Multiple Choice):** In the code above, what does `\(city, latitude, longitude)` mean?
 
@@ -381,12 +408,13 @@ e) It is a file path.
 
 
 #### ———————
-### Q8. {.unnumbered}
+#### Q8. {.unnumbered}
 
 **(Fill in the Blank):** After `pmap()` returns a list of one-row tibbles, we stack them into a single data frame using \_\_\_\_\_\_\_\_.
 
 #### ———————
 
+:::
 
 ---
 
@@ -461,9 +489,15 @@ Notice we just ran the **same ETV pattern a third time** — on a **completely d
 
 ### Your Turn — Build Your Own Request
 
-Make a current weather request for **your hometown** (or any city you choose). All the code is scaffolded — **you only fill in the blanks**: your city's name, the endpoint path, and which list elements to pull.
+Make a current weather request for **your hometown** (or any city you choose). Fill in the city, complete endpoint, and response elements.
 
 ### Activity: Fill in the Blanks
+
+::: {.callout-note}
+## Inside the “black box”
+
+The pipeline builds a GET URL, sends it, parses JSON, selects nested values, and creates a tibble. Identify the line responsible for each action before running it.
+:::
 
 ```{r}
 # Step 1: Find your city's coordinates with the geocoding endpoint

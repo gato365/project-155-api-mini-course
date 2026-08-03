@@ -48,6 +48,12 @@ body {
   min-height: 100vh;
 }
 
+/* Embedded players must size to their content, not to the iframe viewport.
+   This prevents a resize feedback loop that creates large empty areas. */
+body.embed-mode {
+  min-height: 0;
+}
+
 .page {
   max-width: 1000px;
   margin: 0 auto;
@@ -393,10 +399,12 @@ body {
 .embed-mode h1 { display: none; }
 .embed-mode .page {
   max-width: none;
-  padding: 14px 16px 20px;
+  padding: 10px 14px 14px;
 }
 .embed-mode .status { margin-bottom: 16px; }
 .embed-mode .kbd-hint { margin-top: 10px; }
+.embed-mode .flow-wrap { padding-top: 24px; padding-bottom: 38px; }
+.embed-mode .controls { margin-top: 12px; gap: 9px; }
 
 /* ---------- Generic reveal blocks (JSON / URL pages) ---------- */
 

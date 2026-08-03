@@ -271,11 +271,11 @@ So how do we actually construct a request? A request is defined by a **URL** —
 
 ### Watch First
 
-![](images/url-anatomy.gif){fig-alt="Animation titled 'Anatomy of a GET Request' showing a URL being broken into components between a Client and API Server: protocol, host, endpoint path, and query string parameters"}
+On the workshop website, use the stepped URL animation. Read the request as one complete endpoint followed by a query string.
 
 ### Now in Words
 
-The animation shows the Client (left) and API Server (right) with the URL being broken down between them. The full URL carries everything the server needs — protocol, host, endpoint path, and each query parameter — in a single string. Pay attention to where the endpoint ends and where the query string begins.
+The full URL carries a stable endpoint and changing query parameters. Watch where the endpoint ends and the query string begins.
 
 ::: {.callout-important icon="false"}
 ## 📖 Definition — URL
@@ -295,11 +295,9 @@ Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weat
 ```{=html}
 <div id="url-stepper" style="border:2px solid #c7d2fe; border-radius:14px; padding:1.1rem 1.25rem; margin:1rem 0; background:#f6f7ff;">
   <div style="font-family:ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size:0.95rem; line-height:2.2; word-break:break-all; background:#ffffff; border:1px solid #e0e7ff; border-radius:10px; padding:.85rem 1rem;">
-    <span class="us-seg" id="us-proto">https://</span><span class="us-seg" id="us-host">api.open-meteo.com</span><span class="us-seg" id="us-end">/v1/forecast</span><span class="us-seg" id="us-q">?</span><span class="us-seg" id="us-p1">latitude=35.28</span><span class="us-seg" id="us-amp1">&amp;</span><span class="us-seg" id="us-p2">longitude=-120.66</span><span class="us-seg" id="us-amp2">&amp;</span><span class="us-seg" id="us-p3">current=temperature_2m</span><span class="us-seg" id="us-amp3">&amp;</span><span class="us-seg" id="us-p4">temperature_unit=fahrenheit</span>
+    <span class="us-seg" id="us-endpoint">https://api.open-meteo.com/v1/forecast</span><span class="us-seg" id="us-q">?</span><span class="us-seg" id="us-p1">latitude=35.28</span><span class="us-seg" id="us-amp1">&amp;</span><span class="us-seg" id="us-p2">longitude=-120.66</span><span class="us-seg" id="us-amp2">&amp;</span><span class="us-seg" id="us-p3">current=temperature_2m</span><span class="us-seg" id="us-amp3">&amp;</span><span class="us-seg" id="us-p4">temperature_unit=fahrenheit</span>
   </div>
   <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:.78rem; color:#64748b; margin-top:.6rem;">
-    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#7c3aed;"></span> Protocol</span>
-    <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#4f46e5;"></span> Base URL</span>
     <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#d97706;"></span> Endpoint</span>
     <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#be123c;"></span> Separators <code style="font-size:.9em;">? &amp;</code></span>
     <span><span style="display:inline-block;width:.7em;height:.7em;border-radius:3px;background:#059669;"></span> Key-value pairs</span>
@@ -326,21 +324,19 @@ Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weat
 </style>
 <script>
 (function() {
-  const ALL = ["us-proto","us-host","us-end","us-q","us-p1","us-amp1","us-p2","us-amp2","us-p3","us-amp3","us-p4"];
-  const FINAL = { "us-proto":"us-violet", "us-host":"us-indigo", "us-end":"us-orange", "us-q":"us-rose",
+  const ALL = ["us-endpoint","us-q","us-p1","us-amp1","us-p2","us-amp2","us-p3","us-amp3","us-p4"];
+  const FINAL = { "us-endpoint":"us-orange", "us-q":"us-rose",
                   "us-p1":"us-emerald", "us-amp1":"us-rose", "us-p2":"us-emerald", "us-amp2":"us-rose",
                   "us-p3":"us-emerald", "us-amp3":"us-rose", "us-p4":"us-emerald" };
   const steps = [
     { text: "One string carries the <strong>entire request</strong>. Click <strong>Next</strong> to break it apart, piece by piece.", on: {} },
-    { text: "<strong>Protocol</strong> — <code>https://</code>: <em>how</em> to communicate. The <strong>s</strong> means the connection is secure.", on: { "us-proto":"us-violet" } },
-    { text: "<strong>Base URL</strong> — <code>api.open-meteo.com</code>: <em>which server</em> to talk to. This is the API's home address.", on: { "us-host":"us-indigo" } },
-    { text: "<strong>Endpoint</strong> — <code>/v1/forecast</code>: <em>which resource</em> you want. The stable part — it stays the same from request to request.", on: { "us-end":"us-orange" } },
+    { text: "<strong>Endpoint</strong> — <code>https://api.open-meteo.com/v1/forecast</code>: the complete stable address.", on: { "us-endpoint":"us-orange" } },
     { text: "<strong>The <code>?</code></strong> — the boundary. The address ends here; the customization begins.", on: { "us-q":"us-rose" } },
     { text: "<strong>Key-value pair</strong> — <code>latitude=35.28</code>: key on the left, value on the right. Where (north–south)?", on: { "us-p1":"us-emerald" } },
     { text: "<strong><code>&amp;</code> chains pairs together</strong> — next pair: <code>longitude=-120.66</code>. Where (east–west)?", on: { "us-amp1":"us-rose", "us-p2":"us-emerald" } },
     { text: "<code>current=temperature_2m</code> — <em>what data</em> you want.", on: { "us-amp2":"us-rose", "us-p3":"us-emerald" } },
     { text: "<code>temperature_unit=fahrenheit</code> — your unit preference.", on: { "us-amp3":"us-rose", "us-p4":"us-emerald" } },
-    { text: "<strong>The full anatomy</strong>: protocol + base URL + endpoint + <code>?</code> + key-value pairs chained by <code>&amp;</code>. Tomorrow we send exactly this.", on: FINAL }
+    { text: "<strong>The full request URL</strong>: endpoint + <code>?</code> + key-value pairs chained by <code>&amp;</code>.", on: FINAL }
   ];
   let i = 0, timer = null;
   const $ = id => document.getElementById(id);
@@ -370,13 +366,11 @@ Here is a **real URL we will use tomorrow** — it asks the free Open-Meteo weat
 </script>
 ```
 
-And the same anatomy, condensed to five pieces:
+The same anatomy, condensed:
 
 | | Component | Value | Purpose |
 |--|-----------|-------|---------|
-| 🟣 | **Protocol** | `https://` | *How* — secure communication |
-| 🔵 | **Base URL** | `api.open-meteo.com` | *Who* — the API server |
-| 🟠 | **Endpoint** | `/v1/forecast` | *What resource* — the stable part |
+| 🟠 | **Endpoint** | `https://api.open-meteo.com/v1/forecast` | The stable address |
 | 🔴 | **Separators** | `?` then `&` | `?` starts the customization; `&` chains pairs |
 | 🟢 | **Key-value pairs** | `latitude=35.28`, … | *The details* — where, what data, which units |
 
@@ -499,7 +493,7 @@ In this session, we learned the anatomy of a request:
 
 1. **The CRUD Framework** — Create (POST), Read (GET), Update (PUT), Delete (DELETE)
 2. **GET & POST Requests** — GET retrieves data with parameters in the URL; POST *(optional)* sends new data in the request body
-3. **URL Anatomy** — protocol, base URL, endpoint, query string, parameters
+3. **URL Anatomy** — endpoint, query string, and parameters
 4. **Putting It Together** — verb + URL = request; JSON comes back; and you wrote your first request by hand
 
 🎯 Goal progress: we can now *read and write the request half* of our goal sentence. **Up next in Session 3 (tomorrow) — Weather API — First Real Requests:** we make it real — we'll send that exact Open-Meteo URL from a browser and from R, get live weather back, and format the response into a data frame. No API key needed.

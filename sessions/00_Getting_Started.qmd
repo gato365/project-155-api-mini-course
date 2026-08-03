@@ -98,7 +98,7 @@ api_workshop_empty/
 └── images/
 ```
 
-The `-Blank` in each filename means it is the **fill-in-the-blank version**: the narrative and questions match the website, but key values in the code (city names, coordinates, endpoint paths, parameter values, column names) are blanked out for you to complete during the session. The completed answer-key versions live on this website.
+The `-Blank` files are participant versions: complete selected city names, coordinates, endpoints, parameters, and column names during the session. The website contains the solutions.
 
 > **Why this matters:** R and Quarto look for files relative to the `.qmd` files. Keeping the downloaded structure intact means the workshop files work without changing paths.
 

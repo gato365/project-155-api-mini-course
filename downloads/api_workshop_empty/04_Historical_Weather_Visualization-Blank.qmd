@@ -59,13 +59,22 @@ library(ggplot2)     # V: visualizations
 
 ### Look First
 
-Open-Meteo has yet another endpoint for **past** weather — the archive endpoint. Browser first, as always. Paste this — it asks for San Luis Obispo's daily high and low temperatures for one week in July 2025:
+Inspect the historical request before running it:
 
 ```
 https://archive-api.open-meteo.com/v1/archive?latitude=35.28&longitude=-120.66&start_date=2025-07-01&end_date=2025-07-07&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto
 ```
 
-You'll see a JSON body whose `daily` object holds three parallel arrays — dates, daily highs, daily lows.
+| Component | Value | Purpose |
+|---|---|---|
+| Endpoint | `https://archive-api.open-meteo.com/v1/archive` | Historical-weather service |
+| `latitude` | `35.28` | North–south location |
+| `longitude` | `-120.66` | East–west location |
+| `start_date` | `2025-07-01` | First date |
+| `end_date` | `2025-07-07` | Last date |
+| `daily` | `temperature_2m_max,temperature_2m_min` | Requested variables |
+| `temperature_unit` | `fahrenheit` | Temperature unit |
+| `timezone` | `auto` | Local dates and times |
 
 ### Now in Words
 
@@ -149,11 +158,11 @@ e) It sorts the dates in order.
 ---
 
 
-## Part 2: Visualize — The V in ETV
+## Part 2: Instructor Visualization Examples
 
-### Look First
+### Example 1 — Highs and lows for one city
 
-We have a tidy data frame. Time for **V** — run this **pre-built plot** (in your workshop file, the blanks are the two **column names** being plotted):
+**Let’s visualize what we have already done.**
 
 ```{r}
 # V: visualize -------------------------------------------------
@@ -189,19 +198,16 @@ Each `geom_line()` pulls one column from the tibble: `temp_max` becomes the red 
 ---
 
 
-## Part 3: Your Turn — Full Pipeline Activity
+### Example 2 — Compare three cities
 
-Time to run the whole pipeline on **multiple cities**. First watch it work on two, then pick your own.
-
-### Look First — Boston vs. San Luis Obispo
-
-The **pre-built** recipe below uses Session 3's `pmap()` pattern to fetch each city's daily highs for any date range. Run it:
+Now compare one measurement across three cities.
 
 ```{r}
 cities <- tribble(
   ~city,             ~latitude, ~longitude,
   "San Luis Obispo",     35.28,    -120.66,
-  "Boston",              42.36,     -71.06
+  "Boston",              42.36,     -71.06,
+  "Ames",                42.03,     -93.62
 )
 ```
 
@@ -261,75 +267,14 @@ e) The line color, mapped with `aes(color = city)`
 #### ———————
 
 
-#### Comparison 2: Winter
+## Part 3: Independent Three-City Comparison
 
-Same recipe — the **only change is the two dates**:
+### Return to the motivating question
 
-```{r}
-# E + T for both cities: January 2026
-winter_df <- cities |>
-  pmap(\(city, latitude, longitude) {
+Build the same three-city historical comparison used in the Shiny capstone.
 
-    result <- request("https://archive-api.open-meteo.com/v1/archive") |>
-      req_url_query(
-        latitude = latitude,
-        longitude = longitude,
-        start_date = "________",
-        end_date = "________",
-        daily = "temperature_2m_max",
-        temperature_unit = "fahrenheit",
-        timezone = "auto"
-      ) |>
-      req_perform() |>
-      resp_body_json()
-
-    tibble(
-      city     = city,
-      date     = as.Date(unlist(result$daily$time)),
-      temp_max = unlist(result$daily$temperature_2m_max)
-    )
-  }) |>
-  bind_rows()
-
-# V
-ggplot(winter_df, aes(x = date, y = temp_max, color = city)) +
-  geom_line(linewidth = 1.2) +
-  labs(
-    title = "Winter Daily Highs: Boston vs. San Luis Obispo",
-    subtitle = "January 2026",
-    x = "Date",
-    y = "Daily High (°F)",
-    color = "City"
-  ) +
-  theme_minimal(base_size = 14)
-```
-
-
-#### ———————
-### Q5 — Visual Check (Winter). {.unnumbered}
-
-**(Multiple Choice):** Comparing the summer and winter code blocks, what changed between them?
-
-a) The endpoint changed to a winter-specific API.
-b) An API key was added for winter data.
-c) Only the `start_date` and `end_date` values changed.
-d) The cities table had to be rebuilt.
-e) `pmap()` was replaced by a `for` loop.
-
-#### ———————
-
-
-#### ———————
-### Q6. {.unnumbered}
-
-**(Fill in the Blank):** In both comparison plots, we expect \_\_\_\_\_\_\_\_ to show much colder daily highs in January, while San Luis Obispo stays mild year-round.
-
-#### ———————
-
-
-### Now You — Pick 2–3 Cities and Run the Pipeline
-
-**You** design the question. Pick **two or three cities** and **one option from each column**, then fill in the blanks in the scaffold below and make your plot.
+<details>
+<summary>Show city, variable, and date choices</summary>
 
 | 🏙 City (lat, lon) | 📊 Daily variable | 📅 Date range |
 |---|---|---|
@@ -340,14 +285,17 @@ e) `pmap()` was replaced by a `for` loop.
 | Ames (42.03, -93.62) | `snowfall_sum` — snowfall | One month of your choice |
 | *Your hometown (geocode it!)* | | |
 
+</details>
+
 ### Activity: Fill in the Blanks
 
 The pipeline is **pre-built** — your blanks are the city rows, the two dates, the daily variable, and the plot labels:
 
 ```{r}
-# Your cities (2–3 rows — coordinates from the table, or geocode them)
+# Choose exactly three cities, matching the Shiny comparison
 my_cities <- tribble(
   ~city,        ~latitude, ~longitude,
+  "________",    ________,   ________,
   "________",    ________,   ________,
   "________",    ________,   ________
 )
@@ -396,7 +344,7 @@ ggplot(my_df, aes(x = date, y = value, color = city)) +
 ## Part 4: Reflection, Classroom Applications & Survey
 
 #### ———————
-### Q7. {.unnumbered}
+### Q5. {.unnumbered}
 
 **(Discussion):** You just built a complete data pipeline: API request → JSON parsing → data wrangling → visualization. Think about the courses you teach. Where could API data naturally integrate into your curriculum? What topics could benefit from live, real-world data?
 

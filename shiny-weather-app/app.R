@@ -141,6 +141,7 @@ ui <- fluidPage(
       plotOutput("history_plot", height = "440px")),
   tags$details(
     tags$summary("Show historical data (past 7 days)"),
+    plotOutput("history_plot", height = "360px"),
     tableOutput("history_table")
   )
 )
@@ -179,6 +180,23 @@ server <- function(input, output, session) {
 
   output$current_table <- renderTable(weather()$current, striped = TRUE, hover = TRUE)
   output$history_table <- renderTable(weather()$history, striped = TRUE, hover = TRUE)
+  output$history_plot <- renderPlot({
+    history <- weather()$history
+    city_names <- unique(history$City)
+    colors <- grDevices::hcl.colors(length(city_names), "Dark 3")
+
+    # Create the same city-by-date comparison used in Session 4.
+    plot(
+      range(history$Date), range(history[["High (°F)"]], na.rm = TRUE),
+      type = "n", xlab = "Date", ylab = "Daily High (°F)",
+      main = "Daily Highs Across Selected Cities"
+    )
+    for (i in seq_along(city_names)) {
+      rows <- history$City == city_names[[i]]
+      lines(history$Date[rows], history[["High (°F)"]][rows], col = colors[[i]], lwd = 2)
+    }
+    legend("topright", legend = city_names, col = colors, lwd = 2, bty = "n")
+  })
 
   output$history_plot <- renderPlot({
     history <- weather()$history
