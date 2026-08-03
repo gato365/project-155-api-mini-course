@@ -189,8 +189,15 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#make-sure-it-is-clean-and-nice-give-a-different-color-scheme-that-is-visually-appealing-and-easy-on-the-eyes." id="toc-make-sure-it-is-clean-and-nice-give-a-different-color-scheme-that-is-visually-appealing-and-easy-on-the-eyes." class="nav-link active" data-scroll-target="#make-sure-it-is-clean-and-nice-give-a-different-color-scheme-that-is-visually-appealing-and-easy-on-the-eyes.">Make sure it is clean and nice, give a different color scheme that is visually appealing and easy on the eyes.</a></li>
+  <li><a href="#gif-regeneration-needed" id="toc-gif-regeneration-needed" class="nav-link" data-scroll-target="#gif-regeneration-needed">2026-08-02 — GIF regeneration needed</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -202,9 +209,22 @@ ul.task-list li input[type="checkbox"] {
 <p>Create click through version with next, play, pause back of each animation of each witihin a new dir</p>
 <p>Let the play button be default to be slow</p>
 <p>Make sure the arrows are clean and make it make sure they are clean</p>
-<p>Make sure it is clean and nice, give a different color scheme that is visually appealing and easy on the eyes.</p>
+<section id="make-sure-it-is-clean-and-nice-give-a-different-color-scheme-that-is-visually-appealing-and-easy-on-the-eyes." class="level2">
+<h2 class="anchored" data-anchor-id="make-sure-it-is-clean-and-nice-give-a-different-color-scheme-that-is-visually-appealing-and-easy-on-the-eyes.">Make sure it is clean and nice, give a different color scheme that is visually appealing and easy on the eyes.</h2>
+</section>
+<section id="gif-regeneration-needed" class="level2">
+<h2 class="anchored" data-anchor-id="gif-regeneration-needed">2026-08-02 — GIF regeneration needed</h2>
+<p><code>animations/interactive/url_breakdown.html</code> was reworked for consistent URL terminology (critique: “keep the URL terminology consistent across the website, animation, and activity”):</p>
+<ul>
+<li>The address is now broken into <strong>three pieces — Protocol / Base URL / Endpoint</strong> — instead of one lumped “Base URL” (matches the Session 2 stepper, table, and glossary).</li>
+<li>Example URL switched from <code>api.example.com/data?q=city&amp;appid=API_KEY</code> to the real workshop URL <code>https://api.open-meteo.com/v1/forecast?latitude=…</code> (no API key, consistent with “Open-Meteo needs no key” messaging).</li>
+<li>Final step now says: protocol/base URL rarely change — focus on the endpoint + query.</li>
+</ul>
+<p>→ <strong><code>animations/gifs/url_breakdown.gif</code> is now out of date</strong> and must be re-recorded from the updated interactive version for the attendee downloads zip.</p>
+<p>Note: Session 2 Part 1 now uses a new inline CRUD stepper (in the .qmd itself, replacing <code>sessions/images/crud-operations.jpeg</code>). If attendee versions swap steppers for GIFs, a CRUD GIF would need to be recorded too.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <!-- Site-wide helpers: outline (TOC) show/hide toggle + auto-sizing for
